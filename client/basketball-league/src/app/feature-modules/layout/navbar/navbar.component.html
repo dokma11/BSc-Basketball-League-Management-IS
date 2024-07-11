@@ -1,0 +1,172 @@
+<mat-toolbar color="primary">
+  <div>
+    <!-- TREBA DODATI NEKI LOGO I MOZDA IZRAVNATI PARAGRAF-->
+    <p>Museum</p>
+    <div id="buttons">
+      <button
+              class="feat-button"
+              color="white"
+              mat-raised-button
+              [routerLink]="['']">
+        <fa-icon [icon]="faHome" />
+        &nbsp;Home
+      </button>
+
+      <button
+              class="feat-button"
+              color="white"
+              mat-raised-button
+              [routerLink]="['exhibitions-view']"> <!-- PROMENITI PUTANJU -->
+        <fa-icon [icon]="faInstitution" />
+        &nbsp;Exhibitions
+      </button>
+
+      <button
+              class="feat-button"
+              color="white"
+              mat-raised-button
+              [routerLink]="['tour-view']">
+        <fa-icon [icon]="faBinoculars" />
+        &nbsp;Tours
+      </button>
+
+      <button
+              class="feat-button"
+              color="white"
+              mat-raised-button
+              [routerLink]="['']"> <!-- PROMENITI PUTANJU -->
+        <fa-icon [icon]="faCalendar" />
+        &nbsp;Events
+      </button>
+    </div>
+
+    <div id="account-buttons">
+      <button
+            class="feat-button"
+            *ngIf="user?.email != ''"
+            color="white"
+            mat-raised-button
+            [routerLink]="['profile']"
+      >
+      <fa-icon [icon]="faUser" />
+      &nbsp;My profile
+      </button>
+
+      <button
+            class="feat-button"
+            *ngIf="user && user.role === 'ADMIN'"
+            color="white"
+            mat-raised-button
+            [routerLink]="['employee-view']"
+      >
+      <fa-icon [icon]="faAdressBook" />
+      &nbsp;See employees
+      </button>
+
+      <button
+            class="feat-button"
+            *ngIf="user && user?.role === 'ORGANIZER' || user?.role === 'GUEST'"
+            color="white"
+            mat-raised-button
+            [routerLink]="['request-view']"
+      >
+      <fa-icon [icon]="faEnvelopeOpen" />
+      &nbsp;Tour Requests
+      </button>
+
+      <button
+        class="feat-button"
+        *ngIf="user && user?.role === 'ORGANIZER' || user?.role === 'ADMIN'"
+        color="white"
+        mat-raised-button
+        [routerLink]="['requests-journal-view']"
+      >
+        <fa-icon [icon]="faBookmark" />
+        &nbsp;Tour Request Journal
+      </button>
+
+      <button
+            *ngIf="user && user.role === 'ADMIN'"
+            color="white"
+            mat-raised-button
+            [routerLink]="['item-view']"
+      >
+      <fa-icon [icon]="faArchive" />
+      &nbsp;See items
+      </button>
+      
+      <button 
+            *ngIf="user && user.role === 'ADMIN'"
+            color="white"
+            mat-raised-button
+            [routerLink]="['journal-view']" 
+      >         
+      <fa-icon [icon]="faArchive" />    
+      &nbsp;See cleaning journals
+      </button>
+
+      <button 
+            class="feat-button"
+            *ngIf="user && user.role === 'CURATOR'"
+            color="white"
+            mat-raised-button
+            [routerLink]="['cleaning-proposals-view']"
+      >
+      <fa-icon [icon]="faEnvelopeOpen" />
+      &nbsp;See proposals
+      </button>
+
+      <button
+            class="feat-button"
+            *ngIf="user && user.role === 'RESTAURATEUR'"
+            color="white"
+            mat-raised-button
+            [routerLink]="['items-for-cleaning-view']"
+      >
+      <fa-icon [icon]="faEnvelopeOpen" />
+      &nbsp;Items for cleaning
+      </button>
+
+      <button
+            class="feat-button"
+            *ngIf="user && user.role === 'CURATOR'"
+            color="white"
+            mat-raised-button
+            [routerLink]="['items-for-display-view']"
+      >
+      <fa-icon [icon]="faArchive" />
+      &nbsp;Items for displaying
+      </button>
+
+      <button
+              class="feat-button"
+              *ngIf="user && user.email === ''"
+              color="white"
+              mat-raised-button
+              [routerLink]="['register']"
+      >
+      <fa-icon [icon]="faPencilSquare" />
+        &nbsp;Sign up
+      </button>
+
+      <button
+            *ngIf="user && user.email === ''"
+            color="accent"
+            mat-raised-button
+            [routerLink]="['login']"
+      >
+      <fa-icon [icon]="faSignIn" />
+      &nbsp;Login
+      </button>
+
+      <button *ngIf="user && user.email !== ''"
+              color="accent"
+              mat-raised-button
+              (click)="onLogout()"
+      >
+      <fa-icon [icon]="faSignOut" />
+        &nbsp;Logout
+      </button>
+    </div>
+  </div>
+</mat-toolbar>
