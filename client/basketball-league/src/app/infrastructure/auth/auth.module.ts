@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from './registration/registration.component';
-import { AppRoutingModule } from '../routing/app-routing.module';
 import { MaterialModule } from '../material/material-module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ReactiveFormsModule,
     MatDialogModule,
     AppRoutingModule,
+    FontAwesomeModule
   ],
   exports: [
     LoginComponent

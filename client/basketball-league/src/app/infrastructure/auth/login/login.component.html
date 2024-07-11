@@ -1,1 +1,40 @@
-<p>login works!</p>
+<body [ngStyle]="{'background-size': backgroundSize}">
+  <div class="wrapper" [@fadeInOut]>
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <h1>Login</h1>
+          <div class="input-box">
+              <input 
+                      type="text" 
+                      formControlName="username" 
+                      required
+              />
+              <label [class.active]="loginForm.get('username')?.value || focused === 'username'">Username</label>
+              <fa-icon [icon]="faUser" />    
+          </div>
+          <div class="input-box">
+              <input
+                      [type]="isPasswordVisible ? 'text' : 'password'"
+                      formControlName="password"
+                      required
+              />
+              <label [class.active]="loginForm.get('password')?.value || focused === 'password'">Password</label>
+              <fa-icon 
+                      class="login-password-eye"
+                      [icon]="isPasswordVisible ? faEyeSlash : faEye" 
+                      (click)="togglePasswordVisibility()"
+              />
+          </div>
+  
+          <button 
+                  type="submit" 
+                  class="btn" 
+                  [@buttonState]="buttonState"
+                  >Login
+          </button>
+  
+          <div class="register-link">
+              <p>Don't have an account? <a href="register">Register</a></p>
+          </div>
+      </form>
+  </div>
+</body>
