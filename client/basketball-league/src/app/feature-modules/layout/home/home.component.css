@@ -1,0 +1,361 @@
+.banner {
+  position: relative;
+  width: 100%;
+  height: clamp(30rem, 60%, 50rem);
+  height: 175%;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  background: url('https://images.unsplash.com/photo-1577416412292-747c6607f055?fm=jpg&w=3000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG5iYSUyMGNvdXJ0fGVufDB8fDB8fHww') no-repeat;
+  background-position: center;
+  background-size: cover;
+  transition: background-size 0.3s ease;
+}
+
+.overlay {
+  z-index: 3;
+  height: 20%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  color: #fff;
+  border-radius: 10px;
+  margin-left: 25%;
+  margin-top: 5%;
+}
+
+.banner h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+}
+
+.banner p {
+  max-width: 70ch;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.wrapper {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  color: #fff;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+h2 {
+  margin: 0;
+}
+
+.card-container-headers {
+  margin-top: 5%;
+  margin-bottom: 3%;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  width: 84%;
+  gap: 15%;
+  height: 7%;
+}
+
+.wrapper p {
+  padding: 5% 5%;
+}
+
+.content-description {
+  margin-top: 5%;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  gap: 5rem;
+  height: 27%;
+}
+
+.card-buttons {
+  margin-top: 5%;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  gap: 5rem;
+  height: 27%;
+}
+
+.btn {
+  width: 100%;
+  height: 20%;
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+  margin-top: -3%;
+}
+
+.btn:hover {
+  background-color: #f2f2f2; 
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
+  transform: scale(1.03);
+  transition: transform 300ms ease;
+}
+
+.card-container {
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  width: 72%;
+  gap: 30%;
+}
+
+.card-container
+.card-group,
+.card {
+  aspect-ratio: 5/7;
+  width: 24vmin;
+}
+
+.card-container
+.card-group,
+.big-card {
+  width: 24vmin;
+}
+
+.card-group {
+  transition: transform 400ms ease;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.05);
+  position: absolute;
+  transition: transform 800ms cubic-bezier(.05, .43, .25, .95);
+}
+
+.big-card {
+  width: 24vmin;
+  border-radius: 1vmin;
+}
+
+.little-card {
+  width: 12vmin;
+  border-radius: 2vmin;
+}
+
+.roster-cards .big-card:nth-child(2) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIF.1S3wE8xX6cjlSahOmODgGw%26pid%3DApi&f=1&ipt=a16feab27ea80358ac15fa0ab28db31512f30744f91c1d0e1727bcda74fdc8bb&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+  transform: translateX(-10%) rotate(-1deg);
+}
+
+.trade-cards .big-card:nth-child(2) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs22928.pcdn.co%2Fwp-content%2Fuploads%2F2019%2F07%2Fanthony-davis.jpeg&f=1&nofb=1&ipt=ea50234ee5f445987f1cde7ddff69f433a8148a9a8ddd0ccd0bad7a88b8dade7&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+  transform: translateX(-10%) rotate(-1deg);
+} 
+
+.news-cards .big-card:nth-child(2) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgetwallpapers.com%2Fwallpaper%2Ffull%2Fa%2F8%2Fe%2F906006-lebron-james-miami-heat-wallpaper-2018-2180x1584-for-ios.jpg&f=1&nofb=1&ipt=5e7c03e8f0e8139beff639abc351f0ce2f609c2b909c3db523b510eccc834bb4&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+  transform: translateX(-10%) rotate(-1deg);
+}
+
+.roster-cards .big-card:nth-child(4) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.spokesman.com%2Fphotos%2F2015%2F11%2F29%2FLakers_Warriors_Basketball.JPG.jpg&f=1&nofb=1&ipt=ff1ced15164fe2b3d117348354f22a401f8c6c44126ad05688a59b04339f72ea&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+  transform: rotate(2deg);
+}
+
+.trade-cards .big-card:nth-child(4) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs.hdnux.com%2Fphotos%2F01%2F03%2F47%2F51%2F17726020%2F17%2FrawImage.jpg&f=1&nofb=1&ipt=250f2ab6608480c7689e0fdc8593b544fa2dab8509577c1907aac4098c898cf7&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+  transform: rotate(2deg);
+}
+
+.news-cards .big-card:nth-child(4) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.eurosport.com%2F2022%2F09%2F19%2F3456486-70514888-2560-1440.jpg&f=1&nofb=1&ipt=cdc0f65c769a8099c0b49220f92bc26e36271b8b229eb38af868173eb64e16a1&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+  transform: rotate(2deg);
+} 
+
+.roster-cards .big-card:nth-child(6) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fboardroom.tv%2Fwp-content%2Fuploads%2F2022%2F07%2FGettyImages-1367446617-e1656870039725.jpg&f=1&nofb=1&ipt=10dc8c1a81dd5f77ab0a319806761efcb28de6212ad0d87dcb619d038384bdd8&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+  transform: translateX(-6%) rotate(-3deg);
+}
+
+.trade-cards .big-card:nth-child(6) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.vox-cdn.com%2Fthumbor%2F8oue_9lbjc6w9b7QpOTDqb5ZmbA%3D%2F0x0%3A1024x630%2F1820x1213%2Ffilters%3Afocal(431x234%3A593x396)%2Fcdn.vox-cdn.com%2Fuploads%2Fchorus_image%2Fimage%2F63449685%2Fberto_center_34216812.0.jpg&f=1&nofb=1&ipt=4ad5fd582d1874e3a90d133fe74b56d2a0bf216104008f78ba8d149120423544&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+  transform: translateX(-6%) rotate(-3deg);
+}
+
+.news-cards .big-card:nth-child(6) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwordpress.wbur.org%2Fwp-content%2Fuploads%2F2024%2F06%2FAP24170127100616-1000x667.jpg&f=1&nofb=1&ipt=f90b5f0a1b0202c031e2e7ae53fdf930f5d65f30670aed092cc1164361596be3&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+  transform: translateX(-6%) rotate(-3deg);
+}
+
+.roster-cards .big-card:nth-child(8) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fformatted-decks.s3.amazonaws.com%2Fimage%2Fc512cbb6-e7be-480c-a58c-b58d2f0f7c5a.jpg&f=1&nofb=1&ipt=ee1870c62e289f54466202f7ca1d424527a5bab5b5a7e07827c085e0d8f90731&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+  transform: translateX(10%, 3%) rotate(5deg);
+}
+
+.trade-cards .big-card:nth-child(8) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fsports.inquirer.net%2Ffiles%2F2023%2F06%2FAP23180760126410.jpg&f=1&nofb=1&ipt=24c1a90bc1d659e1f8b9d209b958808f50eff0d138fc7ec4f08928b4acbf2a6e&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+  transform: translateX(10%, 3%) rotate(5deg);
+}
+
+.news-cards .big-card:nth-child(8) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fnypost.com%2Fwp-content%2Fuploads%2Fsites%2F2%2F2023%2F06%2F1258645110-1.jpg&f=1&nofb=1&ipt=a7a63d962758494517f5034c8b0e35ff98a5d701f59a7f8d910290a2bc735bed&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+  transform: translateX(10%, 3%) rotate(5deg);
+}
+
+.roster-cards .little-card:nth-child(1) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.yardbarker.com%2Fmedia%2F9%2Ff%2F9f10a61542e6a76c7f727afbf8dafdcbd24ef8a6%2Fthumb_16x9%2Flebron-james-recruiting-team-usas-2024-olympic.jpg%3Fv%3D1&f=1&nofb=1&ipt=8c722776ad5561941511c76ca6d0b0864f5ad6a13ecb16f7596f1f5d852e695a&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.trade-cards .little-card:nth-child(1) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.theathletic.com%2Fapp%2Fuploads%2F2020%2F01%2F20191946%2FGettyImages-1192324583-e1579566021572-1024x681.jpg&f=1&nofb=1&ipt=a8a28578138e37aaabfa3ea2111eb02bbaaee37e1262cf24b5f6cd353320e996&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.news-cards .little-card:nth-child(1) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fimg.wennermedia.com%2Fsocial%2Frs-magic-johnson-2b566445-2dec-4dc5-8baa-e73f53a0f4e0.jpg&f=1&nofb=1&ipt=dcd9649d9f09ac9d5dfc8310ac7ece2b36ed0c38f52019d4a178af4a3d185e1d&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.roster-cards .little-card:nth-child(3) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn1.realitytitbit.com%2Fuploads%2F26%2F2022%2F07%2FGettyImages-1344817216-1140x757.jpg&f=1&nofb=1&ipt=c4c00716917a5562f01a64eb8a3056433a6b1c1074b5652de94b8a26424e48fb&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.trade-cards .little-card:nth-child(3) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.nba.com%2Fmanage%2F2020%2F10%2Fsam_presti-784x441.jpg&f=1&nofb=1&ipt=52fabb2e9fa2c9a17cee5e4fd18ec5313ab012e6e1a5244403b0a29a9447b58c&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.news-cards .little-card:nth-child(3) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic01.nyt.com%2Fimages%2F2023%2F06%2F22%2Fmultimedia%2F22nba-draft-top-kplt%2F22nba-draft-top-kplt-superJumbo.jpg%3Fquality%3D75%26auto%3Dwebp&f=1&nofb=1&ipt=34c44aff0fae02cb33f5be047923d4db274d50e19862974f8f16fd13e8345b61&ipo=images') no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.roster-cards .little-card:nth-child(5) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.daznservices.com%2Fdi%2Flibrary%2Fsporting_news%2F31%2F74%2Fsabrina-ionescu-051421-getty-ftr_510df679l3m91gx6nolirxmb0.jpg%3Ft%3D1839523625%26quality%3D100&f=1&nofb=1&ipt=174233da22e44bd2f74dbdf47477bf595028144a0c6ea0a3c8bc7e2e82ba5e16&ipo=images');
+  background-size: cover;
+  background-position: center;
+}
+
+.trade-cards .little-card:nth-child(5) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.nj.com%2Fresizer%2FR8rkve-pLAw_bCTK5_7-OjeuqiQ%3D%2F1280x0%2Fsmart%2Fcloudfront-us-east-1.images.arcpublishing.com%2Fadvancelocal%2FZHXCOUFOZFCOLAADLG7SDXZYYQ.jpg&f=1&nofb=1&ipt=90af9d1472b7c6343760a6db5c6195d4b1ff7dcd8e26abb20e4c15a1183424d4&ipo=images');
+  background-size: cover;
+  background-position: center;
+}
+
+.news-cards .little-card:nth-child(5) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn.chatsports.com%2Fthumbnails%2F1294-23720-original.jpeg&f=1&nofb=1&ipt=217b62995b4cb4a4e4e91482306d90f6cf42f4e7c9549904352e30f4acf8e518&ipo=images');
+  background-size: cover;
+  background-position: center;
+}
+
+.roster-cards .little-card:nth-child(7) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fi2.wp.com%2Fvifreepress.com%2Fwp-content%2Fuploads%2F2016%2F02%2Ftim-duncan-5-championships.jpg&f=1&nofb=1&ipt=8b27796ab49e733a1bf7f8af390b4894b38f0500f34f1c1bcadc52bde2017705&ipo=images');
+  background-size: cover;
+  background-position: center;
+}
+
+.trade-cards .little-card:nth-child(7) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F4b%2F14%2Fd2%2F4b14d210afdb7bfc576d1eb0bf92a9cd.jpg&f=1&nofb=1&ipt=2d19e4eda92e2f8c3853e377d12d653e30a54f2b8635cdba9a97be3357ac08e5&ipo=images');
+  background-size: cover;
+  background-position: center;
+}
+
+.news-cards .little-card:nth-child(7) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.ubs9S2V3rtnFyLH92cY51wAAAA%26pid%3DApi&f=1&ipt=d4d297f837cdf0d79467fc07873c8a608b31e39eac3ec6397012a7157dd617dc&ipo=images');
+  background-size: cover;
+  background-position: center;
+}
+
+.card-group:hover > .big-card:nth-child(2) {
+  transform: translate(-75%, 16%) rotate(-24deg);
+}
+
+.card-group:hover > .big-card:nth-child(4) {
+  transform: translate(-25%, 8%) rotate(-8deg);
+}
+
+.card-group:hover > .big-card:nth-child(6) {
+  transform: translate(25%, 8%) rotate(8deg);
+}
+
+.card-group:hover > .big-card:nth-child(6) {
+  transform: translate(25%, 8%) rotate(8deg);
+}
+
+.card-group:hover > .big-card:nth-child(6) {
+  transform: translate(25%, 8%) rotate(8deg);
+}
+
+.card-group:hover > .big-card:nth-child(8) {
+  transform: translate(75%, 16%) rotate(24deg);
+}
+
+/* Gore desno*/
+.card-group:hover > .little-card:nth-child(1) {
+  transform: translate(200%, -100%) rotate(-15deg);
+}
+
+/* Dole desno*/
+.card-group:hover > .little-card:nth-child(3) {
+  transform: translate(320%, 160%) rotate(17deg);
+}
+
+/* Gore levo*/
+.card-group:hover > .little-card:nth-child(5) {
+  transform: translate(-200%, -80%) rotate(15deg);
+}
+
+/* Dole levo*/
+.card-group:hover > .little-card:nth-child(7) {
+  transform: translate(-245%, 140%) rotate(-10deg);
+}

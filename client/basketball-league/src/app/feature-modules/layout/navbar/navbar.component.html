@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <div>
     <!-- TREBA DODATI NEKI LOGO I MOZDA IZRAVNATI PARAGRAF-->
-    <p>Museum</p>
+    <p>Basketball league</p>
     <div id="buttons">
       <button
               class="feat-button"
@@ -16,9 +16,9 @@
               class="feat-button"
               color="white"
               mat-raised-button
-              [routerLink]="['exhibitions-view']"> <!-- PROMENITI PUTANJU -->
-        <fa-icon [icon]="faInstitution" />
-        &nbsp;Exhibitions
+              [routerLink]="['roster-view']"> <!-- PROMENITI PUTANJU -->
+        <fa-icon [icon]="faAddressBook" />
+        &nbsp;Roster
       </button>
 
       <button
@@ -26,8 +26,8 @@
               color="white"
               mat-raised-button
               [routerLink]="['tour-view']">
-        <fa-icon [icon]="faBinoculars" />
-        &nbsp;Tours
+        <fa-icon [icon]="faPencilSquare" />
+        &nbsp;Trade management
       </button>
 
       <button
@@ -35,8 +35,8 @@
               color="white"
               mat-raised-button
               [routerLink]="['']"> <!-- PROMENITI PUTANJU -->
-        <fa-icon [icon]="faCalendar" />
-        &nbsp;Events
+        <fa-icon [icon]="faEnvelopeOpen" />
+        &nbsp;League news
       </button>
     </div>
 
@@ -52,90 +52,16 @@
       &nbsp;My profile
       </button>
 
-      <button
-            class="feat-button"
-            *ngIf="user && user.role === 'ADMIN'"
-            color="white"
-            mat-raised-button
-            [routerLink]="['employee-view']"
-      >
-      <fa-icon [icon]="faAdressBook" />
-      &nbsp;See employees
-      </button>
-
-      <button
-            class="feat-button"
-            *ngIf="user && user?.role === 'ORGANIZER' || user?.role === 'GUEST'"
-            color="white"
-            mat-raised-button
-            [routerLink]="['request-view']"
-      >
-      <fa-icon [icon]="faEnvelopeOpen" />
-      &nbsp;Tour Requests
-      </button>
-
-      <button
-        class="feat-button"
-        *ngIf="user && user?.role === 'ORGANIZER' || user?.role === 'ADMIN'"
-        color="white"
-        mat-raised-button
-        [routerLink]="['requests-journal-view']"
-      >
-        <fa-icon [icon]="faBookmark" />
-        &nbsp;Tour Request Journal
-      </button>
-
-      <button
-            *ngIf="user && user.role === 'ADMIN'"
-            color="white"
-            mat-raised-button
-            [routerLink]="['item-view']"
-      >
-      <fa-icon [icon]="faArchive" />
-      &nbsp;See items
-      </button>
-      
-      <button 
-            *ngIf="user && user.role === 'ADMIN'"
-            color="white"
-            mat-raised-button
-            [routerLink]="['journal-view']" 
-      >         
-      <fa-icon [icon]="faArchive" />    
-      &nbsp;See cleaning journals
-      </button>
-
+      <!-- Ne zaboravi ovde da promenis rolu -->
       <button 
             class="feat-button"
-            *ngIf="user && user.role === 'CURATOR'"
+            *ngIf="user && user.role === 'CURATOR'" 
             color="white"
             mat-raised-button
             [routerLink]="['cleaning-proposals-view']"
       >
       <fa-icon [icon]="faEnvelopeOpen" />
       &nbsp;See proposals
-      </button>
-
-      <button
-            class="feat-button"
-            *ngIf="user && user.role === 'RESTAURATEUR'"
-            color="white"
-            mat-raised-button
-            [routerLink]="['items-for-cleaning-view']"
-      >
-      <fa-icon [icon]="faEnvelopeOpen" />
-      &nbsp;Items for cleaning
-      </button>
-
-      <button
-            class="feat-button"
-            *ngIf="user && user.role === 'CURATOR'"
-            color="white"
-            mat-raised-button
-            [routerLink]="['items-for-display-view']"
-      >
-      <fa-icon [icon]="faArchive" />
-      &nbsp;Items for displaying
       </button>
 
       <button

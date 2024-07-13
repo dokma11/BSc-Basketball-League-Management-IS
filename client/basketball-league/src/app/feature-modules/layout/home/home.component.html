@@ -1,1 +1,111 @@
-<p>home works!</p>
+<div class="banner" [ngStyle]="{'background-size': backgroundSize}">
+  <div class="overlay">
+      <h1>Basketball league</h1>
+      <p>
+        "Where amazing happens"
+      </p>
+  </div>
+  <div class="card-container-headers">
+    <div class="wrapper">
+        <h2>Roster</h2>
+    </div>
+    <div class="wrapper">
+        <h2>Trade management</h2>
+    </div>
+    <div class="wrapper">
+        <h2>League news</h2>
+    </div>
+  </div>
+  <div class="card-container">
+    <div class="card-group roster-cards" data-index="0" (click)="exhibitionsButtonClicked()" [@fadeInOut]> 
+        <div class="little-card card"></div>
+        
+        <div class="big-card card"></div>
+        
+        <div class="little-card card"></div>
+        
+        <div class="big-card card"></div>   
+        
+        <div class="little-card card"></div>  
+        
+        <div class="big-card card"></div>  
+        
+        <div class="little-card card"></div>  
+        
+        <div class="big-card card"></div>  
+    </div>
+    <div class="card-group trade-cards" data-index="1" (click)="toursButtonClicked()" [@fadeInOut]> 
+        <div class="little-card card"></div>
+        
+        <div class="big-card card"></div>
+        
+        <div class="little-card card"></div>
+        
+        <div class="big-card card"></div>   
+        
+        <div class="little-card card"></div>  
+        
+        <div class="big-card card"></div>  
+        
+        <div class="little-card card"></div>  
+        
+        <div class="big-card card"></div>  
+    </div>
+    <div class="card-group news-cards" data-index="2" (click)="eventsButtonClicked()" [@fadeInOut]> 
+        <div class="little-card card"></div>
+        
+        <div class="big-card card"></div>
+        
+        <div class="little-card card"></div>
+        
+        <div class="big-card card"></div>   
+        
+        <div class="little-card card"></div>  
+        
+        <div class="big-card card"></div>  
+        
+        <div class="little-card card"></div>  
+        
+        <div class="big-card card"></div>  
+    </div>
+  </div>
+  <div class="content-description">
+    <div class="wrapper">
+        <p>Check out the Team Roster page, where you can explore detailed information about each player on the team. 
+          This page is your go-to resource for learning about the athletes who make up our squad, their backgrounds, and their contributions to the team's success..
+    </div>
+    <div class="wrapper">
+        <p>See the Trade Management page, the hub for managing and overseeing all trade activities. 
+          This page empowers team managers to propose, review, accept, and decline trades with ease and efficiency. 
+          Navigate through the trade process seamlessly and make strategic decisions to enhance your team’s performance.</p>
+    </div>
+    <div class="wrapper">
+        <p>Visit the League News page, your ultimate destination for the latest updates, stories, and insights about our team. 
+          Stay informed and engaged with everything happening on and off the field with our comprehensive coverage. 
+          Don't miss any new trades that occurred! 
+    </div>
+  </div>
+  <div class="card-buttons">
+    <button 
+            type="submit" 
+            class="btn"
+            (click)="exhibitionsButtonClicked()"
+            [@buttonState]="exhibitionsButtonState" 
+            >Visit the Team Roster page
+    </button>
+    <button 
+            type="submit" 
+            class="btn" 
+            (click)="toursButtonClicked()"
+            [@buttonState]="toursButtonState"
+            >Visit the Trade Management page
+    </button>
+    <button 
+            type="submit" 
+            class="btn" 
+            (click)="eventsButtonClicked()"
+            [@buttonState]="eventsButtonState"
+            >Visit the League News page
+    </button>
+  </div>
+</div>

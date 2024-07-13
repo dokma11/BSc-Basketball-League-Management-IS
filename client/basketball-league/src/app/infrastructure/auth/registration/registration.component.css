@@ -23,6 +23,7 @@ body {
   flex: 0 0 55%;
   background: url('https://vault.si.com/.image/t_share/MTcxODk5NjIwMzUwMjQwMDY2/michael_jordan_desire_isnt_there_1.jpg') no-repeat center center;
   background-size: cover;
+  /* filter: blur(2px); */
 }
 
 .right-side {

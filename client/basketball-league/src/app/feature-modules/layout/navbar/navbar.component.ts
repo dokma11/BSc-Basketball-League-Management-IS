@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faUser, faSignOut, faSignIn, faPencilSquare, faHome, faInstitution, faCalendar, faBuilding, faBookmark, faBinoculars, faAddressBook, faEnvelopeOpen, faArchive } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faSignOut, faSignIn, faPencilSquare, faHome, faInstitution, faCalendar, faBuilding, faBookmark, faBinoculars, faAddressBook, faEnvelopeOpen, faArchive, faAddressCard } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 
@@ -34,8 +34,8 @@ export class NavbarComponent {
   faBuilding = faBuilding;
   faBookmark = faBookmark;
   faBinoculars = faBinoculars;
-  faAdressBook = faAddressBook;
+  faAddressBook = faAddressBook;
   faEnvelopeOpen = faEnvelopeOpen;
   faArchive = faArchive;
-  
+  faAddressCard = faAddressCard;
 }
