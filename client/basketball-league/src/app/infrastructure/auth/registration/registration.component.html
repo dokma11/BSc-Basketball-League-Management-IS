@@ -1,1 +1,71 @@
-<p>registration works!</p>
+<body>
+  <div class="container">
+    <div class="left-side"></div>
+    <div class="right-side">
+      <div class="wrapper" [@fadeInOut]>
+        <form [formGroup]="registrationForm" (ngSubmit)="register()">
+          <h1>Sign up</h1>
+          <div class="input-box">
+            <input 
+                    type="text" 
+                    formControlName="firstName" 
+                    required
+            />
+            <label [class.active]="registrationForm.get('firstName')?.value || focused === 'firstName'">First name</label>
+          </div>
+          <div class="input-box">
+            <input 
+                    type="text" 
+                    formControlName="lastName"
+                    required
+            />
+            <label [class.active]="registrationForm.get('lastName')?.value || focused === 'lastName'">Last name</label>
+          </div>
+          <div class="input-box">
+            <input
+                    type="date"
+                    id="datepicker"
+                    name="datepicker"
+                    formControlName="dateOfBirth">
+            <label [class.active]="true">Date of birth</label>
+          </div>
+          <div class="input-box">
+            <input 
+                    type="text" 
+                    formControlName="email"
+                    required
+            />
+            <label [class.active]="registrationForm.get('email')?.value || focused === 'email'">E-Mail</label>
+          </div>
+          <div class="input-box">
+            <input 
+                    [type]="isPasswordVisible ? 'text' : 'password'"
+                    formControlName="password"
+                    required
+            />
+            <label [class.active]="registrationForm.get('password')?.value || focused === 'password'">Password</label>
+            <fa-icon 
+                    class="login-password-eye"
+                    [icon]="isPasswordVisible ? faEyeSlash : faEye" 
+                    (click)="togglePasswordVisibility()"
+            />
+          </div>
+          <div class="input-box">
+            <input 
+                    [type]="isRepeatPasswordVisible ? 'text' : 'password'"
+                    formControlName="repeatpassword" 
+                    required
+            />
+            <label [class.active]="registrationForm.get('repeatpassword')?.value || focused === 'repeatpassword'">Repeat Password</label>
+            <fa-icon 
+                    class="login-password-eye"
+                    [icon]="isRepeatPasswordVisible ? faEyeSlash : faEye" 
+                    (click)="toggleRepeatPasswordVisibility()"
+            />
+          </div>
+          <button type="submit" class="btn" [@buttonState]="buttonState">Register</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
