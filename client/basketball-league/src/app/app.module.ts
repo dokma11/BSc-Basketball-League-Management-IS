@@ -13,6 +13,7 @@ import { LeagueNewsComponent } from './feature-modules/league-news/league-news.c
 import { TradeManagementComponent } from './feature-modules/trade-management/trade-management.component';
 import { TradeRequestCardComponent } from './feature-modules/trade-request-card/trade-request-card.component';
 import { PlayerCardComponent } from './feature-modules/player-card/player-card.component';
+import { NewsCardComponent } from './feature-modules/news-card/news-card.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PlayerCardComponent } from './feature-modules/player-card/player-card.c
     TradeManagementComponent,
     TradeRequestCardComponent,
     PlayerCardComponent,
+    NewsCardComponent,
   ],
   imports: [
     BrowserModule,
