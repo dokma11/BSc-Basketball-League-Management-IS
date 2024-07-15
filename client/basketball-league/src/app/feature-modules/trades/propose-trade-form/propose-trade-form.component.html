@@ -1,0 +1,80 @@
+<div class="modal-overlay" (click)="overviewClicked()"></div>
+<div class="dialogue">
+  <div class="wrapper">
+    <form [formGroup]="proposeTradeForm">
+        <h1>Propose a trade</h1>
+
+        <div class="trading-partner">
+          <h2>Choose your trading partner</h2>
+          <div class="input-box">
+            <select>
+              <option value="Boston Celtics">Boston Celtics</option>
+              <option value="Los Angeles Lakers">Los Angeles Lakers</option>
+              <option value="Miami Heat">Miami Heat</option>
+            </select>  
+          </div>
+        </div>
+
+        <div class="receivings">
+          <div class="user-receivings">
+            <h2>You receive: </h2>
+            <!-- E sad ovde treba nekako izlistati sve sto se nalazi u offeru -->
+             <table>
+              <tr>
+                <td>Jayson Tatum</td>
+                <td>
+                  <button class="submit-btn" 
+                          (click)="removeAssetButtonClicked()"
+                          [@buttonState]="removeAssetButtonState">
+                          <fa-icon [icon]="faMinus" />
+                          &nbsp;Remove
+                  </button>
+                </td>
+              </tr>
+             </table>
+            <button type="submit" 
+                    class="submit-btn" 
+                    [@buttonState]="addPartnersAssetButtonState" 
+                    (click)="addPartnersAssetButtonClicked()"
+                    >
+                    <fa-icon [icon]="faPlus" />
+                    &nbsp;Add asset
+            </button>
+          </div>
+  
+          <div class="partner-receivings">
+            <h2>They receive: </h2>
+            <!-- E sad ovde treba nekako izlistati sve sto se nalazi u offeru -->
+            <table>
+              <tr>
+                <td>Naziv</td>
+                <td>
+                  <button class="submit-btn" 
+                          (click)="removeAssetButtonClicked()"
+                          [@buttonState]="removeAssetButtonState">
+                          <fa-icon [icon]="faMinus" />
+                          &nbsp;Remove
+                  </button>
+                </td>
+              </tr>
+             </table>
+            <button type="submit" 
+                    class="submit-btn" 
+                    [@buttonState]="addYoursAssetButtonState" 
+                    (click)="addYoursAssetButtonClicked()"
+                    >
+                    <fa-icon [icon]="faPlus" />
+                    &nbsp;Add asset
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" 
+                class="submit-btn" 
+                [@buttonState]="buttonState" 
+                (click)="addTourButtonClicked()"
+                >Submit proposal
+        </button>
+    </form>
+  </div>
+</div>
