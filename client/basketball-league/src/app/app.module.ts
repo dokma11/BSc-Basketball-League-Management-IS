@@ -8,22 +8,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LayoutModule } from "./feature-modules/layout/layout.module";
 import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from './infrastructure/auth/auth.module';
-import { RosterComponent } from './feature-modules/roster/roster.component';
-import { LeagueNewsComponent } from './feature-modules/league-news/league-news.component';
-import { TradeManagementComponent } from './feature-modules/trade-management/trade-management.component';
-import { TradeRequestCardComponent } from './feature-modules/trade-request-card/trade-request-card.component';
-import { PlayerCardComponent } from './feature-modules/player-card/player-card.component';
-import { NewsCardComponent } from './feature-modules/news-card/news-card.component';
+import { TradesModule } from './feature-modules/trades/trades.module';
+import { NewsModule } from './feature-modules/news/news.module';
+import { RosterModule } from './feature-modules/roster-management/roster.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RosterComponent,
-    LeagueNewsComponent,
-    TradeManagementComponent,
-    TradeRequestCardComponent,
-    PlayerCardComponent,
-    NewsCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +25,9 @@ import { NewsCardComponent } from './feature-modules/news-card/news-card.compone
     LayoutModule,
     HttpClientModule,
     AuthModule,
+    TradesModule,
+    NewsModule,
+    RosterModule
 ],
   providers: [],
   bootstrap: [AppComponent]

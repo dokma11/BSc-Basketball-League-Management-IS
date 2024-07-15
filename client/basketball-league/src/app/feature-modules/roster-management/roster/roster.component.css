@@ -267,7 +267,7 @@ input[type="range"] {
   display: flex;
   flex-direction: column;
   margin-left: 2rem;
-  width: 100%;
+  width: 98%;
   margin-top: 3%;
 }
 

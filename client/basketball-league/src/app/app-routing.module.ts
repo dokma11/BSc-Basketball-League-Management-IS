@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './feature-modules/layout/home/home.component';
 import { LoginComponent } from './infrastructure/auth/login/login.component';
 import { RegistrationComponent } from './infrastructure/auth/registration/registration.component';
-import { LeagueNewsComponent } from './feature-modules/league-news/league-news.component';
-import { TradeManagementComponent } from './feature-modules/trade-management/trade-management.component';
-import { RosterComponent } from './feature-modules/roster/roster.component';
+import { RosterComponent } from './feature-modules/roster-management/roster/roster.component';
+import { LeagueNewsComponent } from './feature-modules/news/league-news/league-news.component';
+import { TradeManagementComponent } from './feature-modules/trades/trade-management/trade-management.component';
 
 const routes: Routes = [
   {

@@ -1,0 +1,66 @@
+<div class="modal-overlay" (click)="overviewClicked()"></div>
+<div class="dialogue">
+  <div class="wrapper">
+    <form [formGroup]="proposeTradeForm">
+      <!-- Ovde treba da stoji naziv tima koji smo prosledili iz proslog dijaloga -->
+        <h1>Assets of the Boston Celtics</h1>
+
+        <div class="asset-type">
+          <h2>Choose your asset type</h2>
+          <div class="input-box">
+            <select>
+              <option value="Players">Players</option>
+              <option value="Picks">Picks</option>
+              <option value="Draft rights">Draft Rights</option>
+            </select>  
+          </div>
+        </div>
+
+        <!-- Ovde bih voleo da u zavistnosti od odabranog tipa imovine bude poseban prikaz za taj tip, samo kako da uradim taj if -->
+        <div class="assets">
+          <app-pick-card
+          [@fadeIn]
+        ></app-pick-card>
+        <app-pick-card
+          [@fadeIn]
+        ></app-pick-card>
+        <app-pick-card
+          [@fadeIn]
+        ></app-pick-card>
+        <app-pick-card
+          [@fadeIn]
+        ></app-pick-card>
+        <app-pick-card
+          [@fadeIn]
+        ></app-pick-card>
+        <app-pick-card
+          [@fadeIn]
+        ></app-pick-card>
+        <app-pick-card
+          [@fadeIn]
+        ></app-pick-card>
+        <app-pick-card
+          [@fadeIn]
+        ></app-pick-card>
+        <app-pick-card
+          [@fadeIn]
+        ></app-pick-card>
+        <app-pick-card
+          [@fadeIn]
+        ></app-pick-card>
+
+        <app-player-asset-card>
+          
+        </app-player-asset-card>
+
+        </div>
+
+        <button type="submit" 
+                class="submit-btn" 
+                [@buttonState]="finishButtonState" 
+                (click)="finishButtonClicked()"
+                >Finish choosing
+        </button>
+    </form>
+  </div>
+</div>

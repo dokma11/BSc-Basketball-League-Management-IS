@@ -17,7 +17,7 @@
     </div>
   </div>
   <div class="card-container">
-    <div class="card-group roster-cards" data-index="0" (click)="exhibitionsButtonClicked()" [@fadeInOut]> 
+    <div class="card-group roster-cards" data-index="0" (click)="rosterButtonClicked()" [@fadeInOut]> 
         <div class="little-card card"></div>
         
         <div class="big-card card"></div>
@@ -34,7 +34,7 @@
         
         <div class="big-card card"></div>  
     </div>
-    <div class="card-group trade-cards" data-index="1" (click)="toursButtonClicked()" [@fadeInOut]> 
+    <div class="card-group trade-cards" data-index="1" (click)="tradesButtonClicked()" [@fadeInOut]> 
         <div class="little-card card"></div>
         
         <div class="big-card card"></div>
@@ -51,7 +51,7 @@
         
         <div class="big-card card"></div>  
     </div>
-    <div class="card-group news-cards" data-index="2" (click)="eventsButtonClicked()" [@fadeInOut]> 
+    <div class="card-group news-cards" data-index="2" (click)="newsButtonClicked()" [@fadeInOut]> 
         <div class="little-card card"></div>
         
         <div class="big-card card"></div>
@@ -89,22 +89,22 @@
     <button 
             type="submit" 
             class="btn"
-            (click)="exhibitionsButtonClicked()"
-            [@buttonState]="exhibitionsButtonState" 
+            (click)="rosterButtonClicked()"
+            [@buttonState]="rosterButtonState" 
             >Visit the Team Roster page
     </button>
     <button 
             type="submit" 
             class="btn" 
-            (click)="toursButtonClicked()"
-            [@buttonState]="toursButtonState"
+            (click)="tradesButtonClicked()"
+            [@buttonState]="tradesButtonState"
             >Visit the Trade Management page
     </button>
     <button 
             type="submit" 
             class="btn" 
-            (click)="eventsButtonClicked()"
-            [@buttonState]="eventsButtonState"
+            (click)="newsButtonClicked()"
+            [@buttonState]="newsButtonState"
             >Visit the League News page
     </button>
   </div>
