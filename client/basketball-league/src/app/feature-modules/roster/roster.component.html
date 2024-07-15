@@ -1,0 +1,115 @@
+<div class="overview" [ngStyle]="{'background-size': backgroundSize}">
+  <div class="h2-wrapper">
+    <h2>Roster management</h2>
+  </div>
+  <br>
+
+  <div class="p-wrapper">
+    <p>Welcome to the Roster Management page! Here, you can access comprehensive information about all the players in the league. 
+      Manage your team's roster by adding players to your trade list or untouchables list, and create a wishlist of players from other teams. 
+      Take full control of your roster and make strategic decisions to build a championship-caliber team.
+    </p>
+  </div>
+
+  <!-- Obratiti paznju na ulogu ovde -->
+  <button *ngIf="user?.role === 'GUEST'"
+          type="submit"
+          class="add-tour-btn"
+          (click)="addTourRequestButtonClicked()"
+          [@buttonState]="tourRequestsButtonState">
+    <fa-icon [icon]="faPlus" />
+    &nbsp;Propose a trade
+  </button>
+
+  <div class="tour-search-results">
+    <div class="tour-search-result-tours">
+        <!-- <app-player-card
+            [@fadeIn]
+            *ngFor="let request of requests"
+            [request]="request"
+            (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card> -->
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+    </div>
+  </div>
+
+</div>

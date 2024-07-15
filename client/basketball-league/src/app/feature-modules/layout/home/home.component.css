@@ -15,13 +15,13 @@
 
 .overlay {
   z-index: 3;
-  height: 20%;
+  height: 15%;
   width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   background: transparent;
   border: 2px solid rgba(255, 255, 255, .2);
   backdrop-filter: blur(10px);
@@ -84,7 +84,7 @@ h2 {
   flex-direction: row;
   width: 90%;
   gap: 5rem;
-  height: 27%;
+  height: 20%;
 }
 
 .card-buttons {

@@ -1,0 +1,65 @@
+<div class="player-card">
+    <div class="player-card-left">
+      <div class="player-image-container">
+          <img
+              class="player-image"
+              src="https://cdn.nba.com/headshots/nba/latest/1040x760/1628369.png"
+          />
+      </div>
+    </div>
+    <div class="player-card-content">
+        <div class="player-card-top">
+        </div>
+        <div class="player-card-information">
+            <div class="player-card-center">
+                  <div class="player-name-value">
+                    Jayson Tatum <!-- Ovde dodati ime i prezime igraca -->
+                  </div>
+                  <div class="trade-date">
+                    <div class="trade-date-value">
+                      11-02-1998 <!-- Ovde treba da bdue datum rodjenja igraca -->
+                    </div>
+                  </div>
+                  <div class="player-position-value">
+                    SF/PF <!-- Ovde dodati poziciju igraca -->
+                  </div>
+                  <div class="player-height-value">
+                    204cm <!-- Ovde dodati visinu igraca -->
+                  </div>
+                  <div class="player-weight-value">
+                    100kg <!-- Ovde dodati tezinu igraca -->
+                  </div>
+            </div>
+
+            <div class="player-card-right">
+                <!-- Obratiti paznju na user.role -->
+                <!-- <button
+                    class="btn"
+                    (click)="addToWishlistButtonClicked(player);$event.stopPropagation()"
+                    [@buttonState]="addToWishlistButtonState"
+                >
+                    <fa-icon [icon]="faHeart" />
+                    &nbsp;Add to wishlist
+                </button> -->
+
+                <button
+                    class="btn"
+                    (click)="addToTradeListButtonClicked(player);$event.stopPropagation()"
+                    [@buttonState]="addToTradeListButtonState"
+                >
+                    <fa-icon [icon]="faList" />
+                    &nbsp;Add to trade list
+                </button>
+
+                <button
+                    class="btn"
+                    (click)="addToUntouchablesListButtonClicked(player);$event.stopPropagation()"
+                    [@buttonState]="addToUntouchablesListButtonState"
+                >
+                    <fa-icon [icon]="faHandPaper" />
+                    &nbsp;Add to untouchables list
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
