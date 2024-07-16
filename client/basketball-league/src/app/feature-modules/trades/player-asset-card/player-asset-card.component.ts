@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { faHeart, faHandPaper, faList, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { faHeart, faHandPaper, faList, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 
@@ -11,6 +12,8 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 })
 export class PlayerAssetCardComponent implements OnInit{
   addAssetButtonState: string = 'idle';
+  removeAssetButtonState: string = 'idle';
+  assetSelected: boolean = false;
   player: string = 'IGRAC';  // DOK NE POVEZEM SA BEKOM
   //@Input() request!: PersonalTourRequest;
   private dialogRef: any;
@@ -18,7 +21,8 @@ export class PlayerAssetCardComponent implements OnInit{
   @Output() dialogRefClosed: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private dialog: MatDialog,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private snackBar: MatSnackBar) {
     this.authService.user$.subscribe(user => {
       this.user = user;
     });
@@ -28,12 +32,33 @@ export class PlayerAssetCardComponent implements OnInit{
     
   }
 
-  addAssetButtonClicked(player: any){
+  addAssetButtonClicked(assset: any): void {
+    this.addAssetButtonState = 'clicked';
+    setTimeout(() => { this.addAssetButtonState = 'idle'; }, 200);
 
+    this.assetSelected = true;
+    this.showNotification("Player successfully added!");
+    
+    // TODO: Dodati logiku za dodavanje imovine na neku listu itd, trebalo bi da ima na isi
   }
 
-  faHeart = faHeart;
-  faHandPaper = faHandPaper;
-  faList = faList;
+  removeAssetButtonClicked(assset: any): void {
+    this.removeAssetButtonState = 'clicked';
+    setTimeout(() => { this.removeAssetButtonState = 'idle'; }, 200);
+
+    this.assetSelected = false;
+    this.showNotification("Player successfully removed!");
+
+    // TODO: Dodati logiku za uklanjanje imovine sa neke liste itd, trebalo bi da ima na isi
+  }
+
+  showNotification(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+    });
+  }
+  faMinus = faMinus;
   faPlus = faPlus;
 }

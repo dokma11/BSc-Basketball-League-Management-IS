@@ -1,7 +1,8 @@
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { faHeart, faHandPaper, faList, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 
@@ -34,11 +35,10 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
   ],
 })
 export class PickCardComponent implements OnInit{
-  addAssetButtonState: string = 'idle';
-  addToWishlistButtonState: string = 'idle';
-  addToUntouchablesListButtonState: string = 'idle';
-  addToTradeListButtonState: string = 'idle';
-  player: string = 'IGRAC';  // DOK NE POVEZEM SA BEKOM
+  addAssetButtonState: string = 'idle';  
+  removeAssetButtonState: string = 'idle';
+  assetSelected: boolean = false;
+  player: string = 'IGRAC';  // DOK NE POVEZEM SA BEKOM, PIK TREBA DA BUDE OVO STO SU PLAYER I REQUEST
   //@Input() request!: PersonalTourRequest; Ovde treba da budu pikovi kao lista
   private dialogRef: any;
   user: User | undefined;
@@ -46,7 +46,8 @@ export class PickCardComponent implements OnInit{
   ownTeam: boolean = false;
 
   constructor(private dialog: MatDialog,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private snackBar: MatSnackBar) {
     this.authService.user$.subscribe(user => {
       this.user = user;
     });
@@ -55,44 +56,37 @@ export class PickCardComponent implements OnInit{
   }
 
   ngOnInit(): void {
-  //   const tourOccurrenceDateTimeString = this.request.occurrenceDateTime.toString();
-  //   [this.tourOccurrenceDate, this.tourOccurrenceTime] = tourOccurrenceDateTimeString.split('T');
-
-  //   if(this.request.proposerId){
-  //     this.toursService.getGuestById(this.request.proposerId).subscribe({
-  //       next : (result: Guest) => {
-  //         this.request.proposer = result;
-  //       }
-  //     });
-  //   }
-
-  //   this.request.exhibitions!.forEach((exhibition: Exhibition) => {
-  //     this.exhibitionsString += exhibition.name + ", ";
-  //   });
-
-  //   this.exhibitionsString = this.exhibitionsString.slice(0, -2);
+    // TODO: Dodati ovde sta treba pri inicijalizaciji komponenti
   }
 
   addAssetButtonClicked(assset: any): void {
     this.addAssetButtonState = 'clicked';
     setTimeout(() => { this.addAssetButtonState = 'idle'; }, 200);
 
+    this.assetSelected = true;
+    this.showNotification("Pick successfully added!");
+    
+    // TODO: Dodati logiku za dodavanje imovine na neku listu itd, trebalo bi da ima na isi
   }
 
-  addToWishlistButtonClicked(player: any){
+  removeAssetButtonClicked(assset: any): void {
+    this.removeAssetButtonState = 'clicked';
+    setTimeout(() => { this.removeAssetButtonState = 'idle'; }, 200);
 
+    this.assetSelected = false;
+    this.showNotification("Pick successfully removed!");
+
+    // TODO: Dodati logiku za uklanjanje imovine sa neke liste itd, trebalo bi da ima na isi
   }
 
-  addToUntouchablesListButtonClicked(player: any){
-
+  showNotification(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+    });
   }
-  
-  addToTradeListButtonClicked(player: any){
 
-  }
-
-  faHeart = faHeart;
-  faHandPaper = faHandPaper;
-  faList = faList;
-  faPlus = faPlus
+  faPlus = faPlus;
+  faMinus = faMinus;
 }

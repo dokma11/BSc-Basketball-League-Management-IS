@@ -36,6 +36,7 @@
 .wrapper h1 {
   font-size: 36px;
   text-align: center;
+  margin-top: -3%;
 }
 
 .wrapper .input-box {
@@ -292,6 +293,7 @@
 
 .asset-type {
   display: flex;
+  margin-left: 26%;
 }
 
 .receivings {
@@ -305,4 +307,19 @@
 .assets {
   height: 25rem; 
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2%;
+  margin-top: 2.5%;
+  overflow-x: hidden;
+}
+
+#asset-select {
+  border-radius: 40px;
+  display: flex;
+  height: 60%;
+  width: 115%;
+  padding-left: 10%;
+  margin-top: 15%;
+  margin-left: 50%;
 }

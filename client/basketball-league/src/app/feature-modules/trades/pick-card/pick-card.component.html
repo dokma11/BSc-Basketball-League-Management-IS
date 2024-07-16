@@ -3,7 +3,7 @@
       <div class="pick-card-information">
           <div class="pick-card-center">
                 <div class="pick-number">
-                  <strong>Order:</strong> 1 <!-- Ovde dodati redni broj pika -->
+                  <strong>Order:</strong> 31 <!-- Ovde dodati redni broj pika -->
                 </div>
                 <div class="pick-round">
                   <strong>Round:</strong> 1 <!-- Ovde rundu samog pika -->
@@ -12,50 +12,26 @@
                   <strong>Year:</strong> 2025 <!-- Ovde dodati godinu za koju pik vazi -->
                 </div>
           </div>
-
           <div class="pick-card-right">
-
-              <button
+                <button
                   class="btn"
+                  *ngIf="!assetSelected"
                   (click)="addAssetButtonClicked(player);$event.stopPropagation()"
                   [@buttonState]="addAssetButtonState"
-              >
+                >
                   <fa-icon [icon]="faPlus" />
                   &nbsp;Add
-              </button>
-            
-              <!-- Razmisliti da li treba dodati ova tri ili da bude samo add i to je to -->
-              
-              <!-- <button
-                  class="btn"
-                  *ngIf="!ownTeam"
-                  (click)="addToWishlistButtonClicked(player);$event.stopPropagation()"
-                  [@buttonState]="addToWishlistButtonState"
-              >
-                  <fa-icon [icon]="faHeart" />
-                  &nbsp;Add to wishlist
-              </button>
+                </button>
 
-              <button
+                <button
                   class="btn"
-                  *ngIf="ownTeam"
-                  (click)="addToTradeListButtonClicked(player);$event.stopPropagation()"
-                  [@buttonState]="addToTradeListButtonState"
-              >
-                  <fa-icon [icon]="faList" />
-                  &nbsp;Add to trade list
-              </button>
-
-              <button
-                  class="btn"
-                  *ngIf="ownTeam"
-                  (click)="addToUntouchablesListButtonClicked(player);$event.stopPropagation()"
-                  [@buttonState]="addToUntouchablesListButtonState"
-              >
-                  <fa-icon [icon]="faHandPaper" />
-                  &nbsp;Add to untouchables list
-              </button> -->
-
+                  *ngIf="assetSelected"
+                  (click)="removeAssetButtonClicked(player);$event.stopPropagation()"
+                  [@buttonState]="removeAssetButtonState"
+                >
+                  <fa-icon [icon]="faMinus" />
+                  &nbsp;Remove
+                </button>
           </div>
       </div>
   </div>

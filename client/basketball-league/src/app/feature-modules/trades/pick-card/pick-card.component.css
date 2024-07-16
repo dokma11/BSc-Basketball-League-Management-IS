@@ -33,70 +33,39 @@
   cursor: pointer;
 }
 
-.pick-card:hover .pick-image {
-  transform: scale(1.2);
-}
-
-.pick-card-left {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  width: 10rem;
-}
-
 .pick-card-content {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: calc(100% - 14rem);
 }
 
 .pick-card-information {
   display: flex;
+  flex-direction: row;
   width: 100%;
 }
 
 .pick-card-center {
   display: flex;
   flex-direction: row;
-  width: auto;
+  width: 100%;
   font-size: 18px;
-  gap: 10%;
+  gap: 7%;
+  padding-top: 3%;
+  padding-left: 2%;
+  margin-right: 5%;
 }
 
 .pick-card-right {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 45%;
+  width: 25%;
   height: auto;
   gap: 20px;
   padding-top: 1.8%;
-  margin-left: 70%;
-}
-
-.pick-image-container {
-  height: 3rem;
-  width: 8rem;
-  max-height: 3rem;
-  max-width: 8rem;
-  border-radius: 0.625rem;
-  overflow: hidden;
-}
-
-.pick-image {
-  height: 3rem;
-  width: 8rem;
-  max-height: 3rem;
-  max-width: 8rem;
-  object-fit: cover;
-  border-radius: 0.625rem;
-  overflow: hidden;
-  transition: transform 0.3s ease-in-out;
-}
-
-.pick-tag:hover {
-  background-color: rgba(var(--clr-background-secondary), 0.75);
+  margin-right: -70%;
+  margin-left: 20%;
 }
 
 .add-to-wishlist {
@@ -105,40 +74,6 @@
   min-width: 15rem;
   margin-left: auto;
   margin-bottom: 0.5rem;
-}
-
-.hide-text {
-  color: rgba(0, 0, 0, 0);
-}
-
-s,
-strike {
-  text-decoration: none;
-  position: relative;
-}
-
-s::before,
-strike::before {
-  top: 50%;
-  background: red;
-  opacity: 1;
-  content: "";
-  width: 170%;
-  position: absolute;
-  height: 0.1em;
-  border-radius: 0.1em;
-  left: -5%;
-  white-space: nowrap;
-  display: block;
-  z-index: 3;
-  transform: rotate(180deg);
-}
-
-s.straight::before,
-strike.straight::before {
-  transform: rotate(0deg);
-  left: -1%;
-  width: 102%;
 }
 
 .btn {
