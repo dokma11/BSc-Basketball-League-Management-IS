@@ -303,6 +303,6 @@
 }
 
 .assets {
-  height: 25rem; /* Adjust this value to your preference */
-  overflow-y: auto; /* Enable vertical scrolling */
+  height: 25rem; 
+  overflow-y: auto;
 }
