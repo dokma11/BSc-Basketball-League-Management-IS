@@ -11,18 +11,35 @@
     </p>
   </div>
 
-  <!-- Obratiti paznju na ulogu ovde -->
-  <button *ngIf="user?.role === 'GUEST'"
-          type="submit"
-          class="add-tour-btn"
-          (click)="addTourRequestButtonClicked()"
-          [@buttonState]="tourRequestsButtonState">
-    <fa-icon [icon]="faPlus" />
-    &nbsp;Propose a trade
-  </button>
+  <!-- OVDE MOZDA BUDEM MORAO DA DODAM PRETRAGE I SL TAKO DA CU OSTAVITI MESTA -->
 
-  <div class="tour-search-results">
-    <div class="tour-search-result-tours">
+  <div class="team-assets">
+    <h2>Select team:</h2>
+    <div class="select-dropdown">
+      <mat-form-field>
+        <!-- MORAM POKUSAATI DA GA UOBLICIM -->
+        <mat-select [formControl]="teamCtrl" 
+                    placeholder="Team name" 
+                    #singleSelect>
+          <mat-option>
+            <ngx-mat-select-search 
+                                   [formControl]="teamFilterCtrl"
+                                   [placeholderLabel]="'Search'"
+                                   [noEntriesFoundLabel]="'No matching team found'">
+            </ngx-mat-select-search>
+          </mat-option>
+    
+          <mat-option *ngFor="let team of filteredTeams | async" [value]="team">
+            {{ team }}
+          </mat-option>
+          
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="roster">
+    <div class="roster-container">
         <!-- <app-player-card
             [@fadeIn]
             *ngFor="let request of requests"
