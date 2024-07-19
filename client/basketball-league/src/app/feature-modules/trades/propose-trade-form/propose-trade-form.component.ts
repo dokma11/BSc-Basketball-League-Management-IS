@@ -1,10 +1,12 @@
 import { trigger, transition, style, animate, state } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AssetChoosingFormComponent } from '../asset-choosing-form/asset-choosing-form.component';
+import { of, Observable, map, Subject, startWith, takeUntil, take } from 'rxjs';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-propose-trade-form',
@@ -34,13 +36,54 @@ import { AssetChoosingFormComponent } from '../asset-choosing-form/asset-choosin
       ]),
   ],
 })
-export class ProposeTradeFormComponent implements OnInit{
+export class ProposeTradeFormComponent implements OnInit, AfterViewInit, OnDestroy{
   buttonState: string = 'idle';
   removeAssetButtonState: string = 'idle';
   addPartnersAssetButtonState: string = 'idle';
   addYoursAssetButtonState: string = 'idle';
   focused: string = '';
   private ownDialogRef: any;
+  public teams: string[] = [
+    'Brooklyn Nets',
+    'Golden State Warriors',
+    'Los Angeles Lakers',
+    'Los Angeles Clippers',
+    'New Orleans Pelicans',
+    'New York Knicks',
+    'Oklahoma City Thunder',
+    'San Antonio Spurs',
+    'Boston Celtics',
+    'Denver Nuggets',
+    'Minnesota Timberwolves',
+    'Cleveland Cavaliers',
+    'Philadelphia 76ers',
+    'Phoenix Suns',
+    'Sacramento Kings',
+    'Indiana Pacers',
+    'Dallas Mavericks',
+    'Miami Heat',
+    'Orlando Magic',
+    'Chicago Bulls',
+    'Atlanta Hawks',
+    'Toronto Raptors',
+    'Charlotte Hornets',
+    'Washington Wizards',
+    'Detroit Pistons',
+    'Utah Jazz',
+    'Houston Rockets',
+    'Memphis Grizzlies',
+    'Portland Trail Blazers',
+    'Milwaukee Bucks'
+  ];
+
+  public teamCtrl: FormControl<string | null> = new FormControl<string | null>('');
+  public teamFilterCtrl: FormControl<string | null> = new FormControl<string | null>('');
+
+  public filteredTeams: Observable<string[]> = of(this.teams);
+
+  @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect | undefined;
+
+  protected _onDestroy = new Subject<void>();
 
   constructor(private snackBar: MatSnackBar,
               private dialogRef: MatDialogRef<ProposeTradeFormComponent>,
@@ -49,7 +92,34 @@ export class ProposeTradeFormComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    
+    this.teamCtrl.setValue('');
+
+    this.filteredTeams = this.teamFilterCtrl.valueChanges.pipe(
+      startWith(''),
+      map(value => this.filterTeams(value))
+    );
+  }
+
+  private filterTeams(value: any): string[] {
+    const filterValue = value?.toLowerCase() || '';
+    return this.teams.filter(team => team.toLowerCase().includes(filterValue));
+  }
+
+  ngAfterViewInit() {
+    this.setInitialValue();
+  }
+
+  ngOnDestroy() {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
+
+  protected setInitialValue() {
+    this.filteredTeams
+      .pipe(take(1), takeUntil(this._onDestroy))
+      .subscribe(() => {
+        this.singleSelect!.compareWith = (a: string, b: string) => a.toLowerCase() === b.toLowerCase();
+      });
   }
 
   // Izmeni samo da bude trejd kao

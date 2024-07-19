@@ -1,0 +1,28 @@
+<div class="asset-card">
+
+  <!-- MOZDA DA DODAM KAO TAG RECIMO ADDED TO TRADE LIST ILI WISHLIST I SL -->
+  
+    <div class="asset-card-content">
+        <div class="asset-card-information">
+            <div class="asset-card-center">
+                  <!-- Ovo je vazan deo, u sustini treba prikazati ime igraca i poziciju, isto za draft rights vazi,
+                   takodje treba i dodati za pik koja je runda i koje je godine -->
+                  <div class="asset-description">
+                    Michael Porter Jr nesto PF/SF   <!-- Ovde dodati sadrzaj same kartice u zavisnosti od tipa imovine -->
+                  </div>
+                  <!-- Michael Porter Jr nesto PF/SF -->
+            </div>
+            <div class="asset-card-right">
+                  <button
+                    class="btn"
+                    (click)="removeAssetButtonClicked(player);$event.stopPropagation()"
+                    [@buttonState]="removeAssetButtonState"
+                  >
+                    <fa-icon [icon]="faMinus" />
+                    &nbsp;Remove
+                  </button>
+            </div>
+        </div>
+    </div>
+  </div>
+  

@@ -27,7 +27,7 @@ import { RosterModule } from './feature-modules/roster-management/roster.module'
     AuthModule,
     TradesModule,
     NewsModule,
-    RosterModule
+    RosterModule,
 ],
   providers: [],
   bootstrap: [AppComponent]

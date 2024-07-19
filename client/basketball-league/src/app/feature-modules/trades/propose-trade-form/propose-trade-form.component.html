@@ -5,13 +5,27 @@
         <h1>Propose a trade</h1>
 
         <div class="trading-partner">
-          <h2>Choose your trading partner</h2>
-          <div class="input-box">
-            <select>
-              <option value="Boston Celtics">Boston Celtics</option>
-              <option value="Los Angeles Lakers">Los Angeles Lakers</option>
-              <option value="Miami Heat">Miami Heat</option>
-            </select>  
+          <h2>Choose your trading partner:</h2>
+          <div class="select-dropdown">
+            <mat-form-field>
+              <!-- MORAM POKUSAATI DA GA UOBLICIM -->
+              <mat-select [formControl]="teamCtrl" 
+                          placeholder="Team name" 
+                          #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search 
+                                         [formControl]="teamFilterCtrl"
+                                         [placeholderLabel]="'Search'"
+                                         [noEntriesFoundLabel]="'No matching team found'">
+                  </ngx-mat-select-search>
+                </mat-option>
+          
+                <mat-option *ngFor="let team of filteredTeams | async" [value]="team">
+                  {{ team }}
+                </mat-option>
+                
+              </mat-select>
+            </mat-form-field>
           </div>
         </div>
 
@@ -19,7 +33,9 @@
           <div class="user-receivings">
             <h2>You receive: </h2>
             <!-- E sad ovde treba nekako izlistati sve sto se nalazi u offeru -->
-             <table>
+             <!-- Mozda da ne bude tablea vec ono sa karticom, za svkai tip imovine lepo prosledim
+              i napravim kao template kak otreba da se uradi  -->
+             <!-- <table>
               <tr>
                 <td>Jayson Tatum</td>
                 <td>
@@ -31,7 +47,42 @@
                   </button>
                 </td>
               </tr>
-             </table>
+             </table> -->
+
+             <!-- Dakle ovde je umesto tabele onaj skrol sa karticama -->
+              <div class="assets">
+                <app-propose-trade-asset-card
+                [@fadeIn]>
+                </app-propose-trade-asset-card>
+                <app-propose-trade-asset-card
+                [@fadeIn]>
+                </app-propose-trade-asset-card>
+                <app-propose-trade-asset-card
+                [@fadeIn]>
+                </app-propose-trade-asset-card>
+                <app-propose-trade-asset-card
+                [@fadeIn]>
+                </app-propose-trade-asset-card>
+                <app-propose-trade-asset-card
+                [@fadeIn]>
+                </app-propose-trade-asset-card>
+                <app-propose-trade-asset-card
+                [@fadeIn]>
+                </app-propose-trade-asset-card>
+                <app-propose-trade-asset-card
+                [@fadeIn]>
+                </app-propose-trade-asset-card>
+                <app-propose-trade-asset-card
+                [@fadeIn]>
+                </app-propose-trade-asset-card>
+                <app-propose-trade-asset-card
+                [@fadeIn]>
+                </app-propose-trade-asset-card>
+                <app-propose-trade-asset-card
+                [@fadeIn]>
+                </app-propose-trade-asset-card>
+              </div>
+             
             <button type="submit" 
                     class="submit-btn" 
                     [@buttonState]="addPartnersAssetButtonState" 
@@ -43,9 +94,10 @@
           </div>
   
           <div class="partner-receivings">
+            <!-- Mozda umesto They da napisem naziv tima bas -->
             <h2>They receive: </h2>
             <!-- E sad ovde treba nekako izlistati sve sto se nalazi u offeru -->
-            <table>
+            <!-- <table>
               <tr>
                 <td>Naziv</td>
                 <td>
@@ -58,6 +110,41 @@
                 </td>
               </tr>
              </table>
+              -->
+             
+             <div class="assets">
+              <app-propose-trade-asset-card
+              [@fadeIn]>
+              </app-propose-trade-asset-card>
+              <app-propose-trade-asset-card
+              [@fadeIn]>
+              </app-propose-trade-asset-card>
+              <app-propose-trade-asset-card
+              [@fadeIn]>
+              </app-propose-trade-asset-card>
+              <app-propose-trade-asset-card
+              [@fadeIn]>
+              </app-propose-trade-asset-card>
+              <app-propose-trade-asset-card
+              [@fadeIn]>
+              </app-propose-trade-asset-card>
+              <app-propose-trade-asset-card
+              [@fadeIn]>
+              </app-propose-trade-asset-card>
+              <app-propose-trade-asset-card
+              [@fadeIn]>
+              </app-propose-trade-asset-card>
+              <app-propose-trade-asset-card
+              [@fadeIn]>
+              </app-propose-trade-asset-card>
+              <app-propose-trade-asset-card
+              [@fadeIn]>
+              </app-propose-trade-asset-card>
+              <app-propose-trade-asset-card
+              [@fadeIn]>
+              </app-propose-trade-asset-card>
+            </div>
+
             <button type="submit" 
                     class="submit-btn" 
                     [@buttonState]="addYoursAssetButtonState" 

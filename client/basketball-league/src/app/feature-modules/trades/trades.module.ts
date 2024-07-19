@@ -11,6 +11,8 @@ import { AssetChoosingFormComponent } from './asset-choosing-form/asset-choosing
 import { PickCardComponent } from './pick-card/pick-card.component';
 import { RosterModule } from "../roster-management/roster.module";
 import { PlayerAssetCardComponent } from './player-asset-card/player-asset-card.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { ProposeTradeAssetCardComponent } from './propose-trade-asset-card/propose-trade-asset-card.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { PlayerAssetCardComponent } from './player-asset-card/player-asset-card.
     AssetChoosingFormComponent,
     PickCardComponent,
     PlayerAssetCardComponent,
+    ProposeTradeAssetCardComponent,
   ],
   imports: [
     CommonModule,
@@ -28,7 +31,8 @@ import { PlayerAssetCardComponent } from './player-asset-card/player-asset-card.
     MaterialModule,
     FontAwesomeModule,
     RosterModule,
-    FormsModule
+    FormsModule,
+    NgxMatSelectSearchModule
 ],
   exports: [
     ProposeTradeFormComponent,
