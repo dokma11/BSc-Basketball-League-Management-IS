@@ -1,6 +1,6 @@
 .dialogue {
-  width: 70rem;
-  height: 45rem;
+  width: 60rem;
+  height: 35rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -312,7 +312,7 @@
 }
 
 .partner-receivings {
-  margin-left: 14%;
+  margin-left: 5%;
 }
 
 .assets {

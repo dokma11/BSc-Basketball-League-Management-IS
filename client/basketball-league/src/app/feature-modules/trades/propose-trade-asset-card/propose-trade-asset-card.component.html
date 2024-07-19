@@ -17,6 +17,7 @@
                     class="btn"
                     (click)="removeAssetButtonClicked(player);$event.stopPropagation()"
                     [@buttonState]="removeAssetButtonState"
+                    *ngIf="showButton"
                   >
                     <fa-icon [icon]="faMinus" />
                     &nbsp;Remove

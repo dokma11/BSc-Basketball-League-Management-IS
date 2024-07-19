@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
@@ -18,6 +18,7 @@ export class ProposeTradeAssetCardComponent implements OnInit{
   user: User | undefined;
   @Output() dialogRefClosed: EventEmitter<any> = new EventEmitter<any>();
   ownTeam: boolean = false;
+  @Input() showButton: boolean = true;
 
   constructor(private dialog: MatDialog,
               private authService: AuthService,
