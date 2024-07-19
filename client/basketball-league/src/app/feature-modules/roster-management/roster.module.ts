@@ -6,11 +6,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RosterComponent } from './roster/roster.component';
 import { PlayerCardComponent } from './player-card/player-card.component';
+import { AddPlayerToListPromptComponent } from './add-player-to-list-prompt/add-player-to-list-prompt.component';
 
 @NgModule({
   declarations: [
     RosterComponent,
-    PlayerCardComponent
+    PlayerCardComponent,
+    AddPlayerToListPromptComponent
   ],
   imports: [
     CommonModule,
