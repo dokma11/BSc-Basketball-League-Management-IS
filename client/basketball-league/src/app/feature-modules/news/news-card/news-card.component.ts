@@ -1,3 +1,4 @@
+import { trigger, transition, style, animate, state } from '@angular/animations';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { faCheck, faTimes, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -7,7 +8,30 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 @Component({
   selector: 'app-news-card',
   templateUrl: './news-card.component.html',
-  styleUrls: ['./news-card.component.css']
+  styleUrls: ['./news-card.component.css'],
+  animations: [
+      trigger("fadeIn", [
+        transition(":enter", [
+            style({ opacity: 0, transform: "translateX(-40px)" }),
+            animate(
+                "0.5s ease",
+                style({ opacity: 1, transform: "translateX(0)" }),
+            ),
+        ]),
+      ]),
+      trigger('buttonState', [
+        state('clicked', style({
+          transform: 'scale(0.9)',
+          opacity: 0.5
+        })),
+        transition('* => clicked', [
+          animate('200ms')
+        ]),
+        transition('clicked => idle', [
+          animate('200ms')
+        ])
+      ]),
+  ],
 })
 export class NewsCardComponent implements OnInit{
   acceptButtonState: string = 'idle';

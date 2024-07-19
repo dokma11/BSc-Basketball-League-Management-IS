@@ -2,11 +2,35 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DeclineRequestPromptComponent } from '../decline-request-prompt/decline-request-prompt.component';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 @Component({
   selector: 'app-accept-request-prompt',
   templateUrl: './accept-request-prompt.component.html',
-  styleUrls: ['./accept-request-prompt.component.css']
+  styleUrls: ['./accept-request-prompt.component.css'],
+  animations: [
+      trigger("fadeIn", [
+        transition(":enter", [
+            style({ opacity: 0, transform: "translateX(-40px)" }),
+            animate(
+                "0.5s ease",
+                style({ opacity: 1, transform: "translateX(0)" }),
+            ),
+        ]),
+      ]),
+      trigger('buttonState', [
+        state('clicked', style({
+          transform: 'scale(0.9)',
+          opacity: 0.5
+        })),
+        transition('* => clicked', [
+          animate('200ms')
+        ]),
+        transition('clicked => idle', [
+          animate('200ms')
+        ])
+      ]),
+  ],
 })
 export class AcceptRequestPromptComponent {
   cancelButtonState: string = 'idle';

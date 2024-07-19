@@ -1,3 +1,4 @@
+import { trigger, transition, style, animate, state } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,7 +9,30 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 @Component({
   selector: 'app-propose-trade-asset-card',
   templateUrl: './propose-trade-asset-card.component.html',
-  styleUrls: ['./propose-trade-asset-card.component.css']
+  styleUrls: ['./propose-trade-asset-card.component.css'],
+  animations: [
+      trigger("fadeIn", [
+        transition(":enter", [
+            style({ opacity: 0, transform: "translateX(-40px)" }),
+            animate(
+                "0.5s ease",
+                style({ opacity: 1, transform: "translateX(0)" }),
+            ),
+        ]),
+      ]),
+      trigger('buttonState', [
+        state('clicked', style({
+          transform: 'scale(0.9)',
+          opacity: 0.5
+        })),
+        transition('* => clicked', [
+          animate('200ms')
+        ]),
+        transition('clicked => idle', [
+          animate('200ms')
+        ])
+      ]),
+  ],
 })
 export class ProposeTradeAssetCardComponent implements OnInit{
   removeAssetButtonState: string = 'idle';
