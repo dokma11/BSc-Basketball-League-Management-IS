@@ -1,0 +1,132 @@
+<div class="overview" [ngStyle]="{'background-size': backgroundSize}">
+  <div class="h2-wrapper">
+    <h2>Roster management</h2>
+  </div>
+  <br>
+
+  <div class="p-wrapper">
+    <p>Welcome to the Roster Management page! Here, you can access comprehensive information about all the players in the league. 
+      Manage your team's roster by adding players to your trade list or untouchables list, and create a wishlist of players from other teams. 
+      Take full control of your roster and make strategic decisions to build a championship-caliber team.
+    </p>
+  </div>
+
+  <!-- OVDE MOZDA BUDEM MORAO DA DODAM PRETRAGE I SL TAKO DA CU OSTAVITI MESTA -->
+
+  <div class="team-assets">
+    <h2>Select team:</h2>
+    <div class="select-dropdown">
+      <mat-form-field>
+        <!-- MORAM POKUSAATI DA GA UOBLICIM -->
+        <mat-select [formControl]="teamCtrl" 
+                    placeholder="Team name" 
+                    #singleSelect>
+          <mat-option>
+            <ngx-mat-select-search 
+                                   [formControl]="teamFilterCtrl"
+                                   [placeholderLabel]="'Search'"
+                                   [noEntriesFoundLabel]="'No matching team found'">
+            </ngx-mat-select-search>
+          </mat-option>
+    
+          <mat-option *ngFor="let team of filteredTeams | async" [value]="team">
+            {{ team }}
+          </mat-option>
+          
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="roster">
+    <div class="roster-container">
+        <!-- <app-player-card
+            [@fadeIn]
+            *ngFor="let request of requests"
+            [request]="request"
+            (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card> -->
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+        <app-player-card
+          [@fadeIn]
+          (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card>
+    </div>
+  </div>
+
+</div>

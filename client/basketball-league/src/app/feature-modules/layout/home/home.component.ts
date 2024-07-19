@@ -31,9 +31,9 @@ import { Router } from '@angular/router';
   ]
 })
 export class HomeComponent {
-  exhibitionsButtonState: string = 'idle'; 
-  toursButtonState: string = 'idle'; 
-  eventsButtonState: string = 'idle'; 
+  rosterButtonState: string = 'idle'; 
+  tradesButtonState: string = 'idle'; 
+  newsButtonState: string = 'idle'; 
 
   constructor(private router: Router) {
   }
@@ -42,36 +42,37 @@ export class HomeComponent {
     console.log('click');
   }
 
-  exhibitionsButtonClicked(){
-    this.exhibitionsButtonState = 'clicked'; 
-    setTimeout(() => { this.exhibitionsButtonState = 'idle'; }, 200);
-    this.router.navigate(['/exhibitons']); 
+  rosterButtonClicked(){
+    this.rosterButtonState = 'clicked'; 
+    setTimeout(() => { this.rosterButtonState = 'idle'; }, 200);
+    this.router.navigate(['/roster']); 
   }
 
-  toursButtonClicked(){
-    this.toursButtonState = 'clicked'; 
-    setTimeout(() => { this.toursButtonState = 'idle'; }, 200);
-    this.router.navigate(['/tour-view']); 
+  tradesButtonClicked(){
+    this.tradesButtonState = 'clicked'; 
+    setTimeout(() => { this.tradesButtonState = 'idle'; }, 200);
+    this.router.navigate(['/trade-management']); 
   }
 
-  eventsButtonClicked(){
-    this.eventsButtonState = 'clicked'; 
-    setTimeout(() => { this.eventsButtonState = 'idle'; }, 200);
-    this.router.navigate(['/events']); 
+  newsButtonClicked(){
+    this.newsButtonState = 'clicked'; 
+    setTimeout(() => { this.newsButtonState = 'idle'; }, 200);
+    this.router.navigate(['/league-news']); 
   }
 
   backgroundSize: string = '100% 100%';
 
-  @HostListener('window:scroll', ['$event'])
-  onScroll() {
-    const scrollPosition = window.pageYOffset;
-    const windowHeight = window.innerHeight;
-    const docHeight = document.documentElement.scrollHeight;
+  // Ovo mozda izbaciti i promeniti pozadinu
+  // @HostListener('window:scroll', ['$event'])
+  // onScroll() {
+  //   const scrollPosition = window.pageYOffset;
+  //   const windowHeight = window.innerHeight;
+  //   const docHeight = document.documentElement.scrollHeight;
 
-    const scrollPercent = (scrollPosition / (docHeight - windowHeight)) * 100;
+  //   const scrollPercent = (scrollPosition / (docHeight - windowHeight)) * 100;
 
-    const zoom = 100 + scrollPercent * 0.3; 
+  //   const zoom = 100 + scrollPercent * 0.3; 
 
-    this.backgroundSize = `${zoom}% ${zoom}%`;
-  }
+  //   this.backgroundSize = `${zoom}% ${zoom}%`;
+  // }
 }

@@ -1,0 +1,29 @@
+<div class="modal-overlay" (click)="overviewClicked()"></div>
+<div class="modal-container">
+  <div class="prompt">
+    <h1 *ngIf="this.list == 'wishlist'">Add to wishlist</h1>
+    <p *ngIf="this.list == 'wishlist'">Are you sure you want to add this player to the wishlist</p>
+
+    <h1 *ngIf="this.list === 'untouchable list'">Add to untouchable list</h1>
+    <p *ngIf="this.list === 'untouchable list'">Are you sure you want to add this player to the untouchable list?</p>
+
+    <h1 *ngIf="this.list == 'trade list'">Add to trade list</h1>
+    <p *ngIf="this.list == 'trade list'">Are you sure you want to add this player to the trade list?</p>
+
+    <div class="buttons">
+      <button type="submit"
+              class="btn"
+              (click)="addButtonClicked()"
+              [@buttonState]="addButtonState"
+              >Add
+      </button>
+      <button type="submit"
+              class="btn"
+              (click)="cancelButtonClicked()"
+              [@buttonState]="cancelButtonState"
+              >Cancel
+      </button>
+    </div>
+
+  </div>
+</div>

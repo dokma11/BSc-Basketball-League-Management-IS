@@ -1,0 +1,41 @@
+<div class="pick-card">
+
+<!-- MOZDA DA DODAM KAO TAG RECIMO ADDED TO TRADE LIST ILI WISHLIST I SL -->
+
+  <div class="pick-card-content">
+      <div class="pick-card-information">
+          <div class="pick-card-center">
+                <div class="pick-number">
+                  <strong>Order:</strong> 31 <!-- Ovde dodati redni broj pika -->
+                </div>
+                <div class="pick-round">
+                  <strong>Round:</strong> 1 <!-- Ovde rundu samog pika -->
+                </div>
+                <div class="pick-year">
+                  <strong>Year:</strong> 2025 <!-- Ovde dodati godinu za koju pik vazi -->
+                </div>
+          </div>
+          <div class="pick-card-right">
+                <button
+                  class="btn"
+                  *ngIf="!assetSelected"
+                  (click)="addAssetButtonClicked(player);$event.stopPropagation()"
+                  [@buttonState]="addAssetButtonState"
+                >
+                  <fa-icon [icon]="faPlus" />
+                  &nbsp;Add
+                </button>
+
+                <button
+                  class="btn"
+                  *ngIf="assetSelected"
+                  (click)="removeAssetButtonClicked(player);$event.stopPropagation()"
+                  [@buttonState]="removeAssetButtonState"
+                >
+                  <fa-icon [icon]="faMinus" />
+                  &nbsp;Remove
+                </button>
+          </div>
+      </div>
+  </div>
+</div>

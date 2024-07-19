@@ -1,0 +1,36 @@
+<div class="modal-overlay" (click)="overviewClicked()"></div>
+<div class="modal-container">
+  <div class="prompt">
+    <h1>Decline Request</h1>
+    <p>Are you sure you want to decline this request?</p>
+
+    <form [formGroup]="declineRequestForm">
+      <div class="input-box">
+        <textarea
+          formControlName="explanation"
+          required
+          (focus)="focused = 'explanation'"
+          (blur)="focused = ''"
+        ></textarea>
+        <label [class.active]="declineRequestForm.get('explanation')?.value || focused === 'explanation'">
+          Provide an explanation:
+        </label>
+      </div>
+    </form>
+
+    <div class="buttons">
+      <button type="submit"
+              class="btn"
+              (click)="declineButtonClicked()"
+              [@buttonState]="declineButtonState"
+              >Decline
+      </button>
+      <button type="submit"
+              class="btn"
+              (click)="cancelButtonClicked()"
+              [@buttonState]="cancelButtonState"
+              >Cancel
+      </button>
+    </div>
+  </div>
+</div>

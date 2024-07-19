@@ -1,0 +1,50 @@
+<div class="player-card">
+
+<!-- MOZDA DA DODAM KAO TAG RECIMO ADDED TO TRADE LIST ILI WISHLIST I SL -->
+
+  <div class="player-card-content">
+      <div class="player-card-information">
+          <div class="player-card-center">
+                <div class="player-name-value">
+                  <strong>Name:</strong> Micahael Porter Jr. <!-- Ovde dodati ime i prezime igraca -->
+                </div>
+                <div class="trade-date">
+                  <div class="trade-date-value">
+                    <strong>Age:</strong> 24 <!-- Ovde treba da bdue datum rodjenja igraca -->
+                  </div>
+                </div>
+                <div class="player-position-value">
+                  <strong>Position:</strong> SF/PF <!-- Ovde dodati poziciju igraca -->
+                </div>
+                <div class="player-height-value">
+                  <strong>Height:</strong> 204cm <!-- Ovde dodati visinu igraca -->
+                </div>
+                <div class="player-weight-value">
+                  <strong>Weight:</strong> 100kg <!-- Ovde dodati tezinu igraca -->
+                </div>
+          </div>
+
+          <div class="player-card-right">
+            <button
+            class="btn"
+            *ngIf="!assetSelected"
+            (click)="addAssetButtonClicked(player);$event.stopPropagation()"
+            [@buttonState]="addAssetButtonState"
+          >
+            <fa-icon [icon]="faPlus" />
+            &nbsp;Add
+          </button>
+
+          <button
+            class="btn"
+            *ngIf="assetSelected"
+            (click)="removeAssetButtonClicked(player);$event.stopPropagation()"
+            [@buttonState]="removeAssetButtonState"
+          >
+            <fa-icon [icon]="faMinus" />
+            &nbsp;Remove
+          </button>
+          </div>
+      </div>
+  </div>
+</div>
