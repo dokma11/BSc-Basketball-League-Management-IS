@@ -1,6 +1,6 @@
 .dialogue {
-  width: 55rem;
-  height: 40rem;
+  width: 60rem;
+  height: 35rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,7 +36,7 @@
 .wrapper h1 {
   font-size: 36px;
   text-align: center;
-  margin-top: -3%;
+  margin-top: -1%;
 }
 
 .wrapper .input-box {
@@ -291,9 +291,20 @@
   color: #fff;
 }
 
-.asset-type {
+.trading-partner {
   display: flex;
-  margin-left: 26%;
+  flex-direction: row;
+  margin-left: 20%;
+  gap: 5%;
+}
+
+.select-dropdown {
+  margin-top: 0.8%;
+}
+
+.sel {
+  border-radius: 40px;
+  border: 2px solid #fff;
 }
 
 .receivings {
@@ -301,25 +312,21 @@
 }
 
 .partner-receivings {
-  margin-left: 50%;
+  margin-left: 5%;
 }
 
 .assets {
-  height: 25rem; 
+  height: 20rem; 
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 2%;
   margin-top: 2.5%;
   overflow-x: hidden;
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
 }
 
-#asset-select {
-  border-radius: 40px;
-  display: flex;
-  height: 60%;
-  width: 115%;
-  padding-left: 10%;
-  margin-top: 15%;
-  margin-left: 50%;
+.assets::-webkit-scrollbar {
+  display: none; 
 }

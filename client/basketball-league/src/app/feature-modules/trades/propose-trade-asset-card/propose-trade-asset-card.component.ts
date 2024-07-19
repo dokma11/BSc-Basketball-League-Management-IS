@@ -1,24 +1,24 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { faHeart, faHandPaper, faList, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 
 @Component({
-  selector: 'app-player-asset-card',
-  templateUrl: './player-asset-card.component.html',
-  styleUrls: ['./player-asset-card.component.css']
+  selector: 'app-propose-trade-asset-card',
+  templateUrl: './propose-trade-asset-card.component.html',
+  styleUrls: ['./propose-trade-asset-card.component.css']
 })
-export class PlayerAssetCardComponent implements OnInit{
-  addAssetButtonState: string = 'idle';
+export class ProposeTradeAssetCardComponent implements OnInit{
   removeAssetButtonState: string = 'idle';
-  assetSelected: boolean = false;
   player: string = 'IGRAC';  // DOK NE POVEZEM SA BEKOM
-  //@Input() request!: PersonalTourRequest;
+  description: string = ''; // Ovo treba da bdue ono sto ce se pokazati u samoj kartici
   private dialogRef: any;
   user: User | undefined;
   @Output() dialogRefClosed: EventEmitter<any> = new EventEmitter<any>();
+  ownTeam: boolean = false;
+  @Input() showButton: boolean = true;
 
   constructor(private dialog: MatDialog,
               private authService: AuthService,
@@ -26,28 +26,19 @@ export class PlayerAssetCardComponent implements OnInit{
     this.authService.user$.subscribe(user => {
       this.user = user;
     });
+  
+    // TODO: Treba napraviti semu za prikaz svakog aseta posebno, sta pokazati itd.
   }
 
   ngOnInit(): void {
-    
-  }
-
-  addAssetButtonClicked(assset: any): void {
-    this.addAssetButtonState = 'clicked';
-    setTimeout(() => { this.addAssetButtonState = 'idle'; }, 200);
-
-    this.assetSelected = true;
-    this.showNotification("Player successfully added!");
-    
-    // TODO: Dodati logiku za dodavanje imovine na neku listu itd, trebalo bi da ima na isi
+    // TODO: Dodati ovde sta treba pri inicijalizaciji komponenti
   }
 
   removeAssetButtonClicked(assset: any): void {
     this.removeAssetButtonState = 'clicked';
     setTimeout(() => { this.removeAssetButtonState = 'idle'; }, 200);
 
-    this.assetSelected = false;
-    this.showNotification("Player successfully removed!");
+    this.showNotification("Asset successfully removed!");
 
     // TODO: Dodati logiku za uklanjanje imovine sa neke liste itd, trebalo bi da ima na isi
   }
@@ -59,6 +50,7 @@ export class PlayerAssetCardComponent implements OnInit{
       verticalPosition: 'bottom',
     });
   }
-  faMinus = faMinus;
+
   faPlus = faPlus;
+  faMinus = faMinus;
 }

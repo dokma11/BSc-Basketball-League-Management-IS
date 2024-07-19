@@ -1,39 +1,53 @@
-<div
-    class="trade-card"
->
+<div class="trade-card">
     <div class="trade-card-content">
         <div class="trade-card-top">
+          <div class="trade-tags">
+            <!-- Ovde samo moram dodati kao ngIf za svaki kada treba da se prikaze -->
+             <!-- *ngIf="request.status === 'IN_PROGRESS'"
+                  *ngIf="request.status === 'ACCEPTED'"
+                  *ngIf="request.status === 'DECLINED'"
+                  *ngIf="request.status === 'CANCELLED'"  OVAJ MOZDA SAMO
+             -->
+            <div class="trade-tag"
+                 style="background-color: orange; color: white">
+                 In progress
+            </div>
+            <div class="trade-tag"
+                 style="background-color: olivedrab; color: white">
+                 Accepted
+            </div>
+            <div class="trade-tag"
+                 style="background-color: rgb(150, 28, 28); color: white">
+                 Declined
+            </div>
+          </div>
         </div>
         <div class="trade-card-information">
             <div class="trade-card-center">
                 <div class="trade-team-value">
-                  <strong>Team: </strong> {{ request }} <!-- Ovde dodati naziv tima -->
+                  <strong>Team: </strong> Minnesota Timberwolves <!-- Ovde dodati naziv tima -->
                 </div>
                 <div class="trade-manager-value">
-                    <strong>Manager: </strong> {{ request }} {{ request }} <!-- Ovde dodati ime i prezime menadzera -->
+                    <strong>Manager: </strong> Al Farouq Robinson Jr. <!-- Ovde dodati ime i prezime menadzera -->
                 </div>
                 <div class="trade-date">
                   <div class="trade-date-value">
-                    <strong>Date and time: </strong> {{ this.tourOccurrenceDate }} {{ this.tourOccurrenceTime }} h <!-- Ovde treba da bdue datum kada je poslat zahtev-->
+                    <strong>Date and time: </strong> 11.02.2002 1:51h <!-- Ovde treba da bdue datum kada je poslat zahtev-->
                   </div>
                 </div>
             </div>
 
             <div class="trade-card-right">
               <!-- Obratiti opet paznju na user.role -->
-                <div class="request-status-value"
-                     *ngIf="this.user?.role === 'GUEST'"
-                >
-                    <strong>Status: </strong> &nbsp; {{ request }}  <!-- Status samog zahteva sta je i kakav je -->
-                </div>
-
+              
                 <!-- Obratiti paznju na rolu i sam status zahteva -->
                 <button
                   class="btn"
-                  *ngIf="user?.role == 'GUEST' && request == 'DECLINED'"
+                  *ngIf="request == 'DECLINED'"
                   (click)="seeExplanationButtonClicked(request);$event.stopPropagation()"
                   [@buttonState]="seeExplanationButtonState"
                 >
+                  <fa-icon [icon]="faBan" />
                   &nbsp;See denial explanation
                 </button>
 
@@ -51,18 +65,16 @@
                 <!-- Obratiti paznju na user.role -->
                 <button
                     class="btn"
-                    *ngIf="user?.role == 'ORGANIZER'"
                     (click)="seeDetailsButtonClicked(request);$event.stopPropagation()"
                     [@buttonState]="detailsButtonState"
                 >
-                    <fa-icon [icon]="faCheck" />
+                    <fa-icon [icon]="faCircleInfo" />
                     &nbsp;See details
                 </button>
 
                 <!-- Obratiti paznju na user.role -->
                 <button
                     class="btn"
-                    *ngIf="user?.role == 'ORGANIZER'"
                     (click)="acceptButtonClicked(request);$event.stopPropagation()"
                     [@buttonState]="acceptButtonState"
                 >
@@ -73,7 +85,6 @@
                 <!-- Obratiti paznju na user.role -->
                 <button
                     class="btn"
-                    *ngIf="user?.role == 'ORGANIZER'"
                     (click)="declineButtonClicked(request);$event.stopPropagation()"
                     [@buttonState]="declineButtonState"
                 >

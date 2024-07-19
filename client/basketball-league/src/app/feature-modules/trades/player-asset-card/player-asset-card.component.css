@@ -1,7 +1,7 @@
 .player-card {
   display: flex;
   height: 3rem;
-  width: 90%;
+  width: 95%;
   padding: 0.5rem;
   padding-right: 1rem;
   border: 2px solid rgba(255, 255, 255, .2);
@@ -67,20 +67,20 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  padding-top: 1%;
-  font-size: 18px;
-  gap: 10%;
+  padding-top: 2%;
+  font-size: 16px;
+  gap: 2%;
 }
 
 .player-card-right {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 45%;
+  width: 25%;
   height: auto;
   gap: 20px;
   padding-top: 1.8%;
-  margin-right: -4%;
+  margin-right: -20%;
 }
 
 .player-image-container {
@@ -273,7 +273,7 @@ strike.straight::before {
   font-size: 16px;
   color: #333;
   font-weight: 600;
-  margin-top: -3%;
+  margin-top: -5%;
 }
 
 .btn:hover {

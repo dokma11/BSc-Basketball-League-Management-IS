@@ -36,9 +36,12 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
 })
 export class AssetChoosingFormComponent implements OnInit{
   finishButtonState: string = 'idle';
-  removeAssetButtonState: string = 'idle';
   focused: string = '';
   private ownDialogRef: any;
+  
+  assetForm = new FormGroup({
+    selectedAssetType: new FormControl('Players', [Validators.required]),
+  });
 
   constructor(private snackBar: MatSnackBar,
               private dialogRef: MatDialogRef<ProposeTradeFormComponent>,
@@ -49,19 +52,6 @@ export class AssetChoosingFormComponent implements OnInit{
   ngOnInit(): void {
     
   }
-
-  // Izmeni samo da bude trejd kao
-  proposeTradeForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
-    //duration: new FormControl('', [Validators.required]),
-    occurrenceTime: new FormControl(null, [Validators.required]),
-    occurrenceDate: new FormControl(null, [Validators.required]),
-    //guide: new FormControl('', [Validators.required]),
-    capacity: new FormControl('', [Validators.required]),
-    picturePath: new FormControl('', [Validators.required]),
-    category: new FormControl('', [Validators.required]),
-  });
 
   addTourButtonClicked() {
     // const selectedCategoryString: string = this.addTourForm.value.category ?? '';
@@ -169,15 +159,20 @@ export class AssetChoosingFormComponent implements OnInit{
     // }
   }
 
-  removeAssetButtonClicked(): void {
-    // Ovde samo proveri da li je sve okej sto se tice same animacije
-    this.removeAssetButtonState = 'clicked';
-    setTimeout(() => { this.removeAssetButtonState = 'idle'; }, 200);
-  }
-
   finishButtonClicked(): void {
     this.finishButtonState = 'clicked';
     setTimeout(() => { this.finishButtonState = 'idle'; }, 200);
+    this.showNotification('Assets successfully selected!');
+
+    // TODO: Dodati neko prosledjivanje liste odabranih aseta i sl, nekako moram povezati sa samim karticama
+
+    this.dialogRef.close();
+  }
+
+  onAssetTypeChange(event: any) {
+    // Ovo je samo dokaz da radi kak otreba, verovatno cu skloniti kada dodje finalna verzija
+    this.showNotification('Selected asset type: ' + this.assetForm.value.selectedAssetType);
+    // TODO: Na osnovu promene treba da se prikazu odredjene kartice
   }
 
   showNotification(message: string): void {

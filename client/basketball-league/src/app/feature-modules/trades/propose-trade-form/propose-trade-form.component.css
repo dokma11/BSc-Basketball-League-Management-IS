@@ -36,6 +36,7 @@
 .wrapper h1 {
   font-size: 36px;
   text-align: center;
+  margin-top: -1%;
 }
 
 .wrapper .input-box {
@@ -292,6 +293,18 @@
 
 .trading-partner {
   display: flex;
+  flex-direction: row;
+  margin-left: 20%;
+  gap: 5%;
+}
+
+.select-dropdown {
+  margin-top: 0.8%;
+}
+
+.sel {
+  border-radius: 40px;
+  border: 2px solid #fff;
 }
 
 .receivings {
@@ -299,5 +312,21 @@
 }
 
 .partner-receivings {
-  margin-left: 50%;
+  margin-left: 14%;
+}
+
+.assets {
+  height: 20rem; 
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2%;
+  margin-top: 2.5%;
+  overflow-x: hidden;
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+
+.assets::-webkit-scrollbar {
+  display: none; 
 }

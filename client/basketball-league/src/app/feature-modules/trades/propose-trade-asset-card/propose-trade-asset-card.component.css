@@ -1,7 +1,7 @@
-.pick-card {
+.asset-card {
   display: flex;
   height: 3rem;
-  width: 80%;
+  width: 24rem;
   padding: 0.5rem;
   padding-right: 1rem;
   border: 2px solid rgba(255, 255, 255, .2);
@@ -17,7 +17,7 @@
   backdrop-filter: blur(15px);
 }
 
-.pick-card:hover {
+.asset-card:hover {
   transform: scale(1.01);
   cursor: pointer;
   border: 2px solid rgba(255, 255, 255, .2);
@@ -33,47 +33,37 @@
   cursor: pointer;
 }
 
-.pick-card-content {
+.asset-card-content {
   display: flex;
   flex-direction: row;
-  width: calc(100% - 14rem);
+  /* width: calc(100% - 14rem); */
+  width: 70%;
 }
 
-.pick-card-information {
+.asset-card-information {
   display: flex;
   flex-direction: row;
   width: 100%;
 }
 
-.pick-card-center {
+.asset-card-center {
   display: flex;
   flex-direction: row;
   width: 100%;
   font-size: 18px;
-  gap: 7%;
   padding-top: 3%;
   padding-left: 2%;
-  margin-right: 5%;
 }
 
-.pick-card-right {
+.asset-card-right {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 25%;
+  width: 30%;
   height: auto;
   gap: 20px;
   padding-top: 1.8%;
-  margin-right: -70%;
-  margin-left: 20%;
-}
-
-.add-to-wishlist {
-  margin-top: 0rem;
-  max-width: 60%;
-  min-width: 15rem;
-  margin-left: auto;
-  margin-bottom: 0.5rem;
+  margin-right: -100rem;
 }
 
 .btn {

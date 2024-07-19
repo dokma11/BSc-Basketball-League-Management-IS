@@ -1,17 +1,18 @@
 import { trigger, transition, style, animate, state } from '@angular/animations';
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { AssetChoosingFormComponent } from '../asset-choosing-form/asset-choosing-form.component';
-import { of, Observable, map, Subject, startWith, takeUntil, take } from 'rxjs';
 import { MatSelect } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { Observable, of, Subject, startWith, map, take, takeUntil } from 'rxjs';
+import { AssetChoosingFormComponent } from '../asset-choosing-form/asset-choosing-form.component';
+import { ProposeTradeFormComponent } from '../propose-trade-form/propose-trade-form.component';
 
 @Component({
-  selector: 'app-propose-trade-form',
-  templateUrl: './propose-trade-form.component.html',
-  styleUrls: ['./propose-trade-form.component.css'],
+  selector: 'app-show-request-details-prompt',
+  templateUrl: './show-request-details-prompt.component.html',
+  styleUrls: ['./show-request-details-prompt.component.css'],
   animations: [
       trigger("fadeIn", [
         transition(":enter", [
@@ -36,7 +37,7 @@ import { MatSelect } from '@angular/material/select';
       ]),
   ],
 })
-export class ProposeTradeFormComponent implements OnInit, AfterViewInit, OnDestroy{
+export class ShowRequestDetailsPromptComponent {
   buttonState: string = 'idle';
   removeAssetButtonState: string = 'idle';
   addPartnersAssetButtonState: string = 'idle';
@@ -135,110 +136,10 @@ export class ProposeTradeFormComponent implements OnInit, AfterViewInit, OnDestr
     category: new FormControl('', [Validators.required]),
   });
 
-  addTourButtonClicked() {
-    // const selectedCategoryString: string = this.addTourForm.value.category ?? '';
-    // let selectedCategory: TourCategory;
-
-    // switch (selectedCategoryString) {
-    //   case 'ART_COLLECTIONS':
-    //     selectedCategory = TourCategory.ArtCollections;
-    //     break;
-    //   case 'HISTORICAL_EXHIBITS':
-    //     selectedCategory = TourCategory.HistoricalExhibits;
-    //     break;
-    //   case 'SCIENCE_AND_TECHNOLOGY':
-    //     selectedCategory = TourCategory.ScienceAndTechnology;
-    //     break;
-    //   case 'CULTURAL_HERITAGE':
-    //     selectedCategory = TourCategory.CulturalHeritage;
-    //     break;
-    //   case 'ANCIENT_ART':
-    //     selectedCategory = TourCategory.AncientArt;
-    //     break;
-    //   case 'EUROPEAN_PAINTINGS':
-    //     selectedCategory = TourCategory.EuropeanPaintings;
-    //     break;
-    //   case 'MODERN_ART':
-    //     selectedCategory = TourCategory.ModernArt;
-    //     break;
-    //   case 'AMERICAN_ART':
-    //     selectedCategory = TourCategory.AmericanArt;
-    //     break;
-    //   case 'ASIAN_ART':
-    //     selectedCategory = TourCategory.AsianArt;
-    //     break;
-    //   case 'AFRICAN_CULTURE':
-    //     selectedCategory = TourCategory.AfricanCulture;
-    //     break;
-    //   case 'ISLAMIC_ART':
-    //     selectedCategory = TourCategory.IslamicArt;
-    //     break;
-    //   case 'COSTUME_INSTITUTE':
-    //     selectedCategory = TourCategory.CostumeInstitute;
-    //     break;
-    //   case 'ARMS_AND_ARMOR':
-    //     selectedCategory = TourCategory.ArmsAndArmor;
-    //     break;
-    //   default:
-    //     console.error("Invalid category selected.");
-    //     return;
-    // }
-
-    // const tour: Tour = {
-    //   name: this.addTourForm.value.name || "",
-    //   description: this.addTourForm.value.description || "",
-    //   occurrenceDateTime: this.addTourForm.value.occurrenceDate || new Date(),
-    //   adultTicketPrice: this.adultTicketPrice || "",
-    //   minorTicketPrice: this.minorTicketPrice || "",
-    //   capacity: this.addTourForm.value.capacity || "",
-    //   picturePath: this.addTourForm.value.picturePath || "",
-    //   category: selectedCategory,
-    // };
-
-    // console.log(tour);
-
-    // if (this.addTourForm.valid) {
-    //     this.buttonState = 'clicked';
-    //     setTimeout(() => { this.buttonState = 'idle'; }, 200);
-
-    //     // Postavi datum i vreme
-    //     const dateValue: Date | null = this.addTourForm.value.occurrenceDate!;
-    //     const timeValue: string | null = this.addTourForm.value.occurrenceTime!;
-
-    //     const [hours, minutes] = (timeValue as string).split(':');
-    //     const dateTime = new Date(dateValue);
-    //     dateTime.setHours(Number(hours) + 1);
-    //     dateTime.setMinutes(Number(minutes));
-
-    //     const d = new Date(dateValue);
-    //     d.setHours(Number(hours));
-    //     d.setMinutes(Number(minutes));
-
-    //     tour.occurrenceDateTime = dateTime;
-
-    //     if(this.selectedCurator.length != 0){
-    //       tour.guideId = this.selectedCurator[0].id;
-    //       if(this.selectedExhibitions.length != 0){
-    //         tour.duration = (this.selectedExhibitions.length * 15).toString();
-    //         tour.exhibitions = this.selectedExhibitions;
-    //         this.toursService.addTour(tour).subscribe({
-    //           next: () => {
-    //             this.showNotification('Tour successfully added!')
-    //             this.dialogRef.close();
-    //           },
-    //         });
-    //       }
-    //       else{
-    //         this.showNotification('Please select at least one exhibition')
-    //       }
-    //     }
-    //     else{
-    //       this.showNotification('Please select a curator')
-    //     }
-    // }
-    // else{
-    //   this.showNotification('Please fill out the form correctly')
-    // }
+  closeButtonClicked() {
+    this.buttonState = 'clicked';
+    setTimeout(() => { this.buttonState = 'idle'; }, 200);
+    this.dialogRef.close();
   }
 
   addPartnersAssetButtonClicked(): void {

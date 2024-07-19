@@ -2,32 +2,7 @@
 <div class="dialogue">
   <div class="wrapper">
     <form [formGroup]="proposeTradeForm">
-        <h1>Propose a trade</h1>
-
-        <div class="trading-partner">
-          <h2>Choose your trading partner:</h2>
-          <div class="select-dropdown">
-            <mat-form-field>
-              <!-- MORAM POKUSAATI DA GA UOBLICIM -->
-              <mat-select [formControl]="teamCtrl" 
-                          placeholder="Team name" 
-                          #singleSelect>
-                <mat-option>
-                  <ngx-mat-select-search 
-                                         [formControl]="teamFilterCtrl"
-                                         [placeholderLabel]="'Search'"
-                                         [noEntriesFoundLabel]="'No matching team found'">
-                  </ngx-mat-select-search>
-                </mat-option>
-          
-                <mat-option *ngFor="let team of filteredTeams | async" [value]="team">
-                  {{ team }}
-                </mat-option>
-                
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
+        <h1>Trade details</h1>
 
         <div class="receivings">
           <div class="user-receivings">
@@ -53,54 +28,45 @@
               <div class="assets">
                 <app-propose-trade-asset-card
                 [@fadeIn]
-                [showButton]="true">
+                [showButton]="false">
                 </app-propose-trade-asset-card>
                 <app-propose-trade-asset-card
                 [@fadeIn]
-                [showButton]="true">
+                [showButton]="false">
                 </app-propose-trade-asset-card>
                 <app-propose-trade-asset-card
                 [@fadeIn]
-                [showButton]="true">
+                [showButton]="false">
                 </app-propose-trade-asset-card>
                 <app-propose-trade-asset-card
                 [@fadeIn]
-                [showButton]="true">
+                [showButton]="false">
                 </app-propose-trade-asset-card>
                 <app-propose-trade-asset-card
                 [@fadeIn]
-                [showButton]="true">
+                [showButton]="false">
                 </app-propose-trade-asset-card>
                 <app-propose-trade-asset-card
                 [@fadeIn]
-                [showButton]="true">
+                [showButton]="false">
                 </app-propose-trade-asset-card>
                 <app-propose-trade-asset-card
                 [@fadeIn]
-                [showButton]="true">
+                [showButton]="false">
                 </app-propose-trade-asset-card>
                 <app-propose-trade-asset-card
                 [@fadeIn]
-                [showButton]="true">
+                [showButton]="false">
                 </app-propose-trade-asset-card>
                 <app-propose-trade-asset-card
                 [@fadeIn]
-                [showButton]="true">
+                [showButton]="false">
                 </app-propose-trade-asset-card>
                 <app-propose-trade-asset-card
                 [@fadeIn]
-                [showButton]="true">
+                [showButton]="false">
                 </app-propose-trade-asset-card>
               </div>
-             
-            <button type="submit" 
-                    class="submit-btn" 
-                    [@buttonState]="addPartnersAssetButtonState" 
-                    (click)="addPartnersAssetButtonClicked()"
-                    >
-                    <fa-icon [icon]="faPlus" />
-                    &nbsp;Add asset
-            </button>
           </div>
   
           <div class="partner-receivings">
@@ -125,62 +91,53 @@
              <div class="assets">
               <app-propose-trade-asset-card
               [@fadeIn]
-              [showButton]="true">
+              [showButton]="false">
               </app-propose-trade-asset-card>
               <app-propose-trade-asset-card
               [@fadeIn]
-              [showButton]="true">
+              [showButton]="false">
               </app-propose-trade-asset-card>
               <app-propose-trade-asset-card
               [@fadeIn]
-              [showButton]="true">
+              [showButton]="false">
               </app-propose-trade-asset-card>
               <app-propose-trade-asset-card
               [@fadeIn]
-              [showButton]="true">
+              [showButton]="false">
               </app-propose-trade-asset-card>
               <app-propose-trade-asset-card
               [@fadeIn]
-              [showButton]="true">
+              [showButton]="false">
               </app-propose-trade-asset-card>
               <app-propose-trade-asset-card
               [@fadeIn]
-              [showButton]="true">
+              [showButton]="false">
               </app-propose-trade-asset-card>
               <app-propose-trade-asset-card
               [@fadeIn]
-              [showButton]="true">
+              [showButton]="false">
               </app-propose-trade-asset-card>
               <app-propose-trade-asset-card
               [@fadeIn]
-              [showButton]="true">
+              [showButton]="false">
               </app-propose-trade-asset-card>
               <app-propose-trade-asset-card
               [@fadeIn]
-              [showButton]="true">
+              [showButton]="false">
               </app-propose-trade-asset-card>
               <app-propose-trade-asset-card
               [@fadeIn]
-              [showButton]="true">
+              [showButton]="false">
               </app-propose-trade-asset-card>
             </div>
-
-            <button type="submit" 
-                    class="submit-btn" 
-                    [@buttonState]="addYoursAssetButtonState" 
-                    (click)="addYoursAssetButtonClicked()"
-                    >
-                    <fa-icon [icon]="faPlus" />
-                    &nbsp;Add asset
-            </button>
           </div>
         </div>
 
         <button type="submit" 
                 class="submit-btn" 
                 [@buttonState]="buttonState" 
-                (click)="addTourButtonClicked()"
-                >Submit proposal
+                (click)="closeButtonClicked()"
+                >Close
         </button>
     </form>
   </div>

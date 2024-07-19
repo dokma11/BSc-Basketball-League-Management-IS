@@ -1,0 +1,186 @@
+.prompt {
+  width: 500px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.prompt h1 {
+  margin-top: 3%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prompt p {
+  margin-top: 2%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-top: 7%;
+  gap: 30px;
+  height: auto;
+}
+
+.btn {
+  width: 200px;
+  height: 40px;
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+  margin-top: -3%;
+}
+
+.btn:hover {
+  background-color: #f2f2f2;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.03);
+  transition: transform 300ms ease;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  background-color: rgba(255, 255, 255, .1);
+  padding: 20px;
+  backdrop-filter: blur(15px);
+  color: #fff;
+  border: 3px solid rgba(255, 255, 255, .2);
+  border-radius: 10px;
+}
+
+.curator-choosing{
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.curator-choosing button{
+  width: 120%;
+  height: 30px;
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #1b1b1b;
+  font-weight: 600;
+}
+
+.curator-choosing button:hover{
+  background-color: rgb(172, 172, 172);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.03);
+  transition: transform 300ms ease;
+}
+
+#choose-curator{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#curator-table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wrapper .input-box {
+  margin-top: 10%;
+  position: relative;
+  width: 100%;
+  height: 10%;
+  border-radius: 40px;
+  display: flex;
+}
+
+.input-box input {
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  font-size: 16px;
+  padding: 2% 3%;
+  border: 2px solid #fff;
+}
+
+.input-box input::placeholder {
+  color: #1b1b1b;
+}
+
+.input-box fa-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+}
+
+.input-box label{
+  margin-left: 5px;
+}
+
+.ticket-prices {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.display-value {
+  padding: 8px 15px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 40px;
+  width: 200px;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #1b1b1b;
+}
+
+.submit-btn {
+  margin-top: 5%;
+  margin-left: 7%;
+  width: 86%;
+  height: 45px;
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #1b1b1b;
+  font-weight: 600;
+}
+
+.submit-btn:hover {
+  background-color: rgb(172, 172, 172);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.03);
+  transition: transform 300ms ease;
+}

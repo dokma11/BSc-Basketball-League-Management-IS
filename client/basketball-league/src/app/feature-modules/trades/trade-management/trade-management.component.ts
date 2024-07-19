@@ -6,6 +6,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { ProposeTradeFormComponent } from '../propose-trade-form/propose-trade-form.component';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-trade-management',
@@ -43,6 +44,10 @@ export class TradeManagementComponent implements OnInit{
 
   private dialogRef: any;
 
+  tradeForm = new FormGroup({
+    selectedTradeType: new FormControl('Received', [Validators.required]),
+  });
+  
   constructor(private authService: AuthService,
               private dialog: MatDialog,
               private snackBar: MatSnackBar,) {
@@ -79,6 +84,12 @@ export class TradeManagementComponent implements OnInit{
 
   handleDialogClosed(result: any) {
     this.getRequests();
+  }
+
+  onTradeTypeChange(event: any) {
+    // Ovo je samo dokaz da radi kak otreba, verovatno cu skloniti kada dodje finalna verzija
+    this.showNotification('Selected trades type: ' + this.tradeForm.value.selectedTradeType);
+    // TODO: Na osnovu promene treba da se prikazu odredjene kartice
   }
 
   proposeTradeButtonClicked() {

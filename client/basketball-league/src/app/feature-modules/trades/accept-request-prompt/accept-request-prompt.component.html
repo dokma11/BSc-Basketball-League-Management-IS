@@ -1,0 +1,23 @@
+<div class="modal-overlay" (click)="overviewClicked()"></div>
+<div class="modal-container">
+  <div class="prompt">
+    <h1>Accept Request</h1>
+    <p>Are you sure you want to accept this request?</p>
+
+    <div class="buttons">
+      <button type="submit"
+              class="btn"
+              (click)="acceptButtonClicked()"
+              [@buttonState]="acceptButtonState"
+              >Accept
+      </button>
+      <button type="submit"
+              class="btn"
+              (click)="cancelButtonClicked()"
+              [@buttonState]="cancelButtonState"
+              >Cancel
+      </button>
+    </div>
+
+  </div>
+</div>

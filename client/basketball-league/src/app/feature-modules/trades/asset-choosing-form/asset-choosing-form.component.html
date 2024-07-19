@@ -1,57 +1,81 @@
 <div class="modal-overlay" (click)="overviewClicked()"></div>
 <div class="dialogue">
   <div class="wrapper">
-    <form [formGroup]="proposeTradeForm">
+    <form>
       <!-- Ovde treba da stoji naziv tima koji smo prosledili iz proslog dijaloga -->
         <h1>Assets of the Boston Celtics</h1>
 
-        <div class="asset-type">
-          <h2>Choose your asset type</h2>
-          <div class="input-box">
-            <select>
-              <option value="Players">Players</option>
-              <option value="Picks">Picks</option>
-              <option value="Draft rights">Draft Rights</option>
-            </select>  
+        <form [formGroup]="assetForm">
+          <div class="asset-type">
+            <h3>Choose your asset type</h3>
+            <div>
+              <select id="asset-select"
+                      formControlName="selectedAssetType" 
+                      (change)="onAssetTypeChange($event)"
+                      required>
+                <option value="Players">Players</option>
+                <option value="Picks">Picks</option>
+                <option value="Draft rights">Draft Rights</option>
+              </select>  
+            </div>
           </div>
-        </div>
+        </form>
+        
 
-        <!-- Ovde bih voleo da u zavistnosti od odabranog tipa imovine bude poseban prikaz za taj tip, samo kako da uradim taj if -->
+        <!-- U zavisnosti od odabranog selekta se pojave odredjeni aseti, bice ngFor umesto ovako rucno kada povezem sa bekom -->
         <div class="assets">
           <app-pick-card
           [@fadeIn]
+          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
         ></app-pick-card>
         <app-pick-card
           [@fadeIn]
+          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
         ></app-pick-card>
         <app-pick-card
           [@fadeIn]
+          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
         ></app-pick-card>
         <app-pick-card
           [@fadeIn]
+          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
         ></app-pick-card>
         <app-pick-card
           [@fadeIn]
+          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
         ></app-pick-card>
         <app-pick-card
           [@fadeIn]
+          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
         ></app-pick-card>
         <app-pick-card
           [@fadeIn]
+          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
         ></app-pick-card>
         <app-pick-card
           [@fadeIn]
+          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
         ></app-pick-card>
         <app-pick-card
           [@fadeIn]
+          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
         ></app-pick-card>
         <app-pick-card
           [@fadeIn]
+          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
         ></app-pick-card>
 
-        <app-player-asset-card>
-          
-        </app-player-asset-card>
+        <app-player-asset-card
+          [@fadeIn]
+          *ngIf="this.assetForm.value.selectedAssetType == 'Players'"
+        ></app-player-asset-card>
+
+        <!-- Nekako ovde moram da uradim da bude isto kao igrac samo draft rights, msm da se to svakako prosledjuje preko
+         *nFor pa da mi nece praviti neke probleme, bar se nadam ne znam. Treba u ovoj komponenti da dobavim sve te asete -->
+        <app-player-asset-card
+          [@fadeIn]
+          *ngIf="this.assetForm.value.selectedAssetType == 'Draft rights'"
+        ></app-player-asset-card>
 
         </div>
 
