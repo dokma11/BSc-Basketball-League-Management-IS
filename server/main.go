@@ -21,7 +21,8 @@ func initDB() sql.DB {
 	return *db
 }
 
-func startServer(timHandler *handler.TimHandler, pikHandler *handler.PikHandler) {
+func startServer(timHandler *handler.TimHandler, pikHandler *handler.PikHandler, korisnikHandler *handler.KorisnikHandler,
+	regrutHandler *handler.RegrutHandler, igracHandler *handler.IgracHandler, zaposleniHandler *handler.ZaposleniHandler) {
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.HandleFunc("/tim", timHandler.GetAll).Methods("GET")
@@ -31,6 +32,21 @@ func startServer(timHandler *handler.TimHandler, pikHandler *handler.PikHandler)
 	router.HandleFunc("/pik/{id}", pikHandler.GetByID).Methods("GET")
 	router.HandleFunc("/pik/{teamId}", pikHandler.GetAllByTeamID).Methods("GET")
 	router.HandleFunc("/pik/{year}", pikHandler.GetAllByYear).Methods("GET")
+
+	router.HandleFunc("/korisnik", korisnikHandler.GetAll).Methods("GET")
+	router.HandleFunc("/korisnik/{id}", korisnikHandler.GetByID).Methods("GET")
+
+	router.HandleFunc("/regrut", regrutHandler.GetAll).Methods("GET")
+	router.HandleFunc("/regrut/{id}", regrutHandler.GetByID).Methods("GET")
+	router.HandleFunc("/regrut", regrutHandler.Create).Methods("POST")
+	router.HandleFunc("/regrut", regrutHandler.Update).Methods("PUT")
+
+	router.HandleFunc("/igrac", igracHandler.GetAll).Methods("GET")
+	router.HandleFunc("/igrac/{id}", igracHandler.GetByID).Methods("GET")
+	router.HandleFunc("/igrac/{teamId}", igracHandler.GetAllByTeamID).Methods("GET")
+
+	router.HandleFunc("/zaposleni", zaposleniHandler.GetAll).Methods("GET")
+	router.HandleFunc("/zaposleni/{id}", zaposleniHandler.GetByID).Methods("GET")
 
 	log.Println("Server starting on :8081")
 	log.Fatal(http.ListenAndServe(":8081", router))
@@ -47,5 +63,21 @@ func main() {
 	pikService := service.NewPikService(pikRepository)
 	pikHandler := handler.NewPikHandler(pikService)
 
-	startServer(timHandler, pikHandler)
+	korisnikRepository := impl.NewKorisnikRepository(&db)
+	korisnikService := service.NewKorisnikService(korisnikRepository)
+	korisnikHandler := handler.NewKorisnikHandler(korisnikService)
+
+	regrutRepository := impl.NewRegrutRepository(&db)
+	regrutService := service.NewRegrutService(regrutRepository)
+	regrutHandler := handler.NewRegrutHandler(regrutService)
+
+	igracRepository := impl.NewIgracRepository(&db)
+	igracService := service.NewIgracService(igracRepository)
+	igracHandler := handler.NewIgracHandler(igracService)
+
+	zaposleniRepository := impl.NewZaposleniRepository(&db)
+	zaposleniService := service.NewZaposleniService(zaposleniRepository)
+	zaposleniHandler := handler.NewZaposleniHandler(zaposleniService)
+
+	startServer(timHandler, pikHandler, korisnikHandler, regrutHandler, igracHandler, zaposleniHandler)
 }
