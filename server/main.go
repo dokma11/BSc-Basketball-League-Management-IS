@@ -21,11 +21,16 @@ func initDB() sql.DB {
 	return *db
 }
 
-func startServer(timHandler *handler.TimHandler) {
+func startServer(timHandler *handler.TimHandler, pikHandler *handler.PikHandler) {
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.HandleFunc("/tim", timHandler.GetAll).Methods("GET")
 	router.HandleFunc("/tim/{id}", timHandler.GetByID).Methods("GET")
+
+	router.HandleFunc("/pik", pikHandler.GetAll).Methods("GET")
+	router.HandleFunc("/pik/{id}", pikHandler.GetByID).Methods("GET")
+	router.HandleFunc("/pik/{teamId}", pikHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/pik/{year}", pikHandler.GetAllByYear).Methods("GET")
 
 	log.Println("Server starting on :8081")
 	log.Fatal(http.ListenAndServe(":8081", router))
@@ -38,5 +43,9 @@ func main() {
 	timService := service.NewTimService(timRepository)
 	timHandler := handler.NewTimHandler(timService)
 
-	startServer(timHandler)
+	pikRepository := impl.NewPikRepository(&db)
+	pikService := service.NewPikService(pikRepository)
+	pikHandler := handler.NewPikHandler(pikService)
+
+	startServer(timHandler, pikHandler)
 }
