@@ -25,7 +25,7 @@ func initDB() sql.DB {
 func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHandler, userHandler *handler.UserHandler,
 	recruitHandler *handler.RecruitHandler, playerHandler *handler.PlayerHandler, employeeHandler *handler.EmployeeHandler,
 	authenticationHandler *handler.AuthenticationHandler, draftRightHandler *handler.DraftRightHandler,
-	contractHandler *handler.ContractHandler) {
+	contractHandler *handler.ContractHandler, draftHandler *handler.DraftHandler) {
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.HandleFunc("/team", teamHandler.GetAll).Methods("GET")
@@ -59,13 +59,15 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	router.HandleFunc("/contract", contractHandler.GetAll).Methods("GET")
 	router.HandleFunc("/contract/{id}", contractHandler.GetByID).Methods("GET")
 
+	router.HandleFunc("/draft", draftHandler.GetAll).Methods("GET")
+	router.HandleFunc("/draft/{id}", draftHandler.GetByID).Methods("GET")
+
 	corsAllowedOrigins := handlers.AllowedOrigins([]string{"*"})
 	corsAllowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
 	corsAllowedHeaders := handlers.AllowedHeaders([]string{"Content-Type", "Authorization"})
 
 	log.Println("Server starting on :8081")
 	log.Fatal(http.ListenAndServe(":8081", handlers.CORS(corsAllowedOrigins, corsAllowedMethods, corsAllowedHeaders)(router)))
-
 }
 
 func main() {
@@ -106,6 +108,10 @@ func main() {
 	contractService := service.NewContractService(contractRepository)
 	contractHandler := handler.NewContractHandler(contractService)
 
+	draftRepository := impl.NewDraftRepository(&db)
+	draftService := service.NewDraftService(draftRepository)
+	draftHandler := handler.NewDraftHandler(draftService)
+
 	startServer(teamHandler, pickHandler, userHandler, recruitHandler, playerHandler, employeeHandler,
-		authenticationHandler, draftRightHandler, contractHandler)
+		authenticationHandler, draftRightHandler, contractHandler, draftHandler)
 }
