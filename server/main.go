@@ -22,33 +22,33 @@ func initDB() sql.DB {
 	return *db
 }
 
-func startServer(timHandler *handler.TimHandler, pikHandler *handler.PikHandler, korisnikHandler *handler.KorisnikHandler,
-	regrutHandler *handler.RegrutHandler, igracHandler *handler.IgracHandler, zaposleniHandler *handler.ZaposleniHandler,
+func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHandler, userHandler *handler.UserHandler,
+	recruitHandler *handler.RecruitHandler, playerHandler *handler.PlayerHandler, employeeHandler *handler.EmployeeHandler,
 	authenticationHandler *handler.AuthenticationHandler) {
 	router := mux.NewRouter().StrictSlash(true)
 
-	router.HandleFunc("/tim", timHandler.GetAll).Methods("GET")
-	router.HandleFunc("/tim/{id}", timHandler.GetByID).Methods("GET")
+	router.HandleFunc("/tim", teamHandler.GetAll).Methods("GET")
+	router.HandleFunc("/tim/{id}", teamHandler.GetByID).Methods("GET")
 
-	router.HandleFunc("/pik", pikHandler.GetAll).Methods("GET")
-	router.HandleFunc("/pik/{id}", pikHandler.GetByID).Methods("GET")
-	router.HandleFunc("/pik/{teamId}", pikHandler.GetAllByTeamID).Methods("GET")
-	router.HandleFunc("/pik/{year}", pikHandler.GetAllByYear).Methods("GET")
+	router.HandleFunc("/Pick", pickHandler.GetAll).Methods("GET")
+	router.HandleFunc("/Pick/{id}", pickHandler.GetByID).Methods("GET")
+	router.HandleFunc("/Pick/{teamId}", pickHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/Pick/{year}", pickHandler.GetAllByYear).Methods("GET")
 
-	router.HandleFunc("/korisnik", korisnikHandler.GetAll).Methods("GET")
-	router.HandleFunc("/korisnik/{id}", korisnikHandler.GetByID).Methods("GET")
+	router.HandleFunc("/korisnik", userHandler.GetAll).Methods("GET")
+	router.HandleFunc("/korisnik/{id}", userHandler.GetByID).Methods("GET")
 
-	router.HandleFunc("/regrut", regrutHandler.GetAll).Methods("GET")
-	router.HandleFunc("/regrut/{id}", regrutHandler.GetByID).Methods("GET")
-	router.HandleFunc("/regrut", regrutHandler.Create).Methods("POST")
-	router.HandleFunc("/regrut", regrutHandler.Update).Methods("PUT")
+	router.HandleFunc("/Recruit", recruitHandler.GetAll).Methods("GET")
+	router.HandleFunc("/Recruit/{id}", recruitHandler.GetByID).Methods("GET")
+	router.HandleFunc("/Recruit", recruitHandler.Create).Methods("POST")
+	router.HandleFunc("/Recruit", recruitHandler.Update).Methods("PUT")
 
-	router.HandleFunc("/igrac", igracHandler.GetAll).Methods("GET")
-	router.HandleFunc("/igrac/{id}", igracHandler.GetByID).Methods("GET")
-	router.HandleFunc("/igrac/{teamId}", igracHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/igrac", playerHandler.GetAll).Methods("GET")
+	router.HandleFunc("/igrac/{id}", playerHandler.GetByID).Methods("GET")
+	router.HandleFunc("/igrac/{teamId}", playerHandler.GetAllByTeamID).Methods("GET")
 
-	router.HandleFunc("/zaposleni", zaposleniHandler.GetAll).Methods("GET")
-	router.HandleFunc("/zaposleni/{id}", zaposleniHandler.GetByID).Methods("GET")
+	router.HandleFunc("/zaposleni", employeeHandler.GetAll).Methods("GET")
+	router.HandleFunc("/zaposleni/{id}", employeeHandler.GetByID).Methods("GET")
 
 	router.HandleFunc("/login", authenticationHandler.LogIn).Methods("POST")
 
@@ -65,31 +65,31 @@ func main() {
 	db := initDB()
 	defer db.Close()
 
-	timRepository := impl.NewTimRepository(&db)
-	timService := service.NewTimService(timRepository)
-	timHandler := handler.NewTimHandler(timService)
+	teamRepository := impl.NewTeamRepository(&db)
+	teamService := service.NewTeamService(teamRepository)
+	teamHandler := handler.NewTeamHandler(teamService)
 
-	pikRepository := impl.NewPikRepository(&db)
-	pikService := service.NewPikService(pikRepository)
-	pikHandler := handler.NewPikHandler(pikService)
+	pickRepository := impl.NewPickRepository(&db)
+	pickService := service.NewPickService(pickRepository)
+	pickHandler := handler.NewPickHandler(pickService)
 
-	korisnikRepository := impl.NewKorisnikRepository(&db)
-	korisnikService := service.NewKorisnikService(korisnikRepository)
-	korisnikHandler := handler.NewKorisnikHandler(korisnikService)
+	userRepository := impl.NewUserRepository(&db)
+	userService := service.NewUserService(userRepository)
+	userHandler := handler.NewUserHandler(userService)
 
-	regrutRepository := impl.NewRegrutRepository(&db)
-	regrutService := service.NewRegrutService(regrutRepository)
-	regrutHandler := handler.NewRegrutHandler(regrutService)
+	recruitRepository := impl.NewRecruitRepository(&db)
+	recruitService := service.NewRecruitService(recruitRepository)
+	recruitHandler := handler.NewRecruitHandler(recruitService)
 
-	igracRepository := impl.NewIgracRepository(&db)
-	igracService := service.NewIgracService(igracRepository)
-	igracHandler := handler.NewIgracHandler(igracService)
+	playerRepository := impl.NewPlayerRepository(&db)
+	playerService := service.NewPlayerService(playerRepository)
+	playerHandler := handler.NewPlayerHandler(playerService)
 
-	zaposleniRepository := impl.NewZaposleniRepository(&db)
-	zaposleniService := service.NewZaposleniService(zaposleniRepository)
-	zaposleniHandler := handler.NewZaposleniHandler(zaposleniService)
+	employeeRepository := impl.NewEmployeeRepository(&db)
+	employeeService := service.NewEmployeeService(employeeRepository)
+	employeeHandler := handler.NewEmployeeHandler(employeeService)
 
-	authenticationHandler := handler.NewAuthenticationHandler(korisnikService)
+	authenticationHandler := handler.NewAuthenticationHandler(userService)
 
-	startServer(timHandler, pikHandler, korisnikHandler, regrutHandler, igracHandler, zaposleniHandler, authenticationHandler)
+	startServer(teamHandler, pickHandler, userHandler, recruitHandler, playerHandler, employeeHandler, authenticationHandler)
 }

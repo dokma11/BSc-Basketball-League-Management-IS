@@ -9,11 +9,11 @@ import (
 )
 
 type AuthenticationHandler struct {
-	KorisnikService *service.KorisnikService
+	UserService *service.UserService
 }
 
-func NewAuthenticationHandler(korisnikService *service.KorisnikService) *AuthenticationHandler {
-	return &AuthenticationHandler{KorisnikService: korisnikService}
+func NewAuthenticationHandler(userService *service.UserService) *AuthenticationHandler {
+	return &AuthenticationHandler{UserService: userService}
 }
 
 func (handler *AuthenticationHandler) LogIn(w http.ResponseWriter, r *http.Request) {
@@ -24,7 +24,7 @@ func (handler *AuthenticationHandler) LogIn(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	user, err := handler.KorisnikService.GetByEmail(credentials.Username)
+	user, err := handler.UserService.GetByEmail(credentials.Username)
 	if err != nil {
 		http.Error(w, "Error querying user", http.StatusInternalServerError)
 		return
