@@ -24,7 +24,8 @@ func initDB() sql.DB {
 
 func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHandler, userHandler *handler.UserHandler,
 	recruitHandler *handler.RecruitHandler, playerHandler *handler.PlayerHandler, employeeHandler *handler.EmployeeHandler,
-	authenticationHandler *handler.AuthenticationHandler, draftRightHandler *handler.DraftRightHandler) {
+	authenticationHandler *handler.AuthenticationHandler, draftRightHandler *handler.DraftRightHandler,
+	contractHandler *handler.ContractHandler) {
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.HandleFunc("/team", teamHandler.GetAll).Methods("GET")
@@ -52,8 +53,11 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 
 	router.HandleFunc("/login", authenticationHandler.LogIn).Methods("POST")
 
-	router.HandleFunc("/draftRight", teamHandler.GetAll).Methods("GET")
-	router.HandleFunc("/draftRight/{id}", teamHandler.GetByID).Methods("GET")
+	router.HandleFunc("/draftRight", draftRightHandler.GetAll).Methods("GET")
+	router.HandleFunc("/draftRight/{id}", draftRightHandler.GetByID).Methods("GET")
+
+	router.HandleFunc("/contract", contractHandler.GetAll).Methods("GET")
+	router.HandleFunc("/contract/{id}", contractHandler.GetByID).Methods("GET")
 
 	corsAllowedOrigins := handlers.AllowedOrigins([]string{"*"})
 	corsAllowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
@@ -98,6 +102,10 @@ func main() {
 	draftRightService := service.NewDraftRightService(draftRightRepository)
 	draftRightHandler := handler.NewDraftRightHandler(draftRightService)
 
+	contractRepository := impl.NewContractRepository(&db)
+	contractService := service.NewContractService(contractRepository)
+	contractHandler := handler.NewContractHandler(contractService)
+
 	startServer(teamHandler, pickHandler, userHandler, recruitHandler, playerHandler, employeeHandler,
-		authenticationHandler, draftRightHandler)
+		authenticationHandler, draftRightHandler, contractHandler)
 }
