@@ -6,6 +6,7 @@ import (
 	"basketball-league-server/service"
 	"database/sql"
 	_ "github.com/godror/godror"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -22,7 +23,8 @@ func initDB() sql.DB {
 }
 
 func startServer(timHandler *handler.TimHandler, pikHandler *handler.PikHandler, korisnikHandler *handler.KorisnikHandler,
-	regrutHandler *handler.RegrutHandler, igracHandler *handler.IgracHandler, zaposleniHandler *handler.ZaposleniHandler) {
+	regrutHandler *handler.RegrutHandler, igracHandler *handler.IgracHandler, zaposleniHandler *handler.ZaposleniHandler,
+	authenticationHandler *handler.AuthenticationHandler) {
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.HandleFunc("/tim", timHandler.GetAll).Methods("GET")
@@ -48,12 +50,20 @@ func startServer(timHandler *handler.TimHandler, pikHandler *handler.PikHandler,
 	router.HandleFunc("/zaposleni", zaposleniHandler.GetAll).Methods("GET")
 	router.HandleFunc("/zaposleni/{id}", zaposleniHandler.GetByID).Methods("GET")
 
+	router.HandleFunc("/login", authenticationHandler.LogIn).Methods("POST")
+
+	corsAllowedOrigins := handlers.AllowedOrigins([]string{"*"})
+	corsAllowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
+	corsAllowedHeaders := handlers.AllowedHeaders([]string{"Content-Type", "Authorization"})
+
 	log.Println("Server starting on :8081")
-	log.Fatal(http.ListenAndServe(":8081", router))
+	log.Fatal(http.ListenAndServe(":8081", handlers.CORS(corsAllowedOrigins, corsAllowedMethods, corsAllowedHeaders)(router)))
+
 }
 
 func main() {
 	db := initDB()
+	defer db.Close()
 
 	timRepository := impl.NewTimRepository(&db)
 	timService := service.NewTimService(timRepository)
@@ -79,5 +89,7 @@ func main() {
 	zaposleniService := service.NewZaposleniService(zaposleniRepository)
 	zaposleniHandler := handler.NewZaposleniHandler(zaposleniService)
 
-	startServer(timHandler, pikHandler, korisnikHandler, regrutHandler, igracHandler, zaposleniHandler)
+	authenticationHandler := handler.NewAuthenticationHandler(korisnikService)
+
+	startServer(timHandler, pikHandler, korisnikHandler, regrutHandler, igracHandler, zaposleniHandler, authenticationHandler)
 }

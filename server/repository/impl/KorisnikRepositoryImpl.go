@@ -50,3 +50,15 @@ func (repo *korisnikRepository) GetByID(id int) (*model.Korisnik, error) {
 	}
 	return &user, nil
 }
+
+func (repo *korisnikRepository) GetByEmail(email string) (*model.Korisnik, error) {
+	var user model.Korisnik
+	row := repo.db.QueryRow("SELECT * FROM KORISNIK WHERE EMAIL = :1", email)
+	if err := row.Scan(&user.Id, &user.Ime, &user.Prezime, &user.Email, &user.DatRodj, &user.Lozinka, &user.Uloga); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, nil // No result found
+		}
+		return nil, fmt.Errorf("failed to scan row: %v", err)
+	}
+	return &user, nil
+}

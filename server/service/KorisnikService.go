@@ -31,3 +31,12 @@ func (service *KorisnikService) GetByID(id int) (*model.Korisnik, error) {
 
 	return user, nil
 }
+
+func (service *KorisnikService) GetByEmail(email string) (*model.Korisnik, error) {
+	user, err := service.KorisnikRepository.GetByEmail(email)
+	if err != nil {
+		return nil, fmt.Errorf(fmt.Sprintf("no users with that email were found"))
+	}
+
+	return user, nil
+}
