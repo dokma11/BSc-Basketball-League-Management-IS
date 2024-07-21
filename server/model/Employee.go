@@ -16,8 +16,8 @@ const (
 
 type Employee struct {
 	User
-	UloZap UlogaZaposlenog `json:"UloZap"`
-	MbrZap string          `json:"MbrZap"`
+	UloZap UlogaZaposlenog `json:"uloZap"`
+	MbrZap string          `json:"mbrZap"`
 }
 
 func NewEmployee(id int64, email string, ime string, prezime string, datRodj time.Time,

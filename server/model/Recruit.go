@@ -7,13 +7,13 @@ import (
 
 type Recruit struct {
 	User
-	KonTelefonReg string   `json:"KonTelefonReg"`
-	MesRodjReg    string   `json:"MesRodjReg"`
-	VisReg        string   `json:"VisReg"`
-	TezReg        string   `json:"TezReg"`
-	PozReg        Pozicija `json:"PozReg"`
-	ProsRankReg   string   `json:"ProsRankReg"`
-	ProsOcReg     string   `json:"ProsOcReg"`
+	KonTelefonReg string   `json:"konTelefonReg"`
+	MesRodjReg    string   `json:"mesRodjReg"`
+	VisReg        string   `json:"visReg"`
+	TezReg        string   `json:"tezReg"`
+	PozReg        Pozicija `json:"pozReg"`
+	ProsRankReg   string   `json:"prosRankReg"`
+	ProsOcReg     string   `json:"prosOcReg"`
 }
 
 func NewRecruit(id int64, email string, ime string, prezime string, datRodj time.Time,

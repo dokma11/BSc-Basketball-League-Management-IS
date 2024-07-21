@@ -4,10 +4,10 @@ import "errors"
 
 // Team Obratiti paznju na one liste neophodne
 type Team struct {
-	IdTim     int64  `json:"IdTeam"`
-	NazTim    string `json:"NazTeam"`
-	GodOsnTim string `json:"GodOsnTeam"`
-	LokTim    string `json:"LokTeam"`
+	IdTim     int64  `json:"idTim"`
+	NazTim    string `json:"nazTim"`
+	GodOsnTim string `json:"godOsnTim"`
+	LokTim    string `json:"lokTim"`
 }
 
 func NewTeam(idTeam int64, nazTeam string, godOsnTeam string, lokTeam string) (*Team, error) {

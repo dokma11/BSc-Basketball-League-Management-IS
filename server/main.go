@@ -24,33 +24,36 @@ func initDB() sql.DB {
 
 func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHandler, userHandler *handler.UserHandler,
 	recruitHandler *handler.RecruitHandler, playerHandler *handler.PlayerHandler, employeeHandler *handler.EmployeeHandler,
-	authenticationHandler *handler.AuthenticationHandler) {
+	authenticationHandler *handler.AuthenticationHandler, draftRightHandler *handler.DraftRightHandler) {
 	router := mux.NewRouter().StrictSlash(true)
 
-	router.HandleFunc("/tim", teamHandler.GetAll).Methods("GET")
-	router.HandleFunc("/tim/{id}", teamHandler.GetByID).Methods("GET")
+	router.HandleFunc("/team", teamHandler.GetAll).Methods("GET")
+	router.HandleFunc("/team/{id}", teamHandler.GetByID).Methods("GET")
 
-	router.HandleFunc("/Pick", pickHandler.GetAll).Methods("GET")
-	router.HandleFunc("/Pick/{id}", pickHandler.GetByID).Methods("GET")
-	router.HandleFunc("/Pick/{teamId}", pickHandler.GetAllByTeamID).Methods("GET")
-	router.HandleFunc("/Pick/{year}", pickHandler.GetAllByYear).Methods("GET")
+	router.HandleFunc("/pick", pickHandler.GetAll).Methods("GET")
+	router.HandleFunc("/pick/{id}", pickHandler.GetByID).Methods("GET")
+	router.HandleFunc("/pick/{teamId}", pickHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/pick/{year}", pickHandler.GetAllByYear).Methods("GET")
 
-	router.HandleFunc("/korisnik", userHandler.GetAll).Methods("GET")
-	router.HandleFunc("/korisnik/{id}", userHandler.GetByID).Methods("GET")
+	router.HandleFunc("/user", userHandler.GetAll).Methods("GET")
+	router.HandleFunc("/user/{id}", userHandler.GetByID).Methods("GET")
 
-	router.HandleFunc("/Recruit", recruitHandler.GetAll).Methods("GET")
-	router.HandleFunc("/Recruit/{id}", recruitHandler.GetByID).Methods("GET")
-	router.HandleFunc("/Recruit", recruitHandler.Create).Methods("POST")
-	router.HandleFunc("/Recruit", recruitHandler.Update).Methods("PUT")
+	router.HandleFunc("/recruit", recruitHandler.GetAll).Methods("GET")
+	router.HandleFunc("/recruit/{id}", recruitHandler.GetByID).Methods("GET")
+	router.HandleFunc("/recruit", recruitHandler.Create).Methods("POST")
+	router.HandleFunc("/recruit", recruitHandler.Update).Methods("PUT")
 
-	router.HandleFunc("/igrac", playerHandler.GetAll).Methods("GET")
-	router.HandleFunc("/igrac/{id}", playerHandler.GetByID).Methods("GET")
-	router.HandleFunc("/igrac/{teamId}", playerHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/player", playerHandler.GetAll).Methods("GET")
+	router.HandleFunc("/player/{id}", playerHandler.GetByID).Methods("GET")
+	router.HandleFunc("/player/{teamId}", playerHandler.GetAllByTeamID).Methods("GET")
 
-	router.HandleFunc("/zaposleni", employeeHandler.GetAll).Methods("GET")
-	router.HandleFunc("/zaposleni/{id}", employeeHandler.GetByID).Methods("GET")
+	router.HandleFunc("/employee", employeeHandler.GetAll).Methods("GET")
+	router.HandleFunc("/employee/{id}", employeeHandler.GetByID).Methods("GET")
 
 	router.HandleFunc("/login", authenticationHandler.LogIn).Methods("POST")
+
+	router.HandleFunc("/draftRight", teamHandler.GetAll).Methods("GET")
+	router.HandleFunc("/draftRight/{id}", teamHandler.GetByID).Methods("GET")
 
 	corsAllowedOrigins := handlers.AllowedOrigins([]string{"*"})
 	corsAllowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
@@ -91,5 +94,10 @@ func main() {
 
 	authenticationHandler := handler.NewAuthenticationHandler(userService)
 
-	startServer(teamHandler, pickHandler, userHandler, recruitHandler, playerHandler, employeeHandler, authenticationHandler)
+	draftRightRepository := impl.NewDraftRightRepository(&db)
+	draftRightService := service.NewDraftRightService(draftRightRepository)
+	draftRightHandler := handler.NewDraftRightHandler(draftRightService)
+
+	startServer(teamHandler, pickHandler, userHandler, recruitHandler, playerHandler, employeeHandler,
+		authenticationHandler, draftRightHandler)
 }

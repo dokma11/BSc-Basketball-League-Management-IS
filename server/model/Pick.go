@@ -8,9 +8,9 @@ import (
 
 type Pick struct {
 	IdPik    int64  `json:"idPik"`
-	RedBrPik string `json:"idPik"` // Pick order
-	BrRunPik string `json:"idPik"` // Pick round (can be first and second)
-	GodPik   string `json:"idPik"` // Pick year
+	RedBrPik string `json:"redBrPik"` // Pick order
+	BrRunPik string `json:"brRunPik"` // Pick round (can be first and second)
+	GodPik   string `json:"godPik"`   // Pick year
 }
 
 func NewPick(idPik int64, redBrPik string, brRunPik string, godPik string) (*Pick, error) {

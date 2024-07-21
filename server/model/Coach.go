@@ -7,8 +7,8 @@ import (
 
 type Coach struct {
 	Employee
-	GodIskTrener string `json:"GodIskTrener"`
-	SpecTrener   string `json:"SpecTrener"`
+	GodIskTrener string `json:"godIskTrener"`
+	SpecTrener   string `json:"specTrener"`
 }
 
 func NewCoach(id int64, email string, ime string, prezime string, datRodj time.Time, lozinka string, uloga Uloga,

@@ -7,9 +7,9 @@ import (
 
 type Player struct {
 	Employee
-	VisIgr string   `json:"VisIgr"` // Height
-	TezIgr string   `json:"TezIgr"` // Weight
-	PozIgr Pozicija `json:"PozIgr"` // Position (Point Guard, Shooting Guard, Small Forward, Power Forward, Center)
+	VisIgr string   `json:"visIgr"` // Height
+	TezIgr string   `json:"tezIgr"` // Weight
+	PozIgr Pozicija `json:"pozIgr"` // Position (Point Guard, Shooting Guard, Small Forward, Power Forward, Center)
 }
 
 func NewPlayer(id int64, email string, ime string, prezime string, datRodj time.Time, lozinka string, uloga Uloga,

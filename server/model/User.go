@@ -23,13 +23,13 @@ const (
 )
 
 type User struct {
-	Id      int64     `json:"Id"`
-	Email   string    `json:"Email"`
-	Ime     string    `json:"Ime"`
-	Prezime string    `json:"Prezime"`
-	DatRodj time.Time `json:"DatRodj"`
-	Lozinka string    `json:"Lozinka"`
-	Uloga   Uloga     `json:"Uloga"`
+	Id      int64     `json:"id"`
+	Email   string    `json:"email"`
+	Ime     string    `json:"ime"`
+	Prezime string    `json:"prezime"`
+	DatRodj time.Time `json:"datRodj"`
+	Lozinka string    `json:"lozinka"`
+	Uloga   Uloga     `json:"uloga"`
 }
 
 func NewUser(id int64, email string, ime string, prezime string, datRodj time.Time,
