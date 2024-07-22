@@ -22,35 +22,82 @@ func initDB() sql.DB {
 	return *db
 }
 
-func startServer(timHandler *handler.TimHandler, pikHandler *handler.PikHandler, korisnikHandler *handler.KorisnikHandler,
-	regrutHandler *handler.RegrutHandler, igracHandler *handler.IgracHandler, zaposleniHandler *handler.ZaposleniHandler,
-	authenticationHandler *handler.AuthenticationHandler) {
+func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHandler, userHandler *handler.UserHandler,
+	recruitHandler *handler.RecruitHandler, playerHandler *handler.PlayerHandler, employeeHandler *handler.EmployeeHandler,
+	authenticationHandler *handler.AuthenticationHandler, draftRightHandler *handler.DraftRightHandler,
+	contractHandler *handler.ContractHandler, draftHandler *handler.DraftHandler, tradeProposalHandler *handler.TradeProposalHandler,
+	tradeHandler *handler.TradeHandler, trainingHandler *handler.TrainingHandler, trainingRequestHandler *handler.TrainingRequestHandler,
+	interviewHandler *handler.InterviewHandler, interviewRequestHandler *handler.InterviewRequestHandler) {
 	router := mux.NewRouter().StrictSlash(true)
 
-	router.HandleFunc("/tim", timHandler.GetAll).Methods("GET")
-	router.HandleFunc("/tim/{id}", timHandler.GetByID).Methods("GET")
+	router.HandleFunc("/team", teamHandler.GetAll).Methods("GET")
+	router.HandleFunc("/team/{id}", teamHandler.GetByID).Methods("GET")
 
-	router.HandleFunc("/pik", pikHandler.GetAll).Methods("GET")
-	router.HandleFunc("/pik/{id}", pikHandler.GetByID).Methods("GET")
-	router.HandleFunc("/pik/{teamId}", pikHandler.GetAllByTeamID).Methods("GET")
-	router.HandleFunc("/pik/{year}", pikHandler.GetAllByYear).Methods("GET")
+	router.HandleFunc("/pick", pickHandler.GetAll).Methods("GET")
+	router.HandleFunc("/pick/{id}", pickHandler.GetByID).Methods("GET")
+	router.HandleFunc("/pick/{teamId}", pickHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/pick/{year}", pickHandler.GetAllByYear).Methods("GET")
 
-	router.HandleFunc("/korisnik", korisnikHandler.GetAll).Methods("GET")
-	router.HandleFunc("/korisnik/{id}", korisnikHandler.GetByID).Methods("GET")
+	router.HandleFunc("/user", userHandler.GetAll).Methods("GET")
+	router.HandleFunc("/user/{id}", userHandler.GetByID).Methods("GET")
 
-	router.HandleFunc("/regrut", regrutHandler.GetAll).Methods("GET")
-	router.HandleFunc("/regrut/{id}", regrutHandler.GetByID).Methods("GET")
-	router.HandleFunc("/regrut", regrutHandler.Create).Methods("POST")
-	router.HandleFunc("/regrut", regrutHandler.Update).Methods("PUT")
+	router.HandleFunc("/recruit", recruitHandler.GetAll).Methods("GET")
+	router.HandleFunc("/recruit/{id}", recruitHandler.GetByID).Methods("GET")
+	router.HandleFunc("/recruit", recruitHandler.Create).Methods("POST")
+	router.HandleFunc("/recruit", recruitHandler.Update).Methods("PUT")
 
-	router.HandleFunc("/igrac", igracHandler.GetAll).Methods("GET")
-	router.HandleFunc("/igrac/{id}", igracHandler.GetByID).Methods("GET")
-	router.HandleFunc("/igrac/{teamId}", igracHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/player", playerHandler.GetAll).Methods("GET")
+	router.HandleFunc("/player/{id}", playerHandler.GetByID).Methods("GET")
+	router.HandleFunc("/player/{teamId}", playerHandler.GetAllByTeamID).Methods("GET")
 
-	router.HandleFunc("/zaposleni", zaposleniHandler.GetAll).Methods("GET")
-	router.HandleFunc("/zaposleni/{id}", zaposleniHandler.GetByID).Methods("GET")
+	router.HandleFunc("/employee", employeeHandler.GetAll).Methods("GET")
+	router.HandleFunc("/employee/{id}", employeeHandler.GetByID).Methods("GET")
 
 	router.HandleFunc("/login", authenticationHandler.LogIn).Methods("POST")
+
+	router.HandleFunc("/draftRight", draftRightHandler.GetAll).Methods("GET")
+	router.HandleFunc("/draftRight/{id}", draftRightHandler.GetByID).Methods("GET")
+
+	router.HandleFunc("/contract", contractHandler.GetAll).Methods("GET")
+	router.HandleFunc("/contract/{id}", contractHandler.GetByID).Methods("GET")
+
+	router.HandleFunc("/draft", draftHandler.GetAll).Methods("GET")
+	router.HandleFunc("/draft/{id}", draftHandler.GetByID).Methods("GET")
+
+	router.HandleFunc("/tradeProposal", tradeProposalHandler.GetAll).Methods("GET")
+	router.HandleFunc("/tradeProposal/{id}", tradeProposalHandler.GetByID).Methods("GET")
+	router.HandleFunc("/tradeProposal/{teamId}", tradeProposalHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/tradeProposal", tradeProposalHandler.Create).Methods("POST")
+	router.HandleFunc("/tradeProposal", tradeProposalHandler.Update).Methods("PUT")
+
+	router.HandleFunc("/trade", tradeHandler.GetAll).Methods("GET")
+	router.HandleFunc("/trade/{id}", tradeHandler.GetByID).Methods("GET")
+	router.HandleFunc("/trade/{teamId}", tradeHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/trade", tradeHandler.Create).Methods("POST")
+
+	router.HandleFunc("/training", trainingHandler.GetAll).Methods("GET")
+	router.HandleFunc("/training/{id}", trainingHandler.GetByID).Methods("GET")
+	router.HandleFunc("/training/{userId}", trainingHandler.GetAllByUserID).Methods("GET")
+	router.HandleFunc("/training", trainingHandler.Create).Methods("POST")
+
+	router.HandleFunc("/trainingRequest", trainingRequestHandler.GetAll).Methods("GET")
+	router.HandleFunc("/trainingRequest/{id}", trainingRequestHandler.GetByID).Methods("GET")
+	router.HandleFunc("/trainingRequest/sender/{userId}", trainingRequestHandler.GetAllBySenderID).Methods("GET")
+	router.HandleFunc("/trainingRequest/receiver/{userId}", trainingRequestHandler.GetAllByReceiverID).Methods("GET")
+	router.HandleFunc("/trainingRequest", trainingRequestHandler.Create).Methods("POST")
+	router.HandleFunc("/trainingRequest", trainingRequestHandler.Update).Methods("PUT")
+
+	router.HandleFunc("/interview", interviewHandler.GetAll).Methods("GET")
+	router.HandleFunc("/interview/{id}", interviewHandler.GetByID).Methods("GET")
+	router.HandleFunc("/interview/{userId}", interviewHandler.GetAllByUserID).Methods("GET")
+	router.HandleFunc("/interview", interviewHandler.Create).Methods("POST")
+
+	router.HandleFunc("/interviewRequest", interviewRequestHandler.GetAll).Methods("GET")
+	router.HandleFunc("/interviewRequest/{id}", interviewRequestHandler.GetByID).Methods("GET")
+	router.HandleFunc("/interviewRequest/sender/{userId}", interviewRequestHandler.GetAllBySenderID).Methods("GET")
+	router.HandleFunc("/interviewRequest/receiver/{userId}", interviewRequestHandler.GetAllByReceiverID).Methods("GET")
+	router.HandleFunc("/interviewRequest", interviewRequestHandler.Create).Methods("POST")
+	router.HandleFunc("/interviewRequest", interviewRequestHandler.Update).Methods("PUT")
 
 	corsAllowedOrigins := handlers.AllowedOrigins([]string{"*"})
 	corsAllowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
@@ -58,38 +105,75 @@ func startServer(timHandler *handler.TimHandler, pikHandler *handler.PikHandler,
 
 	log.Println("Server starting on :8081")
 	log.Fatal(http.ListenAndServe(":8081", handlers.CORS(corsAllowedOrigins, corsAllowedMethods, corsAllowedHeaders)(router)))
-
 }
 
 func main() {
 	db := initDB()
 	defer db.Close()
 
-	timRepository := impl.NewTimRepository(&db)
-	timService := service.NewTimService(timRepository)
-	timHandler := handler.NewTimHandler(timService)
+	teamRepository := impl.NewTeamRepository(&db)
+	teamService := service.NewTeamService(teamRepository)
+	teamHandler := handler.NewTeamHandler(teamService)
 
-	pikRepository := impl.NewPikRepository(&db)
-	pikService := service.NewPikService(pikRepository)
-	pikHandler := handler.NewPikHandler(pikService)
+	pickRepository := impl.NewPickRepository(&db)
+	pickService := service.NewPickService(pickRepository)
+	pickHandler := handler.NewPickHandler(pickService)
 
-	korisnikRepository := impl.NewKorisnikRepository(&db)
-	korisnikService := service.NewKorisnikService(korisnikRepository)
-	korisnikHandler := handler.NewKorisnikHandler(korisnikService)
+	userRepository := impl.NewUserRepository(&db)
+	userService := service.NewUserService(userRepository)
+	userHandler := handler.NewUserHandler(userService)
 
-	regrutRepository := impl.NewRegrutRepository(&db)
-	regrutService := service.NewRegrutService(regrutRepository)
-	regrutHandler := handler.NewRegrutHandler(regrutService)
+	recruitRepository := impl.NewRecruitRepository(&db)
+	recruitService := service.NewRecruitService(recruitRepository)
+	recruitHandler := handler.NewRecruitHandler(recruitService)
 
-	igracRepository := impl.NewIgracRepository(&db)
-	igracService := service.NewIgracService(igracRepository)
-	igracHandler := handler.NewIgracHandler(igracService)
+	playerRepository := impl.NewPlayerRepository(&db)
+	playerService := service.NewPlayerService(playerRepository)
+	playerHandler := handler.NewPlayerHandler(playerService)
 
-	zaposleniRepository := impl.NewZaposleniRepository(&db)
-	zaposleniService := service.NewZaposleniService(zaposleniRepository)
-	zaposleniHandler := handler.NewZaposleniHandler(zaposleniService)
+	employeeRepository := impl.NewEmployeeRepository(&db)
+	employeeService := service.NewEmployeeService(employeeRepository)
+	employeeHandler := handler.NewEmployeeHandler(employeeService)
 
-	authenticationHandler := handler.NewAuthenticationHandler(korisnikService)
+	authenticationHandler := handler.NewAuthenticationHandler(userService)
 
-	startServer(timHandler, pikHandler, korisnikHandler, regrutHandler, igracHandler, zaposleniHandler, authenticationHandler)
+	draftRightRepository := impl.NewDraftRightRepository(&db)
+	draftRightService := service.NewDraftRightService(draftRightRepository)
+	draftRightHandler := handler.NewDraftRightHandler(draftRightService)
+
+	contractRepository := impl.NewContractRepository(&db)
+	contractService := service.NewContractService(contractRepository)
+	contractHandler := handler.NewContractHandler(contractService)
+
+	draftRepository := impl.NewDraftRepository(&db)
+	draftService := service.NewDraftService(draftRepository)
+	draftHandler := handler.NewDraftHandler(draftService)
+
+	tradeProposalRepository := impl.NewTradeProposalRepository(&db)
+	tradeProposalService := service.NewTradeProposalService(tradeProposalRepository)
+	tradeProposalHandler := handler.NewTradeProposalHandler(tradeProposalService)
+
+	tradeRepository := impl.NewTradeRepository(&db)
+	tradeService := service.NewTradeService(tradeRepository)
+	tradeHandler := handler.NewTradeHandler(tradeService)
+
+	trainingRepository := impl.NewTrainingRepository(&db)
+	trainingService := service.NewTrainingService(trainingRepository)
+	trainingHandler := handler.NewTrainingHandler(trainingService)
+
+	trainingRequestRepository := impl.NewTrainingRequestRepository(&db)
+	trainingRequestService := service.NewTrainingRequestService(trainingRequestRepository)
+	trainingRequestHandler := handler.NewTrainingRequestHandler(trainingRequestService)
+
+	interviewRepository := impl.NewInterviewRepository(&db)
+	interviewService := service.NewInterviewService(interviewRepository)
+	interviewHandler := handler.NewInterviewHandler(interviewService)
+
+	interviewRequestRepository := impl.NewInterviewRequestRepository(&db)
+	interviewRequestService := service.NewInterviewRequestService(interviewRequestRepository)
+	interviewRequestHandler := handler.NewInterviewRequestHandler(interviewRequestService)
+
+	startServer(teamHandler, pickHandler, userHandler, recruitHandler, playerHandler, employeeHandler,
+		authenticationHandler, draftRightHandler, contractHandler, draftHandler, tradeProposalHandler, tradeHandler,
+		trainingHandler, trainingRequestHandler, interviewHandler, interviewRequestHandler)
 }
