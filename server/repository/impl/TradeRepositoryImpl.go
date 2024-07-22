@@ -76,7 +76,7 @@ func (repo *tradeRepository) GetAllByTeamID(teamID int) ([]model.Trade, error) {
 }
 
 func (repo *tradeRepository) Create(trade *model.Trade) error {
-	_, err := repo.db.Exec("INSERT INTO TRGOVINA (IDTRG, DATTRG, TIPTRG) VALUES (:1, :2, :3, :4, :5)",
+	_, err := repo.db.Exec("INSERT INTO TRGOVINA (IDTRG, DATTRG, TIPTRG) VALUES (:1, :2, :3)",
 		trade.IdTrg, trade.DatTrg, trade.TipTrg)
 	if err != nil {
 		return fmt.Errorf("failed to create a trade: %v", err)

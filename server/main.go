@@ -26,7 +26,7 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	recruitHandler *handler.RecruitHandler, playerHandler *handler.PlayerHandler, employeeHandler *handler.EmployeeHandler,
 	authenticationHandler *handler.AuthenticationHandler, draftRightHandler *handler.DraftRightHandler,
 	contractHandler *handler.ContractHandler, draftHandler *handler.DraftHandler, tradeProposalHandler *handler.TradeProposalHandler,
-	tradeHandler *handler.TradeHandler) {
+	tradeHandler *handler.TradeHandler, trainingHandler *handler.TrainingHandler, trainingRequestHandler *handler.TrainingRequestHandler) {
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.HandleFunc("/team", teamHandler.GetAll).Methods("GET")
@@ -73,6 +73,18 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	router.HandleFunc("/trade/{id}", tradeHandler.GetByID).Methods("GET")
 	router.HandleFunc("/trade/{teamId}", tradeHandler.GetAllByTeamID).Methods("GET")
 	router.HandleFunc("/trade", tradeHandler.Create).Methods("POST")
+
+	router.HandleFunc("/training", trainingHandler.GetAll).Methods("GET")
+	router.HandleFunc("/training/{id}", trainingHandler.GetByID).Methods("GET")
+	router.HandleFunc("/training/{userId}", trainingHandler.GetAllByUserID).Methods("GET")
+	router.HandleFunc("/training", trainingHandler.Create).Methods("POST")
+
+	router.HandleFunc("/trainingRequest", trainingRequestHandler.GetAll).Methods("GET")
+	router.HandleFunc("/trainingRequest/{id}", trainingRequestHandler.GetByID).Methods("GET")
+	router.HandleFunc("/trainingRequest/sender/{userId}", trainingRequestHandler.GetAllBySenderID).Methods("GET")
+	router.HandleFunc("/trainingRequest/receiver/{userId}", trainingRequestHandler.GetAllByReceiverID).Methods("GET")
+	router.HandleFunc("/trainingRequest", trainingRequestHandler.Create).Methods("POST")
+	router.HandleFunc("/trainingRequest", trainingRequestHandler.Update).Methods("PUT")
 
 	corsAllowedOrigins := handlers.AllowedOrigins([]string{"*"})
 	corsAllowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
@@ -132,6 +144,15 @@ func main() {
 	tradeService := service.NewTradeService(tradeRepository)
 	tradeHandler := handler.NewTradeHandler(tradeService)
 
+	trainingRepository := impl.NewTrainingRepository(&db)
+	trainingService := service.NewTrainingService(trainingRepository)
+	trainingHandler := handler.NewTrainingHandler(trainingService)
+
+	trainingRequestRepository := impl.NewTrainingRequestRepository(&db)
+	trainingRequestService := service.NewTrainingRequestService(trainingRequestRepository)
+	trainingRequestHandler := handler.NewTrainingRequestHandler(trainingRequestService)
+
 	startServer(teamHandler, pickHandler, userHandler, recruitHandler, playerHandler, employeeHandler,
-		authenticationHandler, draftRightHandler, contractHandler, draftHandler, tradeProposalHandler, tradeHandler)
+		authenticationHandler, draftRightHandler, contractHandler, draftHandler, tradeProposalHandler, tradeHandler,
+		trainingHandler, trainingRequestHandler)
 }
