@@ -34,7 +34,7 @@ func (p *Pick) Validate() error {
 		fmt.Println("Error:", err)
 	}
 	if pickOrder > 30 || pickOrder < 1 { // There are 30 picks in each round
-		return errors.New("pick order number is invalid")
+		return errors.New("pick order number field is invalid")
 	}
 
 	pickRound, err := strconv.Atoi(p.BrRunPik)
@@ -42,11 +42,11 @@ func (p *Pick) Validate() error {
 		fmt.Println("Error:", err)
 	}
 	if pickRound > 2 || pickRound < 1 { // There are only two rounds
-		return errors.New("pick round number is invalid")
+		return errors.New("pick round number field is invalid")
 	}
 
 	if len(p.GodPik) != 4 {
-		return errors.New("pick year is invalid")
+		return errors.New("pick year field is invalid")
 	}
 
 	return nil

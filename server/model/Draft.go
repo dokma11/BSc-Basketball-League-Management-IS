@@ -24,10 +24,10 @@ func NewDraft(idDraft int64, godOdrDraft string, lokOdrDraft string) (*Draft, er
 
 func (d *Draft) Validate() error {
 	if d.GodOdrDraft == "" {
-		return errors.New("occurrence year was not set")
+		return errors.New("occurrence year field was not set")
 	}
 	if d.LokOdrDraft == "" {
-		return errors.New("location was not set")
+		return errors.New("location field was not set")
 	}
 
 	return nil

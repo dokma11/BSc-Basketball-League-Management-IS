@@ -25,7 +25,8 @@ func initDB() sql.DB {
 func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHandler, userHandler *handler.UserHandler,
 	recruitHandler *handler.RecruitHandler, playerHandler *handler.PlayerHandler, employeeHandler *handler.EmployeeHandler,
 	authenticationHandler *handler.AuthenticationHandler, draftRightHandler *handler.DraftRightHandler,
-	contractHandler *handler.ContractHandler, draftHandler *handler.DraftHandler) {
+	contractHandler *handler.ContractHandler, draftHandler *handler.DraftHandler, tradeProposalHandler *handler.TradeProposalHandler,
+	tradeHandler *handler.TradeHandler) {
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.HandleFunc("/team", teamHandler.GetAll).Methods("GET")
@@ -61,6 +62,17 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 
 	router.HandleFunc("/draft", draftHandler.GetAll).Methods("GET")
 	router.HandleFunc("/draft/{id}", draftHandler.GetByID).Methods("GET")
+
+	router.HandleFunc("/tradeProposal", tradeProposalHandler.GetAll).Methods("GET")
+	router.HandleFunc("/tradeProposal/{id}", tradeProposalHandler.GetByID).Methods("GET")
+	router.HandleFunc("/tradeProposal/{teamId}", tradeProposalHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/tradeProposal", tradeProposalHandler.Create).Methods("POST")
+	router.HandleFunc("/tradeProposal", tradeProposalHandler.Update).Methods("PUT")
+
+	router.HandleFunc("/trade", tradeHandler.GetAll).Methods("GET")
+	router.HandleFunc("/trade/{id}", tradeHandler.GetByID).Methods("GET")
+	router.HandleFunc("/trade/{teamId}", tradeHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/trade", tradeHandler.Create).Methods("POST")
 
 	corsAllowedOrigins := handlers.AllowedOrigins([]string{"*"})
 	corsAllowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
@@ -112,6 +124,14 @@ func main() {
 	draftService := service.NewDraftService(draftRepository)
 	draftHandler := handler.NewDraftHandler(draftService)
 
+	tradeProposalRepository := impl.NewTradeProposalRepository(&db)
+	tradeProposalService := service.NewTradeProposalService(tradeProposalRepository)
+	tradeProposalHandler := handler.NewTradeProposalHandler(tradeProposalService)
+
+	tradeRepository := impl.NewTradeRepository(&db)
+	tradeService := service.NewTradeService(tradeRepository)
+	tradeHandler := handler.NewTradeHandler(tradeService)
+
 	startServer(teamHandler, pickHandler, userHandler, recruitHandler, playerHandler, employeeHandler,
-		authenticationHandler, draftRightHandler, contractHandler, draftHandler)
+		authenticationHandler, draftRightHandler, contractHandler, draftHandler, tradeProposalHandler, tradeHandler)
 }

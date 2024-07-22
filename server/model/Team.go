@@ -27,13 +27,13 @@ func NewTeam(idTeam int64, nazTeam string, godOsnTeam string, lokTeam string) (*
 
 func (team *Team) Validate() error {
 	if team.NazTim == "" {
-		return errors.New("team name was not set")
+		return errors.New("name field was not set")
 	}
 	if team.LokTim == "" {
-		return errors.New("team location was not set")
+		return errors.New("location field was not set")
 	}
 	if len(team.GodOsnTim) != 4 {
-		return errors.New("foundation date must have at least 4 digits")
+		return errors.New("foundation date field must have at least 4 digits")
 	}
 	return nil
 }
