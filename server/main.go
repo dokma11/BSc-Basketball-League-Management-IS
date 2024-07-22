@@ -26,7 +26,8 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	recruitHandler *handler.RecruitHandler, playerHandler *handler.PlayerHandler, employeeHandler *handler.EmployeeHandler,
 	authenticationHandler *handler.AuthenticationHandler, draftRightHandler *handler.DraftRightHandler,
 	contractHandler *handler.ContractHandler, draftHandler *handler.DraftHandler, tradeProposalHandler *handler.TradeProposalHandler,
-	tradeHandler *handler.TradeHandler, trainingHandler *handler.TrainingHandler, trainingRequestHandler *handler.TrainingRequestHandler) {
+	tradeHandler *handler.TradeHandler, trainingHandler *handler.TrainingHandler, trainingRequestHandler *handler.TrainingRequestHandler,
+	interviewHandler *handler.InterviewHandler, interviewRequestHandler *handler.InterviewRequestHandler) {
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.HandleFunc("/team", teamHandler.GetAll).Methods("GET")
@@ -85,6 +86,18 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	router.HandleFunc("/trainingRequest/receiver/{userId}", trainingRequestHandler.GetAllByReceiverID).Methods("GET")
 	router.HandleFunc("/trainingRequest", trainingRequestHandler.Create).Methods("POST")
 	router.HandleFunc("/trainingRequest", trainingRequestHandler.Update).Methods("PUT")
+
+	router.HandleFunc("/interview", interviewHandler.GetAll).Methods("GET")
+	router.HandleFunc("/interview/{id}", interviewHandler.GetByID).Methods("GET")
+	router.HandleFunc("/interview/{userId}", interviewHandler.GetAllByUserID).Methods("GET")
+	router.HandleFunc("/interview", interviewHandler.Create).Methods("POST")
+
+	router.HandleFunc("/interviewRequest", interviewRequestHandler.GetAll).Methods("GET")
+	router.HandleFunc("/interviewRequest/{id}", interviewRequestHandler.GetByID).Methods("GET")
+	router.HandleFunc("/interviewRequest/sender/{userId}", interviewRequestHandler.GetAllBySenderID).Methods("GET")
+	router.HandleFunc("/interviewRequest/receiver/{userId}", interviewRequestHandler.GetAllByReceiverID).Methods("GET")
+	router.HandleFunc("/interviewRequest", interviewRequestHandler.Create).Methods("POST")
+	router.HandleFunc("/interviewRequest", interviewRequestHandler.Update).Methods("PUT")
 
 	corsAllowedOrigins := handlers.AllowedOrigins([]string{"*"})
 	corsAllowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
@@ -152,7 +165,15 @@ func main() {
 	trainingRequestService := service.NewTrainingRequestService(trainingRequestRepository)
 	trainingRequestHandler := handler.NewTrainingRequestHandler(trainingRequestService)
 
+	interviewRepository := impl.NewInterviewRepository(&db)
+	interviewService := service.NewInterviewService(interviewRepository)
+	interviewHandler := handler.NewInterviewHandler(interviewService)
+
+	interviewRequestRepository := impl.NewInterviewRequestRepository(&db)
+	interviewRequestService := service.NewInterviewRequestService(interviewRequestRepository)
+	interviewRequestHandler := handler.NewInterviewRequestHandler(interviewRequestService)
+
 	startServer(teamHandler, pickHandler, userHandler, recruitHandler, playerHandler, employeeHandler,
 		authenticationHandler, draftRightHandler, contractHandler, draftHandler, tradeProposalHandler, tradeHandler,
-		trainingHandler, trainingRequestHandler)
+		trainingHandler, trainingRequestHandler, interviewHandler, interviewRequestHandler)
 }

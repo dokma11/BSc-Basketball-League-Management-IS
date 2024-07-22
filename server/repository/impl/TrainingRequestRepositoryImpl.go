@@ -108,17 +108,17 @@ func (repo *trainingRequestRepository) Create(trainingRequest *model.TrainingReq
 		"VALUES (:1, :2, :3, :4, :5)", trainingRequest.IdPozTrng, trainingRequest.DatVrePozTrng, trainingRequest.MesOdrPozTrng,
 		trainingRequest.StatusPozTrng, trainingRequest.RazOdbPozTrng)
 	if err != nil {
-		return fmt.Errorf("failed to create a TrainingRequest: %v", err)
+		return fmt.Errorf("failed to create a training request: %v", err)
 	}
 	return nil
 }
 
-func (r *trainingRequestRepository) Update(trainingRequest *model.TrainingRequest) error {
-	_, err := r.db.Exec("UPDATE POZIV_NA_TRENING SET DATVREPOZTRNG = :1, MESODRPOZTRNG = :2, STATUSPOZTRNG = :3,"+
+func (repo *trainingRequestRepository) Update(trainingRequest *model.TrainingRequest) error {
+	_, err := repo.db.Exec("UPDATE POZIV_NA_TRENING SET DATVREPOZTRNG = :1, MESODRPOZTRNG = :2, STATUSPOZTRNG = :3,"+
 		" RAZODBPOZTRNG = :4 WHERE IDPOZTRNG = :5", trainingRequest.DatVrePozTrng, trainingRequest.MesOdrPozTrng,
 		trainingRequest.StatusPozTrng, trainingRequest.RazOdbPozTrng, trainingRequest.IdPozTrng)
 	if err != nil {
-		return fmt.Errorf("failed to update tim: %v", err)
+		return fmt.Errorf("failed to update training request: %v", err)
 	}
 	return nil
 }
