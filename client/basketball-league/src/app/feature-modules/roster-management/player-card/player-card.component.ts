@@ -5,6 +5,9 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AddPlayerToListPromptComponent } from '../add-player-to-list-prompt/add-player-to-list-prompt.component';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { RosterService } from '../roster.service';
+import { Igrac } from '../model/igrac.model';
+import { Team } from 'src/app/shared/model/team.model';
 
 @Component({
   selector: 'app-player-card',
@@ -44,8 +47,11 @@ export class PlayerCardComponent implements OnInit{
   user: User | undefined;
   @Output() dialogRefClosed: EventEmitter<any> = new EventEmitter<any>();
 
+  timovi: Team[] = [];
+
   constructor(private dialog: MatDialog,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private rosterService: RosterService) {
     this.authService.user$.subscribe(user => {
       this.user = user;
     });
@@ -68,6 +74,7 @@ export class PlayerCardComponent implements OnInit{
   //   });
 
   //   this.exhibitionsString = this.exhibitionsString.slice(0, -2);
+
   }
 
   addToWishlistButtonClicked(player: any){
@@ -78,6 +85,7 @@ export class PlayerCardComponent implements OnInit{
     this.dialogRef = this.dialog.open(AddPlayerToListPromptComponent, {
       data: 'wishlist'
     });
+
   }
 
   addToUntouchablesListButtonClicked(player: any){
@@ -88,6 +96,26 @@ export class PlayerCardComponent implements OnInit{
     this.dialogRef = this.dialog.open(AddPlayerToListPromptComponent, {
       data: 'untouchable list'
     });
+
+    // Cisto proba da vidim da li je dobro povezano
+    this.rosterService.getAllTeams().subscribe({
+      next: (result: Team[] | Team) => {
+        console.log('Usao u next')
+        if(Array.isArray(result)){
+          console.log('Usao u if')
+          this.timovi = result;
+          console.log(this.timovi);
+
+          for (let i = 0; i < this.timovi.length; i++) {
+            console.log('id: ' + this.timovi[i].idTim);
+            console.log('lokacija: ' + this.timovi[i].lokTim);
+            console.log('naziv: ' + this.timovi[i].nazTim);
+            console.log('godosn: ' + this.timovi[i].godOsnTim);
+          }
+        }
+        console.log('nesto')
+      }
+    })
   }
   
   addToTradeListButtonClicked(player: any){

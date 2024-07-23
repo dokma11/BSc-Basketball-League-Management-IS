@@ -5,9 +5,9 @@ import "errors"
 // Team Obratiti paznju na one liste neophodne
 type Team struct {
 	IdTim     int64  `json:"idTim"`
-	NazTim    string `json:"nazTim"`
-	GodOsnTim string `json:"godOsnTim"`
-	LokTim    string `json:"lokTim"`
+	NazTim    string `json:"nazTim"`    // Name
+	GodOsnTim string `json:"godOsnTim"` // Establishment year
+	LokTim    string `json:"lokTim"`    // Location
 }
 
 func NewTeam(idTeam int64, nazTeam string, godOsnTeam string, lokTeam string) (*Team, error) {
