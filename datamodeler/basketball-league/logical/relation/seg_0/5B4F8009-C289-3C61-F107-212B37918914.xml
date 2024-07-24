@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="DefinisanoTipom" directorySegmentName="seg_0" id="5B4F8009-C289-3C61-F107-212B37918914">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:51:09 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<sourcePk>AAE5CF24-182D-6F8F-B808-C4A1C17D97AF</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>C5A5DF7F-6FF8-5BE0-939E-6638E5D12102</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>8F2122C6-5898-DF2B-BBE7-B67ECB6ABFC2</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

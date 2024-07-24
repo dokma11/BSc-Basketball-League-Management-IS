@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="MozeBiti" directorySegmentName="seg_0" id="CEFE4145-1E1D-94D4-1B1E-A71D361C605A">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:47:55 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<sourcePk>E5BD9777-A93C-A8D1-D160-F936127A6DA8</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>AB002F0D-836B-C108-60CC-07BBB9FBD25C</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>525DE1C5-E8B1-AEB0-6ABE-6C0164C1B9A0</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

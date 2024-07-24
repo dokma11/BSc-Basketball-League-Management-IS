@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Dobija" directorySegmentName="seg_0" id="59EB7D3F-EE8A-6F5F-4792-4A1EEED90E47">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 14:58:19 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<sourcePk>9D0C8D82-9C87-2028-96EA-4F503D73F8C6</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>B5DE9037-36C0-7F81-6F6D-ACACE41E3AD3</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>1DD77CD9-DF65-EAA5-780F-1B83AB6CFBDE</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

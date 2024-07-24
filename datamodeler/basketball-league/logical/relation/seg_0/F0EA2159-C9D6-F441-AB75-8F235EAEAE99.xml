@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="JeTipa" directorySegmentName="seg_0" id="F0EA2159-C9D6-F441-AB75-8F235EAEAE99">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 14:55:28 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<sourcePk>A181DDC3-DB86-1960-772D-1C3503B0436C</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>473B81F7-24DE-1D3E-570A-2F3A8B331BBD</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>AD721176-20AB-C7B1-D7D8-CD0D7A291673</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

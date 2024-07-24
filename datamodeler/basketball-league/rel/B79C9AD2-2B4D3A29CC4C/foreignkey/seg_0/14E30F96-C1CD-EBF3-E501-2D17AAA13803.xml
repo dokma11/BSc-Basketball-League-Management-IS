@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="14E30F96-C1CD-EBF3-E501-2D17AAA13803" containerWithKeyObject="BFE6DEA8-0309-A50D-5A09-3762EC824FB5" localFKIndex="02EB9152-60D8-627A-81B8-653593247ECE" name="Pik_Menadzer_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>DC7F631C-771A-62D5-7CE5-F37B74CB7FEE</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<referredTableLongName>Menadzer</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>642BB1A6-E8EF-F266-7FF2-D16FE6A302E8</referredTableID>
+<keyObject>12AC69DE-E00E-A7E6-A431-39D1B2A6A37D</keyObject>
+<referredKeyID>12AC69DE-E00E-A7E6-A431-39D1B2A6A37D</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>Id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>
