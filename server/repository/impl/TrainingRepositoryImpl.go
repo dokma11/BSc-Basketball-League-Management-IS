@@ -27,7 +27,7 @@ func (repo *trainingRepository) GetAll() ([]model.Training, error) {
 	for rows.Next() {
 		var training model.Training
 		if err := rows.Scan(&training.IdTrng, &training.TrajTrng, &training.DatVreTrng, &training.MesOdrTrng,
-			&training.BelesTrng); err != nil {
+			&training.BelesTrng, &training.IdTipTrng, &training.IdPozTrng); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 		trainings = append(trainings, training)
@@ -44,7 +44,7 @@ func (repo *trainingRepository) GetByID(id int) (*model.Training, error) {
 	var training model.Training
 	row := repo.db.QueryRow("SELECT * FROM TRENING WHERE IDTRNG = :1", id)
 	if err := row.Scan(&training.IdTrng, &training.TrajTrng, &training.DatVreTrng, &training.MesOdrTrng,
-		&training.BelesTrng); err != nil {
+		&training.BelesTrng, &training.IdTipTrng, &training.IdPozTrng); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
@@ -65,7 +65,7 @@ func (repo *trainingRepository) GetAllByUserID(userID int) ([]model.Training, er
 	for rows.Next() {
 		var training model.Training
 		if err := rows.Scan(&training.IdTrng, &training.TrajTrng, &training.DatVreTrng, &training.MesOdrTrng,
-			&training.BelesTrng); err != nil {
+			&training.BelesTrng, &training.IdTipTrng, &training.IdPozTrng); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 		trainings = append(trainings, training)
@@ -79,9 +79,9 @@ func (repo *trainingRepository) GetAllByUserID(userID int) ([]model.Training, er
 }
 
 func (repo *trainingRepository) Create(training *model.Training) error {
-	_, err := repo.db.Exec("INSERT INTO TRENING (IDTRNG, TRAJTRNG, DATVRETRNG, MESODTRNG, BELESTRNG) "+
-		"VALUES (:1, :2, :3, :4, :5)", training.IdTrng, training.TrajTrng, training.DatVreTrng,
-		training.MesOdrTrng, training.BelesTrng)
+	_, err := repo.db.Exec("INSERT INTO TRENING (IDTRNG, TRAJTRNG, DATVRETRNG, MESODTRNG, BELESTRNG, IDTIPTRNG, "+
+		"IDPOZTRNG) VALUES (:1, :2, :3, :4, :5, :6, :7)", training.IdTrng, training.TrajTrng, training.DatVreTrng,
+		training.MesOdrTrng, training.BelesTrng, training.IdTipTrng, training.IdPozTrng)
 	if err != nil {
 		return fmt.Errorf("failed to create a training: %v", err)
 	}

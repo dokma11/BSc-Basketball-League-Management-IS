@@ -19,6 +19,8 @@ type Contract struct {
 	DatVazUgo time.Time      `json:"datVazUgo"` // Expiration date
 	VredUgo   string         `json:"vredUgo"`   // Value (in millions)
 	OpcUgo    ContractOption `json:"opcUgo"`
+	IdTim     int64          `json:"idTim"`    // Team foreign key
+	IdTipUgo  int64          `json:"idTipUgo"` // Contract type foreign key
 }
 
 func NewContract(idUgo int64, datPotUgo time.Time, datVazUgo time.Time, vredUgo string, opcUgo ContractOption) (*Contract, error) {

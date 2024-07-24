@@ -5,6 +5,7 @@ import (
 	"basketball-league-server/repository/impl"
 	"basketball-league-server/service"
 	"database/sql"
+	"fmt"
 	_ "github.com/godror/godror"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -19,6 +20,7 @@ func initDB() sql.DB {
 		log.Fatalf("Failed to open a connection: %v", err)
 	}
 	defer db.Close()
+	fmt.Println("Connected to DB")
 	return *db
 }
 

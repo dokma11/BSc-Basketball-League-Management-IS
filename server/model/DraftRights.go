@@ -7,6 +7,9 @@ type DraftRight struct {
 	ImeIgrPrava      string   `json:"imeIgrPrava"`      // Name of the player included in the draft rights
 	PrezimeIgrPrava  string   `json:"prezimeIgrPrava"`  // Surname of the player included in the draft rights
 	PozicijaIgrPrava Pozicija `json:"pozicijaIgrPrava"` // Position of the player included in the draft rights
+	IdTim            int64    `json:"idTim"`            // Team foreign key (team that is in the possession of this)
+	IdRegrut         int64    `json:"idRegrut"`         // Recruit foreign key
+	IdPik            int64    `json:"idPik"`            // Pick foreign key (pick that was used to pick the recruit)
 }
 
 func NewDraftRight(idPrava int64, imeIgrPrava string, prezimeIgrPrava string, pozicijaIgrPrava Pozicija) (*DraftRight, error) {

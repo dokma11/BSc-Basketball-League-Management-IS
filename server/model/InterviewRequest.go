@@ -18,7 +18,9 @@ type InterviewRequest struct {
 	MesOdrPozInt string                 `json:"mesOdrPozInt"` // Occurrence location
 	DatVrePozInt time.Time              `json:"datVrePozInt"` // Occurrence date and time
 	StatusPozInt InterviewRequestStatus `json:"statusPozInt"`
-	RazOdbPozInt string                 `json:"razOdbPozInt"`
+	RazOdbPozInt string                 `json:"razOdbPozInt"` // Denial reason
+	IdRegrut     int64                  `json:"idRegrut"`     // Recruit foreign key
+	IdTrener     int64                  `json:"idTrenter"`    // Coach foreign key
 }
 
 func NewInterviewRequest(idInt int64, mesOdrPozInt string, datVrePozInt time.Time, statusPozInt InterviewRequestStatus,

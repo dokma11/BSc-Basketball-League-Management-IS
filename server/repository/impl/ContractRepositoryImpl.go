@@ -26,10 +26,20 @@ func (repo *contractRepository) GetAll() ([]model.Contract, error) {
 	var contracts []model.Contract
 	for rows.Next() {
 		var contract model.Contract
-		if err := rows.Scan(&contract.IdUgo, &contract.DatPotUgo, &contract.DatVazUgo,
-			&contract.VredUgo, &contract.OpcUgo); err != nil {
+		var option string
+		if err := rows.Scan(&contract.IdUgo, &contract.DatPotUgo, &contract.DatVazUgo, &contract.VredUgo,
+			&option, &contract.IdTim, &contract.IdTipUgo); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
+
+		if option == "PLAYER_OPTION" {
+			contract.OpcUgo = 0
+		} else if option == "TEAM_OPTION" {
+			contract.OpcUgo = 1
+		} else if option == "NO_OPTION" {
+			contract.OpcUgo = 2
+		}
+
 		contracts = append(contracts, contract)
 	}
 
@@ -42,13 +52,22 @@ func (repo *contractRepository) GetAll() ([]model.Contract, error) {
 
 func (repo *contractRepository) GetByID(id int) (*model.Contract, error) {
 	var contract model.Contract
+	var option string
 	row := repo.db.QueryRow("SELECT * FROM UGOVOR WHERE IDUGO = :1", id)
-	if err := row.Scan(&contract.IdUgo, &contract.DatPotUgo, &contract.DatVazUgo,
-		&contract.VredUgo, &contract.OpcUgo); err != nil {
+	if err := row.Scan(&contract.IdUgo, &contract.DatPotUgo, &contract.DatVazUgo, &contract.VredUgo,
+		&option, &contract.IdTim, &contract.IdTipUgo); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
+	}
+
+	if option == "PLAYER_OPTION" {
+		contract.OpcUgo = 0
+	} else if option == "TEAM_OPTION" {
+		contract.OpcUgo = 1
+	} else if option == "NO_OPTION" {
+		contract.OpcUgo = 2
 	}
 
 	return &contract, nil

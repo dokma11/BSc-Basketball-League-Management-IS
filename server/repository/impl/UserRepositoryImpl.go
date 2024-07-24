@@ -17,8 +17,9 @@ func NewUserRepository(db *sql.DB) repository.UserRepository {
 }
 
 func (repo *userRepository) GetAll() ([]model.User, error) {
-	rows, err := repo.db.Query("SELECT * FROM User")
+	rows, err := repo.db.Query("SELECT * FROM KORISNIK")
 	if err != nil {
+		fmt.Println(err)
 		return nil, fmt.Errorf("failed to query all users: %v", err)
 	}
 	defer rows.Close()
@@ -26,13 +27,23 @@ func (repo *userRepository) GetAll() ([]model.User, error) {
 	var users []model.User
 	for rows.Next() {
 		var user model.User
-		if err := rows.Scan(&user.Id, &user.Ime, &user.Prezime, &user.Email, &user.DatRodj, &user.Lozinka, &user.Uloga); err != nil {
+		var role string
+		if err := rows.Scan(&user.Id, &user.Email, &user.Ime, &user.Prezime, &user.DatRodj, &user.Lozinka, &role); err != nil {
+			fmt.Println(err)
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
+
+		if role == "Regrut" {
+			user.Uloga = 0
+		} else if role == "Zaposleni" {
+			user.Uloga = 1
+		}
+
 		users = append(users, user)
 	}
 
 	if err := rows.Err(); err != nil {
+		fmt.Println(err)
 		return nil, fmt.Errorf("row iteration error: %v", err)
 	}
 
@@ -41,24 +52,40 @@ func (repo *userRepository) GetAll() ([]model.User, error) {
 
 func (repo *userRepository) GetByID(id int) (*model.User, error) {
 	var user model.User
-	row := repo.db.QueryRow("SELECT * FROM User WHERE ID = :1", id)
-	if err := row.Scan(&user.Id, &user.Ime, &user.Prezime, &user.Email, &user.DatRodj, &user.Lozinka, &user.Uloga); err != nil {
+	var role string
+	row := repo.db.QueryRow("SELECT * FROM KORISNIK WHERE ID = :1", id)
+	if err := row.Scan(&user.Id, &user.Email, &user.Ime, &user.Prezime, &user.DatRodj, &user.Lozinka, &role); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
+
+	if role == "Regrut" {
+		user.Uloga = 0
+	} else if role == "Zaposleni" {
+		user.Uloga = 1
+	}
+
 	return &user, nil
 }
 
 func (repo *userRepository) GetByEmail(email string) (*model.User, error) {
 	var user model.User
-	row := repo.db.QueryRow("SELECT * FROM User WHERE EMAIL = :1", email)
-	if err := row.Scan(&user.Id, &user.Ime, &user.Prezime, &user.Email, &user.DatRodj, &user.Lozinka, &user.Uloga); err != nil {
+	var role string
+	row := repo.db.QueryRow("SELECT * FROM KORISNIK WHERE EMAIL = :1", email)
+	if err := row.Scan(&user.Id, &user.Email, &user.Ime, &user.Prezime, &user.DatRodj, &user.Lozinka, &role); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
+
+	if role == "Regrut" {
+		user.Uloga = 0
+	} else if role == "Zaposleni" {
+		user.Uloga = 1
+	}
+
 	return &user, nil
 }

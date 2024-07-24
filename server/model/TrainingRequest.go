@@ -19,6 +19,7 @@ type TrainingRequest struct {
 	MesOdrPozTrng string                `json:"mesOdrPozTrng"` // Occurrence location
 	StatusPozTrng TrainingRequestStatus `json:"statusPozTrng"`
 	RazOdbPozTrng string                `json:"razOdbPozTrng"` // Denial reason
+	IdTrener      int64                 `json:"idTrener"`      // Coach foreign key
 }
 
 func NewTrainingRequest(idPozTrng int64, datVrePozTrng time.Time, mesOdrPozTrng string, statusPozTrng TrainingRequestStatus,

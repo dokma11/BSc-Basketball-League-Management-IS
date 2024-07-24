@@ -10,6 +10,8 @@ type Interview struct {
 	MesOdrInt string    `json:"mesOdrInt"` // Occurrence location
 	DatVreInt time.Time `json:"datVreInt"` // Occurrence date and time
 	BelesInt  string    `json:"belesInt"`  // Notes taken from interview
+	IdPozInt  int64     `json:"idPozInt"`  // Interview request foreign key
+	IdRegrut  int64     `json:"idRegrut"`  // Recruit foreign key
 }
 
 func NewInterview(idInt int64, mesOdrInt string, datVreInt time.Time, belesInt string) (*Interview, error) {

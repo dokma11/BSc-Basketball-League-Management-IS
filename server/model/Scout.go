@@ -39,3 +39,10 @@ func (s *Scout) Validate() error {
 
 	return nil
 }
+
+// Oversees Gerund
+type Oversees struct {
+	IdSkaut int64 `json:"idSkaut"`
+	IdReg   int64 `json:"idReg"`
+	IdTrng  int64 `json:"idTrng"`
+}
