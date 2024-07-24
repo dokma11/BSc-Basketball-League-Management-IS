@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKArc class="oracle.dbtools.crest.model.design.relational.FKArc" directorySegmentName="seg_0" id="324E9743-DB41-531A-C9A1-90BB7157C58A" name="FKArc_2">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<mandatory>true</mandatory>
+<reverseArc>true</reverseArc>
+<table>4F8DA7C8-A500-BD5E-7C71-ABA574D2A3C0</table>
+<fkeys>
+<fkeyID>7EF6234F-0F1B-F657-9B96-111D31C0E538</fkeyID>
+<fkeyID>B63E2C2D-43E1-AD6C-D6F9-3F83E6CE5862</fkeyID>
+</fkeys>
+</FKArc>

@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="BF119ABD-5B64-1C6A-F2B7-97F21970F07C" name="Igrac">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>B2FC9F65-0FE5-C689-4157-FD98C3C9C2CF</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Id" id="25E6F95F-4CB1-B622-EAE9-CA12F9F9EB15">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>B829AB3A-B06E-88B7-55D5-3AB46479680F</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9D3A6715-78FF-E5E9-8A70-07509042925D" referredColumn="6BFEEFFE-33B3-9FE8-0799-CD2D116A7248"/>
+</associations>
+</Column>
+<Column name="VisIgr" id="485CE087-A065-66F5-25B3-86D1DF6DEE36">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>FC979CE5-3BF2-F7C8-0DCD-A07E7DBE7F5C</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>6 CHAR</dataTypeSize>
+<ownDataTypeParameters>6 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TezIgr" id="F1102627-8F25-236A-6CAD-E4FB2951110B">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>06DDAD50-E425-E8D9-5783-D052502A42F0</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>6 CHAR</dataTypeSize>
+<ownDataTypeParameters>6 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PozIgr" id="32A18205-DE25-A5FB-3681-5A454054C5A7">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>FEECAF8C-C29E-1855-789C-0DC1CE643B56</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>F8A605CE-6BF2-6C6D-6DA3-8DB8F250F761</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="36300CA8-111B-3CA3-C38A-DC6B07A22A5C" name="Igrac_PK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>3CA6F0A0-5C30-755A-F7CE-DF45CC769EEA</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="25E6F95F-4CB1-B622-EAE9-CA12F9F9EB15"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7D6A9C35-1985-07E1-7528-C613F4E899BF" name="Igrac_Zaposleni_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>3FE8F438-64F2-B979-E748-9C8AD7899406</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="25E6F95F-4CB1-B622-EAE9-CA12F9F9EB15"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

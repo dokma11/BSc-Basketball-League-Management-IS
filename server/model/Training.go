@@ -11,6 +11,8 @@ type Training struct {
 	DatVreTrng time.Time `json:"datVreTrng"` // Occurrence date and time
 	MesOdrTrng string    `json:"mesOdrTrng"` // Occurrence location
 	BelesTrng  string    `json:"belesTrng"`  // Notes from training
+	IdTipTrng  int64     `json:"idTipTrng"`  // Training type foreign key
+	IdPozTrng  int64     `json:"idPozTrng"`  // Training Request foreign key
 }
 
 func NewTraining(idTrng int64, trajTrng string, datVreTrng time.Time, mesOdrTrng string, belesTrng string) (*Training, error) {

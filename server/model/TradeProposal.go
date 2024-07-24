@@ -23,11 +23,13 @@ const (
 )
 
 type TradeProposal struct {
-	IdZahTrg     int64               `json:"idZahTrg"`
-	DatZahTrg    time.Time           `json:"datZahTrg"` // Date of creation
-	TipZahTrg    TradeType           `json:"tipZahTrg"`
-	StatusZahTrg TradeProposalStatus `json:"statusZahTrg"`
-	RazlogOdbij  string              `json:"razlogOdbij"` // Reason for declining if declined
+	IdZahTrg       int64               `json:"idZahTrg"`
+	DatZahTrg      time.Time           `json:"datZahTrg"` // Date of creation
+	TipZahTrg      TradeType           `json:"tipZahTrg"`
+	StatusZahTrg   TradeProposalStatus `json:"statusZahTrg"`
+	RazlogOdbij    string              `json:"razlogOdbij"`    // Reason for declining if declined
+	IdMenadzerPos  int64               `json:"idMenadzerPos"`  // Sender foreign key
+	IdMenadzerPrim int64               `json:"idMenadzerPrim"` // Receiver foreign key
 }
 
 func NewTradeProposal(idZahTrg int64, datZahTrg time.Time, tipZahTrg TradeType, statusZahTrg TradeProposalStatus,

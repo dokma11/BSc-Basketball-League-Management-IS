@@ -1,0 +1,74 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0AB24D52-C625-552E-D0BF-30E088D4959B" name="Trener">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>EF7F3D47-7E10-D35F-8343-3E2955A58E06</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Id" id="26146AD7-7B0B-A894-B41E-1E83C337CF2D">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>B829AB3A-B06E-88B7-55D5-3AB46479680F</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="500CED9D-47DB-11B2-E993-65C2D0F088F2" referredColumn="6BFEEFFE-33B3-9FE8-0799-CD2D116A7248"/>
+</associations>
+</Column>
+<Column name="GodIskTrener" id="51C2DDED-6460-E4B8-47F3-3FC164C035A3">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>C03865D8-8983-FB26-CF42-FF124A6D457A</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>2 CHAR</dataTypeSize>
+<ownDataTypeParameters>2 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SpecTrener" id="83BD6720-23FC-8E92-8B20-66019C8E6B61">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>67B5B1B5-03BA-67E8-7C28-73B5E7E95D07</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>2DD00677-F9E5-44EB-C1EB-B907FD5FD5D6</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B811B31D-7C7C-0DDE-122D-540C2BEBA103" name="Trener_PK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>3CA6F0A0-5C30-755A-F7CE-DF45CC769EEA</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="26146AD7-7B0B-A894-B41E-1E83C337CF2D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4D9F5B2B-3D2C-B4D3-4BD1-3724B401DDC8" name="Trener_Zaposleni_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>7FC2284B-FD3C-6EF7-56CF-4BE394AC1B3A</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="26146AD7-7B0B-A894-B41E-1E83C337CF2D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

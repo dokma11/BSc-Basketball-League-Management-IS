@@ -8,16 +8,16 @@ import (
 type Recruit struct {
 	User
 	KonTelefonReg string   `json:"konTelefonReg"`
-	MesRodjReg    string   `json:"mesRodjReg"`
 	VisReg        string   `json:"visReg"`
 	TezReg        string   `json:"tezReg"`
 	PozReg        Pozicija `json:"pozReg"`
 	ProsRankReg   string   `json:"prosRankReg"`
 	ProsOcReg     string   `json:"prosOcReg"`
+	IdDraft       int64    `json:"idDraft"`
 }
 
 func NewRecruit(id int64, email string, ime string, prezime string, datRodj time.Time,
-	lozinka string, uloga Uloga, konTelefonReg string, mesRodjReg string, visReg string,
+	lozinka string, uloga Uloga, konTelefonReg string, visReg string,
 	tezReg string, pozReg Pozicija, prosRankReg string, prosOcReg string) (*Recruit, error) {
 	recruit := &Recruit{
 		User: User{
@@ -30,7 +30,6 @@ func NewRecruit(id int64, email string, ime string, prezime string, datRodj time
 			Uloga:   uloga,
 		},
 		KonTelefonReg: konTelefonReg,
-		MesRodjReg:    mesRodjReg,
 		VisReg:        visReg,
 		TezReg:        tezReg,
 		PozReg:        pozReg,
@@ -53,9 +52,6 @@ func (r *Recruit) Validate() error {
 	if r.KonTelefonReg == "" {
 		return errors.New("phone number field is empty")
 	}
-	if r.MesRodjReg == "" {
-		return errors.New("birth place field is empty")
-	}
 	if r.VisReg == "" {
 		return errors.New("height field is empty")
 	}
@@ -71,6 +67,5 @@ func (r *Recruit) Validate() error {
 	if r.ProsOcReg == "" {
 		return errors.New("average grade field is empty")
 	}
-
 	return nil
 }

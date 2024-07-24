@@ -2,15 +2,27 @@ package model
 
 import "errors"
 
+type TradeSubjectType int
+
+const (
+	Igrac         TradeSubjectType = iota // Player
+	Pik                                   // Pick
+	PravaNaIgraca                         // Draft Rights
+)
+
 type TradeSubject struct {
-	IdPredTrg     int64  `json:"idPredTrg"`
-	KomentPredTrg string `json:"komentPredTrg"` // Comment about the trade subject
+	IdPredTrg  int64            `json:"idPredTrg"`
+	TipPredTrg TradeSubjectType `json:"tipPredTrg"`
+	IdPrava    int64            `json:"idPrava"`  // Draft Rights foreign key
+	IdIgrac    int64            `json:"idIgrac"`  // Player foreign key
+	IdZahTrg   int64            `json:"idZahTrg"` // Trade Request foreign key
+	IdPik      int64            `json:"idPik"`    // Pick foreign key
 }
 
-func NewTradeSubject(idPredTrg int64, komentPredTrg string) (*TradeSubject, error) {
+func NewTradeSubject(idPredTrg int64, tipPredTrg TradeSubjectType) (*TradeSubject, error) {
 	tradeSubject := &TradeSubject{
-		IdPredTrg:     idPredTrg,
-		KomentPredTrg: komentPredTrg,
+		IdPredTrg:  idPredTrg,
+		TipPredTrg: tipPredTrg,
 	}
 
 	if err := tradeSubject.Validate(); err != nil {
@@ -21,8 +33,8 @@ func NewTradeSubject(idPredTrg int64, komentPredTrg string) (*TradeSubject, erro
 }
 
 func (t *TradeSubject) Validate() error {
-	if t.KomentPredTrg == "" {
-		return errors.New("comment field is invalid")
+	if t.TipPredTrg < 0 || t.TipPredTrg > 2 {
+		return errors.New("trade subject type field is invalid")
 	}
 	return nil
 }

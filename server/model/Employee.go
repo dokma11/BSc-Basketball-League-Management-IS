@@ -18,6 +18,7 @@ type Employee struct {
 	User
 	UloZap UlogaZaposlenog `json:"uloZap"`
 	MbrZap string          `json:"mbrZap"`
+	IdUgo  int64           `json:"idUgo"` // Contract foreign key
 }
 
 func NewEmployee(id int64, email string, ime string, prezime string, datRodj time.Time,

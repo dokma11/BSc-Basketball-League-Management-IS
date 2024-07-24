@@ -1,0 +1,61 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="CB84AC04-D0B0-FF2B-79C3-0553CB50A501" name="Zaposleni">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 15:01:55 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<hierarchicalParent>3CC3E915-6486-E3B7-C204-5BDCCDC470B1</hierarchicalParent>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<discriminatorAttributeID>225AA448-1F74-019B-D7A8-F9229715382C</discriminatorAttributeID>
+<completeSubtypes>true</completeSubtypes>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="UloZap" id="225AA448-1F74-019B-D7A8-F9229715382C">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 15:02:04 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>6E6E6420-1ED1-EF86-12DF-5804AE15C80D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="MbrZap" id="14029CE6-FA29-E19B-DB0A-FCBC67B88A28">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 15:02:12 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>32 CHAR</dataTypeSize>
+<ownDataTypeParameters>32 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="IdUgo" id="955FCAFC-4907-5F9B-05AB-407C31F56CF2">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 15:08:22 UTC</createdTime>
+<generatorID>9F30A3D6-4D97-C028-05D8-41FFB75E826F</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<referedAttribute>73DB4B66-2097-08C4-A45E-54BB3A284ECE</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+</Entity>

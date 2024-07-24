@@ -5,14 +5,22 @@ import (
 	"time"
 )
 
+type CoachSpecialization int
+
+const (
+	OFFENSE CoachSpecialization = iota
+	DEFENSE
+	PLAYER_MANAGEMENT
+)
+
 type Coach struct {
 	Employee
-	GodIskTrener string `json:"godIskTrener"`
-	SpecTrener   string `json:"specTrener"`
+	GodIskTrener string              `json:"godIskTrener"`
+	SpecTrener   CoachSpecialization `json:"specTrener"`
 }
 
 func NewCoach(id int64, email string, ime string, prezime string, datRodj time.Time, lozinka string, uloga Uloga,
-	ulogaZaposlenog UlogaZaposlenog, mbrZap string, godIskTrener string, specTrener string) (*Coach, error) {
+	ulogaZaposlenog UlogaZaposlenog, mbrZap string, godIskTrener string, specTrener CoachSpecialization) (*Coach, error) {
 	coach := &Coach{
 		Employee: Employee{
 			User: User{
@@ -46,8 +54,8 @@ func (c *Coach) Validate() error {
 	if c.GodIskTrener == "" {
 		return errors.New("years of experience field is empty")
 	}
-	if c.SpecTrener == "" {
-		return errors.New("specialization field is empty")
+	if c.SpecTrener < 0 || c.SpecTrener > 2 {
+		return errors.New("specialization field is invalid")
 	}
 
 	return nil

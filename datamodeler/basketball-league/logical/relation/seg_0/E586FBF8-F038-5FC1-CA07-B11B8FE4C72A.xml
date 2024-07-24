@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Saziva" directorySegmentName="seg_0" id="E586FBF8-F038-5FC1-CA07-B11B8FE4C72A">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 15:33:43 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<sourcePk>1E370649-73CA-2359-F843-B676934C129D</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>ACE34664-A6FF-AD1E-EA88-2826234B0801</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>CA4C265B-0D8D-A4A1-3CE7-857972D9C373</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

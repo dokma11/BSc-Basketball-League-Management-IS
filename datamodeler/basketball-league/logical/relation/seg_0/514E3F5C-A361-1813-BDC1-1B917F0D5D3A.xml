@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Odgovara" directorySegmentName="seg_0" id="514E3F5C-A361-1813-BDC1-1B917F0D5D3A">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:44:11 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<sourcePk>8F2108C0-5CDA-B881-5F1B-A6251450494C</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>D7E94249-7C11-D44F-B8D6-F2A7360AF068</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>C16C07F1-5401-A7AD-273F-933960A37A47</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

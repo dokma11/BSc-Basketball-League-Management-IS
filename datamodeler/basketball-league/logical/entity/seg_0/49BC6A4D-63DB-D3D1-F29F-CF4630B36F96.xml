@@ -1,0 +1,62 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="49BC6A4D-63DB-D3D1-F29F-CF4630B36F96" name="Bira">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 15:55:57 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="IdRegrut" id="29EAAF5B-B06C-B6CD-7B99-985316FF9669">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:14:56 UTC</createdTime>
+<generatorID>3ABF7FCA-1CFF-57C4-6551-4C30E59678C8</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<referedAttribute>B829AB3A-B06E-88B7-55D5-3AB46479680F</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="IdPik" id="71F3D286-B0D1-D5C8-15C4-E0EB90BCC20A">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:24:57 UTC</createdTime>
+<generatorID>8A510ECF-1FE5-776B-5078-3916FCE3240D</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<referedAttribute>96958B4B-98AA-48A4-65B5-371D2E1E0521</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="DC8C5E47-75CF-C373-7703-65CC5EC62D26" name="Bira PK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 15:56:19 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>29EAAF5B-B06C-B6CD-7B99-985316FF9669</attributeRef>
+<attributeRef>71F3D286-B0D1-D5C8-15C4-E0EB90BCC20A</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

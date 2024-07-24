@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Upravlja" directorySegmentName="seg_0" id="06D2C6F9-BD84-A9A3-1893-AE733F80F532">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 15:38:09 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>EBB5A266-CCD0-7796-B0BC-7835F2F42A47</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>7D086B7C-B16E-2B12-ECE2-6716877F6970</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

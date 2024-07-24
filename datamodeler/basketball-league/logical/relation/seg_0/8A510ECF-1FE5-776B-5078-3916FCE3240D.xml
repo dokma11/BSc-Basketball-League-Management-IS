@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="PikBira" directorySegmentName="seg_0" id="8A510ECF-1FE5-776B-5078-3916FCE3240D">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:24:57 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<sourcePk>F9709F3F-C23E-82EF-275A-4D208D2BA767</sourcePk>
+<identifying>true</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>4C8D0828-2FFC-DF8C-7D3F-3D066AC8EF2F</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>49BC6A4D-63DB-D3D1-F29F-CF4630B36F96</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

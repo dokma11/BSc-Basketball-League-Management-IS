@@ -17,7 +17,7 @@ func NewInterviewRepository(db *sql.DB) repository.InterviewRepository {
 }
 
 func (repo *interviewRepository) GetAll() ([]model.Interview, error) {
-	rows, err := repo.db.Query("SELECT * FROM INTERVJU") // proveriti naziv samo
+	rows, err := repo.db.Query("SELECT * FROM INTERVJU")
 	if err != nil {
 		return nil, fmt.Errorf("failed to query all interviews: %v", err)
 	}
@@ -26,7 +26,8 @@ func (repo *interviewRepository) GetAll() ([]model.Interview, error) {
 	var interviews []model.Interview
 	for rows.Next() {
 		var interview model.Interview
-		if err := rows.Scan(&interview.IdInt, &interview.MesOdrInt, &interview.DatVreInt, &interview.BelesInt); err != nil {
+		if err := rows.Scan(&interview.IdInt, &interview.MesOdrInt, &interview.DatVreInt, &interview.BelesInt,
+			&interview.IdPozInt, &interview.IdRegrut); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 		interviews = append(interviews, interview)
@@ -42,7 +43,8 @@ func (repo *interviewRepository) GetAll() ([]model.Interview, error) {
 func (repo *interviewRepository) GetByID(id int) (*model.Interview, error) {
 	var interview model.Interview
 	row := repo.db.QueryRow("SELECT * FROM INTERVJU WHERE IDINT = :1", id)
-	if err := row.Scan(&interview.IdInt, &interview.MesOdrInt, &interview.DatVreInt, &interview.BelesInt); err != nil {
+	if err := row.Scan(&interview.IdInt, &interview.MesOdrInt, &interview.DatVreInt, &interview.BelesInt,
+		&interview.IdPozInt, &interview.IdRegrut); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
@@ -52,8 +54,7 @@ func (repo *interviewRepository) GetByID(id int) (*model.Interview, error) {
 }
 
 func (repo *interviewRepository) GetAllByUserID(userID int) ([]model.Interview, error) {
-	// TODO: Implementirati ovu metodu kada se spoji sve kako treba (za sada je samo kao GetAll())
-	rows, err := repo.db.Query("SELECT * FROM INTERVJU") // ovde treba dodati idTima
+	rows, err := repo.db.Query("SELECT * FROM INTERVJU WHERE IDREGRUT = :1", userID)
 	if err != nil {
 		return nil, fmt.Errorf("failed to query all interviews: %v", err)
 	}
@@ -62,7 +63,8 @@ func (repo *interviewRepository) GetAllByUserID(userID int) ([]model.Interview, 
 	var interviews []model.Interview
 	for rows.Next() {
 		var interview model.Interview
-		if err := rows.Scan(&interview.IdInt, &interview.MesOdrInt, &interview.DatVreInt, &interview.BelesInt); err != nil {
+		if err := rows.Scan(&interview.IdInt, &interview.MesOdrInt, &interview.DatVreInt, &interview.BelesInt,
+			&interview.IdPozInt, &interview.IdRegrut); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 		interviews = append(interviews, interview)
@@ -76,8 +78,9 @@ func (repo *interviewRepository) GetAllByUserID(userID int) ([]model.Interview, 
 }
 
 func (repo *interviewRepository) Create(interview *model.Interview) error {
-	_, err := repo.db.Exec("INSERT INTO INTERVJU (IDINT, MESODRINT, DATVREINT, BELESINT) "+
-		"VALUES (:1, :2, :3, :4, :5)", interview.IdInt, interview.MesOdrInt, interview.DatVreInt, interview.BelesInt)
+	_, err := repo.db.Exec("INSERT INTO INTERVJU (IDINT, MESODRINT, DATVREINT, BELESINT, IDPOZINT, IDREGRUT) "+
+		"VALUES (:1, :2, :3, :4, :5, :6)", interview.IdInt, interview.MesOdrInt, interview.DatVreInt, interview.BelesInt,
+		interview.IdPozInt, interview.IdRegrut)
 	if err != nil {
 		return fmt.Errorf("failed to create a interview: %v", err)
 	}

@@ -17,7 +17,7 @@ func NewTradeRepository(db *sql.DB) repository.TradeRepository {
 }
 
 func (repo *tradeRepository) GetAll() ([]model.Trade, error) {
-	rows, err := repo.db.Query("SELECT * FROM TRGOVINA") // proveriti naziv samo
+	rows, err := repo.db.Query("SELECT * FROM TRGOVINA")
 	if err != nil {
 		return nil, fmt.Errorf("failed to query all trades: %v", err)
 	}
@@ -26,9 +26,19 @@ func (repo *tradeRepository) GetAll() ([]model.Trade, error) {
 	var trades []model.Trade
 	for rows.Next() {
 		var trade model.Trade
-		if err := rows.Scan(&trade.IdTrg, &trade.DatTrg, &trade.TipTrg); err != nil {
+		var tradeType string
+		if err := rows.Scan(&trade.IdTrg, &trade.DatTrg, &tradeType, &trade.IdZahTrg); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
+
+		if tradeType == "PLAYER_PLAYER" {
+			trade.TipTrg = 0
+		} else if tradeType == "PLAYER_PICK" {
+			trade.TipTrg = 1
+		} else if tradeType == "PICK_PICK" {
+			trade.TipTrg = 2
+		}
+
 		trades = append(trades, trade)
 	}
 
@@ -41,13 +51,23 @@ func (repo *tradeRepository) GetAll() ([]model.Trade, error) {
 
 func (repo *tradeRepository) GetByID(id int) (*model.Trade, error) {
 	var trade model.Trade
+	var tradeType string
 	row := repo.db.QueryRow("SELECT * FROM TRGOVINA WHERE IDTRG = :1", id)
-	if err := row.Scan(&trade.IdTrg, &trade.DatTrg, &trade.TipTrg); err != nil {
+	if err := row.Scan(&trade.IdTrg, &trade.DatTrg, &tradeType, &trade.IdZahTrg); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
+
+	if tradeType == "PLAYER_PLAYER" {
+		trade.TipTrg = 0
+	} else if tradeType == "PLAYER_PICK" {
+		trade.TipTrg = 1
+	} else if tradeType == "PICK_PICK" {
+		trade.TipTrg = 2
+	}
+
 	return &trade, nil
 }
 
@@ -62,9 +82,19 @@ func (repo *tradeRepository) GetAllByTeamID(teamID int) ([]model.Trade, error) {
 	var trades []model.Trade
 	for rows.Next() {
 		var trade model.Trade
-		if err := rows.Scan(&trade.IdTrg, &trade.DatTrg, &trade.TipTrg); err != nil {
+		var tradeType string
+		if err := rows.Scan(&trade.IdTrg, &trade.DatTrg, &tradeType, &trade.IdZahTrg); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
+
+		if tradeType == "PLAYER_PLAYER" {
+			trade.TipTrg = 0
+		} else if tradeType == "PLAYER_PICK" {
+			trade.TipTrg = 1
+		} else if tradeType == "PICK_PICK" {
+			trade.TipTrg = 2
+		}
+
 		trades = append(trades, trade)
 	}
 
@@ -76,8 +106,8 @@ func (repo *tradeRepository) GetAllByTeamID(teamID int) ([]model.Trade, error) {
 }
 
 func (repo *tradeRepository) Create(trade *model.Trade) error {
-	_, err := repo.db.Exec("INSERT INTO TRGOVINA (IDTRG, DATTRG, TIPTRG) VALUES (:1, :2, :3)",
-		trade.IdTrg, trade.DatTrg, trade.TipTrg)
+	_, err := repo.db.Exec("INSERT INTO TRGOVINA (IDTRG, DATTRG, TIPTRG, IDZAHTRG) VALUES (:1, :2, :3, :4)",
+		trade.IdTrg, trade.DatTrg, trade.TipTrg, trade.IdZahTrg)
 	if err != nil {
 		return fmt.Errorf("failed to create a trade: %v", err)
 	}

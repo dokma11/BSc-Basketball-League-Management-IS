@@ -17,7 +17,7 @@ func NewTradeProposalRepository(db *sql.DB) repository.TradeProposalRepository {
 }
 
 func (repo *tradeProposalRepository) GetAll() ([]model.TradeProposal, error) {
-	rows, err := repo.db.Query("SELECT * FROM ZAHTEV_ZA_TRGOVINU") // proveriti naziv samo
+	rows, err := repo.db.Query("SELECT * FROM ZahtevZaTrgovinu") // proveriti naziv samo
 	if err != nil {
 		return nil, fmt.Errorf("failed to query all trade proposals: %v", err)
 	}
@@ -26,10 +26,31 @@ func (repo *tradeProposalRepository) GetAll() ([]model.TradeProposal, error) {
 	var tradeProposals []model.TradeProposal
 	for rows.Next() {
 		var tradeProposal model.TradeProposal
-		if err := rows.Scan(&tradeProposal.IdZahTrg, &tradeProposal.DatZahTrg, &tradeProposal.TipZahTrg,
-			&tradeProposal.StatusZahTrg, &tradeProposal.RazlogOdbij); err != nil {
+		var tradeType string
+		var status string
+		if err := rows.Scan(&tradeProposal.IdZahTrg, &tradeProposal.DatZahTrg, &tradeType, &status, &tradeProposal.RazlogOdbij,
+			&tradeProposal.IdMenadzerPos, &tradeProposal.IdMenadzerPrim); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
+
+		if tradeType == "PLAYER_PLAYER" {
+			tradeProposal.TipZahTrg = 0
+		} else if tradeType == "PLAYER_PICK" {
+			tradeProposal.TipZahTrg = 1
+		} else if tradeType == "PICK_PICK" {
+			tradeProposal.TipZahTrg = 2
+		}
+
+		if status == "IN_PROGRESS" {
+			tradeProposal.StatusZahTrg = 0
+		} else if status == "ACCEPTED" {
+			tradeProposal.StatusZahTrg = 1
+		} else if status == "DECLINED" {
+			tradeProposal.StatusZahTrg = 2
+		} else if status == "CANCELLED" {
+			tradeProposal.StatusZahTrg = 3
+		}
+
 		tradeProposals = append(tradeProposals, tradeProposal)
 	}
 
@@ -42,20 +63,41 @@ func (repo *tradeProposalRepository) GetAll() ([]model.TradeProposal, error) {
 
 func (repo *tradeProposalRepository) GetByID(id int) (*model.TradeProposal, error) {
 	var tradeProposal model.TradeProposal
-	row := repo.db.QueryRow("SELECT * FROM ZAHTEV_ZA_TRGOVINU WHERE IDZAHTRG = :1", id)
-	if err := row.Scan(&tradeProposal.IdZahTrg, &tradeProposal.DatZahTrg, &tradeProposal.TipZahTrg,
-		&tradeProposal.StatusZahTrg, &tradeProposal.RazlogOdbij); err != nil {
+	var tradeType string
+	var status string
+	row := repo.db.QueryRow("SELECT * FROM ZahtevZaTrgovinu WHERE IDZAHTRG = :1", id)
+	if err := row.Scan(&tradeProposal.IdZahTrg, &tradeProposal.DatZahTrg, &tradeType, &status, &tradeProposal.RazlogOdbij,
+		&tradeProposal.IdMenadzerPos, &tradeProposal.IdMenadzerPrim); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
+
+	if tradeType == "PLAYER_PLAYER" {
+		tradeProposal.TipZahTrg = 0
+	} else if tradeType == "PLAYER_PICK" {
+		tradeProposal.TipZahTrg = 1
+	} else if tradeType == "PICK_PICK" {
+		tradeProposal.TipZahTrg = 2
+	}
+
+	if status == "IN_PROGRESS" {
+		tradeProposal.StatusZahTrg = 0
+	} else if status == "ACCEPTED" {
+		tradeProposal.StatusZahTrg = 1
+	} else if status == "DECLINED" {
+		tradeProposal.StatusZahTrg = 2
+	} else if status == "CANCELLED" {
+		tradeProposal.StatusZahTrg = 3
+	}
+
 	return &tradeProposal, nil
 }
 
 func (repo *tradeProposalRepository) GetAllByTeamID(teamID int) ([]model.TradeProposal, error) {
 	// TODO: Implementirati ovu metodu kada se spoji sve kako treba (za sada je samo kao GetAll())
-	rows, err := repo.db.Query("SELECT * FROM ZAHTEV_ZA_TRGOVINU") // ovde treba dodati idTima
+	rows, err := repo.db.Query("SELECT * FROM ZahtevZaTrgovinu") // ovde treba dodati idTima
 	if err != nil {
 		return nil, fmt.Errorf("failed to query all trade proposals: %v", err)
 	}
@@ -64,10 +106,31 @@ func (repo *tradeProposalRepository) GetAllByTeamID(teamID int) ([]model.TradePr
 	var tradeProposals []model.TradeProposal
 	for rows.Next() {
 		var tradeProposal model.TradeProposal
-		if err := rows.Scan(&tradeProposal.IdZahTrg, &tradeProposal.DatZahTrg, &tradeProposal.TipZahTrg,
-			&tradeProposal.StatusZahTrg, &tradeProposal.RazlogOdbij); err != nil {
+		var tradeType string
+		var status string
+		if err := rows.Scan(&tradeProposal.IdZahTrg, &tradeProposal.DatZahTrg, &tradeType, &status, &tradeProposal.RazlogOdbij,
+			&tradeProposal.IdMenadzerPos, &tradeProposal.IdMenadzerPrim); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
+
+		if tradeType == "PLAYER_PLAYER" {
+			tradeProposal.TipZahTrg = 0
+		} else if tradeType == "PLAYER_PICK" {
+			tradeProposal.TipZahTrg = 1
+		} else if tradeType == "PICK_PICK" {
+			tradeProposal.TipZahTrg = 2
+		}
+
+		if status == "IN_PROGRESS" {
+			tradeProposal.StatusZahTrg = 0
+		} else if status == "ACCEPTED" {
+			tradeProposal.StatusZahTrg = 1
+		} else if status == "DECLINED" {
+			tradeProposal.StatusZahTrg = 2
+		} else if status == "CANCELLED" {
+			tradeProposal.StatusZahTrg = 3
+		}
+
 		tradeProposals = append(tradeProposals, tradeProposal)
 	}
 
@@ -79,9 +142,10 @@ func (repo *tradeProposalRepository) GetAllByTeamID(teamID int) ([]model.TradePr
 }
 
 func (repo *tradeProposalRepository) Create(tradeProposal *model.TradeProposal) error {
-	_, err := repo.db.Exec("INSERT INTO ZAHTEV_ZA_TRGOVINU (IDZAHTRG, DATZAHTRG, TIPZAHTRG, STATUSZAHTRG, RAZLOGODBIJ) "+
-		"VALUES (:1, :2, :3, :4, :5)", tradeProposal.IdZahTrg, tradeProposal.DatZahTrg, tradeProposal.TipZahTrg,
-		tradeProposal.StatusZahTrg, tradeProposal.RazlogOdbij)
+	_, err := repo.db.Exec("INSERT INTO ZahtevZaTrgovinu (IDZAHTRG, DATZAHTRG, TIPZAHTRG, STATUSZAHTRG, RAZLOGODBIJ, "+
+		"IDMENADZERPOS, IDMENADZERPRIM) "+
+		"VALUES (:1, :2, :3, :4, :5, :6, :7)", tradeProposal.IdZahTrg, tradeProposal.DatZahTrg, tradeProposal.TipZahTrg,
+		tradeProposal.StatusZahTrg, tradeProposal.RazlogOdbij, tradeProposal.IdMenadzerPos, tradeProposal.IdMenadzerPrim)
 	if err != nil {
 		return fmt.Errorf("failed to create a trade proposal: %v", err)
 	}
@@ -89,7 +153,7 @@ func (repo *tradeProposalRepository) Create(tradeProposal *model.TradeProposal) 
 }
 
 func (repo *tradeProposalRepository) Update(tradeProposal *model.TradeProposal) error {
-	_, err := repo.db.Exec("UPDATE ZAHTEV_ZA_TRGOVINU SET DATZAHTRG = :1, TIPZAHTRG = :2, STATUSZAHTRG = :3"+
+	_, err := repo.db.Exec("UPDATE ZahtevZaTrgovinu SET DATZAHTRG = :1, TIPZAHTRG = :2, STATUSZAHTRG = :3"+
 		", RAZLOGODBIJ = :4 WHERE IDZAHTRG = :5", tradeProposal.DatZahTrg, tradeProposal.TipZahTrg,
 		tradeProposal.StatusZahTrg, tradeProposal.RazlogOdbij, tradeProposal.IdZahTrg)
 	if err != nil {

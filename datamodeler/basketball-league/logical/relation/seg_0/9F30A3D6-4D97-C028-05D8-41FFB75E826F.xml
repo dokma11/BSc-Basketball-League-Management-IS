@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="ImaPotpisan" directorySegmentName="seg_0" id="9F30A3D6-4D97-C028-05D8-41FFB75E826F">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 15:08:22 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<sourcePk>28661BB1-578F-A46A-D512-47C064025FCD</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>AD721176-20AB-C7B1-D7D8-CD0D7A291673</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>CB84AC04-D0B0-FF2B-79C3-0553CB50A501</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

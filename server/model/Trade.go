@@ -6,9 +6,10 @@ import (
 )
 
 type Trade struct {
-	IdTrg  int64     `json:"idTrg"`
-	DatTrg time.Time `json:"datTrg"` // Date of trade occurrence
-	TipTrg TradeType `json:"tipTrg"`
+	IdTrg    int64     `json:"idTrg"`
+	DatTrg   time.Time `json:"datTrg"` // Date of trade occurrence
+	TipTrg   TradeType `json:"tipTrg"`
+	IdZahTrg int64     `json:"idZahTrg"` // Trade Proposal foreign key
 }
 
 func NewTrade(idTrg int64, datTrg time.Time, tipTrg TradeType) (*Trade, error) {

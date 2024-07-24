@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Pripada" directorySegmentName="seg_0" id="A1688310-B1FF-9618-B0FB-5EABDF8D8E9F">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 15:36:21 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<sourcePk>9CDB73F5-9D62-8E08-B96F-8EE65E6B45F9</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>A730A119-0A52-443A-9595-FE559E862760</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>6D69ABF7-8AC8-7E54-0CDE-0925DA31289C</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

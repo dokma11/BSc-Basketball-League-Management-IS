@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="SeEvidentira" directorySegmentName="seg_0" id="BED6C7F0-D0D0-9DCB-0C7E-1D992E9CFDBE">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:25:40 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<sourcePk>8A0B8D32-5208-667C-E94F-3A1A8F46E1E3</sourcePk>
+<targetPk>DC8C5E47-75CF-C373-7703-65CC5EC62D26</targetPk>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>1DD77CD9-DF65-EAA5-780F-1B83AB6CFBDE</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>49BC6A4D-63DB-D3D1-F29F-CF4630B36F96</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

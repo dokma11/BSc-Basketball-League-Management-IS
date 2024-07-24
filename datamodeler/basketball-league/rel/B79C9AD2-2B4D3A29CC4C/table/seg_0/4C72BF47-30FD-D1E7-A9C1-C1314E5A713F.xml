@@ -1,0 +1,124 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4C72BF47-30FD-D1E7-A9C1-C1314E5A713F" name="ImovinaZaTrgovinuTima">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>8F2122C6-5898-DF2B-BBE7-B67ECB6ABFC2</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="IdImoTrgTim" id="EA9F34D2-38AD-2C8D-F434-BA4F375226D7">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>0BC7EF2E-2264-2186-61EF-83364665215F</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DatDodImoTrgTim" id="47285E3C-9342-1C72-8C2B-26B0B7A91850">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>08F4EB10-8326-65E5-A636-D022345E926A</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BelesImoTrgTim" id="9695E195-A2F1-F5C6-2CE4-58EEB6CB91C2">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>93C3F312-A527-727E-7281-74312BD7002E</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>64 CHAR</dataTypeSize>
+<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IdTipImoTrg" id="2D059519-2E05-DEDD-2A23-08972767CE31">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>EF5DC942-63A1-8466-E308-20DE03B7B526</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E76ABF99-829B-8151-29D1-1825FE42179F" referredColumn="6761C36E-4286-62B2-0F92-8C45A79DF998"/>
+</associations>
+</Column>
+<Column name="IdTim" id="6AB07215-5F81-B7FD-2EA9-B9D3AD91F5C0">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>B276F42F-7203-BB75-FB51-4C647EE9332D</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8B0D2093-BB34-3CD3-E1FF-7C62694D0841" referredColumn="00A781D7-3E50-ADDF-1CB2-13CF39362D08"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="865367B4-885F-34CE-4005-CB6B6A7C64A1" name="ImovinaZaTrgovinuTima_PK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>27C23F89-7401-6F27-FB22-B40808134D0C</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EA9F34D2-38AD-2C8D-F434-BA4F375226D7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6EA151DB-9111-667C-E236-201F7F748AF9" name="ImovinaZaTrgovinuTima__IDX">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:32 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>628C45BF-0285-6C41-6A39-9BF4EED304A6</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="6AB07215-5F81-B7FD-2EA9-B9D3AD91F5C0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A0C85A76-79B2-46F2-CE04-8FD96A301E17" name="ImoZaTrgTim_TipImoZaTrg_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>5B4F8009-C289-3C61-F107-212B37918914</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2D059519-2E05-DEDD-2A23-08972767CE31"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="BF212B83-12F1-7A9B-2278-3DB9A0F9CE9F" name="ImoZaTrgTim_Tim_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:32 UTC</createdTime>
+<generatorID>628C45BF-0285-6C41-6A39-9BF4EED304A6</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6AB07215-5F81-B7FD-2EA9-B9D3AD91F5C0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

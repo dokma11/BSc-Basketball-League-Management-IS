@@ -1,0 +1,101 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8FB9EA36-0943-8451-AADB-6A6FD819D573" name="Bira">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>49BC6A4D-63DB-D3D1-F29F-CF4630B36F96</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="IdRegrut" id="94DF066E-2BD8-3E33-1471-E77033A3C263">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>29EAAF5B-B06C-B6CD-7B99-985316FF9669</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5333DFC5-E753-808A-AB47-66ECD765C046" referredColumn="B0E093D9-AB4A-7724-16E4-DE201CB2C19E"/>
+</associations>
+</Column>
+<Column name="IdPik" id="B06596E6-3D70-ED81-2912-CF2A82E36C7C">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>71F3D286-B0D1-D5C8-15C4-E0EB90BCC20A</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8DC678E6-2912-1489-4373-9F9F2279810D" referredColumn="E54BBFB8-E132-FF37-6742-71A2D8F2A69D"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="BA84B66F-6E23-41AF-2003-E70B719073FC" name="Bira_PK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>DC8C5E47-75CF-C373-7703-65CC5EC62D26</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="94DF066E-2BD8-3E33-1471-E77033A3C263"/>
+<colUsage columnID="B06596E6-3D70-ED81-2912-CF2A82E36C7C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="893E67EB-1475-5BA9-94E4-3233BC4A4B30" name="Bira__IDX">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:32 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>8A510ECF-1FE5-776B-5078-3916FCE3240D</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="B06596E6-3D70-ED81-2912-CF2A82E36C7C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="91B6DA81-BB94-71ED-EFFF-2257384CA78A" name="Bira__IDXv1">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:32 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>3ABF7FCA-1CFF-57C4-6551-4C30E59678C8</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="94DF066E-2BD8-3E33-1471-E77033A3C263"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1097A824-04CA-3D19-0945-AF28FE5A0182" name="Bira_Pik_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:32 UTC</createdTime>
+<generatorID>8A510ECF-1FE5-776B-5078-3916FCE3240D</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B06596E6-3D70-ED81-2912-CF2A82E36C7C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="02A73BD9-D85A-7735-DB71-31386A9739B6" name="Bira_Regrut_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:32 UTC</createdTime>
+<generatorID>3ABF7FCA-1CFF-57C4-6551-4C30E59678C8</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="94DF066E-2BD8-3E33-1471-E77033A3C263"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

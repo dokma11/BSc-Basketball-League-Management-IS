@@ -1,0 +1,91 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1A0C1B8B-6057-CD0D-1851-A4B57B9C2BCD" name="Nadgleda">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="IdSkaut" id="E2239186-28DD-2BA8-72EC-856A8332303E">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C1328B9C-9EBF-1CFC-55CA-588E45E38017" referredColumn="1F5D15CE-95B5-72E8-7A85-37FB52B00D02"/>
+</associations>
+</Column>
+<Column name="IdReg" id="37EC8E84-7EE2-6D37-54DB-1C6AD74D951F">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="651C4D5B-8458-6E03-3314-B292E311BC1C" referredColumn="B2278992-CD87-25F5-FB1A-FDEE7BFB9A99"/>
+</associations>
+</Column>
+<Column name="IdTrng" id="39894C6D-AC49-A1BE-C624-FA11F1144C40">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="651C4D5B-8458-6E03-3314-B292E311BC1C" referredColumn="36E32B2D-A411-D3AF-D40D-5FB4ABC0104E"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="0F9D0021-8737-6835-FDE8-67CD1800C4CB" name="Nadgleda_PK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E2239186-28DD-2BA8-72EC-856A8332303E"/>
+<colUsage columnID="37EC8E84-7EE2-6D37-54DB-1C6AD74D951F"/>
+<colUsage columnID="39894C6D-AC49-A1BE-C624-FA11F1144C40"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3C66C847-4929-7754-8885-E0806F61335C" name="Nadgleda_Skaut_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>85D93E11-109F-A764-B30C-873BC50C6A6E</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E2239186-28DD-2BA8-72EC-856A8332303E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3EFF901C-223C-8CD3-02F0-4B81E8FD6B3B" name="Nadgleda_Ucestvuje_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>85D93E11-109F-A764-B30C-873BC50C6A6E</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="37EC8E84-7EE2-6D37-54DB-1C6AD74D951F"/>
+<colUsage columnID="39894C6D-AC49-A1BE-C624-FA11F1144C40"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

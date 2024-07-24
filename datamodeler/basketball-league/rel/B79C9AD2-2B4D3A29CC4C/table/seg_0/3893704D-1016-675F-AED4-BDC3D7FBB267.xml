@@ -1,0 +1,51 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="3893704D-1016-675F-AED4-BDC3D7FBB267" name="Skaut">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>8653EDBE-1A88-8B78-77EF-44FEB3D9539D</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Id" id="1F5D15CE-95B5-72E8-7A85-37FB52B00D02">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>B829AB3A-B06E-88B7-55D5-3AB46479680F</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2929A592-65CA-B044-45F5-028AD2E219DE" referredColumn="6BFEEFFE-33B3-9FE8-0799-CD2D116A7248"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C9B24DC4-C1AD-E650-5ABA-23FD9D6D191E" name="Skaut_PK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>3CA6F0A0-5C30-755A-F7CE-DF45CC769EEA</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1F5D15CE-95B5-72E8-7A85-37FB52B00D02"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="73EBFB87-96E0-4414-E672-14744BD7CD0B" name="Skaut_Zaposleni_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<generatorID>FD299111-962D-FBC8-7D11-2225CA2C4437</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1F5D15CE-95B5-72E8-7A85-37FB52B00D02"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
