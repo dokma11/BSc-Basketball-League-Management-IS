@@ -1,7 +1,6 @@
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, map, Observable, startWith, Subject, take, takeUntil } from 'rxjs';
@@ -48,7 +47,6 @@ export class RosterComponent implements OnInit{
   picks: Pick[] = [];
   draftRights: DraftRight[] = [];
   fullTeams: Team[] = [];
-  private dialogRef: any;
   public teams: string[] = [];
 
   public teamCtrl: FormControl<string | null> = new FormControl<string | null>('');
@@ -63,7 +61,6 @@ export class RosterComponent implements OnInit{
 
   constructor(private authService: AuthService,
               private rosterService: RosterService,
-              private dialog: MatDialog,
               private snackBar: MatSnackBar,) {
 
   }

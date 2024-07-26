@@ -31,3 +31,12 @@ func (service *DraftRightService) GetByID(id int) (*model.DraftRight, error) {
 
 	return draftRight, nil
 }
+
+func (service *DraftRightService) GetAllByTeamID(teamID int) ([]model.DraftRight, error) {
+	draftRights, err := service.DraftRightRepository.GetAllByTeamID(teamID)
+	if err != nil {
+		return nil, fmt.Errorf(fmt.Sprintf("no draft rights with that team id were found"))
+	}
+
+	return draftRights, nil
+}

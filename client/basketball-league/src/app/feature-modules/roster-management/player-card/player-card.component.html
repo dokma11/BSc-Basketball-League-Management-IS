@@ -1,33 +1,42 @@
 <div class="player-card">
-    <div class="player-card-left">
-      <div class="player-image-container">
-          <img
-              class="player-image"
-              src="https://cdn.nba.com/headshots/nba/latest/1040x760/1628369.png"
-          />
-      </div>
-    </div>
     <div class="player-card-content">
         <div class="player-card-top">
         </div>
         <div class="player-card-information">
             <div class="player-card-center">
                   <div class="player-name-value">
-                    Jayson Tatum <!-- Ovde dodati ime i prezime igraca -->
+                    {{ player.ime }} {{ player.prezime }}
                   </div>
                   <div class="trade-date">
                     <div class="trade-date-value">
-                      11-02-1998 <!-- Ovde treba da bdue datum rodjenja igraca -->
+                      {{ this.age }}
                     </div>
                   </div>
-                  <div class="player-position-value">
-                    SF/PF <!-- Ovde dodati poziciju igraca -->
+                  <div class="player-position-value"
+                       *ngIf="player.pozIgr === 0">
+                     PG
                   </div>
+                    <div class="player-position-value"
+                        *ngIf="player.pozIgr === 1">
+                        SG
+                    </div>
+                    <div class="player-position-value"
+                        *ngIf="player.pozIgr === 2">
+                        SF
+                    </div>
+                    <div class="player-position-value"
+                        *ngIf="player.pozIgr === 3">
+                        PF
+                    </div>
+                    <div class="player-position-value"
+                     *ngIf="player.pozIgr === 4">
+                        C
+                    </div>
                   <div class="player-height-value">
-                    204cm <!-- Ovde dodati visinu igraca -->
+                     {{ player.visIgr}}cm
                   </div>
                   <div class="player-weight-value">
-                    100kg <!-- Ovde dodati tezinu igraca -->
+                    {{ player.tezIgr }}kg
                   </div>
             </div>
 
