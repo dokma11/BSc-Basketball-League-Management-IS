@@ -106,3 +106,54 @@ h2 {
 .select-dropdown {
   margin-top: -3%;
 }
+
+.mat-form-field-oval {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.mat-form-field-oval .mat-form-field-flex {
+  border-radius: 15px;
+}
+
+.mat-form-field-oval .mat-select-trigger {
+  border-radius: 15px !important;
+  padding: 10px 20px !important; 
+}
+
+.mat-form-field-oval .mat-select-panel {
+  border-radius: 15px !important;
+}
+
+.mat-form-field-oval .mat-option {
+  border-radius: 15px !important;
+  margin: 2px !important;
+}
+
+.mat-form-field-oval ngx-mat-select-search .mat-input-element {
+  border-radius: 25px !important;
+}
+
+.asset-type {
+  display: flex;
+  margin-left: 12%;
+  color: #fff;  /* Ovde samo paziti kada se promeni pozadina da se i boja slova uskladi */
+  font-size: 14px;
+  width: 100%;
+}
+
+#asset-select {
+  border-radius: 40px;
+  display: flex;
+  padding-left: 10%;
+  margin-left: 50%;
+  height: 100%;
+}
+
+.assets-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40%;
+}
