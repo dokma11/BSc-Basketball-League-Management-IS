@@ -1,0 +1,52 @@
+<div class="pick-card">
+  <div class="pick-card-content">
+        <div class="pick-card-information">
+            <div class="pick-card-center">
+                  <div class="pick-number" 
+                       *ngIf="pick.redBrPik !== '0'">
+                    <strong>Order:</strong> {{ pick.redBrPik }}
+                  </div>
+                  <div class="pick-number" 
+                       *ngIf="pick.redBrPik === '0'">
+                    <strong>Order:</strong> Unknown
+                  </div>
+                  <div class="pick-round">
+                    <strong>Round:</strong> {{ pick.brRunPik }}
+                  </div>
+                  <div class="pick-year">
+                    <strong>Year:</strong> {{ pick.godPik }}
+                  </div>
+            </div>
+            <div class="pick-card-right">
+                  <!-- Obratiti paznju na user.role -->
+                <!-- <button
+                    class="btn"
+                    (click)="addToWishlistButtonClicked(player);$event.stopPropagation()"
+                    [@buttonState]="addToWishlistButtonState"
+                >
+                    <fa-icon [icon]="faHeart" />
+                    &nbsp;Add to wishlist
+                </button> -->
+
+                <button
+                    class="btn"
+                    (click)="addToTradeListButtonClicked(pick);$event.stopPropagation()"
+                    [@buttonState]="addToTradeListButtonState"
+                >
+                    <fa-icon [icon]="faList" />
+                    &nbsp;Add to trade list
+                </button>
+
+                <button
+                    class="btn"
+                    (click)="addToUntouchablesListButtonClicked(pick);$event.stopPropagation()"
+                    [@buttonState]="addToUntouchablesListButtonState"
+                >
+                    <fa-icon [icon]="faBan" />
+                    &nbsp;Add to untouchables list
+                </button>
+            </div>
+        </div>
+    </div>
+  </div>
+  
