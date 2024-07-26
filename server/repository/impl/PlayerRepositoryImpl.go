@@ -54,8 +54,11 @@ func (repo *playerRepository) GetByID(id int) (*model.Player, error) {
 }
 
 func (repo *playerRepository) GetAllByTeamID(teamId int) ([]model.Player, error) {
-	rows, err := repo.db.Query("SELECT * FROM Player WHERE IDTIM = :1", teamId) // PROVERITI DA LI JE IDTIM DOBRO
+	rows, err := repo.db.Query(`SELECT K.ID, K.IME, K.PREZIME, K.EMAIL, K.DATRODJ, K.LOZINKA, K.ULOGA, I.VISIGR, I.TEZIGR, I.POZIGR
+									  FROM IGRAC I, ZAPOSLENI Z, KORISNIK K, UGOVOR U
+									  WHERE I.ID = Z.ID AND I.ID = K.ID AND Z.IDUGO = U.IDUGO AND U.IDTIM = :1`, teamId)
 	if err != nil {
+		fmt.Println(err)
 		return nil, fmt.Errorf("failed to query all players by team id: %v", err)
 	}
 	defer rows.Close()
@@ -63,10 +66,32 @@ func (repo *playerRepository) GetAllByTeamID(teamId int) ([]model.Player, error)
 	var players []model.Player
 	for rows.Next() {
 		var player model.Player
+		var role string
+		var position string
 		if err := rows.Scan(&player.Id, &player.Ime, &player.Prezime, &player.Email, &player.DatRodj,
-			&player.Lozinka, &player.Uloga, &player.VisIgr, &player.TezIgr, &player.PozIgr); err != nil {
+			&player.Lozinka, &role, &player.VisIgr, &player.TezIgr, &position); err != nil {
+			fmt.Println(err)
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
+
+		if role == "Zaposleni" {
+			player.Uloga = 1
+		} else if role == "Regrut" {
+			player.Uloga = 0
+		}
+
+		if position == "PG" {
+			player.PozIgr = 0
+		} else if position == "SG" {
+			player.PozIgr = 1
+		} else if position == "SF" {
+			player.PozIgr = 2
+		} else if position == "PF" {
+			player.PozIgr = 3
+		} else if position == "C" {
+			player.PozIgr = 4
+		}
+
 		players = append(players, player)
 	}
 

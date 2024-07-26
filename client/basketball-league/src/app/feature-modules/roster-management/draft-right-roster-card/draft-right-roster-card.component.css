@@ -40,59 +40,9 @@
   display: flex;
   flex-direction: row;
   width: 100%;
+  padding-top: 1%;
   font-size: 18px;
-  gap: 9%;
-  display: flex;
-  align-items: center;
-}
-
-.player-name-value {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-}
-
-.trade-date-value {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-
-}
-
-.player-position-value {
-  flex: 0 0 auto;
-  width: 50px; 
-  display: flex;
-  align-items: center;
-}
-
-.player-height-value {
-  flex: 0 0 auto;
-  width: 70px; 
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-}
-
-.player-weight-value {
-  flex: 0 0 auto;
-  width: 70px; 
-  display: flex;
-  align-items: center;
-  margin-right: 50px;
-}
-
-.starting-position {
-  margin-right: 4px;
-  font-weight: bold;
+  gap: 12%;
 }
 
 .player-card-right {

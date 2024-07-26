@@ -1,0 +1,68 @@
+<div class="player-card">
+  <div class="player-card-content">
+      <div class="player-card-top">
+      </div>
+      <div class="player-card-information">
+          <div class="player-card-center">
+                <div class="player-name-value">
+                  {{ draftRight.imeIgrPrava }} {{ draftRight.prezimeIgrPrava }}
+                </div>
+                <div class="trade-date">
+                  <div class="trade-date-value">
+                    {{ this.playerBirthDayDate }}
+                  </div>
+                </div>
+                <div class="player-position-value"
+                     *ngIf="draftRight.pozicijaIgrPrava === 0">
+                   PG
+                </div>
+                  <div class="player-position-value"
+                      *ngIf="draftRight.pozicijaIgrPrava === 1">
+                      SG
+                  </div>
+                  <div class="player-position-value"
+                      *ngIf="draftRight.pozicijaIgrPrava === 2">
+                      SF
+                  </div>
+                  <div class="player-position-value"
+                      *ngIf="draftRight.pozicijaIgrPrava === 3">
+                      PF
+                  </div>
+                  <div class="player-position-value"
+                   *ngIf="draftRight.pozicijaIgrPrava === 4">
+                      C
+                  </div>
+          </div>
+
+          <div class="player-card-right">
+              <!-- Obratiti paznju na user.role -->
+              <!-- <button
+                  class="btn"
+                  (click)="addToWishlistButtonClicked(player);$event.stopPropagation()"
+                  [@buttonState]="addToWishlistButtonState"
+              >
+                  <fa-icon [icon]="faHeart" />
+                  &nbsp;Add to wishlist
+              </button> -->
+
+              <button
+                  class="btn"
+                  (click)="addToTradeListButtonClicked(draftRight);$event.stopPropagation()"
+                  [@buttonState]="addToTradeListButtonState"
+              >
+                  <fa-icon [icon]="faList" />
+                  &nbsp;Add to trade list
+              </button>
+
+              <button
+                  class="btn"
+                  (click)="addToUntouchablesListButtonClicked(draftRight);$event.stopPropagation()"
+                  [@buttonState]="addToUntouchablesListButtonState"
+              >
+                  <fa-icon [icon]="faBan" />
+                  &nbsp;Add to untouchables list
+              </button>
+          </div>
+      </div>
+  </div>
+</div>

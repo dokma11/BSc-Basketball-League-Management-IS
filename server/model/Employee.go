@@ -8,10 +8,10 @@ import (
 type UlogaZaposlenog int
 
 const (
-	UlogaMenadzer UlogaZaposlenog = iota // Moram ovde pripaziti
+	Menadzer UlogaZaposlenog = iota // Moram ovde pripaziti
 	UlogaIgrac
-	UlogaTrener
-	UlogaSkaut
+	Trener
+	Skaut
 )
 
 type Employee struct {

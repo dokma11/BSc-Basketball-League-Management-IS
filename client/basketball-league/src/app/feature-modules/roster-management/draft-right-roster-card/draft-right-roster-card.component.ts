@@ -1,61 +1,39 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { faHeart, faList, faBan } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faBan, faList } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Team } from 'src/app/shared/model/team.model';
 import { AddPlayerToListPromptComponent } from '../add-player-to-list-prompt/add-player-to-list-prompt.component';
-import { trigger, transition, style, animate, state } from '@angular/animations';
-import { Player } from 'src/app/shared/model/player.model';
+import { RosterService } from '../roster.service';
+import { DraftRight } from 'src/app/shared/model/draftRight.model';
 
 @Component({
-  selector: 'app-player-card',
-  templateUrl: './player-card.component.html',
-  styleUrls: ['./player-card.component.css'],
-  animations: [
-      trigger("fadeIn", [
-        transition(":enter", [
-            style({ opacity: 0, transform: "translateX(-40px)" }),
-            animate(
-                "0.5s ease",
-                style({ opacity: 1, transform: "translateX(0)" }),
-            ),
-        ]),
-      ]),
-      trigger('buttonState', [
-        state('clicked', style({
-          transform: 'scale(0.9)',
-          opacity: 0.5
-        })),
-        transition('* => clicked', [
-          animate('200ms')
-        ]),
-        transition('clicked => idle', [
-          animate('200ms')
-        ])
-      ]),
-  ],
+  selector: 'app-draft-right-roster-card',
+  templateUrl: './draft-right-roster-card.component.html',
+  styleUrls: ['./draft-right-roster-card.component.css']
 })
-export class PlayerCardComponent implements OnInit{
+export class DraftRightRosterCardComponent implements OnInit{
   addToWishlistButtonState: string = 'idle';
   addToUntouchablesListButtonState: string = 'idle';
   addToTradeListButtonState: string = 'idle';
-  @Input() player!: Player;
+  @Input() draftRight!: DraftRight;
   private dialogRef: any;
   user: User | undefined;
   @Output() dialogRefClosed: EventEmitter<any> = new EventEmitter<any>();
-  age: string = '';
+  playerBirthDayDate: string = '';
+  playerBirthDayTime: string = '';
+  timovi: Team[] = [];
 
   constructor(private dialog: MatDialog,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private rosterService: RosterService) {
     this.authService.user$.subscribe(user => {
       this.user = user;
     });
   }
 
   ngOnInit(): void {
-    const today = new Date();
-    const birthDate = new Date(this.player.datRodj!);
-    this.age = (today.getFullYear() - birthDate.getFullYear()).toString();
     // TODO: Implementirati logiku za proveru koji tim je u pitanju i samim time koje dugmice prikazati
   }
 

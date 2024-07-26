@@ -25,14 +25,6 @@
       -1px 0px 3px rgba(var(--clr-primary-500), 0.2);
 }
 
-.selected {
-  background-color: rgba(var(--clr-primary-500), 0.4);
-}
-
-.selectable {
-  cursor: pointer;
-}
-
 .player-card:hover .player-image {
   transform: scale(1.2);
 }
@@ -111,20 +103,6 @@
   width: 70%;
 }
 
-.player-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 30%;
-}
-
-.player-action {
-  font-size: 1.5rem;
-  color: rgba(var(--clr-primary-500), 1);
-  margin-left: 0.5rem;
-  cursor: pointer;
-}
-
 .player-tag {
   font-family: var(--fnt-body);
   font-size: 0.8rem;
@@ -175,90 +153,12 @@
   transition: color 0.15s;
 }
 
-.player-price {
-  margin-top: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  white-space: nowrap;
-  overflow: visible;
-}
-
 .add-to-wishlist {
   margin-top: 0rem;
   max-width: 60%;
   min-width: 15rem;
   margin-left: auto;
   margin-bottom: 0.5rem;
-}
-
-.add-to-cart:hover {
-  filter: brightness(1.08);
-}
-
-.view {
-  margin-top: auto;
-  max-width: 60%;
-  min-width: 15rem;
-  margin-left: auto;
-}
-
-.player-price-info {
-  display: flex;
-  align-items: auto;
-  justify-content: right;
-}
-
-.discount {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 0.5rem;
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: rgba(var(--clr-text), 1);
-}
-
-.hide-text {
-  color: rgba(0, 0, 0, 0);
-}
-
-s,
-strike {
-  text-decoration: none;
-  position: relative;
-}
-
-s::before,
-strike::before {
-  top: 50%;
-  background: red;
-  opacity: 1;
-  content: "";
-  width: 170%;
-  position: absolute;
-  height: 0.1em;
-  border-radius: 0.1em;
-  left: -5%;
-  white-space: nowrap;
-  display: block;
-  z-index: 3;
-  transform: rotate(180deg);
-}
-
-s.straight::before,
-strike.straight::before {
-  transform: rotate(0deg);
-  left: -1%;
-  width: 102%;
-}
-
-.red {
-  color: red;
-}
-
-.green {
-  color: green;
 }
 
 .btn {
