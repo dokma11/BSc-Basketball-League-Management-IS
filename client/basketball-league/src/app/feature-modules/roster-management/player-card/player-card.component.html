@@ -12,26 +12,11 @@
                       {{ this.age }}
                     </div>
                   </div>
-                  <div class="player-position-value"
-                       *ngIf="player.pozIgr === 0">
-                     PG
-                  </div>
-                    <div class="player-position-value"
-                        *ngIf="player.pozIgr === 1">
-                        SG
-                    </div>
-                    <div class="player-position-value"
-                        *ngIf="player.pozIgr === 2">
-                        SF
-                    </div>
-                    <div class="player-position-value"
-                        *ngIf="player.pozIgr === 3">
-                        PF
-                    </div>
-                    <div class="player-position-value"
-                     *ngIf="player.pozIgr === 4">
-                        C
-                    </div>
+                  <div class="player-position-value" *ngIf="player.pozIgr === 0">PG</div>
+                  <div class="player-position-value" *ngIf="player.pozIgr === 1">SG</div>
+                  <div class="player-position-value" *ngIf="player.pozIgr === 2">SF</div>
+                  <div class="player-position-value" *ngIf="player.pozIgr === 3">PF</div>
+                  <div class="player-position-value" *ngIf="player.pozIgr === 4">C</div>
                   <div class="player-height-value">
                      {{ player.visIgr}}cm
                   </div>

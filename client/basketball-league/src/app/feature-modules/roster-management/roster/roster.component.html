@@ -58,7 +58,26 @@
   </div>
   
   <div class="roster">
+    <div class="roster-header"
+         *ngIf="this.assetForm.value.selectedAssetType == 'Players'">
+      <div class="player-name">
+        Name
+      </div>
+      <div class="player-age">
+        Age
+      </div>
+      <div class="player-position">
+        Position
+      </div>
+      <div class="player-height">
+        Height
+      </div>
+      <div class="player-weight">
+        Weight
+      </div>
+    </div>
     <div class="roster-container">
+        <!-- Dodati iznad neki kao heder koji ce da ispise stvari za igraca -->
         <app-player-card
             [@fadeIn]
             *ngFor="let player of players"
@@ -81,5 +100,4 @@
         ></app-draft-right-roster-card>
     </div>
   </div>
-
 </div>

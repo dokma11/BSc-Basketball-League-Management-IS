@@ -22,6 +22,34 @@
   height: 50rem;
 }
 
+.roster-header {
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  font-size: 21px;
+  margin-bottom: 1%;
+}
+
+.player-name{
+  margin-left: 13%;
+}
+
+.player-age{
+  margin-left: 13.5%;
+}
+
+.player-position{
+  margin-left: 2%;
+}
+
+.player-height{
+  margin-left: 4%;
+}
+
+.player-weight{
+  margin-left: 5.5%;
+}
+
 .btn {
   width: 10%;
   height: 5%;
