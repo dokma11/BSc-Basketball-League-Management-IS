@@ -56,96 +56,48 @@
       </div>
     </div>
   </div>
-
+  
   <div class="roster">
+    <div class="roster-header"
+         *ngIf="this.assetForm.value.selectedAssetType == 'Players'">
+      <div class="player-name">
+        Name
+      </div>
+      <div class="player-age">
+        Age
+      </div>
+      <div class="player-position">
+        Position
+      </div>
+      <div class="player-height">
+        Height
+      </div>
+      <div class="player-weight">
+        Weight
+      </div>
+    </div>
     <div class="roster-container">
-        <!-- <app-player-card
+        <!-- Dodati iznad neki kao heder koji ce da ispise stvari za igraca -->
+        <app-player-card
             [@fadeIn]
-            *ngFor="let request of requests"
-            [request]="request"
+            *ngFor="let player of players"
+            [player]="player"
             (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card> -->
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
         ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
-        <app-player-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card>
+
+        <app-pick-roster-card
+            [@fadeIn]
+            *ngFor="let pick of picks"
+            [pick]="pick"
+            (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-pick-roster-card>
+
+        <app-draft-right-roster-card
+            [@fadeIn]
+            *ngFor="let draftRight of draftRights"
+            [draftRight]="draftRight"
+            (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-draft-right-roster-card>
     </div>
   </div>
-
 </div>

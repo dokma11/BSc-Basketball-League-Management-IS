@@ -26,7 +26,8 @@ func (repo *pickRepository) GetAll() ([]model.Pick, error) {
 	var picks []model.Pick
 	for rows.Next() {
 		var pick model.Pick
-		if err := rows.Scan(&pick.IdPik, &pick.RedBrPik, &pick.BrRunPik, &pick.GodPik, &pick.IdMenadzer, &pick.IdTim); err != nil {
+		var managerID sql.NullString
+		if err := rows.Scan(&pick.IdPik, &pick.RedBrPik, &pick.BrRunPik, &pick.GodPik, &managerID, &pick.IdTim); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 		picks = append(picks, pick)
@@ -61,7 +62,7 @@ func (repo *pickRepository) GetAllByTeamID(teamId int) ([]model.Pick, error) {
 	var picks []model.Pick
 	for rows.Next() {
 		var pick model.Pick
-		if err := rows.Scan(&pick.IdPik, &pick.RedBrPik, &pick.BrRunPik, &pick.GodPik); err != nil {
+		if err := rows.Scan(&pick.IdPik, &pick.RedBrPik, &pick.BrRunPik, &pick.GodPik, &pick.IdMenadzer, &pick.IdTim); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 		picks = append(picks, pick)

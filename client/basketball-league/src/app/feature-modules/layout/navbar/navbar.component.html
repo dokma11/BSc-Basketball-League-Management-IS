@@ -55,7 +55,7 @@
       <!-- Ne zaboravi ovde da promenis rolu -->
       <button 
             class="feat-button"
-            *ngIf="user && user.role === 'CURATOR'" 
+            *ngIf="user && user.uloga == 0" 
             color="white"
             mat-raised-button
             [routerLink]="['cleaning-proposals-view']"

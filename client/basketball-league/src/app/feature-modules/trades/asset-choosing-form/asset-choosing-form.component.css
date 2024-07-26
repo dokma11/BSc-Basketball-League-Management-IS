@@ -129,50 +129,6 @@
   color: #fff;
 }
 
-.date-picker-input {
-  width: 80%;
-  height: 90%;
-  border: 2px solid rgba(255, 255, 255, .2);
-  color: #1b1b1b;
-  gap: 15px;
-  border-radius: 40px;
-  font-size: 16px;
-  padding: 2% 3%;
-}
-
-.date-time {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-.ticket-prices {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-}
-
-.toggle {
-  margin-top: -9px;
-  height: 0.5px;
-}
-
-.image-form-field label {
-  position: relative;
-  border-radius: 1rem;
-  color: #1b1b1b;
-  bottom: 2.4rem;
-  z-index: 1;
-  height: auto;
-  width: 8rem;
-  text-align: center;
-  margin-left: 10%;
-  margin-top: 1%;
-  font-weight: 600;
-}
-
 .wrapper .submit-btn {
   margin-top: 5%;
   width: 100%;
@@ -193,60 +149,6 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transform: scale(1.03);
   transition: transform 300ms ease;
-}
-
-#date-time-label {
-  align-self: center;
-}
-
-.curator-choosing{
-  margin-top: 25px;
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-
-.curator-choosing button{
-  width: 120%;
-  height: 30px;
-  background: #fff;
-  border: none;
-  outline: none;
-  border-radius: 40px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-  cursor: pointer;
-  font-size: 16px;
-  color: #1b1b1b;
-  font-weight: 600;
-}
-
-.curator-choosing button:hover{
-  background-color: rgb(172, 172, 172);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  transform: scale(1.03);
-  transition: transform 300ms ease;
-}
-
-#choose-curator{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-
-#curator-table {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.display-value {
-  padding: 8px 15px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
-  border-radius: 40px;
-  width: 100%;
-  box-sizing: border-box;
-  font-size: 16px;
-  color: #1b1b1b;
 }
 
 .input-box select::after {

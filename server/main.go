@@ -14,7 +14,7 @@ import (
 )
 
 func initDB() sql.DB {
-	dsn := `user="sys" password="sys123" connectString="localhost:1521/xe" sysdba=1`
+	dsn := `user="C##Dokma11" password="dokma11" connectString="localhost:1521/xe" sysdba=0`
 	db, err := sql.Open("godror", dsn)
 	if err != nil {
 		log.Fatalf("Failed to open a connection: %v", err)
@@ -37,8 +37,8 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 
 	router.HandleFunc("/pick", pickHandler.GetAll).Methods("GET")
 	router.HandleFunc("/pick/{id}", pickHandler.GetByID).Methods("GET")
-	router.HandleFunc("/pick/{teamId}", pickHandler.GetAllByTeamID).Methods("GET")
-	router.HandleFunc("/pick/{year}", pickHandler.GetAllByYear).Methods("GET")
+	router.HandleFunc("/pick/team/{teamId}", pickHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/pick/year/{year}", pickHandler.GetAllByYear).Methods("GET")
 
 	router.HandleFunc("/user", userHandler.GetAll).Methods("GET")
 	router.HandleFunc("/user/{id}", userHandler.GetByID).Methods("GET")
@@ -50,7 +50,7 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 
 	router.HandleFunc("/player", playerHandler.GetAll).Methods("GET")
 	router.HandleFunc("/player/{id}", playerHandler.GetByID).Methods("GET")
-	router.HandleFunc("/player/{teamId}", playerHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/player/team/{teamId}", playerHandler.GetAllByTeamID).Methods("GET")
 
 	router.HandleFunc("/employee", employeeHandler.GetAll).Methods("GET")
 	router.HandleFunc("/employee/{id}", employeeHandler.GetByID).Methods("GET")
@@ -59,6 +59,7 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 
 	router.HandleFunc("/draftRight", draftRightHandler.GetAll).Methods("GET")
 	router.HandleFunc("/draftRight/{id}", draftRightHandler.GetByID).Methods("GET")
+	router.HandleFunc("/draftRight/team/{teamId}", draftRightHandler.GetAllByTeamID).Methods("GET")
 
 	router.HandleFunc("/contract", contractHandler.GetAll).Methods("GET")
 	router.HandleFunc("/contract/{id}", contractHandler.GetByID).Methods("GET")

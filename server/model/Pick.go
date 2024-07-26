@@ -1,18 +1,19 @@
 package model
 
 import (
+	"database/sql"
 	"errors"
 	"fmt"
 	"strconv"
 )
 
 type Pick struct {
-	IdPik      int64  `json:"idPik"`
-	RedBrPik   string `json:"redBrPik"`   // Pick order
-	BrRunPik   string `json:"brRunPik"`   // Pick round (can be first and second)
-	GodPik     string `json:"godPik"`     // Pick year
-	IdMenadzer int64  `json:"idMenadzer"` // Manager that used the pick foreign key
-	IdTim      int64  `json:"idTim"`      // Team foreign key
+	IdPik      int64         `json:"idPik"`
+	RedBrPik   string        `json:"redBrPik"`   // Pick order
+	BrRunPik   string        `json:"brRunPik"`   // Pick round (can be first and second)
+	GodPik     string        `json:"godPik"`     // Pick year
+	IdMenadzer sql.NullInt64 `json:"idMenadzer"` // Manager that used the pick foreign key
+	IdTim      int64         `json:"idTim"`      // Team foreign key
 }
 
 func NewPick(idPik int64, redBrPik string, brRunPik string, godPik string) (*Pick, error) {
@@ -38,7 +39,6 @@ func (p *Pick) Validate() error {
 	if pickOrder > 30 || pickOrder < 1 { // There are 30 picks in each round
 		return errors.New("pick order number field is invalid")
 	}
-
 	pickRound, err := strconv.Atoi(p.BrRunPik)
 	if err != nil {
 		fmt.Println("Error:", err)
@@ -46,7 +46,6 @@ func (p *Pick) Validate() error {
 	if pickRound > 2 || pickRound < 1 { // There are only two rounds
 		return errors.New("pick round number field is invalid")
 	}
-
 	if len(p.GodPik) != 4 {
 		return errors.New("pick year field is invalid")
 	}

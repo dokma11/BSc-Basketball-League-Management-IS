@@ -46,3 +46,20 @@ func (handler *DraftRightHandler) GetByID(w http.ResponseWriter, r *http.Request
 
 	json.NewEncoder(w).Encode(draftRight)
 }
+
+func (handler *DraftRightHandler) GetAllByTeamID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+	vars := mux.Vars(r)
+	teamID, err := strconv.Atoi(vars["teamId"])
+	if err != nil {
+		http.Error(w, "Invalid team ID", http.StatusBadRequest)
+		return
+	}
+
+	draftRights, err := handler.DraftRightService.GetAllByTeamID(teamID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	json.NewEncoder(w).Encode(draftRights) // Proveriti samo da li valja
+}

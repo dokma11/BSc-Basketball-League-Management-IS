@@ -80,3 +80,41 @@ func (repo *draftRightRepository) GetByID(id int) (*model.DraftRight, error) {
 
 	return &draftRight, nil
 }
+
+func (repo *draftRightRepository) GetAllByTeamID(teamID int) ([]model.DraftRight, error) {
+	rows, err := repo.db.Query("SELECT * FROM PravaNaIgraca WHERE IDTIM = :1", teamID)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query all picks by team id: %v", err)
+	}
+	defer rows.Close()
+
+	var draftRights []model.DraftRight
+	for rows.Next() {
+		var draftRight model.DraftRight
+		var position string
+		if err := rows.Scan(&draftRight.IdPrava, &draftRight.ImeIgrPrava, &draftRight.PrezimeIgrPrava, &position,
+			&draftRight.IdTim, &draftRight.IdRegrut, &draftRight.IdPik); err != nil {
+			return nil, fmt.Errorf("failed to scan row: %v", err)
+		}
+
+		if position == "PG" {
+			draftRight.PozicijaIgrPrava = 1
+		} else if position == "SG" {
+			draftRight.PozicijaIgrPrava = 2
+		} else if position == "SF" {
+			draftRight.PozicijaIgrPrava = 3
+		} else if position == "PF" {
+			draftRight.PozicijaIgrPrava = 4
+		} else if position == "C" {
+			draftRight.PozicijaIgrPrava = 5
+		}
+
+		draftRights = append(draftRights, draftRight)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("row iteration error: %v", err)
+	}
+
+	return draftRights, nil
+}
