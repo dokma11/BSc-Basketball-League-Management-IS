@@ -3,7 +3,6 @@ import { Pozicija } from "./player.model";
 
 export interface Recruit extends User {
   koTelefonReg: string; // Phone number
-  mesRodjReg: string; // Birth place
   visReg: string; // Height
   tezReg: string; // Weight
   pozReg: Pozicija; // Position
