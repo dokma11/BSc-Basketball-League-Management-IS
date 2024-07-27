@@ -5,16 +5,18 @@ import (
 	"basketball-league-server/service"
 	"encoding/json"
 	"github.com/gorilla/mux"
+	"log"
 	"net/http"
 	"strconv"
 )
 
 type TradeProposalHandler struct {
 	TradeProposalService *service.TradeProposalService
+	EmployeeService      *service.EmployeeService
 }
 
-func NewTradeProposalHandler(TradeProposalService *service.TradeProposalService) *TradeProposalHandler {
-	return &TradeProposalHandler{TradeProposalService: TradeProposalService}
+func NewTradeProposalHandler(TradeProposalService *service.TradeProposalService, EmployeeService *service.EmployeeService) *TradeProposalHandler {
+	return &TradeProposalHandler{TradeProposalService: TradeProposalService, EmployeeService: EmployeeService}
 }
 
 func (handler *TradeProposalHandler) GetAll(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
@@ -66,14 +68,23 @@ func (handler *TradeProposalHandler) GetAllByTeamID(w http.ResponseWriter, r *ht
 }
 
 func (handler *TradeProposalHandler) Create(w http.ResponseWriter, r *http.Request) {
-	var tradeProposal model.TradeProposal
-	if err := json.NewDecoder(r.Body).Decode(&tradeProposal); err != nil {
+	var tradeProposalDTO model.TradeProposalCreateDTO
+	if err := json.NewDecoder(r.Body).Decode(&tradeProposalDTO); err != nil {
+		log.Println(err)
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	err := handler.TradeProposalService.Create(&tradeProposal)
+	tradeProposal, tradeProposalError := handler.mapFromDTO(&tradeProposalDTO)
+	if tradeProposalError != nil {
+		log.Println(tradeProposalError)
+		http.Error(w, tradeProposalError.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err := handler.TradeProposalService.Create(tradeProposal)
 	if err != nil {
+		log.Println(err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -95,4 +106,30 @@ func (handler *TradeProposalHandler) Update(w http.ResponseWriter, r *http.Reque
 	}
 
 	w.WriteHeader(http.StatusCreated)
+}
+
+func (handler *TradeProposalHandler) mapFromDTO(tradeProposalDTO *model.TradeProposalCreateDTO) (*model.TradeProposal, error) {
+	var tradeProposal model.TradeProposal
+	tradeProposal.DatZahTrg = tradeProposalDTO.DatZahTrg
+	tradeProposal.TipZahTrg = tradeProposalDTO.TipZahTrg
+	if tradeProposalDTO.TipZahTrg == 0 {
+		tradeProposal.TipZahTrg = 0
+	} else if tradeProposalDTO.TipZahTrg == 1 {
+		tradeProposal.TipZahTrg = 1
+	} else if tradeProposalDTO.TipZahTrg == 2 {
+		tradeProposal.TipZahTrg = 2
+	}
+
+	tradeProposal.StatusZahTrg = 0 // 0 = IN_PROGRESS
+	tradeProposal.IdMenadzerPos = tradeProposalDTO.IdMenadzerPos
+
+	manager, err := handler.EmployeeService.GetByTeamID(int(tradeProposalDTO.IdMenadzerPrimTim))
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	tradeProposal.IdMenadzerPrim = manager.Id
+	tradeProposal.RazlogOdbij = ""
+	return &tradeProposal, nil
 }

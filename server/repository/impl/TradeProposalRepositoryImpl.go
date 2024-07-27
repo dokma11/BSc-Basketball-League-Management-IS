@@ -33,23 +33,7 @@ func (repo *tradeProposalRepository) GetAll() ([]model.TradeProposal, error) {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		if tradeType == "PLAYER_PLAYER" {
-			tradeProposal.TipZahTrg = 0
-		} else if tradeType == "PLAYER_PICK" {
-			tradeProposal.TipZahTrg = 1
-		} else if tradeType == "PICK_PICK" {
-			tradeProposal.TipZahTrg = 2
-		}
-
-		if status == "IN_PROGRESS" {
-			tradeProposal.StatusZahTrg = 0
-		} else if status == "ACCEPTED" {
-			tradeProposal.StatusZahTrg = 1
-		} else if status == "DECLINED" {
-			tradeProposal.StatusZahTrg = 2
-		} else if status == "CANCELLED" {
-			tradeProposal.StatusZahTrg = 3
-		}
+		mapTradeProposalEnumsForRead(status, tradeType, &tradeProposal)
 
 		tradeProposals = append(tradeProposals, tradeProposal)
 	}
@@ -74,23 +58,7 @@ func (repo *tradeProposalRepository) GetByID(id int) (*model.TradeProposal, erro
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
 
-	if tradeType == "PLAYER_PLAYER" {
-		tradeProposal.TipZahTrg = 0
-	} else if tradeType == "PLAYER_PICK" {
-		tradeProposal.TipZahTrg = 1
-	} else if tradeType == "PICK_PICK" {
-		tradeProposal.TipZahTrg = 2
-	}
-
-	if status == "IN_PROGRESS" {
-		tradeProposal.StatusZahTrg = 0
-	} else if status == "ACCEPTED" {
-		tradeProposal.StatusZahTrg = 1
-	} else if status == "DECLINED" {
-		tradeProposal.StatusZahTrg = 2
-	} else if status == "CANCELLED" {
-		tradeProposal.StatusZahTrg = 3
-	}
+	mapTradeProposalEnumsForRead(status, tradeType, &tradeProposal)
 
 	return &tradeProposal, nil
 }
@@ -113,23 +81,7 @@ func (repo *tradeProposalRepository) GetAllByTeamID(teamID int) ([]model.TradePr
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		if tradeType == "PLAYER_PLAYER" {
-			tradeProposal.TipZahTrg = 0
-		} else if tradeType == "PLAYER_PICK" {
-			tradeProposal.TipZahTrg = 1
-		} else if tradeType == "PICK_PICK" {
-			tradeProposal.TipZahTrg = 2
-		}
-
-		if status == "IN_PROGRESS" {
-			tradeProposal.StatusZahTrg = 0
-		} else if status == "ACCEPTED" {
-			tradeProposal.StatusZahTrg = 1
-		} else if status == "DECLINED" {
-			tradeProposal.StatusZahTrg = 2
-		} else if status == "CANCELLED" {
-			tradeProposal.StatusZahTrg = 3
-		}
+		mapTradeProposalEnumsForRead(status, tradeType, &tradeProposal)
 
 		tradeProposals = append(tradeProposals, tradeProposal)
 	}
@@ -142,10 +94,10 @@ func (repo *tradeProposalRepository) GetAllByTeamID(teamID int) ([]model.TradePr
 }
 
 func (repo *tradeProposalRepository) Create(tradeProposal *model.TradeProposal) error {
+	status, tradeType := mapTradeProposalEnumsForWrite(tradeProposal)
 	_, err := repo.db.Exec("INSERT INTO ZahtevZaTrgovinu (IDZAHTRG, DATZAHTRG, TIPZAHTRG, STATUSZAHTRG, RAZLOGODBIJ, "+
-		"IDMENADZERPOS, IDMENADZERPRIM) "+
-		"VALUES (:1, :2, :3, :4, :5, :6, :7)", tradeProposal.IdZahTrg, tradeProposal.DatZahTrg, tradeProposal.TipZahTrg,
-		tradeProposal.StatusZahTrg, tradeProposal.RazlogOdbij, tradeProposal.IdMenadzerPos, tradeProposal.IdMenadzerPrim)
+		"IDMENADZERPOS, IDMENADZERPRIM) VALUES (:1, :2, :3, :4, :5, :6, :7)", tradeProposal.IdZahTrg, tradeProposal.DatZahTrg,
+		tradeType, status, tradeProposal.RazlogOdbij, tradeProposal.IdMenadzerPos, tradeProposal.IdMenadzerPrim)
 	if err != nil {
 		return fmt.Errorf("failed to create a trade proposal: %v", err)
 	}
@@ -153,11 +105,62 @@ func (repo *tradeProposalRepository) Create(tradeProposal *model.TradeProposal) 
 }
 
 func (repo *tradeProposalRepository) Update(tradeProposal *model.TradeProposal) error {
+	status, tradeType := mapTradeProposalEnumsForWrite(tradeProposal)
 	_, err := repo.db.Exec("UPDATE ZahtevZaTrgovinu SET DATZAHTRG = :1, TIPZAHTRG = :2, STATUSZAHTRG = :3"+
-		", RAZLOGODBIJ = :4 WHERE IDZAHTRG = :5", tradeProposal.DatZahTrg, tradeProposal.TipZahTrg,
-		tradeProposal.StatusZahTrg, tradeProposal.RazlogOdbij, tradeProposal.IdZahTrg)
+		", RAZLOGODBIJ = :4 WHERE IDZAHTRG = :5", tradeProposal.DatZahTrg, tradeType, status, tradeProposal.RazlogOdbij,
+		tradeProposal.IdZahTrg)
 	if err != nil {
 		return fmt.Errorf("failed to update tim: %v", err)
 	}
 	return nil
+}
+
+func mapTradeProposalEnumsForWrite(tradeProposal *model.TradeProposal) (string, string) {
+	var status, tradeType string
+
+	switch tradeProposal.StatusZahTrg {
+	case 0:
+		status = "IN_PROGRESS"
+	case 1:
+		status = "ACCEPTED"
+	case 2:
+		status = "DECLINED"
+	default:
+		status = "CANCELLED"
+	}
+
+	switch tradeProposal.TipZahTrg {
+	case 0:
+		tradeType = "PLAYER_PLAYER"
+	case 1:
+		tradeType = "PLAYER_PICK"
+	default:
+		tradeType = "PICK_PICK"
+	}
+
+	return status, tradeType
+}
+
+func mapTradeProposalEnumsForRead(status string, tradeType string, tradeProposal *model.TradeProposal) {
+	switch status {
+	case "IN_PROGRESS":
+		tradeProposal.StatusZahTrg = 0
+	case "ACCEPTED":
+		tradeProposal.StatusZahTrg = 1
+	case "DECLINED":
+		tradeProposal.StatusZahTrg = 2
+	default:
+		tradeProposal.StatusZahTrg = 3
+	}
+
+	switch tradeType {
+	case "PLAYER_PLAYER":
+		tradeProposal.TipZahTrg = 0
+	case "PLAYER_PICK":
+		tradeProposal.TipZahTrg = 1
+	default:
+		tradeProposal.TipZahTrg = 2
+	}
+
+	return
 }
