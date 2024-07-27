@@ -54,6 +54,7 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 
 	router.HandleFunc("/employee", employeeHandler.GetAll).Methods("GET")
 	router.HandleFunc("/employee/{id}", employeeHandler.GetByID).Methods("GET")
+	router.HandleFunc("/employee/team/{teamId}", employeeHandler.GetByTeamID).Methods("GET")
 
 	router.HandleFunc("/login", authenticationHandler.LogIn).Methods("POST")
 
@@ -154,7 +155,7 @@ func main() {
 
 	tradeProposalRepository := impl.NewTradeProposalRepository(&db)
 	tradeProposalService := service.NewTradeProposalService(tradeProposalRepository)
-	tradeProposalHandler := handler.NewTradeProposalHandler(tradeProposalService)
+	tradeProposalHandler := handler.NewTradeProposalHandler(tradeProposalService, employeeService)
 
 	tradeRepository := impl.NewTradeRepository(&db)
 	tradeService := service.NewTradeService(tradeRepository)
