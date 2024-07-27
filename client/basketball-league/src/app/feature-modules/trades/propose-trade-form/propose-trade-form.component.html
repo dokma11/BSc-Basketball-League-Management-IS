@@ -1,7 +1,7 @@
 <div class="modal-overlay" (click)="overviewClicked()"></div>
 <div class="dialogue">
   <div class="wrapper">
-    <form [formGroup]="proposeTradeForm">
+    <form>
         <h1>Propose a trade</h1>
 
         <div class="trading-partner">
@@ -10,6 +10,7 @@
             <mat-form-field>
               <!-- MORAM POKUSAATI DA GA UOBLICIM -->
               <mat-select [formControl]="teamCtrl" 
+                          (selectionChange)="onTeamSelected($event)"
                           placeholder="Team name" 
                           #singleSelect>
                 <mat-option>
@@ -31,138 +32,70 @@
 
         <div class="receivings">
           <div class="user-receivings">
-            <h2>You receive: </h2>
-            <!-- E sad ovde treba nekako izlistati sve sto se nalazi u offeru -->
-             <!-- Mozda da ne bude tablea vec ono sa karticom, za svkai tip imovine lepo prosledim
-              i napravim kao template kak otreba da se uradi  -->
-             <!-- <table>
-              <tr>
-                <td>Jayson Tatum</td>
-                <td>
-                  <button class="submit-btn" 
-                          (click)="removeAssetButtonClicked()"
-                          [@buttonState]="removeAssetButtonState">
-                          <fa-icon [icon]="faMinus" />
-                          &nbsp;Remove
-                  </button>
-                </td>
-              </tr>
-             </table> -->
-
-             <!-- Dakle ovde je umesto tabele onaj skrol sa karticama -->
+            <h2>You receive: </h2> <!-- MOZDA DODATI KAO THEIR ASSETS YOU RECEIVE RADI SMANJENJA KONFUZIJE -->
               <div class="assets">
                 <app-propose-trade-asset-card
-                [@fadeIn]
-                [showButton]="true">
+                  [@fadeIn]
+                  [showButton]="true"
+                  *ngFor="let player of chosenPartnerPlayers"
+                  [chosenPlayer]="player"
+                  [chosenPlayers]="chosenPartnerPlayers">
                 </app-propose-trade-asset-card>
+
                 <app-propose-trade-asset-card
-                [@fadeIn]
-                [showButton]="true">
+                  [@fadeIn]
+                  [showButton]="true"
+                  *ngFor="let pick of chosenPartnerPicks"
+                  [chosenPick]="pick"
+                  [chosenPicks]="chosenPartnerPicks">
                 </app-propose-trade-asset-card>
+                
                 <app-propose-trade-asset-card
-                [@fadeIn]
-                [showButton]="true">
-                </app-propose-trade-asset-card>
-                <app-propose-trade-asset-card
-                [@fadeIn]
-                [showButton]="true">
-                </app-propose-trade-asset-card>
-                <app-propose-trade-asset-card
-                [@fadeIn]
-                [showButton]="true">
-                </app-propose-trade-asset-card>
-                <app-propose-trade-asset-card
-                [@fadeIn]
-                [showButton]="true">
-                </app-propose-trade-asset-card>
-                <app-propose-trade-asset-card
-                [@fadeIn]
-                [showButton]="true">
-                </app-propose-trade-asset-card>
-                <app-propose-trade-asset-card
-                [@fadeIn]
-                [showButton]="true">
-                </app-propose-trade-asset-card>
-                <app-propose-trade-asset-card
-                [@fadeIn]
-                [showButton]="true">
-                </app-propose-trade-asset-card>
-                <app-propose-trade-asset-card
-                [@fadeIn]
-                [showButton]="true">
+                  [@fadeIn]
+                  [showButton]="true"
+                  *ngFor="let draftRight of chosenPartnerDraftRights"
+                  [chosenDraftRight]="draftRight"
+                  [chosenDraftRights]="chosenPartnerDraftRights">
                 </app-propose-trade-asset-card>
               </div>
-             
-            <button type="submit" 
+              <button type="submit" 
                     class="submit-btn" 
                     [@buttonState]="addPartnersAssetButtonState" 
                     (click)="addPartnersAssetButtonClicked()"
                     >
                     <fa-icon [icon]="faPlus" />
                     &nbsp;Add asset
-            </button>
+              </button>
           </div>
   
+          <!-- PRIPAZI OVDE NA RASTOJANJE SAMO U CSS DA BUDE IZRAVNATO -->
+
           <div class="partner-receivings">
-            <!-- Mozda umesto They da napisem naziv tima bas -->
             <h2>They receive: </h2>
-            <!-- E sad ovde treba nekako izlistati sve sto se nalazi u offeru -->
-            <!-- <table>
-              <tr>
-                <td>Naziv</td>
-                <td>
-                  <button class="submit-btn" 
-                          (click)="removeAssetButtonClicked()"
-                          [@buttonState]="removeAssetButtonState">
-                          <fa-icon [icon]="faMinus" />
-                          &nbsp;Remove
-                  </button>
-                </td>
-              </tr>
-             </table>
-              -->
-             
              <div class="assets">
               <app-propose-trade-asset-card
-              [@fadeIn]
-              [showButton]="true">
-              </app-propose-trade-asset-card>
-              <app-propose-trade-asset-card
-              [@fadeIn]
-              [showButton]="true">
-              </app-propose-trade-asset-card>
-              <app-propose-trade-asset-card
-              [@fadeIn]
-              [showButton]="true">
-              </app-propose-trade-asset-card>
-              <app-propose-trade-asset-card
-              [@fadeIn]
-              [showButton]="true">
-              </app-propose-trade-asset-card>
-              <app-propose-trade-asset-card
-              [@fadeIn]
-              [showButton]="true">
-              </app-propose-trade-asset-card>
-              <app-propose-trade-asset-card
-              [@fadeIn]
-              [showButton]="true">
-              </app-propose-trade-asset-card>
-              <app-propose-trade-asset-card
-              [@fadeIn]
-              [showButton]="true">
-              </app-propose-trade-asset-card>
-              <app-propose-trade-asset-card
-              [@fadeIn]
-              [showButton]="true">
-              </app-propose-trade-asset-card>
-              <app-propose-trade-asset-card
-              [@fadeIn]
-              [showButton]="true">
-              </app-propose-trade-asset-card>
-              <app-propose-trade-asset-card
-              [@fadeIn]
-              [showButton]="true">
-              </app-propose-trade-asset-card>
+                  [@fadeIn]
+                  [showButton]="true"
+                  *ngFor="let player of chosenOwnPlayers"
+                  [chosenPlayer]="player"
+                  [chosenPlayers]="chosenOwnPlayers">
+                </app-propose-trade-asset-card>
+
+                <app-propose-trade-asset-card
+                  [@fadeIn]
+                  [showButton]="true"
+                  *ngFor="let pick of chosenOwnPicks"
+                  [chosenPick]="pick"
+                  [chosenPicks]="chosenOwnPicks">
+                </app-propose-trade-asset-card>
+                
+                <app-propose-trade-asset-card
+                  [@fadeIn]
+                  [showButton]="true"
+                  *ngFor="let draftRight of chosenOwnDraftRights"
+                  [chosenDraftRight]="draftRight"
+                  [chosenDraftRights]="chosenOwnDraftRights">
+                </app-propose-trade-asset-card>
             </div>
 
             <button type="submit" 
@@ -179,7 +112,7 @@
         <button type="submit" 
                 class="submit-btn" 
                 [@buttonState]="buttonState" 
-                (click)="addTourButtonClicked()"
+                (click)="submitTradeProposalButtonClicked()"
                 >Submit proposal
         </button>
     </form>

@@ -5,19 +5,34 @@
     <div class="asset-card-content">
         <div class="asset-card-information">
             <div class="asset-card-center">
-                  <!-- Ovo je vazan deo, u sustini treba prikazati ime igraca i poziciju, isto za draft rights vazi,
-                   takodje treba i dodati za pik koja je runda i koje je godine -->
-                  <div class="asset-description">
-                    Michael Porter Jr nesto PF/SF   <!-- Ovde dodati sadrzaj same kartice u zavisnosti od tipa imovine -->
-                  </div>
-                  <!-- Michael Porter Jr nesto PF/SF -->
+                  <div class="asset-description"> {{ this.description }} </div>
             </div>
             <div class="asset-card-right">
                   <button
                     class="btn"
-                    (click)="removeAssetButtonClicked(player);$event.stopPropagation()"
+                    (click)="removeAssetButtonClicked(chosenPlayer);$event.stopPropagation()"
                     [@buttonState]="removeAssetButtonState"
-                    *ngIf="showButton"
+                    *ngIf="showButton && chosenPlayer"
+                  >
+                    <fa-icon [icon]="faMinus" />
+                    &nbsp;Remove
+                  </button>
+                  
+                  <button
+                    class="btn"
+                    (click)="removeAssetButtonClicked(chosenPick);$event.stopPropagation()"
+                    [@buttonState]="removeAssetButtonState"
+                    *ngIf="showButton && chosenPick"
+                  >
+                    <fa-icon [icon]="faMinus" />
+                    &nbsp;Remove
+                  </button>
+
+                  <button
+                    class="btn"
+                    (click)="removeAssetButtonClicked(chosenDraftRight);$event.stopPropagation()"
+                    [@buttonState]="removeAssetButtonState"
+                    *ngIf="showButton && chosenDraftRight"
                   >
                     <fa-icon [icon]="faMinus" />
                     &nbsp;Remove

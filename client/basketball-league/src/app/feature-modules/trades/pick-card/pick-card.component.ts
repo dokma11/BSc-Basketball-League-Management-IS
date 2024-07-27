@@ -1,10 +1,9 @@
 import { trigger, transition, style, animate, state } from '@angular/animations';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Pick } from 'src/app/shared/model/pick.model';
 
 @Component({
   selector: 'app-pick-card',
@@ -38,45 +37,60 @@ export class PickCardComponent implements OnInit{
   addAssetButtonState: string = 'idle';  
   removeAssetButtonState: string = 'idle';
   assetSelected: boolean = false;
-  player: string = 'IGRAC';  // DOK NE POVEZEM SA BEKOM, PIK TREBA DA BUDE OVO STO SU PLAYER I REQUEST
-  //@Input() request!: PersonalTourRequest; Ovde treba da budu pikovi kao lista
-  private dialogRef: any;
+  @Input() pick!: Pick;
+  @Input() chosenPicks!: Pick[];
   user: User | undefined;
   @Output() dialogRefClosed: EventEmitter<any> = new EventEmitter<any>();
   ownTeam: boolean = false;
 
-  constructor(private dialog: MatDialog,
-              private authService: AuthService,
-              private snackBar: MatSnackBar) {
-    this.authService.user$.subscribe(user => {
-      this.user = user;
-    });
-  
-    // Treba nekako videti za koji tim se traze pikovi i onda ih ucitati u this.picks recimo
+  constructor(private snackBar: MatSnackBar) {
+    
   }
 
   ngOnInit(): void {
-    // TODO: Dodati ovde sta treba pri inicijalizaciji komponenti
+    if(this.chosenPicks){
+      this.chosenPicks.forEach(team => {
+        if(team.idPik === this.pick.idPik){
+          this.assetSelected = true;
+        }
+      })
+    }
   }
 
-  addAssetButtonClicked(assset: any): void {
+  addAssetButtonClicked(asset: Pick): void {
     this.addAssetButtonState = 'clicked';
     setTimeout(() => { this.addAssetButtonState = 'idle'; }, 200);
 
-    this.assetSelected = true;
-    this.showNotification("Pick successfully added!");
-    
-    // TODO: Dodati logiku za dodavanje imovine na neku listu itd, trebalo bi da ima na isi
+    let alreadyThere = false;
+    this.chosenPicks.forEach(team => {
+        if(team.idPik === asset.idPik){
+          alreadyThere = true
+        }
+      }
+    )
+
+    if(!alreadyThere){
+      this.chosenPicks.push(asset);
+      this.assetSelected = true;
+      this.showNotification("Pick successfully added!");
+    }
+    else{
+      this.showNotification("Pick already chosen!");
+    }
   }
 
-  removeAssetButtonClicked(assset: any): void {
+  removeAssetButtonClicked(asset: Pick): void {
     this.removeAssetButtonState = 'clicked';
     setTimeout(() => { this.removeAssetButtonState = 'idle'; }, 200);
 
-    this.assetSelected = false;
-    this.showNotification("Pick successfully removed!");
-
-    // TODO: Dodati logiku za uklanjanje imovine sa neke liste itd, trebalo bi da ima na isi
+    this.chosenPicks.forEach( (team, index) => {
+        if(team.idPik === asset.idPik){
+          this.chosenPicks.splice(index,1)
+          this.assetSelected = false;
+          this.showNotification("Pick successfully removed!");
+        }
+      }
+    )
   }
 
   showNotification(message: string): void {

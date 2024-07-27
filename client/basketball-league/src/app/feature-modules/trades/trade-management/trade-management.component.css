@@ -49,7 +49,7 @@
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fhdwallsbox.com%2Fwallpapers%2Fl%2F1920x1080%2F40%2Fchina-the-palace-museum-1920x1080-39941.jpg&f=1&nofb=1&ipt=e6dd1661132909112926b680f821e0ecc1560fc2c5a2eb1b8ce60854d0f05b51&ipo=images') no-repeat;
+  background: rgba(0, 0, 0, .2);
   background-position: center;
   background-size: cover;
   transition: background-size 0.3s ease;

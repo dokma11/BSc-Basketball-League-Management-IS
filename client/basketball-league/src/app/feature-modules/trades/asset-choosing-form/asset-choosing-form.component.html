@@ -3,7 +3,7 @@
   <div class="wrapper">
     <form>
       <!-- Ovde treba da stoji naziv tima koji smo prosledili iz proslog dijaloga -->
-        <h1>Assets of the Boston Celtics</h1>
+        <h1>Assets of the {{ this.team?.nazTim }}</h1>
 
         <form [formGroup]="assetForm">
           <div class="asset-type">
@@ -26,48 +26,16 @@
         <div class="assets">
           <app-pick-card
           [@fadeIn]
-          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
-        ></app-pick-card>
-        <app-pick-card
-          [@fadeIn]
-          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
-        ></app-pick-card>
-        <app-pick-card
-          [@fadeIn]
-          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
-        ></app-pick-card>
-        <app-pick-card
-          [@fadeIn]
-          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
-        ></app-pick-card>
-        <app-pick-card
-          [@fadeIn]
-          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
-        ></app-pick-card>
-        <app-pick-card
-          [@fadeIn]
-          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
-        ></app-pick-card>
-        <app-pick-card
-          [@fadeIn]
-          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
-        ></app-pick-card>
-        <app-pick-card
-          [@fadeIn]
-          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
-        ></app-pick-card>
-        <app-pick-card
-          [@fadeIn]
-          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
-        ></app-pick-card>
-        <app-pick-card
-          [@fadeIn]
-          *ngIf="this.assetForm.value.selectedAssetType == 'Picks'"
+          *ngFor="let pick of picks"
+          [pick]="pick"
+          [chosenPicks]="chosenPicks"
         ></app-pick-card>
 
         <app-player-asset-card
           [@fadeIn]
-          *ngIf="this.assetForm.value.selectedAssetType == 'Players'"
+          *ngFor="let player of players"
+          [player]="player"
+          [chosenPlayers]="chosenPlayers"
         ></app-player-asset-card>
 
         <!-- Nekako ovde moram da uradim da bude isto kao igrac samo draft rights, msm da se to svakako prosledjuje preko

@@ -1,5 +1,6 @@
 .player-card {
   display: flex;
+  flex-direction: row;
   height: 3rem;
   width: 95%;
   padding: 0.5rem;
@@ -23,18 +24,6 @@
   border: 2px solid rgba(255, 255, 255, .2);
   box-shadow: 1px 2px 3px rgba(var(--clr-primary-500), 0.2),
       -1px 0px 3px rgba(var(--clr-primary-500), 0.2);
-}
-
-.player-card:hover .player-image {
-  transform: scale(1.2);
-}
-
-.player-card-left {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  width: 10rem;
 }
 
 .player-card-content {
@@ -66,99 +55,14 @@
 
 .player-card-right {
   display: flex;
-  flex-direction: row;
+  flex-direction: flex-end;
+  align-items: flex-end;
   justify-content: center;
   width: 25%;
+  min-width: 25%;
   height: auto;
-  gap: 20px;
   padding-top: 1.8%;
-  margin-right: -20%;
-}
-
-.player-image-container {
-  height: 3rem;
-  width: 8rem;
-  max-height: 3rem;
-  max-width: 8rem;
-  border-radius: 0.625rem;
-  overflow: hidden;
-}
-
-.player-image {
-  height: 3rem;
-  width: 8rem;
-  max-height: 3rem;
-  max-width: 8rem;
-  object-fit: cover;
-  border-radius: 0.625rem;
-  overflow: hidden;
-  transition: transform 0.3s ease-in-out;
-}
-
-.player-tags {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  width: 70%;
-}
-
-.player-tag {
-  font-family: var(--fnt-body);
-  font-size: 0.8rem;
-  color: rgba(var(--clr-text), 1);
-  background-color: rgba(var(--clr-background-secondary), 1);
-  border-radius: 0.3125rem;
-  padding: 0.125rem 0.25rem;
-  transition: background-color 0.15s, color 0.15s;
-  cursor: pointer;
-}
-
-.player-tag:hover {
-  background-color: rgba(var(--clr-background-secondary), 0.75);
-}
-
-.player-title {
-  padding: 0;
-  margin: 0;
-  margin-top: 0.5rem;
-  margin-bottom: 0.8rem;
-  max-width: 100%;
-  font-family: var(--fnt-body);
-  font-size: 1.5rem;
-  color: rgba(var(--clr-text), 1);
-  font-weight: 500;
-  line-height: 1.5rem;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  transition: color 0.15s;
-}
-
-.player-description {
-  padding: 0;
-  padding-right: 2rem;
-  margin: 0;
-  margin-top: 0.25rem;
-  max-width: 100%;
-  font-family: var(--fnt-body);
-  font-size: 0.75rem;
-  color: rgba(var(--clr-text), 1);
-  line-height: 1rem;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  transition: color 0.15s;
-}
-
-.add-to-wishlist {
-  margin-top: 0rem;
-  max-width: 60%;
-  min-width: 15rem;
-  margin-left: auto;
-  margin-bottom: 0.5rem;
+  margin-right: -90%;
 }
 
 .btn {
