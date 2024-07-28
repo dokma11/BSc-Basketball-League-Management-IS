@@ -35,6 +35,7 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	router.HandleFunc("/team", teamHandler.GetAll).Methods("GET")
 	router.HandleFunc("/team/{id}", teamHandler.GetByID).Methods("GET")
 	router.HandleFunc("/team-user/{userId}", teamHandler.GetByUserID).Methods("GET")
+	router.HandleFunc("/team-trade-subject/{tradeSubjectId}", teamHandler.GetPlayerTradeDestination).Methods("GET")
 
 	router.HandleFunc("/pick", pickHandler.GetAll).Methods("GET")
 	router.HandleFunc("/pick/{id}", pickHandler.GetByID).Methods("GET")
@@ -71,7 +72,8 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 
 	router.HandleFunc("/tradeProposal", tradeProposalHandler.GetAll).Methods("GET")
 	router.HandleFunc("/tradeProposal/{id}", tradeProposalHandler.GetByID).Methods("GET")
-	router.HandleFunc("/tradeProposal/{teamId}", tradeProposalHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/tradeProposal-received/{managerId}", tradeProposalHandler.GetAllReceivedByManagerID).Methods("GET")
+	router.HandleFunc("/tradeProposal-sent/{managerId}", tradeProposalHandler.GetAllSentByManagerID).Methods("GET")
 	router.HandleFunc("/tradeProposal-latest", tradeProposalHandler.GetLatest).Methods("GET")
 	router.HandleFunc("/tradeProposal", tradeProposalHandler.Create).Methods("POST")
 	router.HandleFunc("/tradeProposal", tradeProposalHandler.Update).Methods("PUT")
@@ -107,8 +109,9 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 
 	router.HandleFunc("/tradeSubject", tradeSubjectHandler.GetAll).Methods("GET")
 	router.HandleFunc("/tradeSubject/{id}", tradeSubjectHandler.GetByID).Methods("GET")
-	router.HandleFunc("/tradeSubject/{tradeId}", tradeSubjectHandler.GetAllByTradeID).Methods("GET")
+	router.HandleFunc("/tradeSubject-trade/{tradeId}", tradeSubjectHandler.GetAllByTradeID).Methods("GET")
 	router.HandleFunc("/tradeSubject", tradeSubjectHandler.Create).Methods("POST")
+	router.HandleFunc("/tradeSubject-commit-trade", tradeSubjectHandler.CommitTrade).Methods("POST")
 
 	corsAllowedOrigins := handlers.AllowedOrigins([]string{"*"})
 	corsAllowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
@@ -186,7 +189,8 @@ func main() {
 
 	tradeSubjectRepository := impl.NewTradeSubjectRepository(&db)
 	tradeSubjectService := service.NewTradeSubjectService(tradeSubjectRepository)
-	tradeSubjectHandler := handler.NewTradeSubjectHandler(tradeSubjectService, tradeProposalService)
+	tradeSubjectHandler := handler.NewTradeSubjectHandler(tradeSubjectService, tradeProposalService, teamService,
+		pickService, draftRightService, employeeService, contractService, tradeService)
 
 	startServer(teamHandler, pickHandler, userHandler, recruitHandler, playerHandler, employeeHandler,
 		authenticationHandler, draftRightHandler, contractHandler, draftHandler, tradeProposalHandler, tradeHandler,

@@ -30,10 +30,10 @@ func (service *TradeSubjectService) GetByID(id int) (*model.TradeSubject, error)
 	return TradeSubject, nil
 }
 
-func (service *TradeSubjectService) GetAllByTradeID(tradeID int) (*[]model.TradeSubject, error) {
-	TradeSubjects, err := service.TradeSubjectRepository.GetAllByTradeID(tradeID)
+func (service *TradeSubjectService) GetAllByTradeProposalID(tradeProposalID int) (*[]model.TradeSubject, error) {
+	TradeSubjects, err := service.TradeSubjectRepository.GetAllByTradeProposalID(tradeProposalID)
 	if err != nil {
-		return nil, fmt.Errorf(fmt.Sprintf("no trade subjects with that trade id were found"))
+		return nil, fmt.Errorf(fmt.Sprintf("no trade subjects with that trade proposal id were found"))
 	}
 	return &TradeSubjects, nil
 }

@@ -69,3 +69,8 @@ type TradeProposalCreateDTO struct {
 	IdMenadzerPos     int64     `json:"idMenadzerPos"`     // Sender foreign key
 	IdMenadzerPrimTim int64     `json:"idMenadzerPrimTim"` // Receiver team foreign key
 }
+
+type TradeProposalUpdateDTO struct {
+	IdZahTrg  int64     `json:"idZahTrg"`
+	TipZahTrg TradeType `json:"tipZahTrg"`
+}

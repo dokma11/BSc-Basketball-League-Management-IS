@@ -12,11 +12,11 @@ type Trade struct {
 	IdZahTrg int64     `json:"idZahTrg"` // Trade Proposal foreign key
 }
 
-func NewTrade(idTrg int64, datTrg time.Time, tipTrg TradeType) (*Trade, error) {
+func NewTrade(datTrg time.Time, tipTrg TradeType, idZahTrg int64) (*Trade, error) {
 	trade := &Trade{
-		IdTrg:  idTrg,
-		DatTrg: datTrg,
-		TipTrg: tipTrg,
+		DatTrg:   datTrg,
+		TipTrg:   tipTrg,
+		IdZahTrg: idZahTrg,
 	}
 
 	if err := trade.Validate(); err != nil {

@@ -81,10 +81,6 @@ export class ProposeTradeFormComponent implements OnInit, AfterViewInit, OnDestr
     this.authService.user$.subscribe((user) => {
       this.user = user;
     });
-
-    console.log(this.user!.id);
-    console.log(this.user!.email);
-    console.log(this.user!.teamId);
   }
 
   ngOnInit(): void {

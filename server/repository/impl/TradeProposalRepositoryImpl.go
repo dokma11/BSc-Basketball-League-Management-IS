@@ -63,9 +63,37 @@ func (repo *tradeProposalRepository) GetByID(id int) (*model.TradeProposal, erro
 	return &tradeProposal, nil
 }
 
-func (repo *tradeProposalRepository) GetAllByTeamID(teamID int) ([]model.TradeProposal, error) {
-	// TODO: Implementirati ovu metodu kada se spoji sve kako treba (za sada je samo kao GetAll())
-	rows, err := repo.db.Query("SELECT * FROM ZahtevZaTrgovinu") // ovde treba dodati idTima
+func (repo *tradeProposalRepository) GetAllReceivedByManagerID(managerID int) ([]model.TradeProposal, error) {
+	rows, err := repo.db.Query("SELECT * FROM ZahtevZaTrgovinu WHERE IDMENADZERPRIM = :1", managerID) // TODO: MORAM DODATI DA SE NE UZMU OTKAZANA
+	if err != nil {
+		return nil, fmt.Errorf("failed to query all trade proposals: %v", err)
+	}
+	defer rows.Close()
+
+	var tradeProposals []model.TradeProposal
+	for rows.Next() {
+		var tradeProposal model.TradeProposal
+		var tradeType string
+		var status string
+		if err := rows.Scan(&tradeProposal.IdZahTrg, &tradeProposal.DatZahTrg, &tradeType, &status, &tradeProposal.RazlogOdbij,
+			&tradeProposal.IdMenadzerPos, &tradeProposal.IdMenadzerPrim); err != nil {
+			return nil, fmt.Errorf("failed to scan row: %v", err)
+		}
+
+		mapTradeProposalEnumsForReading(status, tradeType, &tradeProposal)
+
+		tradeProposals = append(tradeProposals, tradeProposal)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("row iteration error: %v", err)
+	}
+
+	return tradeProposals, nil
+}
+
+func (repo *tradeProposalRepository) GetAllSentByManagerID(managerID int) ([]model.TradeProposal, error) {
+	rows, err := repo.db.Query("SELECT * FROM ZahtevZaTrgovinu WHERE IDMENADZERPOS = :1", managerID)
 	if err != nil {
 		return nil, fmt.Errorf("failed to query all trade proposals: %v", err)
 	}
@@ -110,7 +138,7 @@ func (repo *tradeProposalRepository) Update(tradeProposal *model.TradeProposal) 
 		", RAZLOGODBIJ = :4 WHERE IDZAHTRG = :5", tradeProposal.DatZahTrg, tradeType, status, tradeProposal.RazlogOdbij,
 		tradeProposal.IdZahTrg)
 	if err != nil {
-		return fmt.Errorf("failed to update tim: %v", err)
+		return fmt.Errorf("failed to update trade proposal: %v", err)
 	}
 	return nil
 }

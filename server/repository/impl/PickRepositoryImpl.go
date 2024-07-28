@@ -97,3 +97,11 @@ func (repo *pickRepository) GetAllByYear(year string) ([]model.Pick, error) {
 
 	return picks, nil
 }
+
+func (repo *pickRepository) Update(pick *model.Pick) error {
+	_, err := repo.db.Exec("UPDATE PIK SET IDTIM = :1 WHERE IDPIK = :2", pick.IdTim, pick.IdPik)
+	if err != nil {
+		return fmt.Errorf("failed to update pick: %v", err)
+	}
+	return nil
+}

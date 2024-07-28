@@ -67,3 +67,66 @@ func (handler *TeamHandler) GetByUserID(w http.ResponseWriter, r *http.Request) 
 
 	json.NewEncoder(w).Encode(team)
 }
+
+func (handler *TeamHandler) GetPlayerTradeDestination(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	tradeSubjectID, err := strconv.Atoi(vars["tradeSubjectId"])
+	if err != nil {
+		http.Error(w, "Invalid trade subject ID", http.StatusBadRequest)
+		return
+	}
+
+	team, err := handler.TeamService.GetPlayerTradeDestination(tradeSubjectID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if team == nil {
+		http.NotFound(w, r)
+		return
+	}
+
+	json.NewEncoder(w).Encode(team)
+}
+
+func (handler *TeamHandler) GetPickTradeDestination(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	tradeSubjectID, err := strconv.Atoi(vars["tradeSubjectId"])
+	if err != nil {
+		http.Error(w, "Invalid trade subject ID", http.StatusBadRequest)
+		return
+	}
+
+	team, err := handler.TeamService.GetPickTradeDestination(tradeSubjectID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if team == nil {
+		http.NotFound(w, r)
+		return
+	}
+
+	json.NewEncoder(w).Encode(team)
+}
+
+func (handler *TeamHandler) GetDraftRightsTradeDestination(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	tradeSubjectID, err := strconv.Atoi(vars["tradeSubjectId"])
+	if err != nil {
+		http.Error(w, "Invalid trade subject ID", http.StatusBadRequest)
+		return
+	}
+
+	team, err := handler.TeamService.GetDraftRightsTradeDestination(tradeSubjectID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if team == nil {
+		http.NotFound(w, r)
+		return
+	}
+
+	json.NewEncoder(w).Encode(team)
+}

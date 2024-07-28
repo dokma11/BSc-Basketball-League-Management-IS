@@ -4,19 +4,31 @@ import (
 	"basketball-league-server/model"
 	"basketball-league-server/service"
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 type TradeSubjectHandler struct {
 	TradeSubjectService  *service.TradeSubjectService
 	TradeProposalService *service.TradeProposalService
+	TeamService          *service.TeamService
+	PickService          *service.PickService
+	DraftRightService    *service.DraftRightService
+	EmployeeService      *service.EmployeeService
+	ContractService      *service.ContractService
+	TradeService         *service.TradeService
 }
 
-func NewTradeSubjectHandler(TradeSubjectService *service.TradeSubjectService, TradeProposalService *service.TradeProposalService) *TradeSubjectHandler {
-	return &TradeSubjectHandler{TradeSubjectService: TradeSubjectService, TradeProposalService: TradeProposalService}
+func NewTradeSubjectHandler(TradeSubjectService *service.TradeSubjectService, TradeProposalService *service.TradeProposalService,
+	TeamService *service.TeamService, PickService *service.PickService, DraftRightService *service.DraftRightService,
+	EmployeeService *service.EmployeeService, ContractService *service.ContractService, TradeService *service.TradeService) *TradeSubjectHandler {
+	return &TradeSubjectHandler{TradeSubjectService: TradeSubjectService, TradeProposalService: TradeProposalService,
+		TeamService: TeamService, PickService: PickService, DraftRightService: DraftRightService, EmployeeService: EmployeeService,
+		ContractService: ContractService, TradeService: TradeService}
 }
 
 func (handler *TradeSubjectHandler) GetAll(w http.ResponseWriter, r *http.Request) {
@@ -58,7 +70,7 @@ func (handler *TradeSubjectHandler) GetAllByTradeID(w http.ResponseWriter, r *ht
 		return
 	}
 
-	tradeSubjects, err := handler.TradeSubjectService.GetAllByTradeID(tradeID)
+	tradeSubjects, err := handler.TradeSubjectService.GetAllByTradeProposalID(tradeID)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -90,6 +102,97 @@ func (handler *TradeSubjectHandler) Create(w http.ResponseWriter, r *http.Reques
 	}
 
 	w.WriteHeader(http.StatusCreated)
+}
+
+func (handler *TradeSubjectHandler) CommitTrade(w http.ResponseWriter, r *http.Request) {
+	var tradeProposalDTO model.TradeProposalUpdateDTO
+	if err := json.NewDecoder(r.Body).Decode(&tradeProposalDTO); err != nil {
+		log.Println(err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	tradeSubjects, err := handler.TradeSubjectService.GetAllByTradeProposalID(int(tradeProposalDTO.IdZahTrg))
+	if err != nil {
+		log.Println(err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	for _, tradeSubject := range *tradeSubjects {
+		if tradeSubject.TipPredTrg == 0 { // Player
+			team, err := handler.TeamService.GetPlayerTradeDestination(int(tradeSubject.IdPredTrg))
+			if err != nil {
+				log.Println(err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			player, err := handler.EmployeeService.GetByID(int(tradeSubject.IdIgrac)) // Player is considered as an employee
+			if err != nil {
+				log.Println(err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			contract, err := handler.ContractService.GetByID(int(player.IdUgo))
+			if err != nil {
+				log.Println(err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			contract.IdTim = team.IdTim // Switch player's team
+			contractError := handler.ContractService.Update(contract)
+			if contractError != nil {
+				log.Println(contractError)
+				return
+			}
+		} else if tradeSubject.TipPredTrg == 1 { // Pick
+			team, err := handler.TeamService.GetPickTradeDestination(int(tradeSubject.IdPredTrg))
+			if err != nil {
+				log.Println(err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
+
+			pick, err := handler.PickService.GetByID(int(tradeSubject.IdPik))
+			if err != nil {
+				log.Println(err)
+			}
+
+			pick.IdTim = team.IdTim
+			pickError := handler.PickService.Update(pick)
+			if pickError != nil {
+				log.Println(pickError)
+			}
+		} else if tradeSubject.TipPredTrg == 2 { // Draft Right
+			team, err := handler.TeamService.GetDraftRightsTradeDestination(int(tradeSubject.IdPredTrg))
+			if err != nil {
+				log.Println(err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
+
+			draftRights, err := handler.DraftRightService.GetByID(int(tradeSubject.IdPrava))
+			if err != nil {
+				log.Println(err)
+			}
+
+			draftRights.IdTim = team.IdTim
+			draftRightsError := handler.DraftRightService.Update(draftRights)
+			if draftRightsError != nil {
+				log.Println(draftRightsError)
+			}
+		}
+	}
+
+	var trade, tradeErr = model.NewTrade(time.Now(), tradeProposalDTO.TipZahTrg, tradeProposalDTO.IdZahTrg)
+	if tradeErr != nil {
+		log.Println(tradeErr)
+	}
+
+	tradeError := handler.TradeService.Create(trade)
+	if tradeError != nil {
+		fmt.Println(tradeError)
+	}
 }
 
 func (handler *TradeSubjectHandler) mapSubjectFromDTO(tradeSubjectDTO *model.TradeSubjectCreateDTO) (*model.TradeSubject, error) {

@@ -32,13 +32,7 @@ func (repo *contractRepository) GetAll() ([]model.Contract, error) {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		if option == "PLAYER_OPTION" {
-			contract.OpcUgo = 0
-		} else if option == "TEAM_OPTION" {
-			contract.OpcUgo = 1
-		} else if option == "NO_OPTION" {
-			contract.OpcUgo = 2
-		}
+		mapContractEnum(option, &contract)
 
 		contracts = append(contracts, contract)
 	}
@@ -62,13 +56,26 @@ func (repo *contractRepository) GetByID(id int) (*model.Contract, error) {
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
 
-	if option == "PLAYER_OPTION" {
-		contract.OpcUgo = 0
-	} else if option == "TEAM_OPTION" {
-		contract.OpcUgo = 1
-	} else if option == "NO_OPTION" {
-		contract.OpcUgo = 2
-	}
+	mapContractEnum(option, &contract)
 
 	return &contract, nil
+}
+
+func (repo *contractRepository) Update(contract *model.Contract) error {
+	_, err := repo.db.Exec("UPDATE UGOVOR SET IDTIM = :1 WHERE IDUGO = :2", contract.IdTim, contract.IdUgo)
+	if err != nil {
+		return fmt.Errorf("failed to update contract: %v", err)
+	}
+	return nil
+}
+
+func mapContractEnum(option string, contract *model.Contract) {
+	switch option {
+	case "PLAYER_OPTION":
+		contract.OpcUgo = 0
+	case "TEAM_OPTION":
+		contract.OpcUgo = 1
+	default:
+		contract.OpcUgo = 2
+	}
 }

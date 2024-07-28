@@ -49,15 +49,32 @@ func (handler *TradeProposalHandler) GetByID(w http.ResponseWriter, r *http.Requ
 	json.NewEncoder(w).Encode(tradeProposal)
 }
 
-func (handler *TradeProposalHandler) GetAllByTeamID(w http.ResponseWriter, r *http.Request) {
+func (handler *TradeProposalHandler) GetAllReceivedByManagerID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	teamID, err := strconv.Atoi(vars["teamId"])
+	managerID, err := strconv.Atoi(vars["managerId"])
 	if err != nil {
-		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		http.Error(w, "Invalid manager ID", http.StatusBadRequest)
 		return
 	}
 
-	tradeProposals, err := handler.TradeProposalService.GetAllByTeamID(teamID)
+	tradeProposals, err := handler.TradeProposalService.GetAllReceivedByManagerID(managerID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	json.NewEncoder(w).Encode(tradeProposals)
+}
+
+func (handler *TradeProposalHandler) GetAllSentByManagerID(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	managerID, err := strconv.Atoi(vars["managerId"])
+	if err != nil {
+		http.Error(w, "Invalid manager ID", http.StatusBadRequest)
+		return
+	}
+
+	tradeProposals, err := handler.TradeProposalService.GetAllSentByManagerID(managerID)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
