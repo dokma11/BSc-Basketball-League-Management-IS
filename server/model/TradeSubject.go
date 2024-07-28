@@ -38,3 +38,10 @@ func (t *TradeSubject) Validate() error {
 	}
 	return nil
 }
+
+type TradeSubjectCreateDTO struct {
+	TipPredTrg TradeSubjectType `json:"tipPredTrg"`
+	IdPrava    int64            `json:"idPrava"` // Draft Rights foreign key
+	IdIgrac    int64            `json:"idIgrac"` // Player foreign key
+	IdPik      int64            `json:"idPik"`   // Pick foreign key
+}

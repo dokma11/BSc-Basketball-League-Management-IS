@@ -29,11 +29,12 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	authenticationHandler *handler.AuthenticationHandler, draftRightHandler *handler.DraftRightHandler,
 	contractHandler *handler.ContractHandler, draftHandler *handler.DraftHandler, tradeProposalHandler *handler.TradeProposalHandler,
 	tradeHandler *handler.TradeHandler, trainingHandler *handler.TrainingHandler, trainingRequestHandler *handler.TrainingRequestHandler,
-	interviewHandler *handler.InterviewHandler, interviewRequestHandler *handler.InterviewRequestHandler) {
+	interviewHandler *handler.InterviewHandler, interviewRequestHandler *handler.InterviewRequestHandler, tradeSubjectHandler *handler.TradeSubjectHandler) {
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.HandleFunc("/team", teamHandler.GetAll).Methods("GET")
 	router.HandleFunc("/team/{id}", teamHandler.GetByID).Methods("GET")
+	router.HandleFunc("/team-user/{userId}", teamHandler.GetByUserID).Methods("GET")
 
 	router.HandleFunc("/pick", pickHandler.GetAll).Methods("GET")
 	router.HandleFunc("/pick/{id}", pickHandler.GetByID).Methods("GET")
@@ -71,6 +72,7 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	router.HandleFunc("/tradeProposal", tradeProposalHandler.GetAll).Methods("GET")
 	router.HandleFunc("/tradeProposal/{id}", tradeProposalHandler.GetByID).Methods("GET")
 	router.HandleFunc("/tradeProposal/{teamId}", tradeProposalHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/tradeProposal-latest", tradeProposalHandler.GetLatest).Methods("GET")
 	router.HandleFunc("/tradeProposal", tradeProposalHandler.Create).Methods("POST")
 	router.HandleFunc("/tradeProposal", tradeProposalHandler.Update).Methods("PUT")
 
@@ -102,6 +104,11 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	router.HandleFunc("/interviewRequest/receiver/{userId}", interviewRequestHandler.GetAllByReceiverID).Methods("GET")
 	router.HandleFunc("/interviewRequest", interviewRequestHandler.Create).Methods("POST")
 	router.HandleFunc("/interviewRequest", interviewRequestHandler.Update).Methods("PUT")
+
+	router.HandleFunc("/tradeSubject", tradeSubjectHandler.GetAll).Methods("GET")
+	router.HandleFunc("/tradeSubject/{id}", tradeSubjectHandler.GetByID).Methods("GET")
+	router.HandleFunc("/tradeSubject/{tradeId}", tradeSubjectHandler.GetAllByTradeID).Methods("GET")
+	router.HandleFunc("/tradeSubject", tradeSubjectHandler.Create).Methods("POST")
 
 	corsAllowedOrigins := handlers.AllowedOrigins([]string{"*"})
 	corsAllowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
@@ -139,7 +146,7 @@ func main() {
 	employeeService := service.NewEmployeeService(employeeRepository)
 	employeeHandler := handler.NewEmployeeHandler(employeeService)
 
-	authenticationHandler := handler.NewAuthenticationHandler(userService)
+	authenticationHandler := handler.NewAuthenticationHandler(userService, teamService)
 
 	draftRightRepository := impl.NewDraftRightRepository(&db)
 	draftRightService := service.NewDraftRightService(draftRightRepository)
@@ -177,7 +184,11 @@ func main() {
 	interviewRequestService := service.NewInterviewRequestService(interviewRequestRepository)
 	interviewRequestHandler := handler.NewInterviewRequestHandler(interviewRequestService)
 
+	tradeSubjectRepository := impl.NewTradeSubjectRepository(&db)
+	tradeSubjectService := service.NewTradeSubjectService(tradeSubjectRepository)
+	tradeSubjectHandler := handler.NewTradeSubjectHandler(tradeSubjectService, tradeProposalService)
+
 	startServer(teamHandler, pickHandler, userHandler, recruitHandler, playerHandler, employeeHandler,
 		authenticationHandler, draftRightHandler, contractHandler, draftHandler, tradeProposalHandler, tradeHandler,
-		trainingHandler, trainingRequestHandler, interviewHandler, interviewRequestHandler)
+		trainingHandler, trainingRequestHandler, interviewHandler, interviewRequestHandler, tradeSubjectHandler)
 }

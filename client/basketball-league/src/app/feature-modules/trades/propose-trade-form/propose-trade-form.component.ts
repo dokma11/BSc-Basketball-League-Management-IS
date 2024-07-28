@@ -10,12 +10,14 @@ import { MatSelect } from '@angular/material/select';
 import { Team } from 'src/app/shared/model/team.model';
 import { RosterService } from '../../roster-management/roster.service';
 import { Pick } from 'src/app/shared/model/pick.model';
-import { TradeProposal, TradeProposalStatus } from 'src/app/shared/model/tradeProposal.model';
+import { TradeProposal } from 'src/app/shared/model/tradeProposal.model';
 import { Player } from 'src/app/shared/model/player.model';
 import { DraftRight } from 'src/app/shared/model/draftRight.model';
-import { Trade, TradeType } from 'src/app/shared/model/trade.model';
+import { TradeType } from 'src/app/shared/model/trade.model';
 import { TradesService } from '../trades.service';
 import { TradeSubject, TradeSubjectType } from 'src/app/shared/model/tradeSubject.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
 
 @Component({
   selector: 'app-propose-trade-form',
@@ -63,6 +65,7 @@ export class ProposeTradeFormComponent implements OnInit, AfterViewInit, OnDestr
   chosenOwnPicks: Pick[] = [];
   chosenOwnPlayers: Player[] = [];
   chosenOwnDraftRights: DraftRight[] = [];
+  user: User | undefined;
 
   @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect | undefined;
 
@@ -73,7 +76,15 @@ export class ProposeTradeFormComponent implements OnInit, AfterViewInit, OnDestr
               private dialogRefAsset: MatDialogRef<AssetChoosingFormComponent>,
               private dialog: MatDialog,
               private rosterService: RosterService, 
-              private tradesService: TradesService) {
+              private tradesService: TradesService,
+              private authService: AuthService) {
+    this.authService.user$.subscribe((user) => {
+      this.user = user;
+    });
+
+    console.log(this.user!.id);
+    console.log(this.user!.email);
+    console.log(this.user!.teamId);
   }
 
   ngOnInit(): void {
@@ -111,9 +122,6 @@ export class ProposeTradeFormComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   submitTradeProposalButtonClicked() {
-    // TODO: Napraviti ifove kako bi se odredilo koji je tip trgovine u pitanju
-    // TODO: Bindovati idMenadzerPos i idMenazderPrim
-    // TODO: Kreirati sve tradesubjecte neophodne
     let teamToSend;
     this.fullTeams.forEach(team => {
       if(team.nazTim == this.teamCtrl.value){
@@ -121,28 +129,100 @@ export class ProposeTradeFormComponent implements OnInit, AfterViewInit, OnDestr
       }
     })
 
+    let tradeType: TradeType;
+    if(this.chosenOwnPicks.length == 0 && this.chosenPartnerPicks.length == 0){
+      tradeType = TradeType.PLAYER_PLAYER;
+    } else if ( (this.chosenOwnPicks.length != 0 || this.chosenPartnerPicks.length != 0) && (this.chosenOwnPlayers.length != 0 || 
+      this.chosenPartnerPlayers.length != 0 || this.chosenPartnerDraftRights.length != 0 || this.chosenOwnDraftRights.length != 0)){
+      tradeType = TradeType.PLAYER_PICK;
+    } else if (this.chosenOwnPicks.length != 0 && this.chosenPartnerPicks.length != 0 && this.chosenOwnDraftRights.length == 0 && 
+      this.chosenPartnerDraftRights.length == 0 && this.chosenOwnPlayers.length == 0 && this.chosenPartnerPlayers.length == 0){
+      tradeType = TradeType.PICK_PICK;
+    } else{
+      tradeType = TradeType.PLAYER_PICK;
+    }
+
     const tradeProposal : TradeProposal = {
       datZahTrg: new Date(),
-      tipZahTrg: TradeType.PICK_PICK,
-      idMenadzerPos: 10, // NE ZAVORAVITI DA SE PROMENI
-      //idMenadzerPrim: 1, // NE ZAVORAVITI DA SE PROMENI
+      tipZahTrg: tradeType,
+      idMenadzerPos: this.user!.id, 
+      //idMenadzerPrim: 1, // Umesto da unesem menadzera unecu samo tim
       idMenadzerPrimTim: teamToSend!.idTim
     };
 
     this.tradesService.createTradeProposal(tradeProposal).subscribe({
       next: (result: TradeProposal) => {
+        console.log(result);
         this.showNotification('Trade proposal successfully sent!');
-        // OVDE MOZDA POMOCU RESULT MOZE DA SE DOBIJE ID MADA NE BIH BIO NAJSIGURNIJI IPAK - AKO NE TAKO ONDA DOBAVITI SA BEKA PA TAKO RADITI...
-          // TODO: Kreirati sve tradesubjecte neophodne
-          // if(this.chosenOwnPlayers){
-          //   this.chosenOwnPlayers.forEach(player => {
-          //     const tradeSubject: TradeSubject = {
-          //       tipPredTrg: TradeSubjectType.IGRAC,
-          //       idIgrac: player.id,
-          //       idZahTrg: 0 // OVO MORAM SKONTATI KAKO DA NAMESTIM
-          //     }
-          //   })
-          // }
+        // Id zahteva cu dobaviti na bekendu
+        if(this.chosenOwnPlayers){
+          this.chosenOwnPlayers.forEach(player => {
+            const tradeSubject: TradeSubject = {
+              tipPredTrg: TradeSubjectType.IGRAC,
+              idIgrac: player.id,
+            }
+            this.tradesService.createTradeSubject(tradeSubject).subscribe({
+              next: (result: any) => {}
+            });
+          })
+        }
+        if(this.chosenPartnerPlayers){
+          this.chosenPartnerPlayers.forEach(player => {
+            const tradeSubject: TradeSubject = {
+              tipPredTrg: TradeSubjectType.IGRAC,
+              idIgrac: player.id,
+            }
+            this.tradesService.createTradeSubject(tradeSubject).subscribe({
+              next: (result: any) => {}
+            });
+          })
+        }
+
+        if(this.chosenOwnPicks){
+          this.chosenOwnPicks.forEach(pick => {
+            const tradeSubject: TradeSubject = {
+              tipPredTrg: TradeSubjectType.PIK,
+              idPik: pick.idPik,
+            }
+            this.tradesService.createTradeSubject(tradeSubject).subscribe({
+              next: (result: any) => {}
+            });
+          })
+        }
+        if(this.chosenPartnerPicks){
+          this.chosenPartnerPicks.forEach(pick => {
+            const tradeSubject: TradeSubject = {
+              tipPredTrg: TradeSubjectType.PIK,
+              idPik: pick.idPik,
+            }
+            this.tradesService.createTradeSubject(tradeSubject).subscribe({
+              next: (result: any) => {}
+            });
+          })
+        }
+        
+        if(this.chosenOwnDraftRights){
+          this.chosenOwnDraftRights.forEach(draftRight => {
+            const tradeSubject: TradeSubject = {
+              tipPredTrg: TradeSubjectType.PRAVA_NA_IGRACA,
+              idPrava: draftRight.idPrava,            }
+            this.tradesService.createTradeSubject(tradeSubject).subscribe({
+              next: (result: any) => {}
+            });
+          })
+        }
+        if(this.chosenPartnerDraftRights){
+          this.chosenPartnerDraftRights.forEach(draftRight => {
+            const tradeSubject: TradeSubject = {
+              tipPredTrg: TradeSubjectType.PRAVA_NA_IGRACA,
+              idPrava: draftRight.idPrava,
+            }
+            this.tradesService.createTradeSubject(tradeSubject).subscribe({
+              next: (result: any) => {}
+            });
+          })
+        }
+        this.dialogRef.close();
       }
     })
   }
@@ -150,12 +230,14 @@ export class ProposeTradeFormComponent implements OnInit, AfterViewInit, OnDestr
   addPartnersAssetButtonClicked(): void {
     this.addPartnersAssetButtonState = 'clicked';
     setTimeout(() => { this.addPartnersAssetButtonState = 'idle'; }, 200);
+    
     let teamToSend;
     this.fullTeams.forEach(team => {
       if(team.nazTim == this.teamCtrl.value){
         teamToSend = team;
       }
     })
+
     this.dialogRefAsset = this.dialog.open(AssetChoosingFormComponent, {
         data: {
           team: teamToSend,
@@ -174,9 +256,17 @@ export class ProposeTradeFormComponent implements OnInit, AfterViewInit, OnDestr
   addYoursAssetButtonClicked(): void {
     this.addYoursAssetButtonState = 'clicked';
     setTimeout(() => { this.addYoursAssetButtonState = 'idle'; }, 200);
+    
+    let teamToSend;
+    this.fullTeams.forEach(team => {
+      if(team.idTim == this.user?.teamId){
+        teamToSend = team;
+      }
+    })
+
     this.dialogRefAsset = this.dialog.open(AssetChoosingFormComponent, {
         data: {
-          team: this.fullTeams[0],  // Za sad je nula da budem kao boston, treba skolniti da se namesti na loginovanog korisnika
+          team: teamToSend,
           chosenPlayers: this.chosenOwnPlayers,
           chosenPicks: this.chosenOwnPicks,
           chosenDraftRights: this.chosenOwnDraftRights

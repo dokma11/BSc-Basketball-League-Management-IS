@@ -3,7 +3,7 @@ import { TradeType } from "./trade.model";
 export interface TradeProposal {
   idZahTrg?: number;
   datZahTrg: Date;  // Date and time of proposalcreation 
-  tipZahTrg: TradeType;
+  tipZahTrg?: TradeType;
   statusZahTrg?: TradeProposalStatus;
   razlogOdbij?: string;  // Denial reason
   idMenadzerPos: number; // Sender foreign key

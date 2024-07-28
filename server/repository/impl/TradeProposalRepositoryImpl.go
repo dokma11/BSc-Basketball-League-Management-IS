@@ -17,7 +17,7 @@ func NewTradeProposalRepository(db *sql.DB) repository.TradeProposalRepository {
 }
 
 func (repo *tradeProposalRepository) GetAll() ([]model.TradeProposal, error) {
-	rows, err := repo.db.Query("SELECT * FROM ZahtevZaTrgovinu") // proveriti naziv samo
+	rows, err := repo.db.Query("SELECT * FROM ZahtevZaTrgovinu")
 	if err != nil {
 		return nil, fmt.Errorf("failed to query all trade proposals: %v", err)
 	}
@@ -33,7 +33,7 @@ func (repo *tradeProposalRepository) GetAll() ([]model.TradeProposal, error) {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		mapTradeProposalEnumsForRead(status, tradeType, &tradeProposal)
+		mapTradeProposalEnumsForReading(status, tradeType, &tradeProposal)
 
 		tradeProposals = append(tradeProposals, tradeProposal)
 	}
@@ -58,7 +58,7 @@ func (repo *tradeProposalRepository) GetByID(id int) (*model.TradeProposal, erro
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
 
-	mapTradeProposalEnumsForRead(status, tradeType, &tradeProposal)
+	mapTradeProposalEnumsForReading(status, tradeType, &tradeProposal)
 
 	return &tradeProposal, nil
 }
@@ -81,7 +81,7 @@ func (repo *tradeProposalRepository) GetAllByTeamID(teamID int) ([]model.TradePr
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		mapTradeProposalEnumsForRead(status, tradeType, &tradeProposal)
+		mapTradeProposalEnumsForReading(status, tradeType, &tradeProposal)
 
 		tradeProposals = append(tradeProposals, tradeProposal)
 	}
@@ -94,7 +94,7 @@ func (repo *tradeProposalRepository) GetAllByTeamID(teamID int) ([]model.TradePr
 }
 
 func (repo *tradeProposalRepository) Create(tradeProposal *model.TradeProposal) error {
-	status, tradeType := mapTradeProposalEnumsForWrite(tradeProposal)
+	status, tradeType := mapTradeProposalEnumsForWriting(tradeProposal)
 	_, err := repo.db.Exec("INSERT INTO ZahtevZaTrgovinu (IDZAHTRG, DATZAHTRG, TIPZAHTRG, STATUSZAHTRG, RAZLOGODBIJ, "+
 		"IDMENADZERPOS, IDMENADZERPRIM) VALUES (:1, :2, :3, :4, :5, :6, :7)", tradeProposal.IdZahTrg, tradeProposal.DatZahTrg,
 		tradeType, status, tradeProposal.RazlogOdbij, tradeProposal.IdMenadzerPos, tradeProposal.IdMenadzerPrim)
@@ -105,7 +105,7 @@ func (repo *tradeProposalRepository) Create(tradeProposal *model.TradeProposal) 
 }
 
 func (repo *tradeProposalRepository) Update(tradeProposal *model.TradeProposal) error {
-	status, tradeType := mapTradeProposalEnumsForWrite(tradeProposal)
+	status, tradeType := mapTradeProposalEnumsForWriting(tradeProposal)
 	_, err := repo.db.Exec("UPDATE ZahtevZaTrgovinu SET DATZAHTRG = :1, TIPZAHTRG = :2, STATUSZAHTRG = :3"+
 		", RAZLOGODBIJ = :4 WHERE IDZAHTRG = :5", tradeProposal.DatZahTrg, tradeType, status, tradeProposal.RazlogOdbij,
 		tradeProposal.IdZahTrg)
@@ -115,7 +115,28 @@ func (repo *tradeProposalRepository) Update(tradeProposal *model.TradeProposal) 
 	return nil
 }
 
-func mapTradeProposalEnumsForWrite(tradeProposal *model.TradeProposal) (string, string) {
+func (repo *tradeProposalRepository) GetLatest() (*model.TradeProposal, error) {
+	var tradeProposal model.TradeProposal
+	var tradeType string
+	var status string
+	row := repo.db.QueryRow(`SELECT * 
+  								   FROM ZahtevZaTrgovinu 
+								   WHERE ROWNUM = 1 
+								   ORDER BY IDZAHTRG DESC`) // The latest one will have the highest id value because of the sequencer created on the server side
+	if err := row.Scan(&tradeProposal.IdZahTrg, &tradeProposal.DatZahTrg, &tradeType, &status, &tradeProposal.RazlogOdbij,
+		&tradeProposal.IdMenadzerPos, &tradeProposal.IdMenadzerPrim); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, nil // No result found
+		}
+		return nil, fmt.Errorf("failed to scan row: %v", err)
+	}
+
+	mapTradeProposalEnumsForReading(status, tradeType, &tradeProposal)
+
+	return &tradeProposal, nil
+}
+
+func mapTradeProposalEnumsForWriting(tradeProposal *model.TradeProposal) (string, string) {
 	var status, tradeType string
 
 	switch tradeProposal.StatusZahTrg {
@@ -141,7 +162,7 @@ func mapTradeProposalEnumsForWrite(tradeProposal *model.TradeProposal) (string, 
 	return status, tradeType
 }
 
-func mapTradeProposalEnumsForRead(status string, tradeType string, tradeProposal *model.TradeProposal) {
+func mapTradeProposalEnumsForReading(status string, tradeType string, tradeProposal *model.TradeProposal) {
 	switch status {
 	case "IN_PROGRESS":
 		tradeProposal.StatusZahTrg = 0

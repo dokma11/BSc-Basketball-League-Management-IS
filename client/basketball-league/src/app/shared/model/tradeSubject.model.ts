@@ -3,7 +3,7 @@ export interface TradeSubject {
   tipPredTrg: TradeSubjectType;
   idPrava?: number; // Draft Rights foreign key
   idIgrac?: number; // Player foreign key
-  idZahTrg: number; // Trade Proposal foreign key
+  idZahTrg?: number; // Trade Proposal foreign key
   idPik?: number;   // Pick foreign key
 }
 

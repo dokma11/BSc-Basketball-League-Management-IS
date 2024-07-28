@@ -55,3 +55,11 @@ func (service *TradeProposalService) Update(tradeProposal *model.TradeProposal) 
 	}
 	return nil
 }
+
+func (service *TradeProposalService) GetLatest() (*model.TradeProposal, error) {
+	tradeProposal, err := service.TradeProposalRepository.GetLatest()
+	if err != nil {
+		return nil, fmt.Errorf(fmt.Sprintf("no latest trade proposals were found"))
+	}
+	return tradeProposal, nil
+}

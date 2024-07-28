@@ -8,4 +8,5 @@ type TradeProposalRepository interface {
 	GetAllByTeamID(teamId int) ([]model.TradeProposal, error)
 	Create(*model.TradeProposal) error
 	Update(*model.TradeProposal) error
+	GetLatest() (*model.TradeProposal, error)
 }

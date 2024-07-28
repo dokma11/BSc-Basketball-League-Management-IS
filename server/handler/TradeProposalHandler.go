@@ -19,17 +19,16 @@ func NewTradeProposalHandler(TradeProposalService *service.TradeProposalService,
 	return &TradeProposalHandler{TradeProposalService: TradeProposalService, EmployeeService: EmployeeService}
 }
 
-func (handler *TradeProposalHandler) GetAll(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *TradeProposalHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	tradeProposals, err := handler.TradeProposalService.GetAll()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
-	json.NewEncoder(w).Encode(tradeProposals) // Proveriti samo da li valja
+	json.NewEncoder(w).Encode(tradeProposals)
 }
 
-func (handler *TradeProposalHandler) GetByID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *TradeProposalHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
@@ -50,7 +49,7 @@ func (handler *TradeProposalHandler) GetByID(w http.ResponseWriter, r *http.Requ
 	json.NewEncoder(w).Encode(tradeProposal)
 }
 
-func (handler *TradeProposalHandler) GetAllByTeamID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *TradeProposalHandler) GetAllByTeamID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	teamID, err := strconv.Atoi(vars["teamId"])
 	if err != nil {
@@ -64,7 +63,7 @@ func (handler *TradeProposalHandler) GetAllByTeamID(w http.ResponseWriter, r *ht
 		return
 	}
 
-	json.NewEncoder(w).Encode(tradeProposals) // Proveriti samo da li valja
+	json.NewEncoder(w).Encode(tradeProposals)
 }
 
 func (handler *TradeProposalHandler) Create(w http.ResponseWriter, r *http.Request) {
@@ -106,6 +105,19 @@ func (handler *TradeProposalHandler) Update(w http.ResponseWriter, r *http.Reque
 	}
 
 	w.WriteHeader(http.StatusCreated)
+}
+
+func (handler *TradeProposalHandler) GetLatest(w http.ResponseWriter, r *http.Request) {
+	tradeProposal, err := handler.TradeProposalService.GetLatest()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if tradeProposal == nil {
+		http.NotFound(w, r)
+		return
+	}
+	json.NewEncoder(w).Encode(tradeProposal)
 }
 
 func (handler *TradeProposalHandler) mapFromDTO(tradeProposalDTO *model.TradeProposalCreateDTO) (*model.TradeProposal, error) {
