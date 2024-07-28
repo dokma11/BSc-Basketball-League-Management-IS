@@ -4,16 +4,16 @@ import (
 	"basketball-league-server/model"
 	"basketball-league-server/service"
 	"encoding/json"
-	"golang.org/x/crypto/bcrypt"
 	"net/http"
 )
 
 type AuthenticationHandler struct {
 	UserService *service.UserService
+	TeamService *service.TeamService
 }
 
-func NewAuthenticationHandler(userService *service.UserService) *AuthenticationHandler {
-	return &AuthenticationHandler{UserService: userService}
+func NewAuthenticationHandler(userService *service.UserService, teamService *service.TeamService) *AuthenticationHandler {
+	return &AuthenticationHandler{UserService: userService, TeamService: teamService}
 }
 
 func (handler *AuthenticationHandler) LogIn(w http.ResponseWriter, r *http.Request) {
@@ -30,12 +30,18 @@ func (handler *AuthenticationHandler) LogIn(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	if user == nil || bcrypt.CompareHashAndPassword([]byte(user.Lozinka), []byte(credentials.Password)) != nil {
+	if user == nil || user.Lozinka != credentials.Password {
 		http.Error(w, "Invalid credentials", http.StatusUnauthorized)
 		return
 	}
 
-	token, err := model.GenerateJWT(user.Email)
+	team, err := handler.TeamService.GetByUserID(int(user.Id))
+	if err != nil {
+		http.Error(w, "Error querying team", http.StatusInternalServerError)
+		return
+	}
+
+	token, err := model.GenerateJWT(user.Id, user.Email, team.IdTim)
 	if err != nil {
 		http.Error(w, "Error generating token", http.StatusInternalServerError)
 		return

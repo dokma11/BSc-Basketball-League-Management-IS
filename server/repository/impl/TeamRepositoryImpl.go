@@ -50,3 +50,18 @@ func (repo *teamRepository) GetByID(id int) (*model.Team, error) {
 	}
 	return &team, nil
 }
+
+func (repo *teamRepository) GetByUserID(userID int) (*model.Team, error) {
+	var team model.Team
+	row := repo.db.QueryRow(`SELECT T.IDTIM, T.NAZTIM, T.GODOSNTIM, T.LOKTIM
+								   FROM TIM T, UGOVOR U, ZAPOSLENI Z
+								   WHERE Z.IDUGO = U.IDUGO AND U.IDTIM = T.IDTIM AND Z.ID = :1`, userID)
+	if err := row.Scan(&team.IdTim, &team.NazTim, &team.GodOsnTim, &team.LokTim); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, nil // No result found
+		}
+		return nil, fmt.Errorf("failed to scan row: %v", err)
+	}
+
+	return &team, nil
+}
