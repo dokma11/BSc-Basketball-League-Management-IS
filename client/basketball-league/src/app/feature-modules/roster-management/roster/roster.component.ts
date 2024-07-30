@@ -52,6 +52,7 @@ export class RosterComponent implements OnInit{
   public teamFilterCtrl: FormControl<string | null> = new FormControl<string | null>('');
   private teamsSubject: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(this.teams);
   public filteredTeams: Observable<string[]> = this.teamsSubject.asObservable();
+  initialTeamName: string = 'Team name';
 
   @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect | undefined;
 
@@ -60,19 +61,23 @@ export class RosterComponent implements OnInit{
   constructor(private authService: AuthService,
               private rosterService: RosterService,
               private snackBar: MatSnackBar,) {
-
+    this.authService.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {
-    //this.getAssets();
     this.getTeams();
     
     this.teamsSubject.next(this.teams);
-    this.teamCtrl.setValue('');
     this.filteredTeams = this.teamFilterCtrl.valueChanges.pipe(
       startWith(''),
       map(value => this.filterTeams(value))
     );
+
+    setTimeout(() => {
+      this.getLoggedInUsersAssets();
+    }, 50);
   }
 
   private filterTeams(value: any): string[] {
@@ -102,11 +107,7 @@ export class RosterComponent implements OnInit{
   });
 
   onAssetTypeChange(event: any) {
-    // Ovo je samo dokaz da radi kak otreba, verovatno cu skloniti kada dodje finalna verzija
     this.showNotification('Selected asset type: ' + this.assetForm.value.selectedAssetType);
-    // TODO: Na osnovu promene treba da se prikazu odredjene kartice
-
-    // Ovde vrv pozvati getAssets i kartice odredjene
     this.getAssets();
   }
 
@@ -127,9 +128,53 @@ export class RosterComponent implements OnInit{
     })
   }
 
+  getLoggedInUsersAssets() {
+    this.fullTeams.forEach(team =>{
+      if(team.idTim == this.user?.teamId){
+        // this.teamCtrl.setValue(team.nazTim);
+        this.initialTeamName = team.nazTim;
+        if (this.assetForm.value.selectedAssetType === 'Players') {
+          this.rosterService.getAllPlayersByTeamId(team.idTim).subscribe({
+            next: (result: Player[] | Player) => {
+              if(Array.isArray(result)){
+                this.players = result;
+                // Reset other unncessary lists
+                this.picks = [];
+                this.draftRights = [];
+              }
+            }
+          })
+        } 
+        else if (this.assetForm.value.selectedAssetType === 'Picks') {
+          this.rosterService.getAllPicksByTeamId(team.idTim).subscribe({
+            next: (result: Pick[] | Pick) => {
+              if(Array.isArray(result)){
+                this.picks = result;
+                // Reset other unncessary lists
+                this.players = [];
+                this.draftRights = [];
+              }
+            }
+          })
+        }  
+        else if (this.assetForm.value.selectedAssetType === 'Draft Rights') {
+          this.rosterService.getAllDraftRightsByTeamId(team.idTim).subscribe({
+            next: (result: DraftRight[] | DraftRight) => {
+              if(Array.isArray(result)){
+                this.draftRights = result;
+                // Reset other unncessary lists
+                this.picks = [];
+                this.players = [];
+              }
+            }
+          })
+        }
+      }
+    });
+  }
+
   getAssets() {
     var teamId = 0;
-    console.log(this.assetForm.value.selectedAssetType);
     if (this.teamCtrl.value != ''){
       this.fullTeams.forEach(team => {
           if(this.teamCtrl.value === team.nazTim){
@@ -151,13 +196,9 @@ export class RosterComponent implements OnInit{
         })
       } 
       else if (this.assetForm.value.selectedAssetType === 'Picks') {
-        console.log(teamId)
         this.rosterService.getAllPicksByTeamId(teamId).subscribe({
           next: (result: Pick[] | Pick) => {
-            console.log('usao');
-            console.log(result)
             if(Array.isArray(result)){
-              console.log('usao');
               this.picks = result;
               // Reset other unncessary lists
               this.players = [];

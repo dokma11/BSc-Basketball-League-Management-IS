@@ -7,7 +7,7 @@
   font-family: "Poppins", sans-serif;
   display: flex;
   flex-direction: column;
-  background: url('https://images.unsplash.com/photo-1577416412292-747c6607f055?fm=jpg&w=3000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG5iYSUyMGNvdXJ0fGVufDB8fDB8fHww') no-repeat;
+  background: url('https://www.baltana.com/files/wallpapers-19/Relay-Gradient-HD-Wallpaper-7358.png') no-repeat;
   background-position: center;
   background-size: cover;
   transition: background-size 0.3s ease;
@@ -78,7 +78,7 @@ h2 {
 }
 
 .content-description {
-  margin-top: 5%;
+  margin-top: 4.5%;
   align-self: center;
   display: flex;
   flex-direction: row;
@@ -123,8 +123,19 @@ h2 {
   align-self: center;
   display: flex;
   flex-direction: row;
-  width: 72%;
-  gap: 30%;
+  width: 100%;
+}
+
+.roster-cards {
+  margin-left: 13.5rem;
+}
+
+.trade-cards {
+  margin-left: 22rem;
+}
+
+.news-cards {
+  margin-left: 23rem;
 }
 
 .card-container
@@ -161,7 +172,7 @@ h2 {
 }
 
 .roster-cards .big-card:nth-child(2) {
-  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIF.1S3wE8xX6cjlSahOmODgGw%26pid%3DApi&f=1&ipt=a16feab27ea80358ac15fa0ab28db31512f30744f91c1d0e1727bcda74fdc8bb&ipo=images') no-repeat;
+  background: url('https://static.foxnews.com/foxnews.com/content/uploads/2024/05/caitlin_clark_2.jpg') no-repeat;
   background-size: cover;
   background-position: center;
   transform: translateX(-10%) rotate(-1deg);
@@ -342,17 +353,17 @@ h2 {
 
 /* Gore desno*/
 .card-group:hover > .little-card:nth-child(1) {
-  transform: translate(200%, -100%) rotate(-15deg);
+  transform: translate(290%, -100%) rotate(-15deg);
 }
 
 /* Dole desno*/
 .card-group:hover > .little-card:nth-child(3) {
-  transform: translate(320%, 160%) rotate(17deg);
+  transform: translate(330%, 140%) rotate(17deg);
 }
 
 /* Gore levo*/
 .card-group:hover > .little-card:nth-child(5) {
-  transform: translate(-200%, -80%) rotate(15deg);
+  transform: translate(-230%, -80%) rotate(15deg);
 }
 
 /* Dole levo*/

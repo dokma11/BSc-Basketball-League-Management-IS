@@ -49,7 +49,7 @@
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  background: rgba(0, 0, 0, .2);
+  background: url('https://e1.pxfuel.com/desktop-wallpaper/71/12/desktop-wallpaper-gaussian-blur-gradient-simple-backgrounds-blurred-colors-color-gradient.jpg') no-repeat;
   background-position: center;
   background-size: cover;
   transition: background-size 0.3s ease;

@@ -16,6 +16,7 @@
   margin-right: auto;
   color: #fff;
   backdrop-filter: blur(15px);
+  position: relative; 
 }
 
 .player-card:hover {
@@ -51,18 +52,16 @@
   padding-top: 2%;
   font-size: 16px;
   gap: 2%;
+  position: absolute;
 }
 
 .player-card-right {
+  position: absolute;
+  right: 1rem; 
+  bottom: 0.5rem; 
   display: flex;
-  flex-direction: flex-end;
-  align-items: flex-end;
-  justify-content: center;
-  width: 25%;
-  min-width: 25%;
-  height: auto;
-  padding-top: 1.8%;
-  margin-right: -90%;
+  flex-direction: row;
+  align-items: center;
 }
 
 .btn {
