@@ -35,7 +35,7 @@
               color="white"
               mat-raised-button
               [routerLink]="['league-news']">
-        <fa-icon [icon]="faEnvelopeOpen" />
+        <fa-icon [icon]="faNewsPaper" />
         &nbsp;League news
       </button>
     </div>
@@ -46,22 +46,10 @@
             *ngIf="user?.email != ''"
             color="white"
             mat-raised-button
-            [routerLink]="['profile']"
+            [routerLink]="['my-profile']"
       >
       <fa-icon [icon]="faUser" />
       &nbsp;My profile
-      </button>
-
-      <!-- Ne zaboravi ovde da promenis rolu -->
-      <button 
-            class="feat-button"
-            *ngIf="user && user.uloga == 0" 
-            color="white"
-            mat-raised-button
-            [routerLink]="['cleaning-proposals-view']"
-      >
-      <fa-icon [icon]="faEnvelopeOpen" />
-      &nbsp;See proposals
       </button>
 
       <button

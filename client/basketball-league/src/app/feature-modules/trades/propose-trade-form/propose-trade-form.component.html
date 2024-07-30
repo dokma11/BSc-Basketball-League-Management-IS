@@ -7,7 +7,7 @@
         <div class="trading-partner">
           <h2>Choose your trading partner:</h2>
           <div class="select-dropdown">
-            <mat-form-field>
+            <mat-form-field appearance="fill" class="mat-form-field-oval">
               <!-- MORAM POKUSAATI DA GA UOBLICIM -->
               <mat-select [formControl]="teamCtrl" 
                           (selectionChange)="onTeamSelected($event)"
@@ -102,7 +102,7 @@
                     (click)="addYoursAssetButtonClicked()"
                     >
                     <fa-icon [icon]="faPlus" />
-                    &nbsp;Add asset
+                    &nbsp;Add assets
             </button>
           </div>
         </div>

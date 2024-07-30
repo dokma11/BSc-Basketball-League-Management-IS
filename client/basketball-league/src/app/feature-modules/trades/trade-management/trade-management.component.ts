@@ -50,6 +50,10 @@ export class TradeManagementComponent implements OnInit{
     selectedTradeType: new FormControl('Received', [Validators.required]),
   });
   
+  tradeStatusForm = new FormGroup({
+    selectedStatus: new FormControl('None', [Validators.required]),
+  });
+
   constructor(private authService: AuthService,
               private dialog: MatDialog,
               private snackBar: MatSnackBar,
@@ -70,7 +74,16 @@ export class TradeManagementComponent implements OnInit{
           if(Array.isArray(result)){
             this.tradeProposals = [];
             this.tradeProposals = result;
-            console.log(this.tradeProposals);
+            
+            if(this.tradeStatusForm.value.selectedStatus == 'In progress'){
+              this.tradeProposals = this.tradeProposals.filter(tradeProposal => tradeProposal.statusZahTrg === 0);
+            } else if(this.tradeStatusForm.value.selectedStatus == 'Accepted'){
+              this.tradeProposals = this.tradeProposals.filter(tradeProposal => tradeProposal.statusZahTrg === 1);
+            } else if(this.tradeStatusForm.value.selectedStatus == 'Declined'){
+              this.tradeProposals = this.tradeProposals.filter(tradeProposal => tradeProposal.statusZahTrg === 2);
+            } else if(this.tradeStatusForm.value.selectedStatus == 'Cancelled'){
+              this.tradeProposals = this.tradeProposals.filter(tradeProposal => tradeProposal.statusZahTrg === 3);
+            } 
           }
         }
       });
@@ -80,7 +93,16 @@ export class TradeManagementComponent implements OnInit{
           if(Array.isArray(result)){
             this.tradeProposals = [];
             this.tradeProposals = result;
-            console.log(this.tradeProposals);
+            
+            if(this.tradeStatusForm.value.selectedStatus == 'In progress'){
+              this.tradeProposals = this.tradeProposals.filter(tradeProposal => tradeProposal.statusZahTrg === 0);
+            } else if(this.tradeStatusForm.value.selectedStatus == 'Accepted'){
+              this.tradeProposals = this.tradeProposals.filter(tradeProposal => tradeProposal.statusZahTrg === 1);
+            } else if(this.tradeStatusForm.value.selectedStatus == 'Declined'){
+              this.tradeProposals = this.tradeProposals.filter(tradeProposal => tradeProposal.statusZahTrg === 2);
+            } else if(this.tradeStatusForm.value.selectedStatus == 'Cancelled'){
+              this.tradeProposals = this.tradeProposals.filter(tradeProposal => tradeProposal.statusZahTrg === 3);
+            } 
           }
         }
       });
@@ -93,6 +115,11 @@ export class TradeManagementComponent implements OnInit{
 
   onTradeTypeChange(event: any) {
     this.showNotification('Selected trades type: ' + this.tradeForm.value.selectedTradeType);
+    this.getProposals();
+  }
+
+  onTradeStatusChange(event: any) {
+    this.showNotification('Selected trade status: ' + this.tradeStatusForm.value.selectedStatus);
     this.getProposals();
   }
 

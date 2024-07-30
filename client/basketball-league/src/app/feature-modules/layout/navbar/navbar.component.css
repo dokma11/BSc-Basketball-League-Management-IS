@@ -5,12 +5,14 @@ div {
 }
 
 #buttons {
+  margin-top: 0.3%;
   width: auto;
   margin-left: auto;
   width: 65%;
 }
 
 #account-buttons {
+  margin-top: 0.3%;
   width: auto;
   margin-left: auto;
 }

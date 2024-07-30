@@ -6,6 +6,7 @@ import { RegistrationComponent } from './infrastructure/auth/registration/regist
 import { RosterComponent } from './feature-modules/roster-management/roster/roster.component';
 import { LeagueNewsComponent } from './feature-modules/news/league-news/league-news.component';
 import { TradeManagementComponent } from './feature-modules/trades/trade-management/trade-management.component';
+import { MyProfileComponent } from './feature-modules/profile/my-profile/my-profile.component';
 
 const routes: Routes = [
   {
@@ -31,11 +32,19 @@ const routes: Routes = [
   {
     path: 'league-news',
     component: LeagueNewsComponent
+  },
+  {
+    path: 'my-profile',
+    component: MyProfileComponent
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    scrollPositionRestoration: 'enabled', 
+    anchorScrolling: 'enabled', 
+    scrollOffset: [0, 0] 
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -89,3 +89,12 @@ func (repo *userRepository) GetByEmail(email string) (*model.User, error) {
 
 	return &user, nil
 }
+
+func (repo *userRepository) Update(user *model.User) error {
+	_, err := repo.db.Exec("UPDATE KORISNIK SET IME = :1, PREZIME = :2, EMAIL = :3, DATRODJ = :4 WHERE IDUGO = :5",
+		user.Ime, user.Prezime, user.Email, user.DatRodj, user.Id)
+	if err != nil {
+		return fmt.Errorf("failed to update suer: %v", err)
+	}
+	return nil
+}

@@ -1,0 +1,80 @@
+<div class="overview">
+  <div class="h2-wrapper">
+    <h2>My Profile</h2>
+  </div>
+
+  <div class="image-container">
+    <img
+        class="image"
+        src="https://img.icons8.com/?size=100&id=ckaioC1qqwCu&format=png&color=FFFFFF"/>
+  </div>
+
+  <div class="wrapper">
+    <div class="input-box">
+      <input 
+              type="text" 
+              value="{{ this.user?.ime }}"
+              formControlName="firstName"
+              [attr.readonly]="canEdit ? null : true"
+      />
+      <label [class.active]="true">First name</label>
+    </div>
+
+    <div class="input-box">
+      <input 
+              type="text" 
+              value="{{ this.user?.prezime }}"
+              formControlName="lastName"
+              [attr.readonly]="canEdit ? null : true"
+      />
+      <label [class.active]="true">Last name</label>
+    </div>
+
+    <div class="input-box">
+      <input 
+              type="text" 
+              value="{{ this.user?.email }}"
+              formControlName="email"
+              [attr.readonly]="canEdit ? null : true"
+      />
+      <label [class.active]="true">Email</label>
+    </div>
+
+    <div class="input-box">
+      <input 
+              type="text" 
+              value="{{ this.birthDayDate }}"
+              formControlName="dateOfBirth"
+              [attr.readonly]="canEdit ? null : true"
+      />
+      <label [class.active]="true">Date of birth</label>
+    </div>
+
+    <button 
+            type="submit" 
+            class="btn" 
+            [@buttonState]="editButtonState"
+            *ngIf="!canEdit"
+            (click)="editButtonClicked()"
+            >Edit
+    </button>
+    
+    <div class="editing-buttons" *ngIf="canEdit">
+      <button 
+            type="submit" 
+            class="btn" 
+            [@buttonState]="doneButtonState"
+            (click)="doneButtonClicked()"
+            >Done
+      </button>
+    
+      <button 
+            type="submit" 
+            class="btn" 
+            [@buttonState]="cancelButtonState"
+            (click)="cancelButtonClicked()"
+            >Cancel
+      </button>
+    </div>
+  </div>
+</div>

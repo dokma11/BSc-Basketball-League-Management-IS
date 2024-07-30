@@ -4,6 +4,7 @@ import (
 	"basketball-league-server/model"
 	"basketball-league-server/repository"
 	"fmt"
+	"log"
 )
 
 type UserService struct {
@@ -39,4 +40,13 @@ func (service *UserService) GetByEmail(email string) (*model.User, error) {
 	}
 
 	return user, nil
+}
+
+func (service *UserService) Update(user *model.User) error {
+	err := service.UserRepository.Update(user)
+	if err != nil {
+		log.Println("Error updating user")
+		return err
+	}
+	return nil
 }

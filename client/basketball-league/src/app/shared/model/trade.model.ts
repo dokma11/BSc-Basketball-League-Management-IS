@@ -1,7 +1,8 @@
 export interface Trade {
   idTrg: number;
-  datVreTrg: Date;  // Date and time of trade occurrence
+  datTrg: Date;  // Date and time of trade occurrence
   tipTrg: TradeType;
+  idZahTrg?: number; // Trade Proposal foreign key
 }
 
 export enum TradeType {

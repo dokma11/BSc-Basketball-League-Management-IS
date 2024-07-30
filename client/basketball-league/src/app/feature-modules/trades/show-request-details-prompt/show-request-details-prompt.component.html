@@ -5,7 +5,8 @@
         <h1>Trade details</h1>
         <div class="receivings">
           <div class="user-receivings">
-            <h2>You receive: </h2>
+            <h2 *ngIf="this.tradeProposal?.statusZahTrg != 1">You receive: </h2>
+            <h2 *ngIf="this.tradeProposal?.statusZahTrg == 1">You received: </h2>
              <div class="assets">
               <app-propose-trade-asset-card
                 [@fadeIn]
@@ -20,7 +21,8 @@
   
           <div class="partner-receivings">
             <!-- Mozda umesto They da napisem naziv tima bas -->
-            <h2>They receive: </h2>
+            <h2 *ngIf="this.tradeProposal?.statusZahTrg != 1">They receive: </h2>
+            <h2 *ngIf="this.tradeProposal?.statusZahTrg == 1">They received: </h2>
               <div class="assets">
                 <app-propose-trade-asset-card
                   [@fadeIn]

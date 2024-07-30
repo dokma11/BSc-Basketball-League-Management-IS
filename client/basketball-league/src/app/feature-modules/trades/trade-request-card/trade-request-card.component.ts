@@ -47,6 +47,9 @@ export class TradeRequestCardComponent implements OnInit{
   proposalOccurrenceDate: string = "";
   manager: Employee | undefined;
   managersTeam: Team | undefined;
+  dateDay: string = "";
+  dateMonth: string = "";
+  dateYear: string = "";
 
   constructor(private dialog: MatDialog, 
               private tradesService: TradesService, 
@@ -59,6 +62,8 @@ export class TradeRequestCardComponent implements OnInit{
   ngOnInit(): void {
     const proposalDateTimeString = this.tradeProposal.datZahTrg.toString();
     [this.proposalOccurrenceDate, this.proposalOccurrenceTime] = proposalDateTimeString.split('T');
+    [this.dateYear, this.dateMonth, this.dateDay] = this.proposalOccurrenceDate.split('-');
+    this.proposalOccurrenceDate = this.dateDay + '.' + this.dateMonth + '.' + this.dateYear + '.'
 
     this.tradesService.getTeamByManagerID(this.tradeProposal.idMenadzerPos).subscribe({
       next: (result: Team) => {
