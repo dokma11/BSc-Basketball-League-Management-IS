@@ -11,6 +11,7 @@ import { AuthModule } from './infrastructure/auth/auth.module';
 import { TradesModule } from './feature-modules/trades/trades.module';
 import { NewsModule } from './feature-modules/news/news.module';
 import { RosterModule } from './feature-modules/roster-management/roster.module';
+import { ProfileModule } from './feature-modules/profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { RosterModule } from './feature-modules/roster-management/roster.module'
     TradesModule,
     NewsModule,
     RosterModule,
+    ProfileModule,
 ],
   providers: [],
   bootstrap: [AppComponent]

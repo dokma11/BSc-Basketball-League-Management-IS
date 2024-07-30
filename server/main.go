@@ -44,6 +44,7 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 
 	router.HandleFunc("/user", userHandler.GetAll).Methods("GET")
 	router.HandleFunc("/user/{id}", userHandler.GetByID).Methods("GET")
+	router.HandleFunc("/user", userHandler.Update).Methods("PUT")
 
 	router.HandleFunc("/recruit", recruitHandler.GetAll).Methods("GET")
 	router.HandleFunc("/recruit/{id}", recruitHandler.GetByID).Methods("GET")

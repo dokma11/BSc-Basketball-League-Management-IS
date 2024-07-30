@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"basketball-league-server/model"
 	"basketball-league-server/service"
 	"encoding/json"
 	"github.com/gorilla/mux"
@@ -45,4 +46,20 @@ func (handler *UserHandler) GetByID(w http.ResponseWriter, r *http.Request) { //
 	}
 
 	json.NewEncoder(w).Encode(user)
+}
+
+func (handler *UserHandler) Update(w http.ResponseWriter, r *http.Request) {
+	var user model.User
+	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	err := handler.UserService.Update(&user)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
 }

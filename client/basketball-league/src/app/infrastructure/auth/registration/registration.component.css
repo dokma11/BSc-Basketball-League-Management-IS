@@ -11,27 +11,9 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-}
-
-.container {
-  display: flex;
-  width: 100%;
-  height: 100vh;
-}
-
-.left-side {
-  flex: 0 0 55%;
-  background: url('https://vault.si.com/.image/t_share/MTcxODk5NjIwMzUwMjQwMDY2/michael_jordan_desire_isnt_there_1.jpg') no-repeat center center;
+  background: url('https://getwallpapers.com/wallpaper/full/9/0/3/466183.jpg') no-repeat;
   background-size: cover;
-  /* filter: blur(2px); */
-}
-
-.right-side {
-  flex: 0 0 45%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.827);
+  background-position: center;
 }
 
 .wrapper {
@@ -99,6 +81,7 @@ body {
   font-size: 13px;
   color: #fff;
 }
+
 
 .wrapper .remember-forgot {
   display: flex;

@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faUser, faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -86,19 +86,6 @@ export class LoginComponent {
       horizontalPosition: 'right', 
       verticalPosition: 'bottom', 
     });
-  }
-
-  @HostListener('window:scroll', ['$event'])
-  onScroll(event: any) {
-    const scrollPosition = window.pageYOffset;
-    const windowHeight = window.innerHeight;
-    const docHeight = document.documentElement.scrollHeight;
-
-    const scrollPercent = (scrollPosition / (docHeight - windowHeight)) * 100;
-
-    const zoom = 100 + scrollPercent * 0.1; 
-
-    this.backgroundSize = `${zoom}% ${zoom+10}%`;
   }
 
   faUser = faUser;
