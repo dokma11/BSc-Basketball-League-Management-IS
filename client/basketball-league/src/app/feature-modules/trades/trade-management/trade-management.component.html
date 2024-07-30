@@ -10,20 +10,40 @@
     </p>
   </div>
 
-  <form [formGroup]="tradeForm">
-    <div class="trade-type">
-      <h3>Choose your trade type:</h3>
-      <div>
-        <select id="trade-select"
-                formControlName="selectedTradeType" 
-                (change)="onTradeTypeChange($event)"
-                required>
-          <option value="Received">Received</option>
-          <option value="Sent">Sent</option>
-        </select>  
+  <div class="filters">
+    <form [formGroup]="tradeForm">
+      <div class="trade-type">
+        <h3>Choose your trade type:</h3>
+        <div>
+          <select id="trade-type-select"
+                  formControlName="selectedTradeType" 
+                  (change)="onTradeTypeChange($event)"
+                  required>
+            <option value="Received">Received</option>
+            <option value="Sent">Sent</option>
+          </select>  
+        </div>
       </div>
-    </div>
-  </form>
+    </form>
+  
+    <form [formGroup]="tradeStatusForm">
+      <div class="trade-status">
+        <h3>Sort by status:</h3>
+        <div>
+          <select id="trade-status-select"
+                  formControlName="selectedStatus" 
+                  (change)="onTradeStatusChange($event)"
+                  required>
+            <option value="None">None</option>
+            <option value="In progress">In progress</option>
+            <option value="Accepted">Accepted</option>
+            <option value="Declined">Declined</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>  
+        </div>
+      </div>
+    </form>  
+  </div>
 
   <button type="submit"
           class="propose-trade-btn"
@@ -45,5 +65,4 @@
         ></app-trade-request-card>
     </div>
   </div>
-
 </div>

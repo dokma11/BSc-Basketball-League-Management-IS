@@ -10,35 +10,14 @@
     </p>
   </div>
 
-  <div class="tour-search-results">
-    <div class="tour-search-result-tours">
-        <!-- <app-trade-request-card
-            [@fadeIn]
-            *ngFor="let request of requests"
-            [request]="request"
-            (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-trade-request-card> -->
+  <div class="news-search-results">
+    <div class="news-search-result-news">
         <app-news-card
           [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-news-card>
-        <app-news-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-news-card>
-        <app-news-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-news-card>
-        <app-news-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-news-card>
-        <app-news-card
-          [@fadeIn]
+          *ngFor="let trade of trades"
+          [trade]="trade"
           (dialogRefClosed)="handleDialogClosed($event)"
         ></app-news-card>
     </div>
   </div>
-
 </div>

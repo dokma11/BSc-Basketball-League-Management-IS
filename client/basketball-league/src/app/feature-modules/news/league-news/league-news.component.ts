@@ -1,9 +1,9 @@
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Trade } from 'src/app/shared/model/trade.model';
+import { NewsService } from '../news.service';
 
 @Component({
   selector: 'app-league-news',
@@ -36,22 +36,23 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 export class LeagueNewsComponent implements OnInit{
   user: User | undefined;
   backgroundSize: string = '100% 100%';
-  //requests: PersonalTourRequest[] = [];   ovde treba da budu novosti
+  trades: Trade[] = [];
 
-  private dialogRef: any;
-
-  constructor(private authService: AuthService,
-              private dialog: MatDialog,
-              private snackBar: MatSnackBar,) {
-
-  }
+  constructor(private newsService: NewsService,
+              private snackBar: MatSnackBar,) { }
 
   ngOnInit(): void {
     this.getNews();
   }
 
   getNews() {
-    // TODO: Get all the trade news from be 
+    this.newsService.getAllTrades().subscribe({
+      next: (result: Trade[] | Trade) => {
+        if(Array.isArray(result)) {
+          this.trades = result;
+        }
+      }
+    })
   }
 
   handleDialogClosed(result: any) {

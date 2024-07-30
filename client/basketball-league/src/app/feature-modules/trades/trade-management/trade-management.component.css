@@ -95,7 +95,8 @@ h2 {
   margin: 0;
 }
 
-#trade-select {
+#trade-type-select, 
+#trade-status-select {
   border-radius: 40px;
   display: flex;
   height: 60%;
@@ -105,9 +106,9 @@ h2 {
   margin-left: 50%;
 }
 
-.trade-type {
+.trade-type, 
+.trade-status {
   display: flex;
-  margin-left: 17%;
   color: #fff;
   margin-top: 2%;
 }
@@ -133,4 +134,12 @@ h2 {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transform: scale(1.03);
   transition: transform 300ms ease;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  margin-left: 16%;
+  gap: 5%;
+  margin-top: 2%;
 }

@@ -19,7 +19,7 @@
             </div>
             <div class="trade-tag"
                  *ngIf="tradeProposal.statusZahTrg == 3"
-                 style="background-color: rgb(98, 15, 15); color: white">
+                 style="background-color: grey; color: white">
                  Cancelled
             </div>
           </div>
@@ -41,6 +41,15 @@
 
             <div class="trade-card-right">
                 <button
+                    class="btn"
+                    (click)="seeDetailsButtonClicked();$event.stopPropagation()"
+                    [@buttonState]="detailsButtonState"
+                >
+                    <fa-icon [icon]="faCircleInfo" />
+                    &nbsp;See details
+                </button>
+
+                <button
                   class="btn"
                   *ngIf="this.tradeProposal.statusZahTrg == 2"
                   (click)="seeExplanationButtonClicked();$event.stopPropagation()"
@@ -48,15 +57,6 @@
                 >
                   <fa-icon [icon]="faBan" />
                   &nbsp;See denial explanation
-                </button>
-
-                <button
-                    class="btn"
-                    (click)="seeDetailsButtonClicked();$event.stopPropagation()"
-                    [@buttonState]="detailsButtonState"
-                >
-                    <fa-icon [icon]="faCircleInfo" />
-                    &nbsp;See details
                 </button>
 
                 <button
