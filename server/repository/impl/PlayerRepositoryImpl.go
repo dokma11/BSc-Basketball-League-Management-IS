@@ -17,7 +17,9 @@ func NewPlayerRepository(db *sql.DB) repository.PlayerRepository {
 }
 
 func (repo *playerRepository) GetAll() ([]model.Player, error) {
-	rows, err := repo.db.Query("SELECT * FROM IGRAC")
+	rows, err := repo.db.Query(`SELECT K.ID, K.IME, K.PREZIME, K.EMAIL, K.DATRODJ, K.LOZINKA, K.ULOGA, I.VISIGR, I.TEZIGR, I.POZIGR
+								   	  FROM IGRAC I, KORISNIK K
+								      WHERE I.ID = K.ID`)
 	if err != nil {
 		return nil, fmt.Errorf("failed to query all players: %v", err)
 	}
@@ -26,10 +28,14 @@ func (repo *playerRepository) GetAll() ([]model.Player, error) {
 	var players []model.Player
 	for rows.Next() {
 		var player model.Player
+		var role, position string
 		if err := rows.Scan(&player.Id, &player.Ime, &player.Prezime, &player.Email, &player.DatRodj,
-			&player.Lozinka, &player.Uloga, &player.VisIgr, &player.TezIgr, &player.PozIgr); err != nil {
+			&player.Lozinka, &role, &player.VisIgr, &player.TezIgr, &position); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
+
+		mapPlayerEnums(role, position, &player)
+
 		players = append(players, player)
 	}
 
@@ -42,14 +48,20 @@ func (repo *playerRepository) GetAll() ([]model.Player, error) {
 
 func (repo *playerRepository) GetByID(id int) (*model.Player, error) {
 	var player model.Player
-	row := repo.db.QueryRow("SELECT * FROM PIK WHERE IDPIK = :1", id)
+	var role, position string
+	row := repo.db.QueryRow(`SELECT K.ID, K.IME, K.PREZIME, K.EMAIL, K.DATRODJ, K.LOZINKA, K.ULOGA, I.VISIGR, I.TEZIGR, I.POZIGR
+								   FROM IGRAC I, KORISNIK K
+								   WHERE I.ID = K.ID AND K.ID = :1`, id)
 	if err := row.Scan(&player.Id, &player.Ime, &player.Prezime, &player.Email, &player.DatRodj,
-		&player.Lozinka, &player.Uloga, &player.VisIgr, &player.TezIgr, &player.PozIgr); err != nil {
+		&player.Lozinka, &role, &player.VisIgr, &player.TezIgr, &position); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
+
+	mapPlayerEnums(role, position, &player)
+
 	return &player, nil
 }
 
@@ -66,31 +78,14 @@ func (repo *playerRepository) GetAllByTeamID(teamId int) ([]model.Player, error)
 	var players []model.Player
 	for rows.Next() {
 		var player model.Player
-		var role string
-		var position string
+		var role, position string
 		if err := rows.Scan(&player.Id, &player.Ime, &player.Prezime, &player.Email, &player.DatRodj,
 			&player.Lozinka, &role, &player.VisIgr, &player.TezIgr, &position); err != nil {
 			fmt.Println(err)
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		if role == "Zaposleni" {
-			player.Uloga = 1
-		} else if role == "Regrut" {
-			player.Uloga = 0
-		}
-
-		if position == "PG" {
-			player.PozIgr = 0
-		} else if position == "SG" {
-			player.PozIgr = 1
-		} else if position == "SF" {
-			player.PozIgr = 2
-		} else if position == "PF" {
-			player.PozIgr = 3
-		} else if position == "C" {
-			player.PozIgr = 4
-		}
+		mapPlayerEnums(role, position, &player)
 
 		players = append(players, player)
 	}
@@ -100,4 +95,24 @@ func (repo *playerRepository) GetAllByTeamID(teamId int) ([]model.Player, error)
 	}
 
 	return players, nil
+}
+
+func mapPlayerEnums(role string, position string, player *model.Player) {
+	if role == "Zaposleni" {
+		player.Uloga = 1
+	} else if role == "Regrut" {
+		player.Uloga = 0
+	}
+
+	if position == "PG" {
+		player.PozIgr = 0
+	} else if position == "SG" {
+		player.PozIgr = 1
+	} else if position == "SF" {
+		player.PozIgr = 2
+	} else if position == "PF" {
+		player.PozIgr = 3
+	} else if position == "C" {
+		player.PozIgr = 4
+	}
 }

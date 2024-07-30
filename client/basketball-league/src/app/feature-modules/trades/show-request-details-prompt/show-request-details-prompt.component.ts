@@ -1,13 +1,13 @@
 import { trigger, transition, style, animate, state } from '@angular/animations';
-import { Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { MatSelect } from '@angular/material/select';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { Observable, of, Subject, startWith, map, take, takeUntil } from 'rxjs';
-import { AssetChoosingFormComponent } from '../asset-choosing-form/asset-choosing-form.component';
-import { ProposeTradeFormComponent } from '../propose-trade-form/propose-trade-form.component';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { TradeProposal } from 'src/app/shared/model/tradeProposal.model';
+import { TradeSubject } from 'src/app/shared/model/tradeSubject.model';
+import { TradesService } from '../trades.service';
 
 @Component({
   selector: 'app-show-request-details-prompt',
@@ -37,143 +37,75 @@ import { ProposeTradeFormComponent } from '../propose-trade-form/propose-trade-f
       ]),
   ],
 })
-export class ShowRequestDetailsPromptComponent {
+export class ShowRequestDetailsPromptComponent implements OnInit{
   buttonState: string = 'idle';
-  removeAssetButtonState: string = 'idle';
-  addPartnersAssetButtonState: string = 'idle';
-  addYoursAssetButtonState: string = 'idle';
   focused: string = '';
-  private ownDialogRef: any;
-  public teams: string[] = [
-    'Brooklyn Nets',
-    'Golden State Warriors',
-    'Los Angeles Lakers',
-    'Los Angeles Clippers',
-    'New Orleans Pelicans',
-    'New York Knicks',
-    'Oklahoma City Thunder',
-    'San Antonio Spurs',
-    'Boston Celtics',
-    'Denver Nuggets',
-    'Minnesota Timberwolves',
-    'Cleveland Cavaliers',
-    'Philadelphia 76ers',
-    'Phoenix Suns',
-    'Sacramento Kings',
-    'Indiana Pacers',
-    'Dallas Mavericks',
-    'Miami Heat',
-    'Orlando Magic',
-    'Chicago Bulls',
-    'Atlanta Hawks',
-    'Toronto Raptors',
-    'Charlotte Hornets',
-    'Washington Wizards',
-    'Detroit Pistons',
-    'Utah Jazz',
-    'Houston Rockets',
-    'Memphis Grizzlies',
-    'Portland Trail Blazers',
-    'Milwaukee Bucks'
-  ];
-
-  public teamCtrl: FormControl<string | null> = new FormControl<string | null>('');
-  public teamFilterCtrl: FormControl<string | null> = new FormControl<string | null>('');
-
-  public filteredTeams: Observable<string[]> = of(this.teams);
-
-  @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect | undefined;
-
-  protected _onDestroy = new Subject<void>();
+  user: User | undefined;
+  allTradeSubjects: TradeSubject[] = [];
+  ownTradeSubjects: TradeSubject[] = [];
+  partnerTradeSubjects: TradeSubject[] = [];
+  tradeProposal: TradeProposal | undefined;
 
   constructor(private snackBar: MatSnackBar,
-              private dialogRef: MatDialogRef<ProposeTradeFormComponent>,
-              private dialogRefAsset: MatDialogRef<AssetChoosingFormComponent>,
-              private dialog: MatDialog,) {
+              private dialogRef: MatDialogRef<ShowRequestDetailsPromptComponent>,
+              private authService: AuthService,
+              private tradesService: TradesService,
+              @Inject(MAT_DIALOG_DATA) public data: any,) {
+    this.tradeProposal = data;
+    this.authService.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {
-    this.teamCtrl.setValue('');
+    this.tradesService.getTradeProposalDetailsByID(this.tradeProposal?.idZahTrg!).subscribe({
+      next: (result: TradeSubject[] | TradeSubject) => {
+        if(Array.isArray(result)){
+          this.allTradeSubjects = result;
 
-    this.filteredTeams = this.teamFilterCtrl.valueChanges.pipe(
-      startWith(''),
-      map(value => this.filterTeams(value))
-    );
+          // Filter the trade subjects into correct arrays
+          if(this.tradeProposal?.statusZahTrg == 1){  // ACCEPTED
+            this.allTradeSubjects.forEach(tradeSubject => {
+              if(tradeSubject.tipPredTrg == 0 && tradeSubject.idTim != this.user?.teamId){ // Player type 
+                this.ownTradeSubjects.push(tradeSubject);
+              } else if(tradeSubject.tipPredTrg == 0 && tradeSubject.idTim == this.user?.teamId){ // Player type 
+                this.partnerTradeSubjects.push(tradeSubject);
+              } else if(tradeSubject.tipPredTrg == 1 && tradeSubject.idTim != this.user?.teamId){ // Pick type 
+                this.ownTradeSubjects.push(tradeSubject);
+              }else if(tradeSubject.tipPredTrg == 1 && tradeSubject.idTim == this.user?.teamId){ // Pick type 
+                this.partnerTradeSubjects.push(tradeSubject);
+              }else if(tradeSubject.tipPredTrg == 2 && tradeSubject.idTim != this.user?.teamId){ // Draft Rights type 
+                this.ownTradeSubjects.push(tradeSubject);
+              }else if(tradeSubject.tipPredTrg == 2 && tradeSubject.idTim == this.user?.teamId){ // Draft Rights type 
+                this.partnerTradeSubjects.push(tradeSubject);
+              }
+            });
+          } else {
+            this.allTradeSubjects.forEach(tradeSubject => {
+              if(tradeSubject.tipPredTrg == 0 && tradeSubject.idTim == this.user?.teamId){ // Player type 
+                this.ownTradeSubjects.push(tradeSubject);
+              } else if(tradeSubject.tipPredTrg == 0 && tradeSubject.idTim != this.user?.teamId){ // Player type 
+                this.partnerTradeSubjects.push(tradeSubject);
+              } else if(tradeSubject.tipPredTrg == 1 && tradeSubject.idTim == this.user?.teamId){ // Pick type 
+                this.ownTradeSubjects.push(tradeSubject);
+              }else if(tradeSubject.tipPredTrg == 1 && tradeSubject.idTim != this.user?.teamId){ // Pick type 
+                this.partnerTradeSubjects.push(tradeSubject);
+              }else if(tradeSubject.tipPredTrg == 2 && tradeSubject.idTim == this.user?.teamId){ // Draft Rights type 
+                this.ownTradeSubjects.push(tradeSubject);
+              }else if(tradeSubject.tipPredTrg == 2 && tradeSubject.idTim != this.user?.teamId){ // Draft Rights type 
+                this.partnerTradeSubjects.push(tradeSubject);
+              }
+            });
+          }
+        }
+      }
+    })
   }
-
-  private filterTeams(value: any): string[] {
-    const filterValue = value?.toLowerCase() || '';
-    return this.teams.filter(team => team.toLowerCase().includes(filterValue));
-  }
-
-  ngAfterViewInit() {
-    this.setInitialValue();
-  }
-
-  ngOnDestroy() {
-    this._onDestroy.next();
-    this._onDestroy.complete();
-  }
-
-  protected setInitialValue() {
-    this.filteredTeams
-      .pipe(take(1), takeUntil(this._onDestroy))
-      .subscribe(() => {
-        this.singleSelect!.compareWith = (a: string, b: string) => a.toLowerCase() === b.toLowerCase();
-      });
-  }
-
-  // Izmeni samo da bude trejd kao
-  proposeTradeForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
-    //duration: new FormControl('', [Validators.required]),
-    occurrenceTime: new FormControl(null, [Validators.required]),
-    occurrenceDate: new FormControl(null, [Validators.required]),
-    //guide: new FormControl('', [Validators.required]),
-    capacity: new FormControl('', [Validators.required]),
-    picturePath: new FormControl('', [Validators.required]),
-    category: new FormControl('', [Validators.required]),
-  });
 
   closeButtonClicked() {
     this.buttonState = 'clicked';
     setTimeout(() => { this.buttonState = 'idle'; }, 200);
     this.dialogRef.close();
-  }
-
-  addPartnersAssetButtonClicked(): void {
-    this.addPartnersAssetButtonState = 'clicked';
-    setTimeout(() => { this.addPartnersAssetButtonState = 'idle'; }, 200);
-    this.dialogRefAsset = this.dialog.open(AssetChoosingFormComponent, {
-        // TODO: Ovde treba proslediti tim da se zna cija imovina da se prikaze
-    });
-
-    if (this.dialogRefAsset) {
-      this.dialogRefAsset.afterClosed().subscribe((result: any) => {
-        // TODO: Ovde treba dodati osvezavanje liste kada se odabere nova imovina za trejdovanje
-      });
-    }
-  }
-
-  addYoursAssetButtonClicked(): void {
-    this.addYoursAssetButtonState = 'clicked';
-    setTimeout(() => { this.addYoursAssetButtonState = 'idle'; }, 200);
-    this.dialogRefAsset = this.dialog.open(AssetChoosingFormComponent, {
-        // TODO: Ovde treba proslediti tim da se zna cija imovina da se prikaze
-    });
-
-    if (this.dialogRefAsset) {
-      this.dialogRefAsset.afterClosed().subscribe((result: any) => {
-        // TODO: Ovde treba dodati osvezavanje liste kada se odabere nova imovina za trejdovanje
-      });
-    }
-  }
-
-  removeAssetButtonClicked(): void {
-    // Ovde samo proveri da li je sve okej sto se tice same animacije
-    this.removeAssetButtonState = 'clicked';
-    setTimeout(() => { this.removeAssetButtonState = 'idle'; }, 200);
   }
 
   showNotification(message: string): void {

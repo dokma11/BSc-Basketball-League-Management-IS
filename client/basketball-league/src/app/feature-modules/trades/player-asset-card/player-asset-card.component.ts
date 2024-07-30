@@ -1,10 +1,8 @@
 import { trigger, transition, style, animate, state } from '@angular/animations';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { faHeart, faHandPaper, faList, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { Player } from 'src/app/shared/model/player.model';
 
 @Component({
   selector: 'app-player-asset-card',
@@ -38,42 +36,63 @@ export class PlayerAssetCardComponent implements OnInit{
   addAssetButtonState: string = 'idle';
   removeAssetButtonState: string = 'idle';
   assetSelected: boolean = false;
-  player: string = 'IGRAC';  // DOK NE POVEZEM SA BEKOM
-  //@Input() request!: PersonalTourRequest;
-  private dialogRef: any;
-  user: User | undefined;
+  @Input() player!: Player;
+  @Input() chosenPlayers!: Player[];
+  age: string = '';
   @Output() dialogRefClosed: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private dialog: MatDialog,
-              private authService: AuthService,
-              private snackBar: MatSnackBar) {
-    this.authService.user$.subscribe(user => {
-      this.user = user;
-    });
+  constructor(private snackBar: MatSnackBar) {
+    
   }
 
   ngOnInit(): void {
-    
+    const today = new Date();
+    const birthDate = new Date(this.player.datRodj!);
+    this.age = (today.getFullYear() - birthDate.getFullYear()).toString();
+
+    if(this.chosenPlayers){
+      this.chosenPlayers.forEach(player => {
+        if(player.id === this.player.id){
+          this.assetSelected = true;
+        }
+      })
+    }
   }
 
-  addAssetButtonClicked(assset: any): void {
+  addAssetButtonClicked(asset: Player): void {
     this.addAssetButtonState = 'clicked';
     setTimeout(() => { this.addAssetButtonState = 'idle'; }, 200);
-
-    this.assetSelected = true;
-    this.showNotification("Player successfully added!");
     
-    // TODO: Dodati logiku za dodavanje imovine na neku listu itd, trebalo bi da ima na isi
+    let alreadyThere = false;
+    this.chosenPlayers.forEach(player => {
+        if(player.id === asset.id){
+          alreadyThere = true
+        }
+      }
+    )
+
+    if(!alreadyThere){
+      this.chosenPlayers.push(asset);
+      this.assetSelected = true;
+      this.showNotification("Player successfully added!");
+    }
+    else{
+      this.showNotification("Player already chosen!");
+    }
   }
 
-  removeAssetButtonClicked(assset: any): void {
+  removeAssetButtonClicked(asset: Player): void {
     this.removeAssetButtonState = 'clicked';
     setTimeout(() => { this.removeAssetButtonState = 'idle'; }, 200);
 
-    this.assetSelected = false;
-    this.showNotification("Player successfully removed!");
-
-    // TODO: Dodati logiku za uklanjanje imovine sa neke liste itd, trebalo bi da ima na isi
+    this.chosenPlayers.forEach( (player, index) => {
+        if(player.id === asset.id){
+          this.chosenPlayers.splice(index,1)
+          this.assetSelected = false;
+          this.showNotification("Player successfully removed!");      
+        }
+      }
+    )  
   }
 
   showNotification(message: string): void {
@@ -83,6 +102,7 @@ export class PlayerAssetCardComponent implements OnInit{
       verticalPosition: 'bottom',
     });
   }
+
   faMinus = faMinus;
   faPlus = faPlus;
 }

@@ -1,13 +1,18 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { faCheck, faTimes, faPen, faTrash, faCircleInfo, faBan } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { DeclineRequestPromptComponent } from '../decline-request-prompt/decline-request-prompt.component';
 import { AcceptRequestPromptComponent } from '../accept-request-prompt/accept-request-prompt.component';
 import { SeeDenialExplanationPromptComponent } from '../see-denial-explanation-prompt/see-denial-explanation-prompt.component';
 import { ShowRequestDetailsPromptComponent } from '../show-request-details-prompt/show-request-details-prompt.component';
+import { TradeProposal } from 'src/app/shared/model/tradeProposal.model';
+import { Employee } from 'src/app/shared/model/employee.model';
+import { Team } from 'src/app/shared/model/team.model';
+import { TradesService } from '../trades.service';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { CancelRequestPromptComponent } from '../cancel-request-prompt/cancel-request-prompt.component';
 
 @Component({
   selector: 'app-trade-request-card',
@@ -33,102 +38,96 @@ export class TradeRequestCardComponent implements OnInit{
   declineButtonState: string = 'idle';
   detailsButtonState: string = 'idle';
   seeExplanationButtonState: string = 'idle';
-  cancelRequestButtonState: string = 'idle';
-  request: string = 'das';  // DOK NE POVEZEM SA BEKOM
-  //@Input() request!: PersonalTourRequest;
+  cancelButtonState: string = 'idle';
+  @Input() tradeProposal!: TradeProposal;
   private dialogRef: any;
   user: User | undefined;
   @Output() dialogRefClosed: EventEmitter<any> = new EventEmitter<any>();
-  tourOccurrenceTime: string = "";
-  tourOccurrenceDate: string = "";
-  exhibitionsString: string = "";
+  proposalOccurrenceTime: string = "";
+  proposalOccurrenceDate: string = "";
+  manager: Employee | undefined;
+  managersTeam: Team | undefined;
 
-  constructor(private dialog: MatDialog,
+  constructor(private dialog: MatDialog, 
+              private tradesService: TradesService, 
               private authService: AuthService) {
-    this.authService.user$.subscribe(user => {
+    this.authService.user$.subscribe((user) => {
       this.user = user;
     });
   }
 
   ngOnInit(): void {
-    // TODO: Uraaditi sta treba vec za ngOnInit 
+    const proposalDateTimeString = this.tradeProposal.datZahTrg.toString();
+    [this.proposalOccurrenceDate, this.proposalOccurrenceTime] = proposalDateTimeString.split('T');
 
-  //   const tourOccurrenceDateTimeString = this.request.occurrenceDateTime.toString();
-  //   [this.tourOccurrenceDate, this.tourOccurrenceTime] = tourOccurrenceDateTimeString.split('T');
-
-  //   if(this.request.proposerId){
-  //     this.toursService.getGuestById(this.request.proposerId).subscribe({
-  //       next : (result: Guest) => {
-  //         this.request.proposer = result;
-  //       }
-  //     });
-  //   }
-
-  //   this.request.exhibitions!.forEach((exhibition: Exhibition) => {
-  //     this.exhibitionsString += exhibition.name + ", ";
-  //   });
-
-  //   this.exhibitionsString = this.exhibitionsString.slice(0, -2);
+    this.tradesService.getTeamByManagerID(this.tradeProposal.idMenadzerPos).subscribe({
+      next: (result: Team) => {
+        this.managersTeam = result;
+      }
+    });
+    
+    this.tradesService.getManagerByID(this.tradeProposal.idMenadzerPos).subscribe({
+      next: (result: Employee) => {
+        this.manager = result;
+      }
+    });
   }
 
-  acceptButtonClicked(request: any) {
-    // TODO: Dodati mali prozor za prihvatanje zahteva za trgovinu 
-
+  acceptButtonClicked() {
     this.acceptButtonState = 'clicked';
     setTimeout(() => { this.acceptButtonState = 'idle'; }, 200);
+    
     this.dialogRef = this.dialog.open(AcceptRequestPromptComponent, {
-      data: request
+      data: this.tradeProposal
     });
+    
     this.dialogRef.afterClosed().subscribe((result: any) => {
       this.dialogRefClosed.emit(result);
     });
   }
 
-  declineButtonClicked(request: any) {
-    // TODO: Dodati mali prozor za potvrdu odbijanja 
-
+  declineButtonClicked() {
     this.declineButtonState = 'clicked';
     setTimeout(() => { this.declineButtonState = 'idle'; }, 200);
+    
     this.dialogRef = this.dialog.open(DeclineRequestPromptComponent, {
-      data: request
+      data: this.tradeProposal
     });
+    
     this.dialogRef.afterClosed().subscribe((result: any) => {
       this.dialogRefClosed.emit(result);
     });
   }
 
-  seeDetailsButtonClicked(request: any){
-    // TODO: Dodati dijalog u kojem ce lepo biti ispisano sve sto treba o trgovini
-
+  seeDetailsButtonClicked(){
     this.detailsButtonState = 'clicked';
     setTimeout(() => { this.detailsButtonState = 'idle'; }, 200);
+   
     this.dialogRef = this.dialog.open(ShowRequestDetailsPromptComponent, {
-      data: request
+      data: this.tradeProposal
     });
   }
 
-  seeExplanationButtonClicked(request: any) {
-    // TODO: Dodati manji dijalog koji ce ispisati razlog odbijanja trgovine
-    
+  seeExplanationButtonClicked() {
     this.seeExplanationButtonState = 'clicked';
     setTimeout(() => { this.seeExplanationButtonState = 'idle'; }, 200);
+    
     this.dialogRef = this.dialog.open(SeeDenialExplanationPromptComponent, {
-      data: request
+      data: this.tradeProposal
     });
   }
 
-  cancelRequestButtonClicked(request: any){
-    // TODO: Proveriti da li ovo treba da postoji, kontam da nije problem dodati
-    // Ako postoji onda samo napraviti mali prozor slicno kao na IIS za potvrdu odbijanja
-
-    // this.cancelRequestButtonState = 'clicked';
-    // setTimeout(() => { this.cancelRequestButtonState = 'idle'; }, 200);
-
-    // this.toursService.cancelTourRequest(request.id!).subscribe({
-    //   next: (response: any) => {
-    //     this.dialogRefClosed.emit(response);
-    //   }
-    // })
+  cancelButtonClicked(){
+    this.cancelButtonState = 'clicked';
+    setTimeout(() => { this.cancelButtonState = 'idle'; }, 200);
+    
+    this.dialogRef = this.dialog.open(CancelRequestPromptComponent, {
+      data: this.tradeProposal
+    });
+    
+    this.dialogRef.afterClosed().subscribe((result: any) => {
+      this.dialogRefClosed.emit(result);
+    });
   }
 
   faCheck = faCheck;
@@ -138,3 +137,4 @@ export class TradeRequestCardComponent implements OnInit{
   faCircleInfo = faCircleInfo;
   faBan = faBan;
 }
+  

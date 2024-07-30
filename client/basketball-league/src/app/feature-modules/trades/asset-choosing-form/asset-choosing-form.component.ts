@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { ProposeTradeFormComponent } from '../propose-trade-form/propose-trade-form.component';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { RosterService } from '../../roster-management/roster.service';
+import { Player } from 'src/app/shared/model/player.model';
+import { DraftRight } from 'src/app/shared/model/draftRight.model';
+import { Pick } from 'src/app/shared/model/pick.model';
+import { Team } from 'src/app/shared/model/team.model';
 
 @Component({
   selector: 'app-asset-choosing-form',
@@ -37,126 +42,36 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
 export class AssetChoosingFormComponent implements OnInit{
   finishButtonState: string = 'idle';
   focused: string = '';
-  private ownDialogRef: any;
-  
+  team: Team | undefined;
+  picks: Pick[] = [];
+  players: Player[] = [];
+  draftRights: DraftRight[] = [];
+  chosenPicks: Pick[] = [];
+  chosenPlayers: Player[] = [];
+  chosenDraftRights: DraftRight[] = [];
   assetForm = new FormGroup({
     selectedAssetType: new FormControl('Players', [Validators.required]),
   });
 
   constructor(private snackBar: MatSnackBar,
               private dialogRef: MatDialogRef<ProposeTradeFormComponent>,
-              private dialogRefAsset: MatDialogRef<AssetChoosingFormComponent>,
-              private dialog: MatDialog,) {
+              private rosterService: RosterService,
+              @Inject(MAT_DIALOG_DATA) public data: any,) {
+    this.team = data.team;
+    this.chosenPicks = data.chosenPicks;
+    this.chosenPlayers = data.chosenPlayers;
+    this.chosenDraftRights = data.chosenDraftRights;
+
+    console.log(this.chosenPicks);
+    console.log(this.chosenPlayers);
   }
 
   ngOnInit(): void {
-    
+    this.getAssets();
   }
 
   addTourButtonClicked() {
-    // const selectedCategoryString: string = this.addTourForm.value.category ?? '';
-    // let selectedCategory: TourCategory;
-
-    // switch (selectedCategoryString) {
-    //   case 'ART_COLLECTIONS':
-    //     selectedCategory = TourCategory.ArtCollections;
-    //     break;
-    //   case 'HISTORICAL_EXHIBITS':
-    //     selectedCategory = TourCategory.HistoricalExhibits;
-    //     break;
-    //   case 'SCIENCE_AND_TECHNOLOGY':
-    //     selectedCategory = TourCategory.ScienceAndTechnology;
-    //     break;
-    //   case 'CULTURAL_HERITAGE':
-    //     selectedCategory = TourCategory.CulturalHeritage;
-    //     break;
-    //   case 'ANCIENT_ART':
-    //     selectedCategory = TourCategory.AncientArt;
-    //     break;
-    //   case 'EUROPEAN_PAINTINGS':
-    //     selectedCategory = TourCategory.EuropeanPaintings;
-    //     break;
-    //   case 'MODERN_ART':
-    //     selectedCategory = TourCategory.ModernArt;
-    //     break;
-    //   case 'AMERICAN_ART':
-    //     selectedCategory = TourCategory.AmericanArt;
-    //     break;
-    //   case 'ASIAN_ART':
-    //     selectedCategory = TourCategory.AsianArt;
-    //     break;
-    //   case 'AFRICAN_CULTURE':
-    //     selectedCategory = TourCategory.AfricanCulture;
-    //     break;
-    //   case 'ISLAMIC_ART':
-    //     selectedCategory = TourCategory.IslamicArt;
-    //     break;
-    //   case 'COSTUME_INSTITUTE':
-    //     selectedCategory = TourCategory.CostumeInstitute;
-    //     break;
-    //   case 'ARMS_AND_ARMOR':
-    //     selectedCategory = TourCategory.ArmsAndArmor;
-    //     break;
-    //   default:
-    //     console.error("Invalid category selected.");
-    //     return;
-    // }
-
-    // const tour: Tour = {
-    //   name: this.addTourForm.value.name || "",
-    //   description: this.addTourForm.value.description || "",
-    //   occurrenceDateTime: this.addTourForm.value.occurrenceDate || new Date(),
-    //   adultTicketPrice: this.adultTicketPrice || "",
-    //   minorTicketPrice: this.minorTicketPrice || "",
-    //   capacity: this.addTourForm.value.capacity || "",
-    //   picturePath: this.addTourForm.value.picturePath || "",
-    //   category: selectedCategory,
-    // };
-
-    // console.log(tour);
-
-    // if (this.addTourForm.valid) {
-    //     this.buttonState = 'clicked';
-    //     setTimeout(() => { this.buttonState = 'idle'; }, 200);
-
-    //     // Postavi datum i vreme
-    //     const dateValue: Date | null = this.addTourForm.value.occurrenceDate!;
-    //     const timeValue: string | null = this.addTourForm.value.occurrenceTime!;
-
-    //     const [hours, minutes] = (timeValue as string).split(':');
-    //     const dateTime = new Date(dateValue);
-    //     dateTime.setHours(Number(hours) + 1);
-    //     dateTime.setMinutes(Number(minutes));
-
-    //     const d = new Date(dateValue);
-    //     d.setHours(Number(hours));
-    //     d.setMinutes(Number(minutes));
-
-    //     tour.occurrenceDateTime = dateTime;
-
-    //     if(this.selectedCurator.length != 0){
-    //       tour.guideId = this.selectedCurator[0].id;
-    //       if(this.selectedExhibitions.length != 0){
-    //         tour.duration = (this.selectedExhibitions.length * 15).toString();
-    //         tour.exhibitions = this.selectedExhibitions;
-    //         this.toursService.addTour(tour).subscribe({
-    //           next: () => {
-    //             this.showNotification('Tour successfully added!')
-    //             this.dialogRef.close();
-    //           },
-    //         });
-    //       }
-    //       else{
-    //         this.showNotification('Please select at least one exhibition')
-    //       }
-    //     }
-    //     else{
-    //       this.showNotification('Please select a curator')
-    //     }
-    // }
-    // else{
-    //   this.showNotification('Please fill out the form correctly')
-    // }
+    
   }
 
   finishButtonClicked(): void {
@@ -170,9 +85,47 @@ export class AssetChoosingFormComponent implements OnInit{
   }
 
   onAssetTypeChange(event: any) {
-    // Ovo je samo dokaz da radi kak otreba, verovatno cu skloniti kada dodje finalna verzija
     this.showNotification('Selected asset type: ' + this.assetForm.value.selectedAssetType);
-    // TODO: Na osnovu promene treba da se prikazu odredjene kartice
+    this.getAssets();
+  }
+
+  getAssets() {
+      if (this.assetForm.value.selectedAssetType === 'Players') {
+        this.rosterService.getAllPlayersByTeamId(this.team?.idTim!).subscribe({
+          next: (result: Player[] | Player) => {
+            if(Array.isArray(result)){
+              this.players = result;
+              // Reset other unncessary lists
+              this.picks = [];
+              this.draftRights = [];
+            }
+          }
+        })
+      } 
+      else if (this.assetForm.value.selectedAssetType === 'Picks') {
+        this.rosterService.getAllPicksByTeamId(this.team?.idTim!).subscribe({
+          next: (result: Pick[] | Pick) => {
+            if(Array.isArray(result)){
+              this.picks = result;
+              // Reset other unncessary lists
+              this.players = [];
+              this.draftRights = [];
+            }
+          }
+        })
+      }  
+      else if (this.assetForm.value.selectedAssetType === 'Draft Rights') {
+        this.rosterService.getAllDraftRightsByTeamId(this.team?.idTim!).subscribe({
+          next: (result: DraftRight[] | DraftRight) => {
+            if(Array.isArray(result)){
+              this.draftRights = result;
+              // Reset other unncessary lists
+              this.picks = [];
+              this.players = [];
+            }
+          }
+        })
+      }  
   }
 
   showNotification(message: string): void {

@@ -30,10 +30,18 @@ func (service *TradeProposalService) GetByID(id int) (*model.TradeProposal, erro
 	return tradeProposal, nil
 }
 
-func (service *TradeProposalService) GetAllByTeamID(teamID int) (*[]model.TradeProposal, error) {
-	tradeProposals, err := service.TradeProposalRepository.GetAllByTeamID(teamID)
+func (service *TradeProposalService) GetAllReceivedByManagerID(managerID int) (*[]model.TradeProposal, error) {
+	tradeProposals, err := service.TradeProposalRepository.GetAllReceivedByManagerID(managerID)
 	if err != nil {
-		return nil, fmt.Errorf(fmt.Sprintf("no trade proposals with that sender idwere found"))
+		return nil, fmt.Errorf(fmt.Sprintf("no trade proposals with that receiever id were found"))
+	}
+	return &tradeProposals, nil
+}
+
+func (service *TradeProposalService) GetAllSentByManagerID(managerID int) (*[]model.TradeProposal, error) {
+	tradeProposals, err := service.TradeProposalRepository.GetAllSentByManagerID(managerID)
+	if err != nil {
+		return nil, fmt.Errorf(fmt.Sprintf("no trade proposals with that sender id were found"))
 	}
 	return &tradeProposals, nil
 }
@@ -54,4 +62,12 @@ func (service *TradeProposalService) Update(tradeProposal *model.TradeProposal) 
 		return err
 	}
 	return nil
+}
+
+func (service *TradeProposalService) GetLatest() (*model.TradeProposal, error) {
+	tradeProposal, err := service.TradeProposalRepository.GetLatest()
+	if err != nil {
+		return nil, fmt.Errorf(fmt.Sprintf("no latest trade proposals were found"))
+	}
+	return tradeProposal, nil
 }

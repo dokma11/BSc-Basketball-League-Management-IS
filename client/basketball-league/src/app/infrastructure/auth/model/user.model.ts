@@ -8,4 +8,5 @@ export interface User {
   datRodj?: Date; // Date of birth
   lozinka?: string; // Password
   uloga?: Uloga; // Role
+  teamId?: number;
 }

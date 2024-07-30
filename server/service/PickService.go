@@ -4,6 +4,7 @@ import (
 	"basketball-league-server/model"
 	"basketball-league-server/repository"
 	"fmt"
+	"log"
 )
 
 type PickService struct {
@@ -48,4 +49,13 @@ func (service *PickService) GetAllByYear(year string) (*[]model.Pick, error) {
 	}
 
 	return &picks, nil
+}
+
+func (service *PickService) Update(pick *model.Pick) error {
+	err := service.PickRepository.Update(pick)
+	if err != nil {
+		log.Println("Error updating pick")
+		return err
+	}
+	return nil
 }

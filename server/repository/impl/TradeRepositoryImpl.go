@@ -31,13 +31,7 @@ func (repo *tradeRepository) GetAll() ([]model.Trade, error) {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		if tradeType == "PLAYER_PLAYER" {
-			trade.TipTrg = 0
-		} else if tradeType == "PLAYER_PICK" {
-			trade.TipTrg = 1
-		} else if tradeType == "PICK_PICK" {
-			trade.TipTrg = 2
-		}
+		mapTradeEnumsForReading(tradeType, &trade)
 
 		trades = append(trades, trade)
 	}
@@ -60,13 +54,7 @@ func (repo *tradeRepository) GetByID(id int) (*model.Trade, error) {
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
 
-	if tradeType == "PLAYER_PLAYER" {
-		trade.TipTrg = 0
-	} else if tradeType == "PLAYER_PICK" {
-		trade.TipTrg = 1
-	} else if tradeType == "PICK_PICK" {
-		trade.TipTrg = 2
-	}
+	mapTradeEnumsForReading(tradeType, &trade)
 
 	return &trade, nil
 }
@@ -87,13 +75,7 @@ func (repo *tradeRepository) GetAllByTeamID(teamID int) ([]model.Trade, error) {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		if tradeType == "PLAYER_PLAYER" {
-			trade.TipTrg = 0
-		} else if tradeType == "PLAYER_PICK" {
-			trade.TipTrg = 1
-		} else if tradeType == "PICK_PICK" {
-			trade.TipTrg = 2
-		}
+		mapTradeEnumsForReading(tradeType, &trade)
 
 		trades = append(trades, trade)
 	}
@@ -106,10 +88,39 @@ func (repo *tradeRepository) GetAllByTeamID(teamID int) ([]model.Trade, error) {
 }
 
 func (repo *tradeRepository) Create(trade *model.Trade) error {
+	tradeType := mapTradeEnumsForWriting(trade)
 	_, err := repo.db.Exec("INSERT INTO TRGOVINA (IDTRG, DATTRG, TIPTRG, IDZAHTRG) VALUES (:1, :2, :3, :4)",
-		trade.IdTrg, trade.DatTrg, trade.TipTrg, trade.IdZahTrg)
+		trade.IdTrg, trade.DatTrg, tradeType, trade.IdZahTrg)
 	if err != nil {
+		fmt.Println(err)
 		return fmt.Errorf("failed to create a trade: %v", err)
 	}
 	return nil
+}
+
+func mapTradeEnumsForWriting(trade *model.Trade) string {
+	var tradeType string
+
+	switch trade.TipTrg {
+	case 0:
+		tradeType = "PLAYER_PLAYER"
+	case 1:
+		tradeType = "PLAYER_PICK"
+	default:
+		tradeType = "PICK_PICK"
+	}
+
+	return tradeType
+}
+
+func mapTradeEnumsForReading(tradeType string, trade *model.Trade) {
+	switch tradeType {
+	case "PLAYER_PLAYER":
+		trade.TipTrg = 0
+	case "PLAYER_PICK":
+		trade.TipTrg = 1
+	default:
+		trade.TipTrg = 2
+	}
+	return
 }

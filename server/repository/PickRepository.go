@@ -7,4 +7,5 @@ type PickRepository interface {
 	GetByID(id int) (*model.Pick, error)
 	GetAllByTeamID(teamId int) ([]model.Pick, error)
 	GetAllByYear(year string) ([]model.Pick, error)
+	Update(pick *model.Pick) error
 }

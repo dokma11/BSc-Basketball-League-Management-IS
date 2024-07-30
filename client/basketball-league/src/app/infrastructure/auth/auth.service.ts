@@ -16,7 +16,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthService {
 
-  user$ = new BehaviorSubject<User>({ email: '', id: 0, uloga: 0 });
+  user$ = new BehaviorSubject<User>({ email: '', id: -100, uloga: 0, teamId: -100 });
   basePath = environment.apiHost + 'auth/'; // ovo proveriti
 
   constructor(
@@ -84,6 +84,7 @@ export class AuthService {
       id: +jwtHelperService.decodeToken(accessToken).id,
       email: jwtHelperService.decodeToken(accessToken).username,
       uloga: jwtHelperService.decodeToken(accessToken).role,
+      teamId: jwtHelperService.decodeToken(accessToken).teamId,
     };
     this.user$.next(user);
   }
