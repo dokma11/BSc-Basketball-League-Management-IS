@@ -136,6 +136,33 @@ h2 {
   margin-top: -3%;
 }
 
+.mat-form-field-oval {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.mat-form-field-oval .mat-form-field-flex {
+  border-radius: 15px;
+}
+
+.mat-form-field-oval .mat-select-trigger {
+  border-radius: 15px !important;
+  padding: 10px 20px !important; 
+}
+
+.mat-form-field-oval .mat-select-panel {
+  border-radius: 15px !important;
+}
+
+.mat-form-field-oval .mat-option {
+  border-radius: 15px !important;
+  margin: 2px !important;
+}
+
+.mat-form-field-oval ngx-mat-select-search .mat-input-element {
+  border-radius: 25px !important;
+}
+
 .asset-type {
   display: flex;
   margin-left: 12%;

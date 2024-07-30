@@ -25,7 +25,6 @@
     </div>
   </form>
 
-  <!-- Obratiti paznju na ulogu ovde -->
   <button type="submit"
           class="propose-trade-btn"
           (click)="proposeTradeButtonClicked()"
@@ -34,26 +33,15 @@
     &nbsp;Propose a trade
   </button>
 
+<!-- MOZDA DODATI KAO SORTIRANJE PREMA NJIHOVOM STATUSU NEKAKO -->
+
   <div class="trades">
     <div class="trade-container">
-        <!-- <app-trade-request-card
+        <app-trade-request-card
             [@fadeIn]
-            *ngFor="let request of requests"
-            [request]="request"
+            *ngFor="let proposal of tradeProposals"
+            [tradeProposal]="proposal"
             (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-trade-request-card> -->
-        <!-- Received requests -->
-        <app-trade-request-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-          *ngIf="this.tradeForm.value.selectedTradeType == 'Received'"
-        ></app-trade-request-card>
-
-        <!-- Sent requests -->
-        <app-trade-request-card
-          [@fadeIn]
-          (dialogRefClosed)="handleDialogClosed($event)"
-          *ngIf="this.tradeForm.value.selectedTradeType == 'Sent'"
         ></app-trade-request-card>
     </div>
   </div>

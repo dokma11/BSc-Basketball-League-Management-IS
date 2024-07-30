@@ -2,95 +2,93 @@
     <div class="trade-card-content">
         <div class="trade-card-top">
           <div class="trade-tags">
-            <!-- Ovde samo moram dodati kao ngIf za svaki kada treba da se prikaze -->
-             <!-- *ngIf="request.status === 'IN_PROGRESS'"
-                  *ngIf="request.status === 'ACCEPTED'"
-                  *ngIf="request.status === 'DECLINED'"
-                  *ngIf="request.status === 'CANCELLED'"  OVAJ MOZDA SAMO
-             -->
             <div class="trade-tag"
+                 *ngIf="tradeProposal.statusZahTrg == 0"
                  style="background-color: orange; color: white">
                  In progress
             </div>
             <div class="trade-tag"
+                 *ngIf="tradeProposal.statusZahTrg == 1"
                  style="background-color: olivedrab; color: white">
                  Accepted
             </div>
             <div class="trade-tag"
+                 *ngIf="tradeProposal.statusZahTrg == 2"
                  style="background-color: rgb(150, 28, 28); color: white">
                  Declined
+            </div>
+            <div class="trade-tag"
+                 *ngIf="tradeProposal.statusZahTrg == 3"
+                 style="background-color: rgb(98, 15, 15); color: white">
+                 Cancelled
             </div>
           </div>
         </div>
         <div class="trade-card-information">
             <div class="trade-card-center">
                 <div class="trade-team-value">
-                  <strong>Team: </strong> Minnesota Timberwolves <!-- Ovde dodati naziv tima -->
+                  <strong>Team: </strong> {{ this.managersTeam?.nazTim }}
                 </div>
                 <div class="trade-manager-value">
-                    <strong>Manager: </strong> Al Farouq Robinson Jr. <!-- Ovde dodati ime i prezime menadzera -->
+                    <strong>Manager: </strong> {{ this.manager?.ime }} {{ this.manager?.prezime }}
                 </div>
                 <div class="trade-date">
                   <div class="trade-date-value">
-                    <strong>Date and time: </strong> 11.02.2002 1:51h <!-- Ovde treba da bdue datum kada je poslat zahtev-->
+                    <strong>Date: </strong> {{ this.proposalOccurrenceDate }}
                   </div>
                 </div>
             </div>
 
             <div class="trade-card-right">
-              <!-- Obratiti opet paznju na user.role -->
-              
-                <!-- Obratiti paznju na rolu i sam status zahteva -->
                 <button
                   class="btn"
-                  *ngIf="request == 'DECLINED'"
-                  (click)="seeExplanationButtonClicked(request);$event.stopPropagation()"
+                  *ngIf="this.tradeProposal.statusZahTrg == 2"
+                  (click)="seeExplanationButtonClicked();$event.stopPropagation()"
                   [@buttonState]="seeExplanationButtonState"
                 >
                   <fa-icon [icon]="faBan" />
                   &nbsp;See denial explanation
                 </button>
 
-<!--            CANCEL MOZDA DA OSTANE VIDECU JOS
-                <button
-                  class="btn"
-                  *ngIf="user?.role == 'GUEST' && request == 'IN_PROGRESS'"
-                  (click)="cancelRequestButtonClicked(request);$event.stopPropagation()"
-                  [@buttonState]="cancelRequestButtonState"
-                >
-                  <fa-icon [icon]="faTrash" />
-                  &nbsp;Cancel request
-                </button> -->
-
-                <!-- Obratiti paznju na user.role -->
                 <button
                     class="btn"
-                    (click)="seeDetailsButtonClicked(request);$event.stopPropagation()"
+                    (click)="seeDetailsButtonClicked();$event.stopPropagation()"
                     [@buttonState]="detailsButtonState"
                 >
                     <fa-icon [icon]="faCircleInfo" />
                     &nbsp;See details
                 </button>
 
-                <!-- Obratiti paznju na user.role -->
                 <button
                     class="btn"
-                    (click)="acceptButtonClicked(request);$event.stopPropagation()"
+                    *ngIf="this.tradeProposal.statusZahTrg == 0 && this.tradeProposal.idMenadzerPrim == this.user?.id"
+                    (click)="acceptButtonClicked();$event.stopPropagation()"
                     [@buttonState]="acceptButtonState"
                 >
                     <fa-icon [icon]="faCheck" />
                     &nbsp;Accept
                 </button>
 
-                <!-- Obratiti paznju na user.role -->
                 <button
                     class="btn"
-                    (click)="declineButtonClicked(request);$event.stopPropagation()"
+                    *ngIf="this.tradeProposal.statusZahTrg == 0 && this.tradeProposal.idMenadzerPrim == this.user?.id"
+                    (click)="declineButtonClicked();$event.stopPropagation()"
                     [@buttonState]="declineButtonState"
                 >
                     <fa-icon [icon]="faTimes" />
                     &nbsp;Decline
                 </button>
+
+                <button
+                  class="btn"
+                  *ngIf="this.tradeProposal.statusZahTrg == 0 && this.tradeProposal.idMenadzerPos == this.user?.id"
+                  (click)="cancelButtonClicked();$event.stopPropagation()"
+                  [@buttonState]="cancelButtonState"
+                >
+                  <fa-icon [icon]="faTrash" />
+                  &nbsp;Cancel proposal
+                </button> 
+
             </div>
         </div>
     </div>

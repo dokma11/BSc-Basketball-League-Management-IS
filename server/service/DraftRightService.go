@@ -4,6 +4,7 @@ import (
 	"basketball-league-server/model"
 	"basketball-league-server/repository"
 	"fmt"
+	"log"
 )
 
 type DraftRightService struct {
@@ -39,4 +40,13 @@ func (service *DraftRightService) GetAllByTeamID(teamID int) ([]model.DraftRight
 	}
 
 	return draftRights, nil
+}
+
+func (service *DraftRightService) Update(draftRights *model.DraftRight) error {
+	err := service.DraftRightRepository.Update(draftRights)
+	if err != nil {
+		log.Println("Error updating draft rights")
+		return err
+	}
+	return nil
 }

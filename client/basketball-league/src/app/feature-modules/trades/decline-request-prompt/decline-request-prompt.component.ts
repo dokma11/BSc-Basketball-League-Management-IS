@@ -3,6 +3,8 @@ import { Component, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TradeProposal, TradeProposalStatus } from 'src/app/shared/model/tradeProposal.model';
+import { TradesService } from '../trades.service';
 
 @Component({
   selector: 'app-decline-request-prompt',
@@ -26,13 +28,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class DeclineRequestPromptComponent {
   cancelButtonState: string = 'idle';
   declineButtonState: string = 'idle';
-  //request: PersonalTourRequest | undefined; OVDE TREBA DA BUDE ZAHTEV KADA SE POVEZEM SA BEKOM
+  tradeProposal: TradeProposal | undefined;
   focused: string = '';
 
   constructor(private snackBar: MatSnackBar,
               private dialogRef: MatDialogRef<DeclineRequestPromptComponent>,
+              private tradesService: TradesService,
               @Inject(MAT_DIALOG_DATA) public data: any) {
-    //this.request = data;
+    this.tradeProposal = data;
   }
 
   declineRequestForm = new FormGroup({
@@ -43,17 +46,15 @@ export class DeclineRequestPromptComponent {
     this.declineButtonState = 'clicked';
     setTimeout(() => { this.declineButtonState = 'idle'; }, 200);
 
-    // TODO: Implementirati logiku odbijanja zahteva
+    this.tradeProposal!.statusZahTrg = TradeProposalStatus.DECLINED;
+    this.tradeProposal!.razlogOdbij = this.declineRequestForm.value.explanation || undefined;
 
-    // this.request!.status = PersonalTourRequestStatus.DECLINED;
-    // this.request!.denialReason = this.declineRequestForm.value.explanation || undefined;
-
-    // this.toursService.updateTourRequest(this.request!).subscribe({
-    //   next: () => {
-    //     this.showNotification('Tour request successfully declined!');
-    //     this.dialogRef.close();
-    //   }
-    // });
+    this.tradesService.updateTradeProposal(this.tradeProposal!).subscribe({
+      next: () => {
+        this.showNotification('Trade proposal successfully declined!');
+        this.dialogRef.close();
+      }
+    });
   }
 
   cancelButtonClicked(){

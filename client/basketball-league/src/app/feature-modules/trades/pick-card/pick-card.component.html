@@ -5,21 +5,26 @@
   <div class="pick-card-content">
       <div class="pick-card-information">
           <div class="pick-card-center">
-                <div class="pick-number">
-                  <strong>Order:</strong> 31 <!-- Ovde dodati redni broj pika -->
-                </div>
+              <div class="pick-number" 
+                    *ngIf="pick.redBrPik !== '0'">
+                <strong>Order:</strong> {{ pick.redBrPik }}
+              </div>
+              <div class="pick-number" 
+                    *ngIf="pick.redBrPik === '0'">
+                <strong>Order:</strong> Unknown
+              </div>
                 <div class="pick-round">
-                  <strong>Round:</strong> 1 <!-- Ovde rundu samog pika -->
+                  <strong>Round:</strong> {{ pick.brRunPik }}
                 </div>
                 <div class="pick-year">
-                  <strong>Year:</strong> 2025 <!-- Ovde dodati godinu za koju pik vazi -->
+                  <strong>Year:</strong>  {{ pick.godPik }}
                 </div>
           </div>
           <div class="pick-card-right">
                 <button
                   class="btn"
                   *ngIf="!assetSelected"
-                  (click)="addAssetButtonClicked(player);$event.stopPropagation()"
+                  (click)="addAssetButtonClicked(pick);$event.stopPropagation()"
                   [@buttonState]="addAssetButtonState"
                 >
                   <fa-icon [icon]="faPlus" />
@@ -29,7 +34,7 @@
                 <button
                   class="btn"
                   *ngIf="assetSelected"
-                  (click)="removeAssetButtonClicked(player);$event.stopPropagation()"
+                  (click)="removeAssetButtonClicked(pick);$event.stopPropagation()"
                   [@buttonState]="removeAssetButtonState"
                 >
                   <fa-icon [icon]="faMinus" />

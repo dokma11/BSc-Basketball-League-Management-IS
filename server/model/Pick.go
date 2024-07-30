@@ -1,19 +1,18 @@
 package model
 
 import (
-	"database/sql"
 	"errors"
 	"fmt"
 	"strconv"
 )
 
 type Pick struct {
-	IdPik      int64         `json:"idPik"`
-	RedBrPik   string        `json:"redBrPik"`   // Pick order
-	BrRunPik   string        `json:"brRunPik"`   // Pick round (can be first and second)
-	GodPik     string        `json:"godPik"`     // Pick year
-	IdMenadzer sql.NullInt64 `json:"idMenadzer"` // Manager that used the pick foreign key
-	IdTim      int64         `json:"idTim"`      // Team foreign key
+	IdPik      int64  `json:"idPik"`
+	RedBrPik   string `json:"redBrPik"`   // Pick order
+	BrRunPik   string `json:"brRunPik"`   // Pick round (can be first and second)
+	GodPik     string `json:"godPik"`     // Pick year
+	IdMenadzer int64  `json:"idMenadzer"` // Manager that used the pick foreign key
+	IdTim      int64  `json:"idTim"`      // Team foreign key
 }
 
 func NewPick(idPik int64, redBrPik string, brRunPik string, godPik string) (*Pick, error) {

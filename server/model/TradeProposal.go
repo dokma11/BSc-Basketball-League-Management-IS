@@ -62,3 +62,15 @@ func (t *TradeProposal) Validate() error {
 
 	return nil
 }
+
+type TradeProposalCreateDTO struct {
+	DatZahTrg         time.Time `json:"datZahTrg"` // Date of creation
+	TipZahTrg         TradeType `json:"tipZahTrg"`
+	IdMenadzerPos     int64     `json:"idMenadzerPos"`     // Sender foreign key
+	IdMenadzerPrimTim int64     `json:"idMenadzerPrimTim"` // Receiver team foreign key
+}
+
+type TradeProposalUpdateDTO struct {
+	IdZahTrg  int64     `json:"idZahTrg"`
+	TipZahTrg TradeType `json:"tipZahTrg"`
+}

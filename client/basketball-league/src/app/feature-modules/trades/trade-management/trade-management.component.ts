@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { ProposeTradeFormComponent } from '../propose-trade-form/propose-trade-form.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { TradeProposal } from 'src/app/shared/model/tradeProposal.model';
+import { TradesService } from '../trades.service';
 
 @Component({
   selector: 'app-trade-management',
@@ -39,7 +41,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class TradeManagementComponent implements OnInit{
   user: User | undefined;
   backgroundSize: string = '100% 100%';
-  //requests: PersonalTourRequest[] = [];   ovde treba da budu zahtevi za trejdove bas
+  tradeProposals: TradeProposal[] = [];
   proposeTradeButtonState: string = "";
 
   private dialogRef: any;
@@ -50,46 +52,48 @@ export class TradeManagementComponent implements OnInit{
   
   constructor(private authService: AuthService,
               private dialog: MatDialog,
-              private snackBar: MatSnackBar,) {
-
+              private snackBar: MatSnackBar,
+              private tradesService: TradesService) {
+    this.authService.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {
-    this.getRequests();
+    this.getProposals();
   }
 
-  getRequests() {
-    // this.authService.user$.subscribe(user => {
-    //   this.user = user;
-    //   if(this.user.role === 'GUEST'){
-    //     this.toursService.getGuestsTourRequests(this.user.id).subscribe({
-    //       next: (result: PersonalTourRequest[] | PersonalTourRequest) => {
-    //         if(Array.isArray(result)){
-    //           this.requests = result;
-    //         }
-    //       }
-    //     });
-    //   }
-    //   else{
-    //     this.toursService.getTourRequestsOnHold().subscribe({
-    //       next: (result: PersonalTourRequest[] | PersonalTourRequest) => {
-    //         if(Array.isArray(result)){
-    //           this.requests = result;
-    //         }
-    //       }
-    //     });
-    //   }
-    // });
+  getProposals() {
+    if(this.tradeForm.value.selectedTradeType == 'Received'){
+      this.tradesService.getAllReceivedTradeProposalsByManagerID(this.user?.id!).subscribe({
+        next: (result: TradeProposal[] | TradeProposal) => {
+          if(Array.isArray(result)){
+            this.tradeProposals = [];
+            this.tradeProposals = result;
+            console.log(this.tradeProposals);
+          }
+        }
+      });
+    } else if (this.tradeForm.value.selectedTradeType == 'Sent'){
+      this.tradesService.getAllSentTradeProposalsByManagerID(this.user?.id!).subscribe({
+        next: (result: TradeProposal[] | TradeProposal) => {
+          if(Array.isArray(result)){
+            this.tradeProposals = [];
+            this.tradeProposals = result;
+            console.log(this.tradeProposals);
+          }
+        }
+      });
+    }
   }
 
   handleDialogClosed(result: any) {
-    this.getRequests();
+    this.getProposals();
   }
 
   onTradeTypeChange(event: any) {
-    // Ovo je samo dokaz da radi kak otreba, verovatno cu skloniti kada dodje finalna verzija
     this.showNotification('Selected trades type: ' + this.tradeForm.value.selectedTradeType);
-    // TODO: Na osnovu promene treba da se prikazu odredjene kartice
+    this.getProposals();
   }
 
   proposeTradeButtonClicked() {
@@ -100,7 +104,7 @@ export class TradeManagementComponent implements OnInit{
 
     if (this.dialogRef) {
       this.dialogRef.afterClosed().subscribe((result: any) => {
-        this.getRequests();
+        this.getProposals();
       });
     }
   }

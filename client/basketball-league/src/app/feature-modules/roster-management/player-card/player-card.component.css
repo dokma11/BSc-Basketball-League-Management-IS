@@ -64,7 +64,6 @@
   white-space: nowrap;
   display: flex;
   align-items: center;
-
 }
 
 .player-position-value {
@@ -88,11 +87,6 @@
   display: flex;
   align-items: center;
   margin-right: 50px;
-}
-
-.starting-position {
-  margin-right: 4px;
-  font-weight: bold;
 }
 
 .player-card-right {

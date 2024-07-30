@@ -17,6 +17,7 @@ import { AcceptRequestPromptComponent } from './accept-request-prompt/accept-req
 import { DeclineRequestPromptComponent } from './decline-request-prompt/decline-request-prompt.component';
 import { ShowRequestDetailsPromptComponent } from './show-request-details-prompt/show-request-details-prompt.component';
 import { SeeDenialExplanationPromptComponent } from './see-denial-explanation-prompt/see-denial-explanation-prompt.component';
+import { CancelRequestPromptComponent } from './cancel-request-prompt/cancel-request-prompt.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { SeeDenialExplanationPromptComponent } from './see-denial-explanation-pr
     DeclineRequestPromptComponent,
     ShowRequestDetailsPromptComponent,
     SeeDenialExplanationPromptComponent,
+    CancelRequestPromptComponent,
   ],
   imports: [
     CommonModule,

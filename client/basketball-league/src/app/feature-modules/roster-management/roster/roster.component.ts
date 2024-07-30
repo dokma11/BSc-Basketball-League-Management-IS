@@ -48,10 +48,8 @@ export class RosterComponent implements OnInit{
   draftRights: DraftRight[] = [];
   fullTeams: Team[] = [];
   public teams: string[] = [];
-
   public teamCtrl: FormControl<string | null> = new FormControl<string | null>('');
   public teamFilterCtrl: FormControl<string | null> = new FormControl<string | null>('');
-
   private teamsSubject: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(this.teams);
   public filteredTeams: Observable<string[]> = this.teamsSubject.asObservable();
 

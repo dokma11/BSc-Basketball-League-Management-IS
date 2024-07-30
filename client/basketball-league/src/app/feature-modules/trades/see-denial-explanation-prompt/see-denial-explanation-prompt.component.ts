@@ -1,6 +1,9 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TradeProposal } from 'src/app/shared/model/tradeProposal.model';
+import { TradesService } from '../trades.service';
+import { Employee } from 'src/app/shared/model/employee.model';
 
 @Component({
   selector: 'app-see-denial-explanation-prompt',
@@ -24,20 +27,21 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class SeeDenialExplanationPromptComponent {
   closeButtonState: string = '';
   focused: string = '';
-  // request: PersonalTourRequest | undefined;  OVDE IDE TRADE REQUEST KADA POVEZEM SA BEKOM
-  // organizer: Organizer | undefined;
+  tradeProposal: TradeProposal | undefined;
+  manager: Employee | undefined;
   denialReason: string = '';
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-              private dialogRef: MatDialogRef<SeeDenialExplanationPromptComponent>,) {
-    //this.request = data;
+              private dialogRef: MatDialogRef<SeeDenialExplanationPromptComponent>,
+              private tradesService: TradesService) {
+    this.tradeProposal = data;
 
-    // this.toursService.getOrganizerById(this.request?.organizerId!).subscribe({
-    //   next: (result: Organizer) => {
-    //     this.organizer = result;
-    //     this.denialReason = this.organizer?.firstName + ' ' + this.organizer?.lastName + ' wrote: ' + this.request?.denialReason;
-    //   }
-    // })
+    this.tradesService.getManagerByID(this.tradeProposal?.idMenadzerPrim!).subscribe({
+      next: (result: Employee) => {
+        this.manager = result;
+        this.denialReason = this.manager?.ime + ' ' + this.manager?.prezime + ' wrote: ' + this.tradeProposal?.razlogOdbij;
+      }
+    })
   }
 
   closeButtonClicked() {
