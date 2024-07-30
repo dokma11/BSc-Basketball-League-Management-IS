@@ -26,10 +26,15 @@ func (repo *pickRepository) GetAll() ([]model.Pick, error) {
 	var picks []model.Pick
 	for rows.Next() {
 		var pick model.Pick
-		var managerID sql.NullString
+		var managerID sql.NullInt64
 		if err := rows.Scan(&pick.IdPik, &pick.RedBrPik, &pick.BrRunPik, &pick.GodPik, &managerID, &pick.IdTim); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
+
+		if managerID.Valid {
+			pick.IdMenadzer = managerID.Int64
+		}
+
 		picks = append(picks, pick)
 	}
 
@@ -42,13 +47,19 @@ func (repo *pickRepository) GetAll() ([]model.Pick, error) {
 
 func (repo *pickRepository) GetByID(id int) (*model.Pick, error) {
 	var pick model.Pick
+	var managerID sql.NullInt64
 	row := repo.db.QueryRow("SELECT * FROM PIK WHERE IDPIK = :1", id)
-	if err := row.Scan(&pick.IdPik, &pick.RedBrPik, &pick.BrRunPik, &pick.GodPik, &pick.IdMenadzer, &pick.IdTim); err != nil {
+	if err := row.Scan(&pick.IdPik, &pick.RedBrPik, &pick.BrRunPik, &pick.GodPik, &managerID, &pick.IdTim); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
+
+	if managerID.Valid {
+		pick.IdMenadzer = managerID.Int64
+	}
+
 	return &pick, nil
 }
 
@@ -62,9 +73,15 @@ func (repo *pickRepository) GetAllByTeamID(teamId int) ([]model.Pick, error) {
 	var picks []model.Pick
 	for rows.Next() {
 		var pick model.Pick
-		if err := rows.Scan(&pick.IdPik, &pick.RedBrPik, &pick.BrRunPik, &pick.GodPik, &pick.IdMenadzer, &pick.IdTim); err != nil {
+		var managerID sql.NullInt64
+		if err := rows.Scan(&pick.IdPik, &pick.RedBrPik, &pick.BrRunPik, &pick.GodPik, &managerID, &pick.IdTim); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
+
+		if managerID.Valid {
+			pick.IdMenadzer = managerID.Int64
+		}
+
 		picks = append(picks, pick)
 	}
 
@@ -85,9 +102,15 @@ func (repo *pickRepository) GetAllByYear(year string) ([]model.Pick, error) {
 	var picks []model.Pick
 	for rows.Next() {
 		var pick model.Pick
-		if err := rows.Scan(&pick.IdPik, &pick.RedBrPik, &pick.BrRunPik, &pick.GodPik, &pick.IdMenadzer, &pick.IdTim); err != nil {
+		var managerID sql.NullInt64
+		if err := rows.Scan(&pick.IdPik, &pick.RedBrPik, &pick.BrRunPik, &pick.GodPik, &managerID, &pick.IdTim); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
+
+		if managerID.Valid {
+			pick.IdMenadzer = managerID.Int64
+		}
+
 		picks = append(picks, pick)
 	}
 

@@ -5,6 +5,7 @@ export interface TradeSubject {
   idIgrac?: number; // Player foreign key
   idZahTrg?: number; // Trade Proposal foreign key
   idPik?: number;   // Pick foreign key
+  idTim?: number; // Team foreign key
 }
 
 export enum TradeSubjectType {

@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DraftRight } from 'src/app/shared/model/draftRight.model';
 import { Employee } from 'src/app/shared/model/employee.model';
+import { Pick } from 'src/app/shared/model/pick.model';
+import { Player } from 'src/app/shared/model/player.model';
 import { Team } from 'src/app/shared/model/team.model';
 import { TradeProposal } from 'src/app/shared/model/tradeProposal.model';
 import { TradeSubject } from 'src/app/shared/model/tradeSubject.model';
@@ -44,6 +47,26 @@ export class TradesService {
 
   commitTrade(tradeProposal: TradeProposal): Observable<TradeProposal> {
     return this.http.post<TradeProposal>(environment.host + 'tradeSubject-commit-trade', tradeProposal);
+  }
+
+  getAllTradeSubjectsByTradeProposalID(tradeProposalId: number): Observable<TradeSubject> {
+    return this.http.get<TradeSubject>(environment.host + 'tradeSubject-trade/' + tradeProposalId);
+  }
+
+  getPlayerByID(playerId: number): Observable<Player> {
+    return this.http.get<Player>(environment.host + 'player/' + playerId);
+  }
+
+  getPickByID(pickId: number): Observable<Pick> {
+    return this.http.get<Pick>(environment.host + 'pick/' + pickId);
+  }
+
+  getDraftRightsByID(draftRightsId: number): Observable<DraftRight> {
+    return this.http.get<DraftRight>(environment.host + 'draftRights/' + draftRightsId);
+  }
+
+  getTradeProposalDetailsByID(tradeProposalId: number): Observable<TradeSubject> {
+    return this.http.get<TradeSubject>(environment.host + 'tradeSubject-details/' + tradeProposalId);
   }
 
 }

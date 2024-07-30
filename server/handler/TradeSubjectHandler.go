@@ -195,6 +195,52 @@ func (handler *TradeSubjectHandler) CommitTrade(w http.ResponseWriter, r *http.R
 	}
 }
 
+func (handler *TradeSubjectHandler) GetDetailsForTradeProposal(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	tradeProposalID, err := strconv.Atoi(vars["tradeId"])
+	if err != nil {
+		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		return
+	}
+
+	playerTypeTradeSubjects, err := handler.TradeSubjectService.GetPlayerTypeSubjectsByTradeProposalID(tradeProposalID)
+	if err != nil {
+		log.Println(err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	pickTypeTradeSubjects, err := handler.TradeSubjectService.GetPickTypeSubjectsByTradeProposalID(tradeProposalID)
+	if err != nil {
+		log.Println(err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	draftRightsTypeTradeSubjects, err := handler.TradeSubjectService.GetDraftRightsTypeSubjectsByTradeProposalID(tradeProposalID)
+	if err != nil {
+		log.Println(err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	var tradeSubjectsDTO []model.TradeSubjectDetailsResponseDTO
+	if len(*playerTypeTradeSubjects) > 0 {
+		for _, tradeSubject := range *playerTypeTradeSubjects {
+			tradeSubjectsDTO = append(tradeSubjectsDTO, tradeSubject)
+		}
+	}
+	if len(*pickTypeTradeSubjects) > 0 {
+		for _, tradeSubject := range *pickTypeTradeSubjects {
+			tradeSubjectsDTO = append(tradeSubjectsDTO, tradeSubject)
+		}
+	}
+	if len(*draftRightsTypeTradeSubjects) > 0 {
+		for _, tradeSubject := range *draftRightsTypeTradeSubjects {
+			tradeSubjectsDTO = append(tradeSubjectsDTO, tradeSubject)
+		}
+	}
+
+	json.NewEncoder(w).Encode(tradeSubjectsDTO)
+}
+
 func (handler *TradeSubjectHandler) mapSubjectFromDTO(tradeSubjectDTO *model.TradeSubjectCreateDTO) (*model.TradeSubject, error) {
 	var tradeSubject model.TradeSubject
 	tradeSubject.IdPik = tradeSubjectDTO.IdPik

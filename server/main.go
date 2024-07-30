@@ -110,6 +110,7 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	router.HandleFunc("/tradeSubject", tradeSubjectHandler.GetAll).Methods("GET")
 	router.HandleFunc("/tradeSubject/{id}", tradeSubjectHandler.GetByID).Methods("GET")
 	router.HandleFunc("/tradeSubject-trade/{tradeId}", tradeSubjectHandler.GetAllByTradeID).Methods("GET")
+	router.HandleFunc("/tradeSubject-details/{tradeId}", tradeSubjectHandler.GetDetailsForTradeProposal).Methods("GET")
 	router.HandleFunc("/tradeSubject", tradeSubjectHandler.Create).Methods("POST")
 	router.HandleFunc("/tradeSubject-commit-trade", tradeSubjectHandler.CommitTrade).Methods("POST")
 

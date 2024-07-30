@@ -7,4 +7,7 @@ type TradeSubjectRepository interface {
 	GetByID(id int) (*model.TradeSubject, error)
 	GetAllByTradeProposalID(tradeProposalID int) ([]model.TradeSubject, error)
 	Create(*model.TradeSubject) error
+	GetPlayerTypeSubjectsByTradeProposalID(tradeProposalID int) ([]model.TradeSubjectDetailsResponseDTO, error)
+	GetPickTypeSubjectsByTradeProposalID(tradeProposalID int) ([]model.TradeSubjectDetailsResponseDTO, error)
+	GetDraftRightsTypeSubjectsByTradeProposalID(tradeProposalID int) ([]model.TradeSubjectDetailsResponseDTO, error)
 }
