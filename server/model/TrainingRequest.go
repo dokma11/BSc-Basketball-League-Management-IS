@@ -14,12 +14,12 @@ const (
 )
 
 type TrainingRequest struct {
-	ID                 int64                 `json:"idPozTrng"`
-	OccurrenceDateTime time.Time             `json:"datVrePozTrng"` // Occurrence date and time
-	OccurrenceLocation string                `json:"mesOdrPozTrng"` // Occurrence location
-	Status             TrainingRequestStatus `json:"statusPozTrng"`
-	DenialReason       string                `json:"razOdbPozTrng"` // Denial reason
-	CoachId            int64                 `json:"idTrener"`      // Coach foreign key
+	ID                 int64
+	OccurrenceDateTime time.Time
+	OccurrenceLocation string
+	Status             TrainingRequestStatus
+	DenialReason       string
+	CoachId            int64 // Coach foreign key
 }
 
 func NewTrainingRequest(idPozTrng int64, datVrePozTrng time.Time, mesOdrPozTrng string, statusPozTrng TrainingRequestStatus,
@@ -68,4 +68,56 @@ func (t *TrainingRequest) FromDAO(trainingRequestDAO *TrainingRequestDAO) {
 	t.Status = trainingRequestDAO.StatusPozTrng
 	t.DenialReason = trainingRequestDAO.RazOdbPozTrng
 	t.CoachId = trainingRequestDAO.IdTrener
+}
+
+type TrainingRequestResponseDTO struct {
+	IdPozTrng     int64                 `json:"idPozTrng"`
+	DatVrePozTrng time.Time             `json:"datVrePozTrng"` // Occurrence date and time
+	MesOdrPozTrng string                `json:"mesOdrPozTrng"` // Occurrence location
+	StatusPozTrng TrainingRequestStatus `json:"statusPozTrng"`
+	RazOdbPozTrng string                `json:"razOdbPozTrng"` // Denial reason
+	IdTrener      int64                 `json:"idTrener"`      // Coach foreign key
+}
+
+func (t *TrainingRequest) FromModel(trainingRequestDTO *TrainingRequestResponseDTO) {
+	trainingRequestDTO.IdPozTrng = t.ID
+	trainingRequestDTO.DatVrePozTrng = t.OccurrenceDateTime
+	trainingRequestDTO.MesOdrPozTrng = t.OccurrenceLocation
+	trainingRequestDTO.StatusPozTrng = t.Status
+	trainingRequestDTO.RazOdbPozTrng = t.DenialReason
+	trainingRequestDTO.IdTrener = t.CoachId
+}
+
+type TrainingRequestCreateDTO struct {
+	DatVrePozTrng time.Time             `json:"datVrePozTrng"` // Occurrence date and time
+	MesOdrPozTrng string                `json:"mesOdrPozTrng"` // Occurrence location
+	StatusPozTrng TrainingRequestStatus `json:"statusPozTrng"`
+	RazOdbPozTrng string                `json:"razOdbPozTrng"` // Denial reason
+	IdTrener      int64                 `json:"idTrener"`      // Coach foreign key
+}
+
+func (t *TrainingRequest) FromDTO(trainingRequestDTO *TrainingRequestCreateDTO) {
+	t.OccurrenceDateTime = trainingRequestDTO.DatVrePozTrng
+	t.OccurrenceLocation = trainingRequestDTO.MesOdrPozTrng
+	t.Status = trainingRequestDTO.StatusPozTrng
+	t.DenialReason = trainingRequestDTO.RazOdbPozTrng
+	t.CoachId = trainingRequestDTO.IdTrener
+}
+
+type TrainingRequestUpdateDTO struct {
+	IdPozTrng     int64                 `json:"idPozTrng"`
+	DatVrePozTrng time.Time             `json:"datVrePozTrng"` // Occurrence date and time
+	MesOdrPozTrng string                `json:"mesOdrPozTrng"` // Occurrence location
+	StatusPozTrng TrainingRequestStatus `json:"statusPozTrng"`
+	RazOdbPozTrng string                `json:"razOdbPozTrng"` // Denial reason
+	IdTrener      int64                 `json:"idTrener"`      // Coach foreign key
+}
+
+func (t *TrainingRequest) FromUpdateDTO(trainingRequestDTO *TrainingRequestUpdateDTO) {
+	t.ID = trainingRequestDTO.IdPozTrng
+	t.OccurrenceDateTime = trainingRequestDTO.DatVrePozTrng
+	t.OccurrenceLocation = trainingRequestDTO.MesOdrPozTrng
+	t.Status = trainingRequestDTO.StatusPozTrng
+	t.DenialReason = trainingRequestDTO.RazOdbPozTrng
+	t.CoachId = trainingRequestDTO.IdTrener
 }

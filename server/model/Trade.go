@@ -6,10 +6,10 @@ import (
 )
 
 type Trade struct {
-	ID              int64     `json:"idTrg"`
-	OccurrenceDate  time.Time `json:"datTrg"` // Date of trade occurrence
-	Type            TradeType `json:"tipTrg"`
-	TradeProposalId int64     `json:"idZahTrg"` // Trade Proposal foreign key
+	ID              int64
+	OccurrenceDate  time.Time
+	Type            TradeType
+	TradeProposalId int64 // Trade Proposal foreign key
 }
 
 func NewTrade(datTrg time.Time, tipTrg TradeType, idZahTrg int64) (*Trade, error) {
@@ -34,10 +34,10 @@ func (t *Trade) Validate() error {
 }
 
 type TradeDAO struct {
-	IdTrg    int64     `json:"idTrg"`
-	DatTrg   time.Time `json:"datTrg"` // Date of trade occurrence
-	TipTrg   TradeType `json:"tipTrg"`
-	IdZahTrg int64     `json:"idZahTrg"` // Trade Proposal foreign key
+	IdTrg    int64
+	DatTrg   time.Time // Date of trade occurrence
+	TipTrg   TradeType
+	IdZahTrg int64 // Trade Proposal foreign key
 }
 
 func (t *Trade) FromDAO(tradeDAO *TradeDAO) {
@@ -45,4 +45,31 @@ func (t *Trade) FromDAO(tradeDAO *TradeDAO) {
 	t.OccurrenceDate = tradeDAO.DatTrg
 	t.Type = tradeDAO.TipTrg
 	t.TradeProposalId = tradeDAO.IdZahTrg
+}
+
+type TradeResponseDTO struct {
+	IdTrg    int64     `json:"idTrg"`
+	DatTrg   time.Time `json:"datTrg"` // Date of trade occurrence
+	TipTrg   TradeType `json:"tipTrg"`
+	IdZahTrg int64     `json:"idZahTrg"` // Trade Proposal foreign key
+}
+
+func (t *Trade) FromModel(tradeDTO *TradeResponseDTO) {
+	tradeDTO.IdTrg = t.ID
+	tradeDTO.DatTrg = t.OccurrenceDate
+	tradeDTO.TipTrg = t.Type
+	tradeDTO.IdZahTrg = t.TradeProposalId
+}
+
+type TradeCreateDTO struct {
+	DatTrg   time.Time `json:"datTrg"` // Date of trade occurrence
+	TipTrg   TradeType `json:"tipTrg"`
+	IdZahTrg int64     `json:"idZahTrg"` // Trade Proposal foreign key
+}
+
+func (t *Trade) FromDTO(tradeDTO *TradeCreateDTO) {
+
+	tradeDTO.DatTrg = t.OccurrenceDate
+	tradeDTO.TipTrg = t.Type
+	tradeDTO.IdZahTrg = t.TradeProposalId
 }

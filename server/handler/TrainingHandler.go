@@ -17,17 +17,24 @@ func NewTrainingHandler(TrainingService *service.TrainingService) *TrainingHandl
 	return &TrainingHandler{TrainingService: TrainingService}
 }
 
-func (handler *TrainingHandler) GetAll(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *TrainingHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	trainings, err := handler.TrainingService.GetAll()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	json.NewEncoder(w).Encode(trainings) // Proveriti samo da li valja
+	var trainingResponseDTOs []model.TrainingResponseDTO
+	for _, training := range *trainings {
+		var trainingResponseDTO model.TrainingResponseDTO
+		training.FromModel(&trainingResponseDTO)
+		trainingResponseDTOs = append(trainingResponseDTOs, trainingResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(trainingResponseDTOs)
 }
 
-func (handler *TrainingHandler) GetByID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *TrainingHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
@@ -45,10 +52,12 @@ func (handler *TrainingHandler) GetByID(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	json.NewEncoder(w).Encode(training)
+	var trainingResponseDTO model.TrainingResponseDTO
+	training.FromModel(&trainingResponseDTO)
+	json.NewEncoder(w).Encode(trainingResponseDTO)
 }
 
-func (handler *TrainingHandler) GetAllByUserID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *TrainingHandler) GetAllByUserID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	userID, err := strconv.Atoi(vars["userId"])
 	if err != nil {
@@ -62,17 +71,27 @@ func (handler *TrainingHandler) GetAllByUserID(w http.ResponseWriter, r *http.Re
 		return
 	}
 
-	json.NewEncoder(w).Encode(trainings) // Proveriti samo da li valja
+	var trainingResponseDTOs []model.TrainingResponseDTO
+	for _, training := range *trainings {
+		var trainingResponseDTO model.TrainingResponseDTO
+		training.FromModel(&trainingResponseDTO)
+		trainingResponseDTOs = append(trainingResponseDTOs, trainingResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(trainingResponseDTOs)
 }
 
 func (handler *TrainingHandler) Create(w http.ResponseWriter, r *http.Request) {
-	var training model.Training
-	if err := json.NewDecoder(r.Body).Decode(&training); err != nil {
+	var trainingDTO model.TrainingCreateDTO
+	if err := json.NewDecoder(r.Body).Decode(&trainingDTO); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	err := handler.TrainingService.Create(&training)
+	training := &model.Training{}
+	training.FromDTO(&trainingDTO)
+
+	err := handler.TrainingService.Create(training)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

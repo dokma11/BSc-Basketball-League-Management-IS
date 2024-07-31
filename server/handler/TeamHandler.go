@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"basketball-league-server/model"
 	"basketball-league-server/service"
 	"encoding/json"
 	"github.com/gorilla/mux"
@@ -23,7 +24,14 @@ func (handler *TeamHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(teams)
+	var teamResponseDTOs []model.TeamResponseDTO
+	for _, team := range *teams {
+		var teamResponseDTO model.TeamResponseDTO
+		team.FromModel(&teamResponseDTO)
+		teamResponseDTOs = append(teamResponseDTOs, teamResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(teamResponseDTOs)
 }
 
 func (handler *TeamHandler) GetByID(w http.ResponseWriter, r *http.Request) {
@@ -44,7 +52,9 @@ func (handler *TeamHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(team)
+	var teamResponseDTO model.TeamResponseDTO
+	team.FromModel(&teamResponseDTO)
+	json.NewEncoder(w).Encode(teamResponseDTO)
 }
 
 func (handler *TeamHandler) GetByUserID(w http.ResponseWriter, r *http.Request) {
@@ -65,7 +75,9 @@ func (handler *TeamHandler) GetByUserID(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	json.NewEncoder(w).Encode(team)
+	var teamResponseDTO model.TeamResponseDTO
+	team.FromModel(&teamResponseDTO)
+	json.NewEncoder(w).Encode(teamResponseDTO)
 }
 
 func (handler *TeamHandler) GetPlayerTradeDestination(w http.ResponseWriter, r *http.Request) {
@@ -86,7 +98,9 @@ func (handler *TeamHandler) GetPlayerTradeDestination(w http.ResponseWriter, r *
 		return
 	}
 
-	json.NewEncoder(w).Encode(team)
+	var teamResponseDTO model.TeamResponseDTO
+	team.FromModel(&teamResponseDTO)
+	json.NewEncoder(w).Encode(teamResponseDTO)
 }
 
 func (handler *TeamHandler) GetPickTradeDestination(w http.ResponseWriter, r *http.Request) {
@@ -107,7 +121,9 @@ func (handler *TeamHandler) GetPickTradeDestination(w http.ResponseWriter, r *ht
 		return
 	}
 
-	json.NewEncoder(w).Encode(team)
+	var teamResponseDTO model.TeamResponseDTO
+	team.FromModel(&teamResponseDTO)
+	json.NewEncoder(w).Encode(teamResponseDTO)
 }
 
 func (handler *TeamHandler) GetDraftRightsTradeDestination(w http.ResponseWriter, r *http.Request) {
@@ -128,5 +144,7 @@ func (handler *TeamHandler) GetDraftRightsTradeDestination(w http.ResponseWriter
 		return
 	}
 
-	json.NewEncoder(w).Encode(team)
+	var teamResponseDTO model.TeamResponseDTO
+	team.FromModel(&teamResponseDTO)
+	json.NewEncoder(w).Encode(teamResponseDTO)
 }

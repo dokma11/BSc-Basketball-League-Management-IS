@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"basketball-league-server/model"
 	"basketball-league-server/service"
 	"encoding/json"
 	"github.com/gorilla/mux"
@@ -16,17 +17,24 @@ func NewPickHandler(PickService *service.PickService) *PickHandler {
 	return &PickHandler{PickService: PickService}
 }
 
-func (handler *PickHandler) GetAll(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *PickHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	picks, err := handler.PickService.GetAll()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	json.NewEncoder(w).Encode(picks) // Proveriti samo da li valja
+	var pickResponseDTOs []model.PickResponseDTO
+	for _, pick := range *picks {
+		var pickResponseDTO model.PickResponseDTO
+		pick.FromModel(&pickResponseDTO)
+		pickResponseDTOs = append(pickResponseDTOs, pickResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(pickResponseDTOs)
 }
 
-func (handler *PickHandler) GetByID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *PickHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
@@ -44,10 +52,13 @@ func (handler *PickHandler) GetByID(w http.ResponseWriter, r *http.Request) { //
 		return
 	}
 
-	json.NewEncoder(w).Encode(pick)
+	var pickResponseDTO model.PickResponseDTO
+	pick.FromModel(&pickResponseDTO)
+
+	json.NewEncoder(w).Encode(pickResponseDTO)
 }
 
-func (handler *PickHandler) GetAllByTeamID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *PickHandler) GetAllByTeamID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	teamId, err := strconv.Atoi(vars["teamId"])
 	if err != nil {
@@ -61,12 +72,27 @@ func (handler *PickHandler) GetAllByTeamID(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	json.NewEncoder(w).Encode(picks) // Proveriti samo da li valja
+	var pickResponseDTOs []model.PickResponseDTO
+	for _, pick := range *picks {
+		var pickResponseDTO model.PickResponseDTO
+		pick.FromModel(&pickResponseDTO)
+		pickResponseDTOs = append(pickResponseDTOs, pickResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(pickResponseDTOs)
 }
 
-func (handler *PickHandler) GetAllByYear(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *PickHandler) GetAllByYear(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	year, _ := vars["year"]
 	picks, _ := handler.PickService.GetAllByYear(year)
-	json.NewEncoder(w).Encode(picks) // Proveriti samo da li valja
+
+	var pickResponseDTOs []model.PickResponseDTO
+	for _, pick := range *picks {
+		var pickResponseDTO model.PickResponseDTO
+		pick.FromModel(&pickResponseDTO)
+		pickResponseDTOs = append(pickResponseDTOs, pickResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(pickResponseDTOs)
 }

@@ -7,7 +7,7 @@ import (
 
 type Uloga int
 
-const ( // Moram ovde pripaziti
+const (
 	UloRegrut    Uloga = iota // Recruit role
 	UloZaposleni              // Employee role
 )
@@ -23,13 +23,13 @@ const (
 )
 
 type User struct {
-	ID          int64     `json:"id"`
-	Email       string    `json:"email"`
-	FirstName   string    `json:"firstName"`
-	LastName    string    `json:"lastName"`
-	DateOfBirth time.Time `json:"dateOfBirth"`
-	Password    string    `json:"password"`
-	Role        Uloga     `json:"role"`
+	ID          int64
+	Email       string
+	FirstName   string
+	LastName    string
+	DateOfBirth time.Time
+	Password    string
+	Role        Uloga
 }
 
 func NewUser(id int64, email string, ime string, prezime string, datRodj time.Time,
@@ -71,13 +71,13 @@ func (u *User) Validate() error {
 }
 
 type UserDAO struct {
-	Id      int64     `json:"id"`
-	Email   string    `json:"email"`
-	Ime     string    `json:"ime"`     // First name
-	Prezime string    `json:"prezime"` // Last name
-	DatRodj time.Time `json:"datRodj"` // Date of birth
-	Lozinka string    `json:"lozinka"` // Password
-	Uloga   Uloga     `json:"uloga"`   // Role
+	Id      int64
+	Email   string
+	Ime     string    // First name
+	Prezime string    // Last name
+	DatRodj time.Time // Date of birth
+	Lozinka string    // Password
+	Uloga   Uloga     // Role
 }
 
 func (u *User) FromDAO(userDAO *UserDAO) {
@@ -88,4 +88,44 @@ func (u *User) FromDAO(userDAO *UserDAO) {
 	u.DateOfBirth = userDAO.DatRodj
 	u.Password = userDAO.Lozinka
 	u.Role = userDAO.Uloga
+}
+
+type UserResponseDTO struct {
+	Id      int64     `json:"id"`
+	Email   string    `json:"email"`
+	Ime     string    `json:"ime"`     // First name
+	Prezime string    `json:"prezime"` // Last name
+	DatRodj time.Time `json:"datRodj"` // Date of birth
+	Lozinka string    `json:"lozinka"` // Password
+	Uloga   Uloga     `json:"uloga"`   // Role
+}
+
+func (u *User) FromModel(userDTO *UserResponseDTO) {
+	userDTO.Id = u.ID
+	userDTO.Email = u.Email
+	userDTO.Ime = u.FirstName
+	userDTO.Prezime = u.LastName
+	userDTO.DatRodj = u.DateOfBirth
+	userDTO.Lozinka = u.Password
+	userDTO.Uloga = u.Role
+}
+
+type UserUpdateDTO struct {
+	Id      int64     `json:"id"`
+	Email   string    `json:"email"`
+	Ime     string    `json:"ime"`     // First name
+	Prezime string    `json:"prezime"` // Last name
+	DatRodj time.Time `json:"datRodj"` // Date of birth
+	Lozinka string    `json:"lozinka"` // Password
+	Uloga   Uloga     `json:"uloga"`   // Role
+}
+
+func (u *User) FromDTO(userDTO *UserUpdateDTO) {
+	u.ID = userDTO.Id
+	u.Email = userDTO.Email
+	u.FirstName = userDTO.Ime
+	u.LastName = userDTO.Prezime
+	u.DateOfBirth = userDTO.DatRodj
+	u.Password = userDTO.Lozinka
+	u.Role = userDTO.Uloga
 }

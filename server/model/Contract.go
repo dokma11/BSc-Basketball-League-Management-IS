@@ -14,13 +14,13 @@ const (
 )
 
 type Contract struct {
-	ID             int64          `json:"id"`
-	SigningDate    time.Time      `json:"signingDate"`
-	ExpirationDate time.Time      `json:"expirationDate"`
-	Value          string         `json:"value"` // (in millions)
-	Option         ContractOption `json:"option"`
-	TeamId         int64          `json:"teamId"`         // Team foreign key
-	ContractTypeId int64          `json:"contractTypeId"` // Contract type foreign key
+	ID             int64
+	SigningDate    time.Time
+	ExpirationDate time.Time
+	Value          string // (in millions)
+	Option         ContractOption
+	TeamId         int64 // Team foreign key
+	ContractTypeId int64 // Contract type foreign key
 }
 
 func NewContract(idUgo int64, datPotUgo time.Time, datVazUgo time.Time, vredUgo string, opcUgo ContractOption) (*Contract, error) {
@@ -50,13 +50,13 @@ func (c *Contract) Validate() error {
 }
 
 type ContractDAO struct {
-	IdUgo     int64          `json:"idUgo"`
-	DatPotUgo time.Time      `json:"datPotUgo"` // Signing date
-	DatVazUgo time.Time      `json:"datVazUgo"` // Expiration date
-	VredUgo   string         `json:"vredUgo"`   // Value (in millions)
-	OpcUgo    ContractOption `json:"opcUgo"`
-	IdTim     int64          `json:"idTim"`    // Team foreign key
-	IdTipUgo  int64          `json:"idTipUgo"` // Contract type foreign key
+	IdUgo     int64
+	DatPotUgo time.Time // Signing date
+	DatVazUgo time.Time // Expiration date
+	VredUgo   string    // Value (in millions)
+	OpcUgo    ContractOption
+	IdTim     int64 // Team foreign key
+	IdTipUgo  int64 // Contract type foreign key
 }
 
 func (c *Contract) FromDAO(contractDAO *ContractDAO) {
@@ -67,4 +67,24 @@ func (c *Contract) FromDAO(contractDAO *ContractDAO) {
 	c.Option = contractDAO.OpcUgo
 	c.TeamId = contractDAO.IdTim
 	c.ContractTypeId = contractDAO.IdTipUgo
+}
+
+type ContractResponseDTO struct {
+	IdUgo     int64          `json:"idUgo"`
+	DatPotUgo time.Time      `json:"datPotUgo"` // Signing date
+	DatVazUgo time.Time      `json:"datVazUgo"` // Expiration date
+	VredUgo   string         `json:"vredUgo"`   // Value (in millions)
+	OpcUgo    ContractOption `json:"opcUgo"`
+	IdTim     int64          `json:"idTim"`    // Team foreign key
+	IdTipUgo  int64          `json:"idTipUgo"` // Contract type foreign key
+}
+
+func (c *Contract) FromModel(contractDTO *ContractResponseDTO) {
+	contractDTO.IdUgo = c.ID
+	contractDTO.DatPotUgo = c.SigningDate
+	contractDTO.DatVazUgo = c.ExpirationDate
+	contractDTO.VredUgo = c.Value
+	contractDTO.OpcUgo = c.Option
+	contractDTO.IdTim = c.TeamId
+	contractDTO.IdTipUgo = c.ContractTypeId
 }

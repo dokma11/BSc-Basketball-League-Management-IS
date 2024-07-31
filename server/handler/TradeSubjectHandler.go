@@ -38,7 +38,14 @@ func (handler *TradeSubjectHandler) GetAll(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	json.NewEncoder(w).Encode(tradeSubjects)
+	var tradeSubjectResponseDTOs []model.TradeSubjectResponseDTO
+	for _, tradeSubject := range *tradeSubjects {
+		var tradeSubjectResponseDTO model.TradeSubjectResponseDTO
+		tradeSubject.FromModel(&tradeSubjectResponseDTO)
+		tradeSubjectResponseDTOs = append(tradeSubjectResponseDTOs, tradeSubjectResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(tradeSubjectResponseDTOs)
 }
 
 func (handler *TradeSubjectHandler) GetByID(w http.ResponseWriter, r *http.Request) {
@@ -59,7 +66,9 @@ func (handler *TradeSubjectHandler) GetByID(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	json.NewEncoder(w).Encode(tradeSubject)
+	var tradeSubjectResponseDTO model.TradeSubjectResponseDTO
+	tradeSubject.FromModel(&tradeSubjectResponseDTO)
+	json.NewEncoder(w).Encode(tradeSubjectResponseDTO)
 }
 
 func (handler *TradeSubjectHandler) GetAllByTradeID(w http.ResponseWriter, r *http.Request) {
@@ -76,7 +85,14 @@ func (handler *TradeSubjectHandler) GetAllByTradeID(w http.ResponseWriter, r *ht
 		return
 	}
 
-	json.NewEncoder(w).Encode(tradeSubjects)
+	var tradeSubjectResponseDTOs []model.TradeSubjectResponseDTO
+	for _, tradeSubject := range *tradeSubjects {
+		var tradeSubjectResponseDTO model.TradeSubjectResponseDTO
+		tradeSubject.FromModel(&tradeSubjectResponseDTO)
+		tradeSubjectResponseDTOs = append(tradeSubjectResponseDTOs, tradeSubjectResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(tradeSubjectResponseDTOs)
 }
 
 func (handler *TradeSubjectHandler) Create(w http.ResponseWriter, r *http.Request) {

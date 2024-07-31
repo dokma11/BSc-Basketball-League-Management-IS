@@ -7,12 +7,12 @@ import (
 )
 
 type Pick struct {
-	ID        int64  `json:"idPik"`
-	Order     string `json:"redBrPik"`   // Pick order
-	Round     string `json:"brRunPik"`   // Pick round (can be first and second)
-	Year      string `json:"godPik"`     // Pick year
-	ManagerId int64  `json:"idMenadzer"` // Manager that used the pick foreign key
-	TeamId    int64  `json:"idTim"`      // Team foreign key
+	ID        int64
+	Order     string
+	Round     string // (can be first and second)
+	Year      string
+	ManagerId int64 // Manager that used the pick foreign key
+	TeamId    int64 // Team foreign key
 }
 
 func NewPick(idPik int64, redBrPik string, brRunPik string, godPik string) (*Pick, error) {
@@ -58,12 +58,12 @@ type Bira struct {
 }
 
 type PickDAO struct {
-	IdPik      int64  `json:"idPik"`
-	RedBrPik   string `json:"redBrPik"`   // Pick order
-	BrRunPik   string `json:"brRunPik"`   // Pick round (can be first and second)
-	GodPik     string `json:"godPik"`     // Pick year
-	IdMenadzer int64  `json:"idMenadzer"` // Manager that used the pick foreign key
-	IdTim      int64  `json:"idTim"`      // Team foreign key
+	IdPik      int64
+	RedBrPik   string // Pick order
+	BrRunPik   string // Pick round (can be first and second)
+	GodPik     string // Pick year
+	IdMenadzer int64  // Manager that used the pick foreign key
+	IdTim      int64  // Team foreign key
 }
 
 func (p *Pick) FromDAO(pickDAO *PickDAO) {
@@ -73,4 +73,22 @@ func (p *Pick) FromDAO(pickDAO *PickDAO) {
 	p.Year = pickDAO.GodPik
 	p.ManagerId = pickDAO.IdMenadzer
 	p.TeamId = pickDAO.IdTim
+}
+
+type PickResponseDTO struct {
+	IdPik      int64  `json:"idPik"`
+	RedBrPik   string `json:"redBrPik"`   // Pick order
+	BrRunPik   string `json:"brRunPik"`   // Pick round (can be first and second)
+	GodPik     string `json:"godPik"`     // Pick year
+	IdMenadzer int64  `json:"idMenadzer"` // Manager that used the pick foreign key
+	IdTim      int64  `json:"idTim"`      // Team foreign key
+}
+
+func (p *Pick) FromModel(pickDTO *PickResponseDTO) {
+	pickDTO.IdPik = p.ID
+	pickDTO.RedBrPik = p.Order
+	pickDTO.BrRunPik = p.Round
+	pickDTO.GodPik = p.Year
+	pickDTO.IdMenadzer = p.ManagerId
+	pickDTO.IdTim = p.TeamId
 }

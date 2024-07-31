@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"basketball-league-server/model"
 	"basketball-league-server/service"
 	"encoding/json"
 	"github.com/gorilla/mux"
@@ -16,17 +17,24 @@ func NewDraftRightHandler(DraftRightService *service.DraftRightService) *DraftRi
 	return &DraftRightHandler{DraftRightService: DraftRightService}
 }
 
-func (handler *DraftRightHandler) GetAll(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *DraftRightHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	draftRights, err := handler.DraftRightService.GetAll()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	json.NewEncoder(w).Encode(draftRights) // Proveriti samo da li valja
+	var draftRightsResponseDTOs []model.DraftRightResponseDTO
+	for _, draftRight := range *draftRights {
+		var draftRightsResponseDTO model.DraftRightResponseDTO
+		draftRight.FromModel(&draftRightsResponseDTO)
+		draftRightsResponseDTOs = append(draftRightsResponseDTOs, draftRightsResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(draftRightsResponseDTOs)
 }
 
-func (handler *DraftRightHandler) GetByID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *DraftRightHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
@@ -44,10 +52,13 @@ func (handler *DraftRightHandler) GetByID(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	json.NewEncoder(w).Encode(draftRight)
+	var draftRightsResponseDTO model.DraftRightResponseDTO
+	draftRight.FromModel(&draftRightsResponseDTO)
+
+	json.NewEncoder(w).Encode(draftRightsResponseDTO)
 }
 
-func (handler *DraftRightHandler) GetAllByTeamID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *DraftRightHandler) GetAllByTeamID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	teamID, err := strconv.Atoi(vars["teamId"])
 	if err != nil {
@@ -61,5 +72,12 @@ func (handler *DraftRightHandler) GetAllByTeamID(w http.ResponseWriter, r *http.
 		return
 	}
 
-	json.NewEncoder(w).Encode(draftRights) // Proveriti samo da li valja
+	var draftRightsResponseDTOs []model.DraftRightResponseDTO
+	for _, draftRight := range draftRights {
+		var draftRightsResponseDTO model.DraftRightResponseDTO
+		draftRight.FromModel(&draftRightsResponseDTO)
+		draftRightsResponseDTOs = append(draftRightsResponseDTOs, draftRightsResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(draftRightsResponseDTOs)
 }

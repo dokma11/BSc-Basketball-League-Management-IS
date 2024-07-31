@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"basketball-league-server/model"
 	"basketball-league-server/service"
 	"encoding/json"
 	"github.com/gorilla/mux"
@@ -16,17 +17,24 @@ func NewPlayerHandler(PlayerService *service.PlayerService) *PlayerHandler {
 	return &PlayerHandler{PlayerService: PlayerService}
 }
 
-func (handler *PlayerHandler) GetAll(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *PlayerHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	players, err := handler.PlayerService.GetAll()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	json.NewEncoder(w).Encode(players) // Proveriti samo da li valja
+	var playerResponseDTOs []model.PlayerResponseDTO
+	for _, player := range *players {
+		var playerResponseDTO model.PlayerResponseDTO
+		player.FromModel(&playerResponseDTO)
+		playerResponseDTOs = append(playerResponseDTOs, playerResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(playerResponseDTOs)
 }
 
-func (handler *PlayerHandler) GetByID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *PlayerHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
@@ -44,10 +52,13 @@ func (handler *PlayerHandler) GetByID(w http.ResponseWriter, r *http.Request) { 
 		return
 	}
 
-	json.NewEncoder(w).Encode(player)
+	var playerResponseDTO model.PlayerResponseDTO
+	player.FromModel(&playerResponseDTO)
+
+	json.NewEncoder(w).Encode(playerResponseDTO)
 }
 
-func (handler *PlayerHandler) GetAllByTeamID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *PlayerHandler) GetAllByTeamID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	teamId, err := strconv.Atoi(vars["teamId"])
 	if err != nil {
@@ -61,5 +72,12 @@ func (handler *PlayerHandler) GetAllByTeamID(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	json.NewEncoder(w).Encode(players) // Proveriti samo da li valja
+	var playerResponseDTOs []model.PlayerResponseDTO
+	for _, player := range *players {
+		var playerResponseDTO model.PlayerResponseDTO
+		player.FromModel(&playerResponseDTO)
+		playerResponseDTOs = append(playerResponseDTOs, playerResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(playerResponseDTOs)
 }

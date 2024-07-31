@@ -3,9 +3,9 @@ package model
 import "errors"
 
 type Draft struct {
-	ID                 int64  `json:"id"`
-	OccurrenceYear     string `json:"occurrenceYear"`
-	OccurrenceLocation string `json:"occurrenceLocation"`
+	ID                 int64
+	OccurrenceYear     string
+	OccurrenceLocation string
 }
 
 func NewDraft(idDraft int64, godOdrDraft string, lokOdrDraft string) (*Draft, error) {
@@ -42,4 +42,16 @@ func (d *Draft) FromDAO(draftDAO *DraftDAO) {
 	d.ID = draftDAO.IdDraft
 	d.OccurrenceYear = draftDAO.GodOdrDraft
 	d.OccurrenceLocation = draftDAO.LokOdrDraft
+}
+
+type DraftResponseDTO struct {
+	IdDraft     int64  `json:"idDraft"`
+	GodOdrDraft string `json:"godOdrDraft"`
+	LokOdrDraft string `json:"lokOdrDraft"`
+}
+
+func (d *Draft) FromModel(draftDTO *DraftResponseDTO) {
+	draftDTO.IdDraft = d.ID
+	draftDTO.GodOdrDraft = d.OccurrenceYear
+	draftDTO.LokOdrDraft = d.OccurrenceLocation
 }

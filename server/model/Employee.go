@@ -8,7 +8,7 @@ import (
 type UlogaZaposlenog int
 
 const (
-	Menadzer UlogaZaposlenog = iota // Moram ovde pripaziti
+	Menadzer UlogaZaposlenog = iota
 	UlogaIgrac
 	Trener
 	Skaut
@@ -16,9 +16,9 @@ const (
 
 type Employee struct {
 	User
-	Role                 UlogaZaposlenog `json:"role"`
-	IdentificationNumber string          `json:"identificationNumber"`
-	ContractId           int64           `json:"contractId"` // Contract foreign key
+	Role                 UlogaZaposlenog
+	IdentificationNumber string
+	ContractId           int64 // Contract foreign key
 }
 
 func NewEmployee(id int64, email string, ime string, prezime string, datRodj time.Time,
@@ -60,9 +60,9 @@ func (e *Employee) Validate() error {
 
 type EmployeeDAO struct {
 	User
-	UloZap UlogaZaposlenog `json:"uloZap"`
-	MbrZap string          `json:"mbrZap"` // Identification number
-	IdUgo  int64           `json:"idUgo"`  // Contract foreign key
+	UloZap UlogaZaposlenog
+	MbrZap string // Identification number
+	IdUgo  int64  // Contract foreign key
 }
 
 func (e *Employee) FromDAO(employeeDAO *EmployeeDAO) {
@@ -70,4 +70,24 @@ func (e *Employee) FromDAO(employeeDAO *EmployeeDAO) {
 	e.Role = employeeDAO.UloZap
 	e.IdentificationNumber = employeeDAO.MbrZap
 	e.ContractId = employeeDAO.IdUgo
+}
+
+type EmployeeResponseDTO struct {
+	UserResponseDTO
+	UloZap UlogaZaposlenog `json:"uloZap"`
+	MbrZap string          `json:"mbrZap"` // Identification number
+	IdUgo  int64           `json:"idUgo"`  // Contract foreign key
+}
+
+func (e *Employee) FromModel(employeeDTO *EmployeeResponseDTO) {
+	employeeDTO.UserResponseDTO.Id = e.User.ID
+	employeeDTO.UserResponseDTO.Email = e.User.Email
+	employeeDTO.UserResponseDTO.Ime = e.User.FirstName
+	employeeDTO.UserResponseDTO.Prezime = e.User.LastName
+	employeeDTO.UserResponseDTO.DatRodj = e.User.DateOfBirth
+	employeeDTO.UserResponseDTO.Lozinka = e.User.Password
+	employeeDTO.UserResponseDTO.Uloga = e.User.Role
+	employeeDTO.UloZap = e.Role
+	employeeDTO.MbrZap = e.IdentificationNumber
+	employeeDTO.IdUgo = e.ContractId
 }

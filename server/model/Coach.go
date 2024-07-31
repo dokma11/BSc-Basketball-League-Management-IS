@@ -15,8 +15,8 @@ const (
 
 type Coach struct {
 	Employee
-	YearsOfExperience string              `json:"yearsOfExperience"`
-	Specialization    CoachSpecialization `json:"specialization"`
+	YearsOfExperience string
+	Specialization    CoachSpecialization
 }
 
 func NewCoach(id int64, email string, ime string, prezime string, datRodj time.Time, lozinka string, uloga Uloga,
@@ -70,4 +70,16 @@ func (c *Coach) FromDAO(coachDAO *CoachDAO) {
 	c.Employee = coachDAO.Employee
 	c.YearsOfExperience = coachDAO.GodIskTrener
 	c.Specialization = coachDAO.SpecTrener
+}
+
+type CoachResponseDTO struct {
+	Employee
+	GodIskTrener string              `json:"godIskTrener"` // Years of experience
+	SpecTrener   CoachSpecialization `json:"specTrener"`   // Coach specialization
+}
+
+func (c *Coach) FromModel(coachDTO *CoachResponseDTO) {
+	coachDTO.Employee = c.Employee
+	coachDTO.GodIskTrener = c.YearsOfExperience
+	coachDTO.SpecTrener = c.Specialization
 }

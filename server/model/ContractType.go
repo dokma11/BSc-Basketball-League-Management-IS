@@ -10,11 +10,16 @@ const (
 )
 
 type ContractType struct {
-	ID   int64            `json:"id"`
-	Name ContractTypeName `json:"name"`
+	ID   int64
+	Name ContractTypeName
 }
 
 type ContractTypeDAO struct {
 	IdTipUgo  int64
 	NazTipUgo ContractTypeName
+}
+
+type ContractTypeResponseDTO struct {
+	IdTipUgo  int64            `json:"idTipUgo"`
+	NazTipUgo ContractTypeName `json:"nazTipUgo"`
 }

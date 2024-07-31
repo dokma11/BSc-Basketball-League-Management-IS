@@ -7,13 +7,13 @@ import (
 
 type Recruit struct {
 	User
-	PhoneNumber  string   `json:"konTelefonReg"`
-	Height       string   `json:"visReg"`
-	Weight       string   `json:"tezReg"`
-	Position     Pozicija `json:"pozReg"`
-	AverageRank  string   `json:"prosRankReg"`
-	AverageGrade string   `json:"prosOcReg"`
-	DraftId      int64    `json:"idDraft"`
+	PhoneNumber  string
+	Height       string
+	Weight       string
+	Position     Pozicija
+	AverageRank  string
+	AverageGrade string
+	DraftId      int64
 }
 
 func NewRecruit(id int64, email string, ime string, prezime string, datRodj time.Time,
@@ -72,13 +72,13 @@ func (r *Recruit) Validate() error {
 
 type RecruitDAO struct {
 	User
-	KonTelefonReg string   `json:"konTelefonReg"`
-	VisReg        string   `json:"visReg"`
-	TezReg        string   `json:"tezReg"`
-	PozReg        Pozicija `json:"pozReg"`
-	ProsRankReg   string   `json:"prosRankReg"`
-	ProsOcReg     string   `json:"prosOcReg"`
-	IdDraft       int64    `json:"idDraft"`
+	KonTelefonReg string
+	VisReg        string
+	TezReg        string
+	PozReg        Pozicija
+	ProsRankReg   string
+	ProsOcReg     string
+	IdDraft       int64
 }
 
 func (r *Recruit) FromDAO(recruitDAO *RecruitDAO) {
@@ -90,4 +90,48 @@ func (r *Recruit) FromDAO(recruitDAO *RecruitDAO) {
 	r.AverageRank = recruitDAO.ProsRankReg
 	r.AverageGrade = recruitDAO.ProsOcReg
 	r.DraftId = recruitDAO.IdDraft
+}
+
+type RecruitResponseDTO struct {
+	User
+	KonTelefonReg string   `json:"konTelefonReg"` // Phone number
+	VisReg        string   `json:"visReg"`        // Height
+	TezReg        string   `json:"tezReg"`        // Weight
+	PozReg        Pozicija `json:"pozReg"`
+	ProsRankReg   string   `json:"prosRankReg"` // Average rank (ESPN)
+	ProsOcReg     string   `json:"prosOcReg"`   // Average grade (ESPN)
+	IdDraft       int64    `json:"idDraft"`     // Draft foreign key
+}
+
+func (r *Recruit) FromModel(recruitDTO *RecruitResponseDTO) {
+	recruitDTO.User = r.User
+	recruitDTO.KonTelefonReg = r.PhoneNumber
+	recruitDTO.VisReg = r.Height
+	recruitDTO.TezReg = r.Weight
+	recruitDTO.PozReg = r.Position
+	recruitDTO.ProsRankReg = r.AverageRank
+	recruitDTO.ProsOcReg = r.AverageGrade
+	recruitDTO.IdDraft = r.DraftId
+}
+
+type RecruitCreateDTO struct {
+	User
+	KonTelefonReg string   `json:"konTelefonReg"` // Phone number
+	VisReg        string   `json:"visReg"`        // Height
+	TezReg        string   `json:"tezReg"`        // Weight
+	PozReg        Pozicija `json:"pozReg"`
+	ProsRankReg   string   `json:"prosRankReg"` // Average rank (ESPN)
+	ProsOcReg     string   `json:"prosOcReg"`   // Average grade (ESPN)
+	IdDraft       int64    `json:"idDraft"`     // Draft foreign key
+}
+
+func (r *Recruit) FromDTO(recruitDTO *RecruitCreateDTO) {
+	r.User = recruitDTO.User
+	r.PhoneNumber = recruitDTO.KonTelefonReg
+	r.Height = recruitDTO.VisReg
+	r.Weight = recruitDTO.TezReg
+	r.Position = recruitDTO.PozReg
+	r.AverageRank = recruitDTO.ProsRankReg
+	r.AverageGrade = recruitDTO.ProsOcReg
+	r.DraftId = recruitDTO.IdDraft
 }

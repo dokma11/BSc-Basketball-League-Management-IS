@@ -25,7 +25,15 @@ func (handler *TradeProposalHandler) GetAll(w http.ResponseWriter, r *http.Reque
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	json.NewEncoder(w).Encode(tradeProposals)
+
+	var tradeProposalResponseDTOs []model.TradeProposalResponseDTO
+	for _, tradeProposal := range *tradeProposals {
+		var tradeProposalResponseDTO model.TradeProposalResponseDTO
+		tradeProposal.FromModel(&tradeProposalResponseDTO)
+		tradeProposalResponseDTOs = append(tradeProposalResponseDTOs, tradeProposalResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(tradeProposalResponseDTOs)
 }
 
 func (handler *TradeProposalHandler) GetByID(w http.ResponseWriter, r *http.Request) {
@@ -46,7 +54,9 @@ func (handler *TradeProposalHandler) GetByID(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	json.NewEncoder(w).Encode(tradeProposal)
+	var tradeProposalResponseDTO model.TradeProposalResponseDTO
+	tradeProposal.FromModel(&tradeProposalResponseDTO)
+	json.NewEncoder(w).Encode(tradeProposalResponseDTO)
 }
 
 func (handler *TradeProposalHandler) GetAllReceivedByManagerID(w http.ResponseWriter, r *http.Request) {
@@ -63,7 +73,14 @@ func (handler *TradeProposalHandler) GetAllReceivedByManagerID(w http.ResponseWr
 		return
 	}
 
-	json.NewEncoder(w).Encode(tradeProposals)
+	var tradeProposalResponseDTOs []model.TradeProposalResponseDTO
+	for _, tradeProposal := range *tradeProposals {
+		var tradeProposalResponseDTO model.TradeProposalResponseDTO
+		tradeProposal.FromModel(&tradeProposalResponseDTO)
+		tradeProposalResponseDTOs = append(tradeProposalResponseDTOs, tradeProposalResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(tradeProposalResponseDTOs)
 }
 
 func (handler *TradeProposalHandler) GetAllSentByManagerID(w http.ResponseWriter, r *http.Request) {
@@ -80,7 +97,14 @@ func (handler *TradeProposalHandler) GetAllSentByManagerID(w http.ResponseWriter
 		return
 	}
 
-	json.NewEncoder(w).Encode(tradeProposals)
+	var tradeProposalResponseDTOs []model.TradeProposalResponseDTO
+	for _, tradeProposal := range *tradeProposals {
+		var tradeProposalResponseDTO model.TradeProposalResponseDTO
+		tradeProposal.FromModel(&tradeProposalResponseDTO)
+		tradeProposalResponseDTOs = append(tradeProposalResponseDTOs, tradeProposalResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(tradeProposalResponseDTOs)
 }
 
 func (handler *TradeProposalHandler) Create(w http.ResponseWriter, r *http.Request) {
@@ -134,7 +158,10 @@ func (handler *TradeProposalHandler) GetLatest(w http.ResponseWriter, r *http.Re
 		http.NotFound(w, r)
 		return
 	}
-	json.NewEncoder(w).Encode(tradeProposal)
+
+	var tradeProposalResponseDTO model.TradeProposalResponseDTO
+	tradeProposal.FromModel(&tradeProposalResponseDTO)
+	json.NewEncoder(w).Encode(tradeProposalResponseDTO)
 }
 
 func (handler *TradeProposalHandler) mapFromDTO(tradeProposalDTO *model.TradeProposalCreateDTO) (*model.TradeProposal, error) {

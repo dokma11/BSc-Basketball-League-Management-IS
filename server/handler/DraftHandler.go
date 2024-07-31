@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"basketball-league-server/model"
 	"basketball-league-server/service"
 	"encoding/json"
 	"github.com/gorilla/mux"
@@ -16,17 +17,24 @@ func NewDraftHandler(DraftService *service.DraftService) *DraftHandler {
 	return &DraftHandler{DraftService: DraftService}
 }
 
-func (handler *DraftHandler) GetAll(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *DraftHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	drafts, err := handler.DraftService.GetAll()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	json.NewEncoder(w).Encode(drafts) // Proveriti samo da li valja
+	var draftResponseDTOs []model.DraftResponseDTO
+	for _, draft := range *drafts {
+		var draftResponseDTO model.DraftResponseDTO
+		draft.FromModel(&draftResponseDTO)
+		draftResponseDTOs = append(draftResponseDTOs, draftResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(draftResponseDTOs)
 }
 
-func (handler *DraftHandler) GetByID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *DraftHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
@@ -44,5 +52,8 @@ func (handler *DraftHandler) GetByID(w http.ResponseWriter, r *http.Request) { /
 		return
 	}
 
-	json.NewEncoder(w).Encode(draft)
+	var draftResponseDTO model.DraftResponseDTO
+	draft.FromModel(&draftResponseDTO)
+
+	json.NewEncoder(w).Encode(draftResponseDTO)
 }

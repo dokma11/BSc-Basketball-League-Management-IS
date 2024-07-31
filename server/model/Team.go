@@ -6,10 +6,10 @@ import (
 )
 
 type Team struct {
-	ID                int64  `json:"idTim"`
-	Name              string `json:"nazTim"`    // Name
-	EstablishmentYear string `json:"godOsnTim"` // Establishment year
-	Location          string `json:"lokTim"`    // Location
+	ID                int64
+	Name              string // Name
+	EstablishmentYear string // Establishment year
+	Location          string // Location
 	// TODO: Razmotriti za liste samo da li FK da bude ili da pravim materijalizovani pogled
 }
 
@@ -42,11 +42,10 @@ func (t *Team) Validate() error {
 }
 
 type TeamDAO struct {
-	IdTim     int64  `json:"idTim"`
-	NazTim    string `json:"nazTim"`    // Name
-	GodOsnTim string `json:"godOsnTim"` // Establishment year
-	LokTim    string `json:"lokTim"`    // Location
-	// TODO: Razmotriti za liste samo da li FK da bude ili da pravim materijalizovani pogled
+	IdTim     int64
+	NazTim    string // Name
+	GodOsnTim string // Establishment year
+	LokTim    string // Location
 }
 
 func (t *Team) FromDAO(teamDAO *TeamDAO) {
@@ -54,6 +53,20 @@ func (t *Team) FromDAO(teamDAO *TeamDAO) {
 	t.Name = teamDAO.NazTim
 	t.EstablishmentYear = teamDAO.GodOsnTim
 	t.Location = teamDAO.LokTim
+}
+
+type TeamResponseDTO struct {
+	IdTim     int64  `json:"idTim"`
+	NazTim    string `json:"nazTim"`    // Name
+	GodOsnTim string `json:"godOsnTim"` // Establishment year
+	LokTim    string `json:"lokTim"`    // Location
+}
+
+func (t *Team) FromModel(teamDTO *TeamResponseDTO) {
+	teamDTO.IdTim = t.ID
+	teamDTO.NazTim = t.Name
+	teamDTO.GodOsnTim = t.EstablishmentYear
+	teamDTO.LokTim = t.Location
 }
 
 type AssetForTrade struct {

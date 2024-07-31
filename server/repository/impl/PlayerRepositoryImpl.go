@@ -93,6 +93,8 @@ func (repo *playerRepository) GetAllByTeamID(teamId int) ([]model.Player, error)
 		player := &model.Player{}
 		player.FromDAO(&playerDAO)
 
+		fmt.Println(player)
+
 		players = append(players, *player)
 	}
 

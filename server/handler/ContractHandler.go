@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"basketball-league-server/model"
 	"basketball-league-server/service"
 	"encoding/json"
 	"github.com/gorilla/mux"
@@ -23,7 +24,14 @@ func (handler *ContractHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(contracts)
+	var contractResponseDTOs []model.ContractResponseDTO
+	for _, contract := range *contracts {
+		var contractResponseDTO model.ContractResponseDTO
+		contract.FromModel(&contractResponseDTO)
+		contractResponseDTOs = append(contractResponseDTOs, contractResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(contractResponseDTOs)
 }
 
 func (handler *ContractHandler) GetByID(w http.ResponseWriter, r *http.Request) {
@@ -44,5 +52,8 @@ func (handler *ContractHandler) GetByID(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	json.NewEncoder(w).Encode(contract)
+	var contractResponseDTO model.ContractResponseDTO
+	contract.FromModel(&contractResponseDTO)
+
+	json.NewEncoder(w).Encode(contractResponseDTO)
 }

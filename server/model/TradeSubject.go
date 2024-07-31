@@ -11,12 +11,12 @@ const (
 )
 
 type TradeSubject struct {
-	ID              int64            `json:"idPredTrg"`
-	Type            TradeSubjectType `json:"tipPredTrg"`
-	DraftRightsId   int64            `json:"idPrava"`  // Draft Rights foreign key
-	PlayerId        int64            `json:"idIgrac"`  // Player foreign key
-	TradeProposalId int64            `json:"idZahTrg"` // Trade Request foreign key
-	PickId          int64            `json:"idPik"`    // Pick foreign key
+	ID              int64
+	Type            TradeSubjectType
+	DraftRightsId   int64 // Draft Rights foreign key
+	PlayerId        int64 // Player foreign key
+	TradeProposalId int64 // Trade Request foreign key
+	PickId          int64 // Pick foreign key
 }
 
 func NewTradeSubject(idPredTrg int64, tipPredTrg TradeSubjectType) (*TradeSubject, error) {
@@ -40,12 +40,12 @@ func (t *TradeSubject) Validate() error {
 }
 
 type TradeSubjectDAO struct {
-	IdPredTrg  int64            `json:"idPredTrg"`
-	TipPredTrg TradeSubjectType `json:"tipPredTrg"`
-	IdPrava    int64            `json:"idPrava"`  // Draft Rights foreign key
-	IdIgrac    int64            `json:"idIgrac"`  // Player foreign key
-	IdZahTrg   int64            `json:"idZahTrg"` // Trade Request foreign key
-	IdPik      int64            `json:"idPik"`    // Pick foreign key
+	IdPredTrg  int64
+	TipPredTrg TradeSubjectType
+	IdPrava    int64 // Draft Rights foreign key
+	IdIgrac    int64 // Player foreign key
+	IdZahTrg   int64 // Trade Request foreign key
+	IdPik      int64 // Pick foreign key
 }
 
 func (t *TradeSubject) FromDAO(tradeSubjectDAO *TradeSubjectDAO) {
@@ -55,6 +55,24 @@ func (t *TradeSubject) FromDAO(tradeSubjectDAO *TradeSubjectDAO) {
 	t.PlayerId = tradeSubjectDAO.IdIgrac
 	t.TradeProposalId = tradeSubjectDAO.IdZahTrg
 	t.PickId = tradeSubjectDAO.IdPik
+}
+
+type TradeSubjectResponseDTO struct {
+	IdPredTrg  int64            `json:"idPredTrg"`
+	TipPredTrg TradeSubjectType `json:"tipPredTrg"`
+	IdPrava    int64            `json:"idPrava"`  // Draft Rights foreign key
+	IdIgrac    int64            `json:"idIgrac"`  // Player foreign key
+	IdZahTrg   int64            `json:"idZahTrg"` // Trade Request foreign key
+	IdPik      int64            `json:"idPik"`    // Pick foreign key
+}
+
+func (t *TradeSubject) FromModel(tradeSubjectDTO *TradeSubjectResponseDTO) {
+	tradeSubjectDTO.IdPredTrg = t.ID
+	tradeSubjectDTO.TipPredTrg = t.Type
+	tradeSubjectDTO.IdPrava = t.DraftRightsId
+	tradeSubjectDTO.IdIgrac = t.PlayerId
+	tradeSubjectDTO.IdZahTrg = t.TradeProposalId
+	tradeSubjectDTO.IdPik = t.PickId
 }
 
 type TradeSubjectCreateDTO struct {

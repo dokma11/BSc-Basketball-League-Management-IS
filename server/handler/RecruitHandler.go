@@ -17,17 +17,24 @@ func NewRecruitHandler(RecruitService *service.RecruitService) *RecruitHandler {
 	return &RecruitHandler{RecruitService: RecruitService}
 }
 
-func (handler *RecruitHandler) GetAll(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *RecruitHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	recruits, err := handler.RecruitService.GetAll()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	json.NewEncoder(w).Encode(recruits) // Proveriti samo da li valja
+	var recruitResponseDTOs []model.RecruitResponseDTO
+	for _, recruit := range *recruits {
+		var recruitResponseDTO model.RecruitResponseDTO
+		recruit.FromModel(&recruitResponseDTO)
+		recruitResponseDTOs = append(recruitResponseDTOs, recruitResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(recruitResponseDTOs)
 }
 
-func (handler *RecruitHandler) GetByID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *RecruitHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
@@ -45,18 +52,24 @@ func (handler *RecruitHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(recruit)
+	var recruitResponseDTO model.RecruitResponseDTO
+	recruit.FromModel(&recruitResponseDTO)
+	json.NewEncoder(w).Encode(recruitResponseDTO)
 }
 
 func (handler *RecruitHandler) Create(writer http.ResponseWriter, req *http.Request) {
-	var recruit model.Recruit
-	err := json.NewDecoder(req.Body).Decode(&recruit)
+	var recruitDTO model.RecruitCreateDTO
+	err := json.NewDecoder(req.Body).Decode(&recruitDTO)
 	if err != nil {
 		println("Error while parsing json")
 		writer.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	err = handler.RecruitService.Create(&recruit)
+
+	recruit := &model.Recruit{}
+	recruit.FromDTO(&recruitDTO)
+
+	err = handler.RecruitService.Create(recruit)
 	if err != nil {
 		println("Error while creating a new recruit")
 		writer.WriteHeader(http.StatusExpectationFailed)
@@ -67,14 +80,18 @@ func (handler *RecruitHandler) Create(writer http.ResponseWriter, req *http.Requ
 }
 
 func (handler *RecruitHandler) Update(writer http.ResponseWriter, req *http.Request) {
-	var recruit model.Recruit
-	err := json.NewDecoder(req.Body).Decode(&recruit)
+	var recruitDTO model.RecruitCreateDTO
+	err := json.NewDecoder(req.Body).Decode(&recruitDTO)
 	if err != nil {
 		println("Error while parsing json")
 		writer.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	err = handler.RecruitService.Update(&recruit)
+
+	recruit := &model.Recruit{}
+	recruit.FromDTO(&recruitDTO)
+
+	err = handler.RecruitService.Update(recruit)
 	if err != nil {
 		println("Error while updating recruit")
 		writer.WriteHeader(http.StatusExpectationFailed)

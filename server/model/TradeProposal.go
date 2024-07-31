@@ -23,13 +23,13 @@ const (
 )
 
 type TradeProposal struct {
-	ID           int64               `json:"idZahTrg"`
-	Date         time.Time           `json:"datZahTrg"` // Date of creation
-	Type         TradeType           `json:"tipZahTrg"`
-	Status       TradeProposalStatus `json:"statusZahTrg"`
-	DenialReason string              `json:"razlogOdbij"`    // Reason for declining if declined
-	SenderId     int64               `json:"idMenadzerPos"`  // Sender foreign key
-	ReceiverId   int64               `json:"idMenadzerPrim"` // Receiver foreign key
+	ID           int64
+	Date         time.Time
+	Type         TradeType
+	Status       TradeProposalStatus
+	DenialReason string
+	SenderId     int64 // Sender foreign key
+	ReceiverId   int64 // Receiver foreign key
 }
 
 func NewTradeProposal(idZahTrg int64, datZahTrg time.Time, tipZahTrg TradeType, statusZahTrg TradeProposalStatus,
@@ -63,13 +63,13 @@ func (t *TradeProposal) Validate() error {
 }
 
 type TradeProposalDAO struct {
-	IdZahTrg       int64               `json:"idZahTrg"`
-	DatZahTrg      time.Time           `json:"datZahTrg"` // Date of creation
-	TipZahTrg      TradeType           `json:"tipZahTrg"`
-	StatusZahTrg   TradeProposalStatus `json:"statusZahTrg"`
-	RazlogOdbij    string              `json:"razlogOdbij"`    // Reason for declining if declined
-	IdMenadzerPos  int64               `json:"idMenadzerPos"`  // Sender foreign key
-	IdMenadzerPrim int64               `json:"idMenadzerPrim"` // Receiver foreign key
+	IdZahTrg       int64
+	DatZahTrg      time.Time // Date of creation
+	TipZahTrg      TradeType
+	StatusZahTrg   TradeProposalStatus
+	RazlogOdbij    string // Denial reason
+	IdMenadzerPos  int64  // Sender foreign key
+	IdMenadzerPrim int64  // Receiver foreign key
 }
 
 func (t *TradeProposal) FromDAO(tradeProposalDAO *TradeProposalDAO) {
@@ -80,6 +80,26 @@ func (t *TradeProposal) FromDAO(tradeProposalDAO *TradeProposalDAO) {
 	t.DenialReason = tradeProposalDAO.RazlogOdbij
 	t.SenderId = tradeProposalDAO.IdMenadzerPos
 	t.ReceiverId = tradeProposalDAO.IdMenadzerPrim
+}
+
+type TradeProposalResponseDTO struct {
+	IdZahTrg       int64               `json:"idZahTrg"`
+	DatZahTrg      time.Time           `json:"datZahTrg"` // Date of creation
+	TipZahTrg      TradeType           `json:"tipZahTrg"`
+	StatusZahTrg   TradeProposalStatus `json:"statusZahTrg"`
+	RazlogOdbij    string              `json:"razlogOdbij"`    // Denial reason
+	IdMenadzerPos  int64               `json:"idMenadzerPos"`  // Sender foreign key
+	IdMenadzerPrim int64               `json:"idMenadzerPrim"` // Receiver foreign key
+}
+
+func (t *TradeProposal) FromModel(tradeProposalDTO *TradeProposalResponseDTO) {
+	tradeProposalDTO.IdZahTrg = t.ID
+	tradeProposalDTO.DatZahTrg = t.Date
+	tradeProposalDTO.TipZahTrg = t.Type
+	tradeProposalDTO.StatusZahTrg = t.Status
+	tradeProposalDTO.RazlogOdbij = t.DenialReason
+	tradeProposalDTO.IdMenadzerPos = t.SenderId
+	tradeProposalDTO.IdMenadzerPrim = t.ReceiverId
 }
 
 type TradeProposalCreateDTO struct {
