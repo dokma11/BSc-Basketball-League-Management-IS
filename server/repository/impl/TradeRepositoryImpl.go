@@ -25,15 +25,17 @@ func (repo *tradeRepository) GetAll() ([]model.Trade, error) {
 
 	var trades []model.Trade
 	for rows.Next() {
-		var trade model.Trade
+		var tradeDAO model.TradeDAO
 		var tradeType string
-		if err := rows.Scan(&trade.IdTrg, &trade.DatTrg, &tradeType, &trade.IdZahTrg); err != nil {
+		if err := rows.Scan(&tradeDAO.IdTrg, &tradeDAO.DatTrg, &tradeType, &tradeDAO.IdZahTrg); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		mapTradeEnumsForReading(tradeType, &trade)
+		fromTypeForReading(tradeType, &tradeDAO)
+		trade := &model.Trade{}
+		trade.FromDAO(&tradeDAO)
 
-		trades = append(trades, trade)
+		trades = append(trades, *trade)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -44,19 +46,21 @@ func (repo *tradeRepository) GetAll() ([]model.Trade, error) {
 }
 
 func (repo *tradeRepository) GetByID(id int) (*model.Trade, error) {
-	var trade model.Trade
+	var tradeDAO model.TradeDAO
 	var tradeType string
 	row := repo.db.QueryRow("SELECT * FROM TRGOVINA WHERE IDTRG = :1", id)
-	if err := row.Scan(&trade.IdTrg, &trade.DatTrg, &tradeType, &trade.IdZahTrg); err != nil {
+	if err := row.Scan(&tradeDAO.IdTrg, &tradeDAO.DatTrg, &tradeType, &tradeDAO.IdZahTrg); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
 
-	mapTradeEnumsForReading(tradeType, &trade)
+	fromTypeForReading(tradeType, &tradeDAO)
+	trade := &model.Trade{}
+	trade.FromDAO(&tradeDAO)
 
-	return &trade, nil
+	return trade, nil
 }
 
 func (repo *tradeRepository) GetAllByTeamID(teamID int) ([]model.Trade, error) {
@@ -69,15 +73,17 @@ func (repo *tradeRepository) GetAllByTeamID(teamID int) ([]model.Trade, error) {
 
 	var trades []model.Trade
 	for rows.Next() {
-		var trade model.Trade
+		var tradeDAO model.TradeDAO
 		var tradeType string
-		if err := rows.Scan(&trade.IdTrg, &trade.DatTrg, &tradeType, &trade.IdZahTrg); err != nil {
+		if err := rows.Scan(&tradeDAO.IdTrg, &tradeDAO.DatTrg, &tradeType, &tradeDAO.IdZahTrg); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		mapTradeEnumsForReading(tradeType, &trade)
+		fromTypeForReading(tradeType, &tradeDAO)
+		trade := &model.Trade{}
+		trade.FromDAO(&tradeDAO)
 
-		trades = append(trades, trade)
+		trades = append(trades, *trade)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -88,9 +94,9 @@ func (repo *tradeRepository) GetAllByTeamID(teamID int) ([]model.Trade, error) {
 }
 
 func (repo *tradeRepository) Create(trade *model.Trade) error {
-	tradeType := mapTradeEnumsForWriting(trade)
+	tradeType := fromTypeForWriting(trade)
 	_, err := repo.db.Exec("INSERT INTO TRGOVINA (IDTRG, DATTRG, TIPTRG, IDZAHTRG) VALUES (:1, :2, :3, :4)",
-		trade.IdTrg, trade.DatTrg, tradeType, trade.IdZahTrg)
+		trade.ID, trade.OccurrenceDate, tradeType, trade.TradeProposalId)
 	if err != nil {
 		fmt.Println(err)
 		return fmt.Errorf("failed to create a trade: %v", err)
@@ -98,10 +104,9 @@ func (repo *tradeRepository) Create(trade *model.Trade) error {
 	return nil
 }
 
-func mapTradeEnumsForWriting(trade *model.Trade) string {
+func fromTypeForWriting(trade *model.Trade) string {
 	var tradeType string
-
-	switch trade.TipTrg {
+	switch trade.Type {
 	case 0:
 		tradeType = "PLAYER_PLAYER"
 	case 1:
@@ -109,18 +114,17 @@ func mapTradeEnumsForWriting(trade *model.Trade) string {
 	default:
 		tradeType = "PICK_PICK"
 	}
-
 	return tradeType
 }
 
-func mapTradeEnumsForReading(tradeType string, trade *model.Trade) {
+func fromTypeForReading(tradeType string, tradeDAO *model.TradeDAO) {
 	switch tradeType {
 	case "PLAYER_PLAYER":
-		trade.TipTrg = 0
+		tradeDAO.TipTrg = 0
 	case "PLAYER_PICK":
-		trade.TipTrg = 1
+		tradeDAO.TipTrg = 1
 	default:
-		trade.TipTrg = 2
+		tradeDAO.TipTrg = 2
 	}
 	return
 }

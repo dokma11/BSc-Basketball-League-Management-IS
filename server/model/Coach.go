@@ -15,8 +15,8 @@ const (
 
 type Coach struct {
 	Employee
-	GodIskTrener string              `json:"godIskTrener"`
-	SpecTrener   CoachSpecialization `json:"specTrener"`
+	YearsOfExperience string              `json:"yearsOfExperience"`
+	Specialization    CoachSpecialization `json:"specialization"`
 }
 
 func NewCoach(id int64, email string, ime string, prezime string, datRodj time.Time, lozinka string, uloga Uloga,
@@ -24,19 +24,19 @@ func NewCoach(id int64, email string, ime string, prezime string, datRodj time.T
 	coach := &Coach{
 		Employee: Employee{
 			User: User{
-				Id:      id,
-				Email:   email,
-				Ime:     ime,
-				Prezime: prezime,
-				DatRodj: datRodj,
-				Lozinka: lozinka,
-				Uloga:   uloga,
+				ID:          id,
+				Email:       email,
+				FirstName:   ime,
+				LastName:    prezime,
+				DateOfBirth: datRodj,
+				Password:    lozinka,
+				Role:        uloga,
 			},
-			UloZap: ulogaZaposlenog,
-			MbrZap: mbrZap,
+			Role:                 ulogaZaposlenog,
+			IdentificationNumber: mbrZap,
 		},
-		GodIskTrener: godIskTrener,
-		SpecTrener:   specTrener,
+		YearsOfExperience: godIskTrener,
+		Specialization:    specTrener,
 	}
 
 	if err := coach.Validate(); err != nil {
@@ -51,12 +51,23 @@ func (c *Coach) Validate() error {
 	if err != nil {
 		return err
 	}
-	if c.GodIskTrener == "" {
+	if c.YearsOfExperience == "" {
 		return errors.New("years of experience field is empty")
 	}
-	if c.SpecTrener < 0 || c.SpecTrener > 2 {
+	if c.Specialization < 0 || c.Specialization > 2 {
 		return errors.New("specialization field is invalid")
 	}
-
 	return nil
+}
+
+type CoachDAO struct {
+	Employee
+	GodIskTrener string              // Years of experience
+	SpecTrener   CoachSpecialization // Coach specialization
+}
+
+func (c *Coach) FromDAO(coachDAO *CoachDAO) {
+	c.Employee = coachDAO.Employee
+	c.YearsOfExperience = coachDAO.GodIskTrener
+	c.Specialization = coachDAO.SpecTrener
 }

@@ -139,18 +139,18 @@ func (handler *TradeProposalHandler) GetLatest(w http.ResponseWriter, r *http.Re
 
 func (handler *TradeProposalHandler) mapFromDTO(tradeProposalDTO *model.TradeProposalCreateDTO) (*model.TradeProposal, error) {
 	var tradeProposal model.TradeProposal
-	tradeProposal.DatZahTrg = tradeProposalDTO.DatZahTrg
-	tradeProposal.TipZahTrg = tradeProposalDTO.TipZahTrg
+	tradeProposal.Date = tradeProposalDTO.DatZahTrg
+	tradeProposal.Type = tradeProposalDTO.TipZahTrg
 	if tradeProposalDTO.TipZahTrg == 0 {
-		tradeProposal.TipZahTrg = 0
+		tradeProposal.Type = 0
 	} else if tradeProposalDTO.TipZahTrg == 1 {
-		tradeProposal.TipZahTrg = 1
+		tradeProposal.Type = 1
 	} else if tradeProposalDTO.TipZahTrg == 2 {
-		tradeProposal.TipZahTrg = 2
+		tradeProposal.Type = 2
 	}
 
-	tradeProposal.StatusZahTrg = 0 // 0 = IN_PROGRESS
-	tradeProposal.IdMenadzerPos = tradeProposalDTO.IdMenadzerPos
+	tradeProposal.Status = 0 // 0 = IN_PROGRESS
+	tradeProposal.SenderId = tradeProposalDTO.IdMenadzerPos
 
 	manager, err := handler.EmployeeService.GetByTeamID(int(tradeProposalDTO.IdMenadzerPrimTim))
 	if err != nil {
@@ -158,7 +158,7 @@ func (handler *TradeProposalHandler) mapFromDTO(tradeProposalDTO *model.TradePro
 		return nil, err
 	}
 
-	tradeProposal.IdMenadzerPrim = manager.Id
-	tradeProposal.RazlogOdbij = ""
+	tradeProposal.ReceiverId = manager.ID
+	tradeProposal.DenialReason = ""
 	return &tradeProposal, nil
 }

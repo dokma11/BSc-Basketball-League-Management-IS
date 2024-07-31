@@ -16,17 +16,17 @@ func NewContractHandler(ContractService *service.ContractService) *ContractHandl
 	return &ContractHandler{ContractService: ContractService}
 }
 
-func (handler *ContractHandler) GetAll(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *ContractHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	contracts, err := handler.ContractService.GetAll()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	json.NewEncoder(w).Encode(contracts) // Proveriti samo da li valja
+	json.NewEncoder(w).Encode(contracts)
 }
 
-func (handler *ContractHandler) GetByID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *ContractHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {

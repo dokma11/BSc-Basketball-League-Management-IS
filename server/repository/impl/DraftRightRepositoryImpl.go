@@ -25,16 +25,18 @@ func (repo *draftRightRepository) GetAll() ([]model.DraftRight, error) {
 
 	var draftRights []model.DraftRight
 	for rows.Next() {
-		var draftRight model.DraftRight
+		var draftRightDAO model.DraftRightDAO
 		var position string
-		if err := rows.Scan(&draftRight.IdPrava, &draftRight.ImeIgrPrava, &draftRight.PrezimeIgrPrava, &position,
-			&draftRight.IdTim, &draftRight.IdRegrut, &draftRight.IdPik); err != nil {
+		if err := rows.Scan(&draftRightDAO.IdPrava, &draftRightDAO.ImeIgrPrava, &draftRightDAO.PrezimeIgrPrava, &position,
+			&draftRightDAO.IdTim, &draftRightDAO.IdRegrut, &draftRightDAO.IdPik); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		mapDraftRightsEnum(position, &draftRight)
+		fromPositionString(position, &draftRightDAO)
+		draftRight := &model.DraftRight{}
+		draftRight.FromDAO(&draftRightDAO)
 
-		draftRights = append(draftRights, draftRight)
+		draftRights = append(draftRights, *draftRight)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -45,20 +47,22 @@ func (repo *draftRightRepository) GetAll() ([]model.DraftRight, error) {
 }
 
 func (repo *draftRightRepository) GetByID(id int) (*model.DraftRight, error) {
-	var draftRight model.DraftRight
+	var draftRightDAO model.DraftRightDAO
 	var position string
 	row := repo.db.QueryRow("SELECT * FROM PravaNaIgraca WHERE IDPRAVA = :1", id)
-	if err := row.Scan(&draftRight.IdPrava, &draftRight.ImeIgrPrava, &draftRight.PrezimeIgrPrava, &position,
-		&draftRight.IdTim, &draftRight.IdRegrut, &draftRight.IdPik); err != nil {
+	if err := row.Scan(&draftRightDAO.IdPrava, &draftRightDAO.ImeIgrPrava, &draftRightDAO.PrezimeIgrPrava, &position,
+		&draftRightDAO.IdTim, &draftRightDAO.IdRegrut, &draftRightDAO.IdPik); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
 
-	mapDraftRightsEnum(position, &draftRight)
+	fromPositionString(position, &draftRightDAO)
+	draftRight := &model.DraftRight{}
+	draftRight.FromDAO(&draftRightDAO)
 
-	return &draftRight, nil
+	return draftRight, nil
 }
 
 func (repo *draftRightRepository) GetAllByTeamID(teamID int) ([]model.DraftRight, error) {
@@ -70,16 +74,18 @@ func (repo *draftRightRepository) GetAllByTeamID(teamID int) ([]model.DraftRight
 
 	var draftRights []model.DraftRight
 	for rows.Next() {
-		var draftRight model.DraftRight
+		var draftRightDAO model.DraftRightDAO
 		var position string
-		if err := rows.Scan(&draftRight.IdPrava, &draftRight.ImeIgrPrava, &draftRight.PrezimeIgrPrava, &position,
-			&draftRight.IdTim, &draftRight.IdRegrut, &draftRight.IdPik); err != nil {
+		if err := rows.Scan(&draftRightDAO.IdPrava, &draftRightDAO.ImeIgrPrava, &draftRightDAO.PrezimeIgrPrava, &position,
+			&draftRightDAO.IdTim, &draftRightDAO.IdRegrut, &draftRightDAO.IdPik); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		mapDraftRightsEnum(position, &draftRight)
+		fromPositionString(position, &draftRightDAO)
+		draftRight := &model.DraftRight{}
+		draftRight.FromDAO(&draftRightDAO)
 
-		draftRights = append(draftRights, draftRight)
+		draftRights = append(draftRights, *draftRight)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -90,14 +96,14 @@ func (repo *draftRightRepository) GetAllByTeamID(teamID int) ([]model.DraftRight
 }
 
 func (repo *draftRightRepository) Update(draftRights *model.DraftRight) error {
-	_, err := repo.db.Exec("UPDATE PravaNaIgraca SET IDTIM = :1 WHERE IDPRAVA = :2", draftRights.IdTim, draftRights.IdPrava)
+	_, err := repo.db.Exec("UPDATE PravaNaIgraca SET IDTIM = :1 WHERE IDPRAVA = :2", draftRights.TeamId, draftRights.ID)
 	if err != nil {
 		return fmt.Errorf("failed to update draft rights: %v", err)
 	}
 	return nil
 }
 
-func mapDraftRightsEnum(position string, draftRights *model.DraftRight) {
+func fromPositionString(position string, draftRights *model.DraftRightDAO) {
 	switch position {
 	case "PG":
 		draftRights.PozicijaIgrPrava = 0

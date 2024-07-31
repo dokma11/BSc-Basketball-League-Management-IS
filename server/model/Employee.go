@@ -16,25 +16,25 @@ const (
 
 type Employee struct {
 	User
-	UloZap UlogaZaposlenog `json:"uloZap"`
-	MbrZap string          `json:"mbrZap"`
-	IdUgo  int64           `json:"idUgo"` // Contract foreign key
+	Role                 UlogaZaposlenog `json:"role"`
+	IdentificationNumber string          `json:"identificationNumber"`
+	ContractId           int64           `json:"contractId"` // Contract foreign key
 }
 
 func NewEmployee(id int64, email string, ime string, prezime string, datRodj time.Time,
 	lozinka string, uloga Uloga, ulogaZaposlenog UlogaZaposlenog, mbrZap string) (*Employee, error) {
 	employee := &Employee{
 		User: User{
-			Id:      id,
-			Email:   email,
-			Ime:     ime,
-			Prezime: prezime,
-			DatRodj: datRodj,
-			Lozinka: lozinka,
-			Uloga:   uloga,
+			ID:          id,
+			Email:       email,
+			FirstName:   ime,
+			LastName:    prezime,
+			DateOfBirth: datRodj,
+			Password:    lozinka,
+			Role:        uloga,
 		},
-		UloZap: ulogaZaposlenog,
-		MbrZap: mbrZap,
+		Role:                 ulogaZaposlenog,
+		IdentificationNumber: mbrZap,
 	}
 
 	if err := employee.Validate(); err != nil {
@@ -49,12 +49,25 @@ func (e *Employee) Validate() error {
 	if err != nil {
 		return err
 	}
-	if e.UloZap < 0 || e.UloZap > 3 {
+	if e.Role < 0 || e.Role > 3 {
 		return errors.New("employee role field is invalid")
 	}
-	if e.MbrZap == "" {
+	if e.IdentificationNumber == "" {
 		return errors.New("identification number field is empty")
 	}
-
 	return nil
+}
+
+type EmployeeDAO struct {
+	User
+	UloZap UlogaZaposlenog `json:"uloZap"`
+	MbrZap string          `json:"mbrZap"` // Identification number
+	IdUgo  int64           `json:"idUgo"`  // Contract foreign key
+}
+
+func (e *Employee) FromDAO(employeeDAO *EmployeeDAO) {
+	e.User = employeeDAO.User
+	e.Role = employeeDAO.UloZap
+	e.IdentificationNumber = employeeDAO.MbrZap
+	e.ContractId = employeeDAO.IdUgo
 }

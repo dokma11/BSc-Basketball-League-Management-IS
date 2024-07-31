@@ -17,7 +17,7 @@ func NewTrainingRequestRepository(db *sql.DB) repository.TrainingRequestReposito
 }
 
 func (repo *trainingRequestRepository) GetAll() ([]model.TrainingRequest, error) {
-	rows, err := repo.db.Query("SELECT * FROM PozivNaTrening") // proveriti naziv samo
+	rows, err := repo.db.Query("SELECT * FROM PozivNaTrening")
 	if err != nil {
 		return nil, fmt.Errorf("failed to query all training requests: %v", err)
 	}
@@ -25,22 +25,18 @@ func (repo *trainingRequestRepository) GetAll() ([]model.TrainingRequest, error)
 
 	var trainingRequests []model.TrainingRequest
 	for rows.Next() {
-		var trainingRequest model.TrainingRequest
+		var trainingRequestDAO model.TrainingRequestDAO
 		var status string
-		if err := rows.Scan(&trainingRequest.IdPozTrng, &trainingRequest.DatVrePozTrng, &trainingRequest.MesOdrPozTrng,
-			&status, &trainingRequest.RazOdbPozTrng, &trainingRequest.IdTrener); err != nil {
+		if err := rows.Scan(&trainingRequestDAO.IdPozTrng, &trainingRequestDAO.DatVrePozTrng, &trainingRequestDAO.MesOdrPozTrng,
+			&status, &trainingRequestDAO.RazOdbPozTrng, &trainingRequestDAO.IdTrener); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		if status == "PENDING" {
-			trainingRequest.StatusPozTrng = 0
-		} else if status == "APPROVED" {
-			trainingRequest.StatusPozTrng = 1
-		} else if status == "DISAPPROVED" {
-			trainingRequest.StatusPozTrng = 2
-		}
+		fromRequestStatusString(status, &trainingRequestDAO)
+		trainingRequest := &model.TrainingRequest{}
+		trainingRequest.FromDAO(&trainingRequestDAO)
 
-		trainingRequests = append(trainingRequests, trainingRequest)
+		trainingRequests = append(trainingRequests, *trainingRequest)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -51,26 +47,22 @@ func (repo *trainingRequestRepository) GetAll() ([]model.TrainingRequest, error)
 }
 
 func (repo *trainingRequestRepository) GetByID(id int) (*model.TrainingRequest, error) {
-	var trainingRequest model.TrainingRequest
+	var trainingRequestDAO model.TrainingRequestDAO
 	var status string
 	row := repo.db.QueryRow("SELECT * FROM PozivNaTrening WHERE IDPOZTRNG = :1", id)
-	if err := row.Scan(&trainingRequest.IdPozTrng, &trainingRequest.DatVrePozTrng, &trainingRequest.MesOdrPozTrng,
-		&status, &trainingRequest.RazOdbPozTrng, &trainingRequest.IdTrener); err != nil {
+	if err := row.Scan(&trainingRequestDAO.IdPozTrng, &trainingRequestDAO.DatVrePozTrng, &trainingRequestDAO.MesOdrPozTrng,
+		&status, &trainingRequestDAO.RazOdbPozTrng, &trainingRequestDAO.IdTrener); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
 
-	if status == "PENDING" {
-		trainingRequest.StatusPozTrng = 0
-	} else if status == "APPROVED" {
-		trainingRequest.StatusPozTrng = 1
-	} else if status == "DISAPPROVED" {
-		trainingRequest.StatusPozTrng = 2
-	}
+	fromRequestStatusString(status, &trainingRequestDAO)
+	trainingRequest := &model.TrainingRequest{}
+	trainingRequest.FromDAO(&trainingRequestDAO)
 
-	return &trainingRequest, nil
+	return trainingRequest, nil
 }
 
 func (repo *trainingRequestRepository) GetAllBySenderID(userID int) ([]model.TrainingRequest, error) {
@@ -82,22 +74,18 @@ func (repo *trainingRequestRepository) GetAllBySenderID(userID int) ([]model.Tra
 
 	var trainingRequests []model.TrainingRequest
 	for rows.Next() {
-		var trainingRequest model.TrainingRequest
+		var trainingRequestDAO model.TrainingRequestDAO
 		var status string
-		if err := rows.Scan(&trainingRequest.IdPozTrng, &trainingRequest.DatVrePozTrng, &trainingRequest.MesOdrPozTrng,
-			&status, &trainingRequest.RazOdbPozTrng, &trainingRequest.IdTrener); err != nil {
+		if err := rows.Scan(&trainingRequestDAO.IdPozTrng, &trainingRequestDAO.DatVrePozTrng, &trainingRequestDAO.MesOdrPozTrng,
+			&status, &trainingRequestDAO.RazOdbPozTrng, &trainingRequestDAO.IdTrener); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		if status == "PENDING" {
-			trainingRequest.StatusPozTrng = 0
-		} else if status == "APPROVED" {
-			trainingRequest.StatusPozTrng = 1
-		} else if status == "DISAPPROVED" {
-			trainingRequest.StatusPozTrng = 2
-		}
+		fromRequestStatusString(status, &trainingRequestDAO)
+		trainingRequest := &model.TrainingRequest{}
+		trainingRequest.FromDAO(&trainingRequestDAO)
 
-		trainingRequests = append(trainingRequests, trainingRequest)
+		trainingRequests = append(trainingRequests, *trainingRequest)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -117,22 +105,18 @@ func (repo *trainingRequestRepository) GetAllByReceiverID(userID int) ([]model.T
 
 	var trainingRequests []model.TrainingRequest
 	for rows.Next() {
-		var trainingRequest model.TrainingRequest
+		var trainingRequestDAO model.TrainingRequestDAO
 		var status string
-		if err := rows.Scan(&trainingRequest.IdPozTrng, &trainingRequest.DatVrePozTrng, &trainingRequest.MesOdrPozTrng,
-			&status, &trainingRequest.RazOdbPozTrng, &trainingRequest.IdTrener); err != nil {
+		if err := rows.Scan(&trainingRequestDAO.IdPozTrng, &trainingRequestDAO.DatVrePozTrng, &trainingRequestDAO.MesOdrPozTrng,
+			&status, &trainingRequestDAO.RazOdbPozTrng, &trainingRequestDAO.IdTrener); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		if status == "PENDING" {
-			trainingRequest.StatusPozTrng = 0
-		} else if status == "APPROVED" {
-			trainingRequest.StatusPozTrng = 1
-		} else if status == "DISAPPROVED" {
-			trainingRequest.StatusPozTrng = 2
-		}
+		fromRequestStatusString(status, &trainingRequestDAO)
+		trainingRequest := &model.TrainingRequest{}
+		trainingRequest.FromDAO(&trainingRequestDAO)
 
-		trainingRequests = append(trainingRequests, trainingRequest)
+		trainingRequests = append(trainingRequests, *trainingRequest)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -144,8 +128,8 @@ func (repo *trainingRequestRepository) GetAllByReceiverID(userID int) ([]model.T
 
 func (repo *trainingRequestRepository) Create(trainingRequest *model.TrainingRequest) error {
 	_, err := repo.db.Exec("INSERT INTO PozivNaTrening (IDPOZTRNG, DATVREPOZTRNG, MESODRPOZTRNG, STATUSPOZTRNG, RAZODBPOZTRNG, "+
-		"IDTRENER) VALUES (:1, :2, :3, :4, :5, :6)", trainingRequest.IdPozTrng, trainingRequest.DatVrePozTrng,
-		trainingRequest.MesOdrPozTrng, trainingRequest.StatusPozTrng, &trainingRequest.RazOdbPozTrng, &trainingRequest.IdTrener)
+		"IDTRENER) VALUES (:1, :2, :3, :4, :5, :6)", trainingRequest.ID, trainingRequest.OccurrenceDateTime,
+		trainingRequest.OccurrenceLocation, trainingRequest.Status, &trainingRequest.DenialReason, &trainingRequest.CoachId)
 	if err != nil {
 		return fmt.Errorf("failed to create a training request: %v", err)
 	}
@@ -154,10 +138,21 @@ func (repo *trainingRequestRepository) Create(trainingRequest *model.TrainingReq
 
 func (repo *trainingRequestRepository) Update(trainingRequest *model.TrainingRequest) error {
 	_, err := repo.db.Exec("UPDATE PozivNaTrening SET DATVREPOZTRNG = :1, MESODRPOZTRNG = :2, STATUSPOZTRNG = :3,"+
-		" RAZODBPOZTRNG = :4 WHERE IDPOZTRNG = :5", trainingRequest.DatVrePozTrng, trainingRequest.MesOdrPozTrng,
-		trainingRequest.StatusPozTrng, trainingRequest.RazOdbPozTrng, trainingRequest.IdPozTrng)
+		" RAZODBPOZTRNG = :4 WHERE IDPOZTRNG = :5", trainingRequest.OccurrenceDateTime, trainingRequest.OccurrenceLocation,
+		trainingRequest.Status, trainingRequest.DenialReason, trainingRequest.ID)
 	if err != nil {
 		return fmt.Errorf("failed to update training request: %v", err)
 	}
 	return nil
+}
+
+func fromRequestStatusString(option string, trainingRequest *model.TrainingRequestDAO) {
+	switch option {
+	case "PENDING":
+		trainingRequest.StatusPozTrng = 0
+	case "APPROVED":
+		trainingRequest.StatusPozTrng = 1
+	default:
+		trainingRequest.StatusPozTrng = 2
+	}
 }

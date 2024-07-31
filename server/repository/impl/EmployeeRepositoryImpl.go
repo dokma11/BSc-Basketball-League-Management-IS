@@ -27,17 +27,18 @@ func (repo *employeeRepository) GetAll() ([]model.Employee, error) {
 
 	var employees []model.Employee
 	for rows.Next() {
-		var employee model.Employee
-		var role string
-		var employeeRole string
-		if err := rows.Scan(&employee.Id, &employee.Ime, &employee.Prezime, &employee.Email, &employee.DatRodj,
-			&employee.Lozinka, &role, &employeeRole, &employee.MbrZap, &employee.IdUgo); err != nil {
+		var employeeDAO model.EmployeeDAO
+		var role, employeeRole string
+		if err := rows.Scan(&employeeDAO.ID, &employeeDAO.FirstName, &employeeDAO.LastName, &employeeDAO.Email, &employeeDAO.DateOfBirth,
+			&employeeDAO.Password, &role, &employeeRole, &employeeDAO.MbrZap, &employeeDAO.IdUgo); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		mapEnums(role, employeeRole, &employee)
+		fromRoleStrings(role, employeeRole, &employeeDAO)
+		employee := &model.Employee{}
+		employee.FromDAO(&employeeDAO)
 
-		employees = append(employees, employee)
+		employees = append(employees, *employee)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -48,48 +49,50 @@ func (repo *employeeRepository) GetAll() ([]model.Employee, error) {
 }
 
 func (repo *employeeRepository) GetByID(id int) (*model.Employee, error) {
-	var employee model.Employee
-	var role string
-	var employeeRole string
+	var employeeDAO model.EmployeeDAO
+	var role, employeeRole string
 	row := repo.db.QueryRow(`SELECT K.ID, K.IME, K.PREZIME, K.EMAIL, K.DATRODJ, K.LOZINKA, K.ULOGA, Z.ULOZAP, Z.MBRZAP, Z.IDUGO 
 								   FROM ZAPOSLENI Z, KORISNIK K
 								   WHERE K.ID = Z.ID AND K.ID = :1`, id)
-	if err := row.Scan(&employee.Id, &employee.Ime, &employee.Prezime, &employee.Email, &employee.DatRodj,
-		&employee.Lozinka, &role, &employeeRole, &employee.MbrZap, &employee.IdUgo); err != nil {
+	if err := row.Scan(&employeeDAO.ID, &employeeDAO.FirstName, &employeeDAO.LastName, &employeeDAO.Email, &employeeDAO.DateOfBirth,
+		&employeeDAO.Password, &role, &employeeRole, &employeeDAO.MbrZap, &employeeDAO.IdUgo); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
 
-	mapEnums(role, employeeRole, &employee)
+	fromRoleStrings(role, employeeRole, &employeeDAO)
+	employee := &model.Employee{}
+	employee.FromDAO(&employeeDAO)
 
-	return &employee, nil
+	return employee, nil
 }
 
 func (repo *employeeRepository) GetByTeamID(teamID int) (*model.Employee, error) {
-	var employee model.Employee
-	var role string
-	var employeeRole string
+	var employeeDAO model.EmployeeDAO
+	var role, employeeRole string
 	row := repo.db.QueryRow(`SELECT K.ID, K.IME, K.PREZIME, K.EMAIL, K.DATRODJ, K.LOZINKA, K.ULOGA, Z.ULOZAP, Z.MBRZAP, Z.IDUGO
 								   FROM ZAPOSLENI Z, UGOVOR U, KORISNIK K
 								   WHERE Z.ID = K.ID AND Z.IDUGO = U.IDUGO AND U.IDTIM = :1 AND Z.ULOZAP = 'Menadzer'`, teamID)
-	if err := row.Scan(&employee.Id, &employee.Ime, &employee.Prezime, &employee.Email, &employee.DatRodj,
-		&employee.Lozinka, &role, &employeeRole, &employee.MbrZap, &employee.IdUgo); err != nil {
+	if err := row.Scan(&employeeDAO.ID, &employeeDAO.FirstName, &employeeDAO.LastName, &employeeDAO.Email, &employeeDAO.DateOfBirth,
+		&employeeDAO.Password, &role, &employeeRole, &employeeDAO.MbrZap, &employeeDAO.IdUgo); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
 
-	mapEnums(role, employeeRole, &employee)
+	fromRoleStrings(role, employeeRole, &employeeDAO)
+	employee := &model.Employee{}
+	employee.FromDAO(&employeeDAO)
 
-	return &employee, nil
+	return employee, nil
 }
 
-func mapEnums(role string, employeeRole string, employee *model.Employee) {
+func fromRoleStrings(role string, employeeRole string, employee *model.EmployeeDAO) {
 	if role == "Zaposleni" {
-		employee.Uloga = 1
+		employee.Role = 1
 	} else {
 		fmt.Println("Error: employee must have an employee role!")
 	}

@@ -25,12 +25,16 @@ func (repo *trainingRepository) GetAll() ([]model.Training, error) {
 
 	var trainings []model.Training
 	for rows.Next() {
-		var training model.Training
-		if err := rows.Scan(&training.IdTrng, &training.TrajTrng, &training.DatVreTrng, &training.MesOdrTrng,
-			&training.BelesTrng, &training.IdTipTrng, &training.IdPozTrng); err != nil {
+		var trainingDAO model.TrainingDAO
+		if err := rows.Scan(&trainingDAO.IdTrng, &trainingDAO.TrajTrng, &trainingDAO.DatVreTrng, &trainingDAO.MesOdrTrng,
+			&trainingDAO.BelesTrng, &trainingDAO.IdTipTrng, &trainingDAO.IdPozTrng); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
-		trainings = append(trainings, training)
+
+		training := &model.Training{}
+		training.FromDAO(&trainingDAO)
+
+		trainings = append(trainings, *training)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -41,16 +45,20 @@ func (repo *trainingRepository) GetAll() ([]model.Training, error) {
 }
 
 func (repo *trainingRepository) GetByID(id int) (*model.Training, error) {
-	var training model.Training
+	var trainingDAO model.TrainingDAO
 	row := repo.db.QueryRow("SELECT * FROM TRENING WHERE IDTRNG = :1", id)
-	if err := row.Scan(&training.IdTrng, &training.TrajTrng, &training.DatVreTrng, &training.MesOdrTrng,
-		&training.BelesTrng, &training.IdTipTrng, &training.IdPozTrng); err != nil {
+	if err := row.Scan(&trainingDAO.IdTrng, &trainingDAO.TrajTrng, &trainingDAO.DatVreTrng, &trainingDAO.MesOdrTrng,
+		&trainingDAO.BelesTrng, &trainingDAO.IdTipTrng, &trainingDAO.IdPozTrng); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
-	return &training, nil
+
+	training := &model.Training{}
+	training.FromDAO(&trainingDAO)
+
+	return training, nil
 }
 
 func (repo *trainingRepository) GetAllByUserID(userID int) ([]model.Training, error) {
@@ -63,12 +71,16 @@ func (repo *trainingRepository) GetAllByUserID(userID int) ([]model.Training, er
 
 	var trainings []model.Training
 	for rows.Next() {
-		var training model.Training
-		if err := rows.Scan(&training.IdTrng, &training.TrajTrng, &training.DatVreTrng, &training.MesOdrTrng,
-			&training.BelesTrng, &training.IdTipTrng, &training.IdPozTrng); err != nil {
+		var trainingDAO model.TrainingDAO
+		if err := rows.Scan(&trainingDAO.IdTrng, &trainingDAO.TrajTrng, &trainingDAO.DatVreTrng, &trainingDAO.MesOdrTrng,
+			&trainingDAO.BelesTrng, &trainingDAO.IdTipTrng, &trainingDAO.IdPozTrng); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
-		trainings = append(trainings, training)
+
+		training := &model.Training{}
+		training.FromDAO(&trainingDAO)
+
+		trainings = append(trainings, *training)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -80,8 +92,8 @@ func (repo *trainingRepository) GetAllByUserID(userID int) ([]model.Training, er
 
 func (repo *trainingRepository) Create(training *model.Training) error {
 	_, err := repo.db.Exec("INSERT INTO TRENING (IDTRNG, TRAJTRNG, DATVRETRNG, MESODTRNG, BELESTRNG, IDTIPTRNG, "+
-		"IDPOZTRNG) VALUES (:1, :2, :3, :4, :5, :6, :7)", training.IdTrng, training.TrajTrng, training.DatVreTrng,
-		training.MesOdrTrng, training.BelesTrng, training.IdTipTrng, training.IdPozTrng)
+		"IDPOZTRNG) VALUES (:1, :2, :3, :4, :5, :6, :7)", training.ID, training.Duration, training.OccurrenceDateTime,
+		training.OccurrenceLocation, training.Notes, training.TrainingTypeId, training.TrainingRequestId)
 	if err != nil {
 		return fmt.Errorf("failed to create a training: %v", err)
 	}
