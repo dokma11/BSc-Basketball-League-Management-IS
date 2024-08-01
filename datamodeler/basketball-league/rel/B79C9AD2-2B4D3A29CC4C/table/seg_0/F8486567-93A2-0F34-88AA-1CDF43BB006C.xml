@@ -99,7 +99,7 @@
 <colUsage columnID="47C1AA8E-ACC9-7CCD-39EC-4E47633248E4"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="0F5213DB-8D97-DE23-C1A8-D373FC0A46EF" name="NedImTim_TipNedIm_FK">
+<ind_PK_UK id="0F5213DB-8D97-DE23-C1A8-D373FC0A46EF" name="NedoImoTim_TipNedoImo_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>CEFE4145-1E1D-94D4-1B1E-A71D361C605A</generatorID>
@@ -110,7 +110,7 @@
 <colUsage columnID="4080AC4C-43EE-5818-C210-B08EFE6D2B80"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="BD557331-1118-FC07-8535-59992501E2D4" name="NedImTim_Tim_FK">
+<ind_PK_UK id="BD557331-1118-FC07-8535-59992501E2D4" name="NedoImoTim_Tim_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>1DD53E53-7541-201B-1BBD-83FB9D6728E3</generatorID>

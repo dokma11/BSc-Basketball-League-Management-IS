@@ -4,6 +4,7 @@ import (
 	"basketball-league-server/model"
 	"basketball-league-server/service"
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -133,13 +134,18 @@ func (handler *TradeProposalHandler) Create(w http.ResponseWriter, r *http.Reque
 }
 
 func (handler *TradeProposalHandler) Update(w http.ResponseWriter, r *http.Request) {
-	var tradeProposal model.TradeProposal
-	if err := json.NewDecoder(r.Body).Decode(&tradeProposal); err != nil {
+	var tradeProposalDTO model.TradeProposalUpdateDTO
+	if err := json.NewDecoder(r.Body).Decode(&tradeProposalDTO); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	err := handler.TradeProposalService.Update(&tradeProposal)
+	fmt.Println(tradeProposalDTO)
+
+	tradeProposal := &model.TradeProposal{}
+	tradeProposal.FromUpdateDTO(&tradeProposalDTO)
+
+	err := handler.TradeProposalService.Update(tradeProposal)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

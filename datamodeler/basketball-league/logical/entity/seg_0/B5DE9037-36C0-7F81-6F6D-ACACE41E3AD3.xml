@@ -66,51 +66,6 @@
 <dataTypeSize>32 CHAR</dataTypeSize>
 <ownDataTypeParameters>32 CHAR,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="IdZeljTim" id="042858C6-9E36-65C2-1089-7EB1F123E18D">
-<createdBy>HP Pavilion</createdBy>
-<createdTime>2024-07-24 16:51:38 UTC</createdTime>
-<generatorID>85CADE04-5A43-54FC-DE3A-DC9F37180A58</generatorID>
-<ownerDesignName>basketball-league</ownerDesignName>
-<engineerTo>
-<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
-</engineerTo>
-<nullsAllowed>true</nullsAllowed>
-<referedAttribute>1FA4D001-FCB1-6AD2-298C-A78CF9072DD6</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
-<Attribute name="IdNedIdTim" id="85BAD689-8FFD-1528-CE72-62EECFBAC479">
-<createdBy>HP Pavilion</createdBy>
-<createdTime>2024-07-24 16:52:12 UTC</createdTime>
-<generatorID>1DD53E53-7541-201B-1BBD-83FB9D6728E3</generatorID>
-<ownerDesignName>basketball-league</ownerDesignName>
-<engineerTo>
-<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
-</engineerTo>
-<nullsAllowed>true</nullsAllowed>
-<referedAttribute>0E3A8CB1-9EEC-96E4-C264-94B565F5CD93</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
-<Attribute name="IdImoTrgTim" id="447DBD6B-8F10-ACAC-7E04-59D65A07187A">
-<createdBy>HP Pavilion</createdBy>
-<createdTime>2024-07-24 16:52:45 UTC</createdTime>
-<generatorID>628C45BF-0285-6C41-6A39-9BF4EED304A6</generatorID>
-<ownerDesignName>basketball-league</ownerDesignName>
-<engineerTo>
-<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
-</engineerTo>
-<nullsAllowed>true</nullsAllowed>
-<referedAttribute>0BC7EF2E-2264-2186-61EF-83364665215F</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="9D0C8D82-9C87-2028-96EA-4F503D73F8C6" name="Tim PK">

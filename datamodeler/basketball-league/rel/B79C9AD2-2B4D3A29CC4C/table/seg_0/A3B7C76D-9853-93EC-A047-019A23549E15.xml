@@ -120,7 +120,7 @@
 <colUsage columnID="2FA515F4-7068-7614-4428-F76657B7EEA6"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="102A2724-373D-3EF3-2E25-B5E3B1928FE1" name="ZahtevZaTrgovinu_Menadzer_FKv2">
+<ind_PK_UK id="102A2724-373D-3EF3-2E25-B5E3B1928FE1" name="ZahtevZaTrgovinu_Menadzer_FKv1">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:32 UTC</createdTime>
 <generatorID>56CE446E-088E-1F6E-47E2-FAAAA54E7539</generatorID>

@@ -110,6 +110,17 @@ type TradeProposalCreateDTO struct {
 }
 
 type TradeProposalUpdateDTO struct {
-	IdZahTrg  int64     `json:"idZahTrg"`
-	TipZahTrg TradeType `json:"tipZahTrg"`
+	IdZahTrg     int64               `json:"idZahTrg"`
+	TipZahTrg    TradeType           `json:"tipZahTrg"`
+	StatusZahTrg TradeProposalStatus `json:"statusZahTrg"`
+	RazlogOdbij  string              `json:"razlogOdbij"` // Denial Reason
+}
+
+func (t *TradeProposal) FromUpdateDTO(tradeProposalDTO *TradeProposalUpdateDTO) {
+	t.ID = tradeProposalDTO.IdZahTrg
+	t.Type = tradeProposalDTO.TipZahTrg
+	t.Status = tradeProposalDTO.StatusZahTrg
+	if tradeProposalDTO.RazlogOdbij != "" {
+		t.DenialReason = tradeProposalDTO.RazlogOdbij
+	}
 }

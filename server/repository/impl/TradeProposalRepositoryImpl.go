@@ -137,10 +137,12 @@ func (repo *tradeProposalRepository) Create(tradeProposal *model.TradeProposal) 
 }
 
 func (repo *tradeProposalRepository) Update(tradeProposal *model.TradeProposal) error {
-	status, tradeType := fromStatusAndTypeForWriting(tradeProposal)
-	_, err := repo.db.Exec("UPDATE ZahtevZaTrgovinu SET DATZAHTRG = :1, TIPZAHTRG = :2, STATUSZAHTRG = :3"+
-		", RAZLOGODBIJ = :4 WHERE IDZAHTRG = :5", tradeProposal.Date, tradeType, status, tradeProposal.DenialReason,
-		tradeProposal.ID)
+
+	fmt.Println(tradeProposal.Type)
+
+	status, _ := fromStatusAndTypeForWriting(tradeProposal)
+	_, err := repo.db.Exec("UPDATE ZahtevZaTrgovinu SET STATUSZAHTRG = :1, RAZLOGODBIJ = :2 WHERE IDZAHTRG = :3",
+		status, tradeProposal.DenialReason, tradeProposal.ID)
 	if err != nil {
 		return fmt.Errorf("failed to update trade proposal: %v", err)
 	}
