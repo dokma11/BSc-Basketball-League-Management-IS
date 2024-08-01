@@ -5,21 +5,20 @@ import (
 	"time"
 )
 
-// Team Obratiti paznju na one liste neophodne
 type Team struct {
-	IdTim     int64  `json:"idTim"`
-	NazTim    string `json:"nazTim"`    // Name
-	GodOsnTim string `json:"godOsnTim"` // Establishment year
-	LokTim    string `json:"lokTim"`    // Location
+	ID                int64
+	Name              string // Name
+	EstablishmentYear string // Establishment year
+	Location          string // Location
 	// TODO: Razmotriti za liste samo da li FK da bude ili da pravim materijalizovani pogled
 }
 
 func NewTeam(idTeam int64, nazTeam string, godOsnTeam string, lokTeam string) (*Team, error) {
 	team := &Team{
-		IdTim:     idTeam,
-		NazTim:    nazTeam,
-		GodOsnTim: godOsnTeam,
-		LokTim:    lokTeam,
+		ID:                idTeam,
+		Name:              nazTeam,
+		EstablishmentYear: godOsnTeam,
+		Location:          lokTeam,
 	}
 
 	if err := team.Validate(); err != nil {
@@ -29,17 +28,45 @@ func NewTeam(idTeam int64, nazTeam string, godOsnTeam string, lokTeam string) (*
 	return team, nil
 }
 
-func (team *Team) Validate() error {
-	if team.NazTim == "" {
+func (t *Team) Validate() error {
+	if t.Name == "" {
 		return errors.New("name field was not set")
 	}
-	if team.LokTim == "" {
+	if t.Location == "" {
 		return errors.New("location field was not set")
 	}
-	if len(team.GodOsnTim) != 4 {
+	if len(t.EstablishmentYear) != 4 {
 		return errors.New("foundation date field must have at least 4 digits")
 	}
 	return nil
+}
+
+type TeamDAO struct {
+	IdTim     int64
+	NazTim    string // Name
+	GodOsnTim string // Establishment year
+	LokTim    string // Location
+}
+
+func (t *Team) FromDAO(teamDAO *TeamDAO) {
+	t.ID = teamDAO.IdTim
+	t.Name = teamDAO.NazTim
+	t.EstablishmentYear = teamDAO.GodOsnTim
+	t.Location = teamDAO.LokTim
+}
+
+type TeamResponseDTO struct {
+	IdTim     int64  `json:"idTim"`
+	NazTim    string `json:"nazTim"`    // Name
+	GodOsnTim string `json:"godOsnTim"` // Establishment year
+	LokTim    string `json:"lokTim"`    // Location
+}
+
+func (t *Team) FromModel(teamDTO *TeamResponseDTO) {
+	teamDTO.IdTim = t.ID
+	teamDTO.NazTim = t.Name
+	teamDTO.GodOsnTim = t.EstablishmentYear
+	teamDTO.LokTim = t.Location
 }
 
 type AssetForTrade struct {

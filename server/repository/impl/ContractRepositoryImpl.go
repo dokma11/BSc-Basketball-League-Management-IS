@@ -25,16 +25,18 @@ func (repo *contractRepository) GetAll() ([]model.Contract, error) {
 
 	var contracts []model.Contract
 	for rows.Next() {
-		var contract model.Contract
+		var contractDAO model.ContractDAO
 		var option string
-		if err := rows.Scan(&contract.IdUgo, &contract.DatPotUgo, &contract.DatVazUgo, &contract.VredUgo,
-			&option, &contract.IdTim, &contract.IdTipUgo); err != nil {
+		if err := rows.Scan(&contractDAO.IdUgo, &contractDAO.DatPotUgo, &contractDAO.DatVazUgo, &contractDAO.VredUgo,
+			&option, &contractDAO.IdTim, &contractDAO.IdTipUgo); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		mapContractEnum(option, &contract)
+		fromOptionString(option, &contractDAO)
+		contract := &model.Contract{}
+		contract.FromDAO(&contractDAO)
 
-		contracts = append(contracts, contract)
+		contracts = append(contracts, *contract)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -45,31 +47,33 @@ func (repo *contractRepository) GetAll() ([]model.Contract, error) {
 }
 
 func (repo *contractRepository) GetByID(id int) (*model.Contract, error) {
-	var contract model.Contract
+	var contractDAO model.ContractDAO
 	var option string
 	row := repo.db.QueryRow("SELECT * FROM UGOVOR WHERE IDUGO = :1", id)
-	if err := row.Scan(&contract.IdUgo, &contract.DatPotUgo, &contract.DatVazUgo, &contract.VredUgo,
-		&option, &contract.IdTim, &contract.IdTipUgo); err != nil {
+	if err := row.Scan(&contractDAO.IdUgo, &contractDAO.DatPotUgo, &contractDAO.DatVazUgo, &contractDAO.VredUgo,
+		&option, &contractDAO.IdTim, &contractDAO.IdTipUgo); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
 
-	mapContractEnum(option, &contract)
+	fromOptionString(option, &contractDAO)
+	contract := &model.Contract{}
+	contract.FromDAO(&contractDAO)
 
-	return &contract, nil
+	return contract, nil
 }
 
 func (repo *contractRepository) Update(contract *model.Contract) error {
-	_, err := repo.db.Exec("UPDATE UGOVOR SET IDTIM = :1 WHERE IDUGO = :2", contract.IdTim, contract.IdUgo)
+	_, err := repo.db.Exec("UPDATE UGOVOR SET IDTIM = :1 WHERE IDUGO = :2", contract.TeamId, contract.ID)
 	if err != nil {
 		return fmt.Errorf("failed to update contract: %v", err)
 	}
 	return nil
 }
 
-func mapContractEnum(option string, contract *model.Contract) {
+func fromOptionString(option string, contract *model.ContractDAO) {
 	switch option {
 	case "PLAYER_OPTION":
 		contract.OpcUgo = 0

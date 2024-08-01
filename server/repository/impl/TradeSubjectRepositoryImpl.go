@@ -25,18 +25,20 @@ func (repo *tradeSubjectRepository) GetAll() ([]model.TradeSubject, error) {
 
 	var tradeSubjects []model.TradeSubject
 	for rows.Next() {
-		var tradeSubject model.TradeSubject
+		var tradeSubjectDAO model.TradeSubjectDAO
 		var tradeType string
 		var idPrava, idIgrac, idPik sql.NullInt64
-		if err := rows.Scan(&tradeSubject.IdPredTrg, &tradeType, &tradeSubject.IdPrava, &tradeSubject.IdIgrac,
-			&tradeSubject.IdZahTrg, &tradeSubject.IdPik); err != nil {
+		if err := rows.Scan(&tradeSubjectDAO.IdPredTrg, &tradeType, &tradeSubjectDAO.IdPrava, &tradeSubjectDAO.IdIgrac,
+			&tradeSubjectDAO.IdZahTrg, &tradeSubjectDAO.IdPik); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		mapTradeSubjectEnumsForReading(tradeType, &tradeSubject)
-		mapNullableAttributes(idPrava, idIgrac, idPik, &tradeSubject)
+		fromTradeSubjectTypeForReading(tradeType, &tradeSubjectDAO)
+		mapNullableAttributes(idPrava, idIgrac, idPik, &tradeSubjectDAO)
+		tradeSubject := &model.TradeSubject{}
+		tradeSubject.FromDAO(&tradeSubjectDAO)
 
-		tradeSubjects = append(tradeSubjects, tradeSubject)
+		tradeSubjects = append(tradeSubjects, *tradeSubject)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -47,22 +49,24 @@ func (repo *tradeSubjectRepository) GetAll() ([]model.TradeSubject, error) {
 }
 
 func (repo *tradeSubjectRepository) GetByID(id int) (*model.TradeSubject, error) {
-	var tradeSubject model.TradeSubject
+	var tradeSubjectDAO model.TradeSubjectDAO
 	var tradeType string
 	var idPrava, idIgrac, idPik sql.NullInt64
 	row := repo.db.QueryRow("SELECT * FROM PredmetTrgovine WHERE IDPREDTRG = :1", id)
-	if err := row.Scan(&tradeSubject.IdPredTrg, &tradeType, &tradeSubject.IdPrava, &tradeSubject.IdIgrac,
-		&tradeSubject.IdZahTrg, &tradeSubject.IdPik); err != nil {
+	if err := row.Scan(&tradeSubjectDAO.IdPredTrg, &tradeType, &tradeSubjectDAO.IdPrava, &tradeSubjectDAO.IdIgrac,
+		&tradeSubjectDAO.IdZahTrg, &tradeSubjectDAO.IdPik); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
 
-	mapTradeSubjectEnumsForReading(tradeType, &tradeSubject)
-	mapNullableAttributes(idPrava, idIgrac, idPik, &tradeSubject)
+	fromTradeSubjectTypeForReading(tradeType, &tradeSubjectDAO)
+	mapNullableAttributes(idPrava, idIgrac, idPik, &tradeSubjectDAO)
+	tradeSubject := &model.TradeSubject{}
+	tradeSubject.FromDAO(&tradeSubjectDAO)
 
-	return &tradeSubject, nil
+	return tradeSubject, nil
 }
 
 func (repo *tradeSubjectRepository) GetAllByTradeProposalID(tradeProposalID int) ([]model.TradeSubject, error) {
@@ -74,18 +78,20 @@ func (repo *tradeSubjectRepository) GetAllByTradeProposalID(tradeProposalID int)
 
 	var tradeSubjects []model.TradeSubject
 	for rows.Next() {
-		var tradeSubject model.TradeSubject
+		var tradeSubjectDAO model.TradeSubjectDAO
 		var tradeType string
 		var idPrava, idIgrac, idPik sql.NullInt64
-		if err := rows.Scan(&tradeSubject.IdPredTrg, &tradeType, &idPrava, &idIgrac, &tradeSubject.IdZahTrg, &idPik); err != nil {
+		if err := rows.Scan(&tradeSubjectDAO.IdPredTrg, &tradeType, &idPrava, &idIgrac, &tradeSubjectDAO.IdZahTrg, &idPik); err != nil {
 			fmt.Println(err)
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		mapTradeSubjectEnumsForReading(tradeType, &tradeSubject)
-		mapNullableAttributes(idPrava, idIgrac, idPik, &tradeSubject)
+		fromTradeSubjectTypeForReading(tradeType, &tradeSubjectDAO)
+		mapNullableAttributes(idPrava, idIgrac, idPik, &tradeSubjectDAO)
+		tradeSubject := &model.TradeSubject{}
+		tradeSubject.FromDAO(&tradeSubjectDAO)
 
-		tradeSubjects = append(tradeSubjects, tradeSubject)
+		tradeSubjects = append(tradeSubjects, *tradeSubject)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -106,20 +112,22 @@ func (repo *tradeSubjectRepository) GetPlayerTypeSubjectsByTradeProposalID(trade
 
 	var tradeSubjects []model.TradeSubjectDetailsResponseDTO
 	for rows.Next() {
-		var tradeSubject model.TradeSubject
+		var tradeSubjectDAO model.TradeSubjectDAO
 		var tradeType string
 		var teamId int64
 		var idPrava, idIgrac, idPik sql.NullInt64
-		if err := rows.Scan(&teamId, &tradeSubject.IdPredTrg, &tradeType, &idPrava, &idIgrac, &tradeSubject.IdZahTrg, &idPik); err != nil {
+		if err := rows.Scan(&teamId, &tradeSubjectDAO.IdPredTrg, &tradeType, &idPrava, &idIgrac, &tradeSubjectDAO.IdZahTrg, &idPik); err != nil {
 			fmt.Println(err)
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		mapTradeSubjectEnumsForReading(tradeType, &tradeSubject)
-		mapNullableAttributes(idPrava, idIgrac, idPik, &tradeSubject)
+		fromTradeSubjectTypeForReading(tradeType, &tradeSubjectDAO)
+		mapNullableAttributes(idPrava, idIgrac, idPik, &tradeSubjectDAO)
+		tradeSubject := &model.TradeSubject{}
+		tradeSubject.FromDAO(&tradeSubjectDAO)
 
 		var tradeSubjectDTO model.TradeSubjectDetailsResponseDTO
-		mapToTradeSubjectDTO(&tradeSubject, &tradeSubjectDTO, teamId)
+		mapToTradeSubjectDTO(*tradeSubject, &tradeSubjectDTO, teamId)
 
 		tradeSubjects = append(tradeSubjects, tradeSubjectDTO)
 	}
@@ -142,20 +150,22 @@ func (repo *tradeSubjectRepository) GetPickTypeSubjectsByTradeProposalID(tradePr
 
 	var tradeSubjects []model.TradeSubjectDetailsResponseDTO
 	for rows.Next() {
-		var tradeSubject model.TradeSubject
+		var tradeSubjectDAO model.TradeSubjectDAO
 		var tradeType string
 		var teamId int64
 		var idPrava, idIgrac, idPik sql.NullInt64
-		if err := rows.Scan(&teamId, &tradeSubject.IdPredTrg, &tradeType, &idPrava, &idIgrac, &tradeSubject.IdZahTrg, &idPik); err != nil {
+		if err := rows.Scan(&teamId, &tradeSubjectDAO.IdPredTrg, &tradeType, &idPrava, &idIgrac, &tradeSubjectDAO.IdZahTrg, &idPik); err != nil {
 			fmt.Println(err)
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		mapTradeSubjectEnumsForReading(tradeType, &tradeSubject)
-		mapNullableAttributes(idPrava, idIgrac, idPik, &tradeSubject)
+		fromTradeSubjectTypeForReading(tradeType, &tradeSubjectDAO)
+		mapNullableAttributes(idPrava, idIgrac, idPik, &tradeSubjectDAO)
+		tradeSubject := &model.TradeSubject{}
+		tradeSubject.FromDAO(&tradeSubjectDAO)
 
 		var tradeSubjectDTO model.TradeSubjectDetailsResponseDTO
-		mapToTradeSubjectDTO(&tradeSubject, &tradeSubjectDTO, teamId)
+		mapToTradeSubjectDTO(*tradeSubject, &tradeSubjectDTO, teamId)
 
 		tradeSubjects = append(tradeSubjects, tradeSubjectDTO)
 	}
@@ -178,20 +188,22 @@ func (repo *tradeSubjectRepository) GetDraftRightsTypeSubjectsByTradeProposalID(
 
 	var tradeSubjects []model.TradeSubjectDetailsResponseDTO
 	for rows.Next() {
-		var tradeSubject model.TradeSubject
+		var tradeSubjectDAO model.TradeSubjectDAO
 		var tradeType string
 		var teamId int64
 		var idPrava, idIgrac, idPik sql.NullInt64
-		if err := rows.Scan(&teamId, &tradeSubject.IdPredTrg, &tradeType, &idPrava, &idIgrac, &tradeSubject.IdZahTrg, &idPik); err != nil {
+		if err := rows.Scan(&teamId, &tradeSubjectDAO.IdPredTrg, &tradeType, &idPrava, &idIgrac, &tradeSubjectDAO.IdZahTrg, &idPik); err != nil {
 			fmt.Println(err)
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		mapTradeSubjectEnumsForReading(tradeType, &tradeSubject)
-		mapNullableAttributes(idPrava, idIgrac, idPik, &tradeSubject)
+		fromTradeSubjectTypeForReading(tradeType, &tradeSubjectDAO)
+		mapNullableAttributes(idPrava, idIgrac, idPik, &tradeSubjectDAO)
+		tradeSubject := &model.TradeSubject{}
+		tradeSubject.FromDAO(&tradeSubjectDAO)
 
 		var tradeSubjectDTO model.TradeSubjectDetailsResponseDTO
-		mapToTradeSubjectDTO(&tradeSubject, &tradeSubjectDTO, teamId)
+		mapToTradeSubjectDTO(*tradeSubject, &tradeSubjectDTO, teamId)
 
 		tradeSubjects = append(tradeSubjects, tradeSubjectDTO)
 	}
@@ -204,24 +216,24 @@ func (repo *tradeSubjectRepository) GetDraftRightsTypeSubjectsByTradeProposalID(
 }
 
 func (repo *tradeSubjectRepository) Create(tradeSubject *model.TradeSubject) error {
-	if tradeSubject.TipPredTrg == 0 {
+	if tradeSubject.Type == 0 {
 		_, err := repo.db.Exec("INSERT INTO PredmetTrgovine (IDPREDTRG, TIPPREDTRG, IDPRAVA, IDIGRAC, IDZAHTRG, "+
-			"IDPIK) VALUES (:1, :2, :3, :4, :5, :6)", tradeSubject.IdPredTrg, "Igrac", nil,
-			tradeSubject.IdIgrac, tradeSubject.IdZahTrg, nil)
+			"IDPIK) VALUES (:1, :2, :3, :4, :5, :6)", tradeSubject.ID, "Igrac", nil,
+			tradeSubject.PlayerId, tradeSubject.TradeProposalId, nil)
 		if err != nil {
 			return fmt.Errorf("failed to create a trade proposal: %v", err)
 		}
 		return nil
-	} else if tradeSubject.TipPredTrg == 1 {
+	} else if tradeSubject.Type == 1 {
 		_, err := repo.db.Exec("INSERT INTO PredmetTrgovine (IDPREDTRG, TIPPREDTRG, IDPRAVA, IDIGRAC, IDZAHTRG, "+
-			"IDPIK) VALUES (:1, :2, :3, :4, :5, :6)", tradeSubject.IdPredTrg, "Pik", nil, nil, tradeSubject.IdZahTrg, tradeSubject.IdPik)
+			"IDPIK) VALUES (:1, :2, :3, :4, :5, :6)", tradeSubject.ID, "Pik", nil, nil, tradeSubject.TradeProposalId, tradeSubject.PickId)
 		if err != nil {
 			return fmt.Errorf("failed to create a trade proposal: %v", err)
 		}
 		return nil
 	} else {
 		_, err := repo.db.Exec("INSERT INTO PredmetTrgovine (IDPREDTRG, TIPPREDTRG, IDPRAVA, IDIGRAC, IDZAHTRG, "+
-			"IDPIK) VALUES (:1, :2, :3, :4, :5, :6)", tradeSubject.IdPredTrg, "PravaNaIgraca", tradeSubject.IdPrava, nil, tradeSubject.IdZahTrg, nil)
+			"IDPIK) VALUES (:1, :2, :3, :4, :5, :6)", tradeSubject.ID, "PravaNaIgraca", tradeSubject.DraftRightsId, nil, tradeSubject.TradeProposalId, nil)
 		if err != nil {
 			return fmt.Errorf("failed to create a trade proposal: %v", err)
 		}
@@ -229,7 +241,7 @@ func (repo *tradeSubjectRepository) Create(tradeSubject *model.TradeSubject) err
 	}
 }
 
-func mapTradeSubjectEnumsForReading(tradeType string, tradeSubject *model.TradeSubject) {
+func fromTradeSubjectTypeForReading(tradeType string, tradeSubject *model.TradeSubjectDAO) {
 	switch tradeType {
 	case "Igrac":
 		tradeSubject.TipPredTrg = 0
@@ -240,8 +252,8 @@ func mapTradeSubjectEnumsForReading(tradeType string, tradeSubject *model.TradeS
 	}
 }
 
-func mapTradeSubjectEnumsForWriting(tradeSubject *model.TradeSubject) string {
-	switch tradeSubject.TipPredTrg {
+func fromTradeSubjectTypeForWriting(tradeSubject *model.TradeSubject) string {
+	switch tradeSubject.Type {
 	case 0:
 		return "Igrac"
 	case 1:
@@ -251,7 +263,7 @@ func mapTradeSubjectEnumsForWriting(tradeSubject *model.TradeSubject) string {
 	}
 }
 
-func mapNullableAttributes(idPrava sql.NullInt64, idIgrac sql.NullInt64, idPik sql.NullInt64, tradeSubject *model.TradeSubject) {
+func mapNullableAttributes(idPrava sql.NullInt64, idIgrac sql.NullInt64, idPik sql.NullInt64, tradeSubject *model.TradeSubjectDAO) {
 	if idPrava.Valid {
 		tradeSubject.IdPrava = idPrava.Int64
 	}
@@ -263,12 +275,12 @@ func mapNullableAttributes(idPrava sql.NullInt64, idIgrac sql.NullInt64, idPik s
 	}
 }
 
-func mapToTradeSubjectDTO(tradeSubject *model.TradeSubject, tradeSubjectDTO *model.TradeSubjectDetailsResponseDTO, teamId int64) {
-	tradeSubjectDTO.IdPredTrg = tradeSubject.IdPredTrg
-	tradeSubjectDTO.TipPredTrg = tradeSubject.TipPredTrg
-	tradeSubjectDTO.IdPrava = tradeSubject.IdPrava
+func mapToTradeSubjectDTO(tradeSubject model.TradeSubject, tradeSubjectDTO *model.TradeSubjectDetailsResponseDTO, teamId int64) {
+	tradeSubjectDTO.IdPredTrg = tradeSubject.ID
+	tradeSubjectDTO.TipPredTrg = tradeSubject.Type
+	tradeSubjectDTO.IdPrava = tradeSubject.DraftRightsId
 	tradeSubjectDTO.IdTim = teamId
-	tradeSubjectDTO.IdPik = tradeSubject.IdPik
-	tradeSubjectDTO.IdZahTrg = tradeSubject.IdZahTrg
-	tradeSubjectDTO.IdIgrac = tradeSubject.IdIgrac
+	tradeSubjectDTO.IdPik = tradeSubject.PickId
+	tradeSubjectDTO.IdZahTrg = tradeSubject.TradeProposalId
+	tradeSubjectDTO.IdIgrac = tradeSubject.PlayerId
 }

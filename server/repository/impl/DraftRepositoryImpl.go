@@ -25,11 +25,15 @@ func (repo *draftRepository) GetAll() ([]model.Draft, error) {
 
 	var drafts []model.Draft
 	for rows.Next() {
-		var draft model.Draft
-		if err := rows.Scan(&draft.IdDraft, &draft.GodOdrDraft, &draft.LokOdrDraft); err != nil {
+		var draftDAO model.DraftDAO
+		if err := rows.Scan(&draftDAO.IdDraft, &draftDAO.GodOdrDraft, &draftDAO.LokOdrDraft); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
-		drafts = append(drafts, draft)
+
+		draft := &model.Draft{}
+		draft.FromDAO(&draftDAO)
+
+		drafts = append(drafts, *draft)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -40,13 +44,17 @@ func (repo *draftRepository) GetAll() ([]model.Draft, error) {
 }
 
 func (repo *draftRepository) GetByID(id int) (*model.Draft, error) {
-	var draft model.Draft
+	var draftDAO model.DraftDAO
 	row := repo.db.QueryRow("SELECT * FROM DRAFT WHERE IDDRAFT = :1", id)
-	if err := row.Scan(&draft.IdDraft, &draft.GodOdrDraft, &draft.LokOdrDraft); err != nil {
+	if err := row.Scan(&draftDAO.IdDraft, &draftDAO.GodOdrDraft, &draftDAO.LokOdrDraft); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
-	return &draft, nil
+
+	draft := &model.Draft{}
+	draft.FromDAO(&draftDAO)
+
+	return draft, nil
 }

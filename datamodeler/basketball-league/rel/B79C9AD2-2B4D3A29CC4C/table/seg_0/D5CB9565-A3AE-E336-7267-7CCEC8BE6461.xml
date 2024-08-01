@@ -1,17 +1,15 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A1863A2C-07DC-8D93-D56B-954E4CDF49B9" name="Ucestvuje">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D5CB9565-A3AE-E336-7267-7CCEC8BE6461" name="Kreira">
 <createdBy>HP Pavilion</createdBy>
-<createdTime>2024-07-24 16:54:31 UTC</createdTime>
-<generatorID>198EFB94-8E7E-0A4A-AE0A-97F78E2AE3FA</generatorID>
+<createdTime>2024-08-01 09:59:34 UTC</createdTime>
 <ownerDesignName>basketball-league</ownerDesignName>
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="IdRegrut" id="B2278992-CD87-25F5-FB1A-FDEE7BFB9A99">
+<Column name="IdTim" id="28F476F3-071E-1352-5F80-914EB4D8DA81">
 <createdBy>HP Pavilion</createdBy>
-<createdTime>2024-07-24 16:54:31 UTC</createdTime>
-<generatorID>F0E833AC-8C21-751F-3C8A-B6BFCFA8C804</generatorID>
+<createdTime>2024-08-01 09:59:34 UTC</createdTime>
 <ownerDesignName>basketball-league</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -20,13 +18,12 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="DB61305A-F461-1C2F-7CA2-9C23A374BFCB" referredColumn="B0E093D9-AB4A-7724-16E4-DE201CB2C19E"/>
+<colAssociation fkAssociation="16E21249-CAFC-4C63-63C4-D3B29CC643FE" referredColumn="00A781D7-3E50-ADDF-1CB2-13CF39362D08"/>
 </associations>
 </Column>
-<Column name="IdTrng" id="36E32B2D-A411-D3AF-D40D-5FB4ABC0104E">
+<Column name="IdZeljTim" id="19C680E0-7CEB-032F-793C-F8388C235A0F">
 <createdBy>HP Pavilion</createdBy>
-<createdTime>2024-07-24 16:54:31 UTC</createdTime>
-<generatorID>E8A99BF6-46A2-3B34-7924-BC8C0A7532AA</generatorID>
+<createdTime>2024-08-01 09:59:34 UTC</createdTime>
 <ownerDesignName>basketball-league</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -35,44 +32,43 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="EC971285-07BD-407A-04B9-0C78E60FBEDE" referredColumn="2E136342-AD94-EFA7-B1A3-CABE0237A11C"/>
+<colAssociation fkAssociation="AB0A05EA-41A1-4A1F-9909-A4E010FAC3F3" referredColumn="F9F77F18-04DA-6C3C-6627-200DFA77108A"/>
 </associations>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="F268DE8F-C183-80AC-96B3-A0AADD2F84E9" name="Ucestvuje_PK">
+<ind_PK_UK id="4717B108-5458-C687-F2C2-DFBEF7303668" name="Kreira_PK">
 <createdBy>HP Pavilion</createdBy>
-<createdTime>2024-07-24 16:54:31 UTC</createdTime>
-<generatorID>BA02AE87-CD04-D607-C0D7-2D216C44E24E</generatorID>
+<createdTime>2024-08-01 09:59:34 UTC</createdTime>
 <ownerDesignName>basketball-league</ownerDesignName>
 <pk>true</pk>
 <indexState>Primary Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="B2278992-CD87-25F5-FB1A-FDEE7BFB9A99"/>
-<colUsage columnID="36E32B2D-A411-D3AF-D40D-5FB4ABC0104E"/>
+<colUsage columnID="28F476F3-071E-1352-5F80-914EB4D8DA81"/>
+<colUsage columnID="19C680E0-7CEB-032F-793C-F8388C235A0F"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="21FA66F6-E4DC-33E5-2A2C-AB677ED23F1F" name="Ucestvuje_Trening_FK">
-<createdBy>HP Pavilion</createdBy>
-<createdTime>2024-07-24 16:54:32 UTC</createdTime>
-<generatorID>08D52B92-2F72-66D6-A164-D1124D349268</generatorID>
-<ownerDesignName>basketball-league</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="36E32B2D-A411-D3AF-D40D-5FB4ABC0104E"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="2477A3B4-E531-BBD1-1D14-9E0493450C3E" name="Ucestvuje_Regrut_FK">
+<ind_PK_UK id="2934905C-A221-366D-0089-7A0E4FDF69AC" name="Kreira_Tim_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-01 09:59:34 UTC</createdTime>
-<generatorID>ADEDBDFE-BC98-7D11-5636-B6ED512439A4</generatorID>
+<generatorID>85CADE04-5A43-54FC-DE3A-DC9F37180A58</generatorID>
 <ownerDesignName>basketball-league</ownerDesignName>
 <indexState>Foreign Key</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="B2278992-CD87-25F5-FB1A-FDEE7BFB9A99"/>
+<colUsage columnID="28F476F3-071E-1352-5F80-914EB4D8DA81"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4786D62A-D30F-7E9F-5ECD-AD32B79E53AD" name="Kreira_ZeljaTima_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-01 09:59:34 UTC</createdTime>
+<generatorID>85CADE04-5A43-54FC-DE3A-DC9F37180A58</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="19C680E0-7CEB-032F-793C-F8388C235A0F"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

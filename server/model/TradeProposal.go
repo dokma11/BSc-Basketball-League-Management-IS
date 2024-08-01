@@ -23,23 +23,23 @@ const (
 )
 
 type TradeProposal struct {
-	IdZahTrg       int64               `json:"idZahTrg"`
-	DatZahTrg      time.Time           `json:"datZahTrg"` // Date of creation
-	TipZahTrg      TradeType           `json:"tipZahTrg"`
-	StatusZahTrg   TradeProposalStatus `json:"statusZahTrg"`
-	RazlogOdbij    string              `json:"razlogOdbij"`    // Reason for declining if declined
-	IdMenadzerPos  int64               `json:"idMenadzerPos"`  // Sender foreign key
-	IdMenadzerPrim int64               `json:"idMenadzerPrim"` // Receiver foreign key
+	ID           int64
+	Date         time.Time
+	Type         TradeType
+	Status       TradeProposalStatus
+	DenialReason string
+	SenderId     int64 // Sender foreign key
+	ReceiverId   int64 // Receiver foreign key
 }
 
 func NewTradeProposal(idZahTrg int64, datZahTrg time.Time, tipZahTrg TradeType, statusZahTrg TradeProposalStatus,
 	razlogOdbij string) (*TradeProposal, error) {
 	tradeProposal := &TradeProposal{
-		IdZahTrg:     idZahTrg,
-		DatZahTrg:    datZahTrg,
-		TipZahTrg:    tipZahTrg,
-		StatusZahTrg: statusZahTrg,
-		RazlogOdbij:  razlogOdbij,
+		ID:           idZahTrg,
+		Date:         datZahTrg,
+		Type:         tipZahTrg,
+		Status:       statusZahTrg,
+		DenialReason: razlogOdbij,
 	}
 
 	if err := tradeProposal.Validate(); err != nil {
@@ -50,17 +50,56 @@ func NewTradeProposal(idZahTrg int64, datZahTrg time.Time, tipZahTrg TradeType, 
 }
 
 func (t *TradeProposal) Validate() error {
-	if t.TipZahTrg < 0 || t.TipZahTrg > 2 {
+	if t.Type < 0 || t.Type > 2 {
 		return errors.New("type field is invalid")
 	}
-	if t.StatusZahTrg < 0 || t.StatusZahTrg > 3 {
+	if t.Status < 0 || t.Status > 3 {
 		return errors.New("status field is invalid")
 	}
-	if t.StatusZahTrg == 2 && t.RazlogOdbij == "" {
+	if t.Status == 2 && t.DenialReason == "" {
 		return errors.New("reason for declining field can not be empty when the proposal is declined")
 	}
-
 	return nil
+}
+
+type TradeProposalDAO struct {
+	IdZahTrg       int64
+	DatZahTrg      time.Time // Date of creation
+	TipZahTrg      TradeType
+	StatusZahTrg   TradeProposalStatus
+	RazlogOdbij    string // Denial reason
+	IdMenadzerPos  int64  // Sender foreign key
+	IdMenadzerPrim int64  // Receiver foreign key
+}
+
+func (t *TradeProposal) FromDAO(tradeProposalDAO *TradeProposalDAO) {
+	t.ID = tradeProposalDAO.IdZahTrg
+	t.Date = tradeProposalDAO.DatZahTrg
+	t.Type = tradeProposalDAO.TipZahTrg
+	t.Status = tradeProposalDAO.StatusZahTrg
+	t.DenialReason = tradeProposalDAO.RazlogOdbij
+	t.SenderId = tradeProposalDAO.IdMenadzerPos
+	t.ReceiverId = tradeProposalDAO.IdMenadzerPrim
+}
+
+type TradeProposalResponseDTO struct {
+	IdZahTrg       int64               `json:"idZahTrg"`
+	DatZahTrg      time.Time           `json:"datZahTrg"` // Date of creation
+	TipZahTrg      TradeType           `json:"tipZahTrg"`
+	StatusZahTrg   TradeProposalStatus `json:"statusZahTrg"`
+	RazlogOdbij    string              `json:"razlogOdbij"`    // Denial reason
+	IdMenadzerPos  int64               `json:"idMenadzerPos"`  // Sender foreign key
+	IdMenadzerPrim int64               `json:"idMenadzerPrim"` // Receiver foreign key
+}
+
+func (t *TradeProposal) FromModel(tradeProposalDTO *TradeProposalResponseDTO) {
+	tradeProposalDTO.IdZahTrg = t.ID
+	tradeProposalDTO.DatZahTrg = t.Date
+	tradeProposalDTO.TipZahTrg = t.Type
+	tradeProposalDTO.StatusZahTrg = t.Status
+	tradeProposalDTO.RazlogOdbij = t.DenialReason
+	tradeProposalDTO.IdMenadzerPos = t.SenderId
+	tradeProposalDTO.IdMenadzerPrim = t.ReceiverId
 }
 
 type TradeProposalCreateDTO struct {
@@ -71,6 +110,17 @@ type TradeProposalCreateDTO struct {
 }
 
 type TradeProposalUpdateDTO struct {
-	IdZahTrg  int64     `json:"idZahTrg"`
-	TipZahTrg TradeType `json:"tipZahTrg"`
+	IdZahTrg     int64               `json:"idZahTrg"`
+	TipZahTrg    TradeType           `json:"tipZahTrg"`
+	StatusZahTrg TradeProposalStatus `json:"statusZahTrg"`
+	RazlogOdbij  string              `json:"razlogOdbij"` // Denial Reason
+}
+
+func (t *TradeProposal) FromUpdateDTO(tradeProposalDTO *TradeProposalUpdateDTO) {
+	t.ID = tradeProposalDTO.IdZahTrg
+	t.Type = tradeProposalDTO.TipZahTrg
+	t.Status = tradeProposalDTO.StatusZahTrg
+	if tradeProposalDTO.RazlogOdbij != "" {
+		t.DenialReason = tradeProposalDTO.RazlogOdbij
+	}
 }

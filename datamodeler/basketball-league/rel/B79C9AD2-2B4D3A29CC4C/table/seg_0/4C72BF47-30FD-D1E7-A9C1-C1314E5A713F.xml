@@ -98,7 +98,7 @@
 <colUsage columnID="6AB07215-5F81-B7FD-2EA9-B9D3AD91F5C0"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="A0C85A76-79B2-46F2-CE04-8FD96A301E17" name="ImoZaTrgTim_TipImoZaTrg_FK">
+<ind_PK_UK id="A0C85A76-79B2-46F2-CE04-8FD96A301E17" name="ImoTrgTim_TipImoTrg_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>5B4F8009-C289-3C61-F107-212B37918914</generatorID>
@@ -109,7 +109,7 @@
 <colUsage columnID="2D059519-2E05-DEDD-2A23-08972767CE31"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="BF212B83-12F1-7A9B-2278-3DB9A0F9CE9F" name="ImoZaTrgTim_Tim_FK">
+<ind_PK_UK id="BF212B83-12F1-7A9B-2278-3DB9A0F9CE9F" name="ImoTrgTim_Tim_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:32 UTC</createdTime>
 <generatorID>628C45BF-0285-6C41-6A39-9BF4EED304A6</generatorID>

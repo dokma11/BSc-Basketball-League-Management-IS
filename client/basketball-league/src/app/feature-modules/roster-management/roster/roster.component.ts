@@ -131,7 +131,6 @@ export class RosterComponent implements OnInit{
   getLoggedInUsersAssets() {
     this.fullTeams.forEach(team =>{
       if(team.idTim == this.user?.teamId){
-        // this.teamCtrl.setValue(team.nazTim);
         this.initialTeamName = team.nazTim;
         if (this.assetForm.value.selectedAssetType === 'Players') {
           this.rosterService.getAllPlayersByTeamId(team.idTim).subscribe({

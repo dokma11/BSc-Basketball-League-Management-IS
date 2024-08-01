@@ -14,22 +14,22 @@ const (
 )
 
 type TrainingRequest struct {
-	IdPozTrng     int64                 `json:"idPozTrng"`
-	DatVrePozTrng time.Time             `json:"datVrePozTrng"` // Occurrence date and time
-	MesOdrPozTrng string                `json:"mesOdrPozTrng"` // Occurrence location
-	StatusPozTrng TrainingRequestStatus `json:"statusPozTrng"`
-	RazOdbPozTrng string                `json:"razOdbPozTrng"` // Denial reason
-	IdTrener      int64                 `json:"idTrener"`      // Coach foreign key
+	ID                 int64
+	OccurrenceDateTime time.Time
+	OccurrenceLocation string
+	Status             TrainingRequestStatus
+	DenialReason       string
+	CoachId            int64 // Coach foreign key
 }
 
 func NewTrainingRequest(idPozTrng int64, datVrePozTrng time.Time, mesOdrPozTrng string, statusPozTrng TrainingRequestStatus,
 	razOdbPozTrng string) (*TrainingRequest, error) {
 	trainingRequest := &TrainingRequest{
-		IdPozTrng:     idPozTrng,
-		DatVrePozTrng: datVrePozTrng,
-		MesOdrPozTrng: mesOdrPozTrng,
-		StatusPozTrng: statusPozTrng,
-		RazOdbPozTrng: razOdbPozTrng,
+		ID:                 idPozTrng,
+		OccurrenceDateTime: datVrePozTrng,
+		OccurrenceLocation: mesOdrPozTrng,
+		Status:             statusPozTrng,
+		DenialReason:       razOdbPozTrng,
 	}
 
 	if err := trainingRequest.Validate(); err != nil {
@@ -40,14 +40,84 @@ func NewTrainingRequest(idPozTrng int64, datVrePozTrng time.Time, mesOdrPozTrng 
 }
 
 func (t *TrainingRequest) Validate() error {
-	if t.MesOdrPozTrng == "" {
+	if t.OccurrenceLocation == "" {
 		return errors.New("location field is empty")
 	}
-	if t.StatusPozTrng < 0 || t.StatusPozTrng > 2 {
+	if t.Status < 0 || t.Status > 2 {
 		return errors.New("status field is invalid")
 	}
-	if t.RazOdbPozTrng == "" {
+	if t.DenialReason == "" {
 		return errors.New("denial reason field is empty")
 	}
 	return nil
+}
+
+type TrainingRequestDAO struct {
+	IdPozTrng     int64                 `json:"idPozTrng"`
+	DatVrePozTrng time.Time             `json:"datVrePozTrng"` // Occurrence date and time
+	MesOdrPozTrng string                `json:"mesOdrPozTrng"` // Occurrence location
+	StatusPozTrng TrainingRequestStatus `json:"statusPozTrng"`
+	RazOdbPozTrng string                `json:"razOdbPozTrng"` // Denial reason
+	IdTrener      int64                 `json:"idTrener"`      // Coach foreign key
+}
+
+func (t *TrainingRequest) FromDAO(trainingRequestDAO *TrainingRequestDAO) {
+	t.ID = trainingRequestDAO.IdPozTrng
+	t.OccurrenceDateTime = trainingRequestDAO.DatVrePozTrng
+	t.OccurrenceLocation = trainingRequestDAO.MesOdrPozTrng
+	t.Status = trainingRequestDAO.StatusPozTrng
+	t.DenialReason = trainingRequestDAO.RazOdbPozTrng
+	t.CoachId = trainingRequestDAO.IdTrener
+}
+
+type TrainingRequestResponseDTO struct {
+	IdPozTrng     int64                 `json:"idPozTrng"`
+	DatVrePozTrng time.Time             `json:"datVrePozTrng"` // Occurrence date and time
+	MesOdrPozTrng string                `json:"mesOdrPozTrng"` // Occurrence location
+	StatusPozTrng TrainingRequestStatus `json:"statusPozTrng"`
+	RazOdbPozTrng string                `json:"razOdbPozTrng"` // Denial reason
+	IdTrener      int64                 `json:"idTrener"`      // Coach foreign key
+}
+
+func (t *TrainingRequest) FromModel(trainingRequestDTO *TrainingRequestResponseDTO) {
+	trainingRequestDTO.IdPozTrng = t.ID
+	trainingRequestDTO.DatVrePozTrng = t.OccurrenceDateTime
+	trainingRequestDTO.MesOdrPozTrng = t.OccurrenceLocation
+	trainingRequestDTO.StatusPozTrng = t.Status
+	trainingRequestDTO.RazOdbPozTrng = t.DenialReason
+	trainingRequestDTO.IdTrener = t.CoachId
+}
+
+type TrainingRequestCreateDTO struct {
+	DatVrePozTrng time.Time             `json:"datVrePozTrng"` // Occurrence date and time
+	MesOdrPozTrng string                `json:"mesOdrPozTrng"` // Occurrence location
+	StatusPozTrng TrainingRequestStatus `json:"statusPozTrng"`
+	RazOdbPozTrng string                `json:"razOdbPozTrng"` // Denial reason
+	IdTrener      int64                 `json:"idTrener"`      // Coach foreign key
+}
+
+func (t *TrainingRequest) FromDTO(trainingRequestDTO *TrainingRequestCreateDTO) {
+	t.OccurrenceDateTime = trainingRequestDTO.DatVrePozTrng
+	t.OccurrenceLocation = trainingRequestDTO.MesOdrPozTrng
+	t.Status = trainingRequestDTO.StatusPozTrng
+	t.DenialReason = trainingRequestDTO.RazOdbPozTrng
+	t.CoachId = trainingRequestDTO.IdTrener
+}
+
+type TrainingRequestUpdateDTO struct {
+	IdPozTrng     int64                 `json:"idPozTrng"`
+	DatVrePozTrng time.Time             `json:"datVrePozTrng"` // Occurrence date and time
+	MesOdrPozTrng string                `json:"mesOdrPozTrng"` // Occurrence location
+	StatusPozTrng TrainingRequestStatus `json:"statusPozTrng"`
+	RazOdbPozTrng string                `json:"razOdbPozTrng"` // Denial reason
+	IdTrener      int64                 `json:"idTrener"`      // Coach foreign key
+}
+
+func (t *TrainingRequest) FromUpdateDTO(trainingRequestDTO *TrainingRequestUpdateDTO) {
+	t.ID = trainingRequestDTO.IdPozTrng
+	t.OccurrenceDateTime = trainingRequestDTO.DatVrePozTrng
+	t.OccurrenceLocation = trainingRequestDTO.MesOdrPozTrng
+	t.Status = trainingRequestDTO.StatusPozTrng
+	t.DenialReason = trainingRequestDTO.RazOdbPozTrng
+	t.CoachId = trainingRequestDTO.IdTrener
 }

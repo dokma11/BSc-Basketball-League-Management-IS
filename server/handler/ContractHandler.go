@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"basketball-league-server/model"
 	"basketball-league-server/service"
 	"encoding/json"
 	"github.com/gorilla/mux"
@@ -16,17 +17,24 @@ func NewContractHandler(ContractService *service.ContractService) *ContractHandl
 	return &ContractHandler{ContractService: ContractService}
 }
 
-func (handler *ContractHandler) GetAll(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *ContractHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	contracts, err := handler.ContractService.GetAll()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	json.NewEncoder(w).Encode(contracts) // Proveriti samo da li valja
+	var contractResponseDTOs []model.ContractResponseDTO
+	for _, contract := range *contracts {
+		var contractResponseDTO model.ContractResponseDTO
+		contract.FromModel(&contractResponseDTO)
+		contractResponseDTOs = append(contractResponseDTOs, contractResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(contractResponseDTOs)
 }
 
-func (handler *ContractHandler) GetByID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *ContractHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
@@ -44,5 +52,8 @@ func (handler *ContractHandler) GetByID(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	json.NewEncoder(w).Encode(contract)
+	var contractResponseDTO model.ContractResponseDTO
+	contract.FromModel(&contractResponseDTO)
+
+	json.NewEncoder(w).Encode(contractResponseDTO)
 }

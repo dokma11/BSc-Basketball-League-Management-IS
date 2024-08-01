@@ -11,16 +11,16 @@ func newScout(id int64, email string, ime string, prezime string, datRodj time.T
 	scout := &Scout{
 		Employee: Employee{
 			User: User{
-				Id:      id,
-				Email:   email,
-				Ime:     ime,
-				Prezime: prezime,
-				DatRodj: datRodj,
-				Lozinka: lozinka,
-				Uloga:   uloga,
+				ID:          id,
+				Email:       email,
+				FirstName:   ime,
+				LastName:    prezime,
+				DateOfBirth: datRodj,
+				Password:    lozinka,
+				Role:        uloga,
 			},
-			UloZap: ulogaZaposlenog,
-			MbrZap: mbrZap,
+			Role:                 ulogaZaposlenog,
+			IdentificationNumber: mbrZap,
 		},
 	}
 

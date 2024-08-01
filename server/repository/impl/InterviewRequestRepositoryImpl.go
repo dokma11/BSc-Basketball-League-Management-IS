@@ -25,22 +25,18 @@ func (repo *interviewRequestRepository) GetAll() ([]model.InterviewRequest, erro
 
 	var interviewRequests []model.InterviewRequest
 	for rows.Next() {
-		var interviewRequest model.InterviewRequest
+		var interviewRequestDAO model.InterviewRequestDAO
 		var status string
-		if err := rows.Scan(&interviewRequest.IdPozInt, &interviewRequest.MesOdrPozInt, &interviewRequest.DatVrePozInt,
-			&status, &interviewRequest.RazOdbPozInt, &interviewRequest.IdRegrut, &interviewRequest.IdTrener); err != nil {
+		if err := rows.Scan(&interviewRequestDAO.IdPozInt, &interviewRequestDAO.MesOdrPozInt, &interviewRequestDAO.DatVrePozInt,
+			&status, &interviewRequestDAO.RazOdbPozInt, &interviewRequestDAO.IdRegrut, &interviewRequestDAO.IdTrener); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		if status == "WAITING" {
-			interviewRequest.StatusPozInt = 0
-		} else if status == "AFFIRMED" {
-			interviewRequest.StatusPozInt = 1
-		} else if status == "REJECTED" {
-			interviewRequest.StatusPozInt = 2
-		}
+		fromStatusString(status, &interviewRequestDAO)
+		interviewRequest := &model.InterviewRequest{}
+		interviewRequest.FromDAO(&interviewRequestDAO)
 
-		interviewRequests = append(interviewRequests, interviewRequest)
+		interviewRequests = append(interviewRequests, *interviewRequest)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -51,26 +47,22 @@ func (repo *interviewRequestRepository) GetAll() ([]model.InterviewRequest, erro
 }
 
 func (repo *interviewRequestRepository) GetByID(id int) (*model.InterviewRequest, error) {
-	var interviewRequest model.InterviewRequest
+	var interviewRequestDAO model.InterviewRequestDAO
 	var status string
 	row := repo.db.QueryRow("SELECT * FROM PozivNaIntervju WHERE IDPOZINT = :1", id)
-	if err := row.Scan(&interviewRequest.IdPozInt, &interviewRequest.MesOdrPozInt, &interviewRequest.DatVrePozInt,
-		&status, &interviewRequest.RazOdbPozInt, &interviewRequest.IdRegrut, &interviewRequest.IdTrener); err != nil {
+	if err := row.Scan(&interviewRequestDAO.IdPozInt, &interviewRequestDAO.MesOdrPozInt, &interviewRequestDAO.DatVrePozInt,
+		&status, &interviewRequestDAO.RazOdbPozInt, &interviewRequestDAO.IdRegrut, &interviewRequestDAO.IdTrener); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
 
-	if status == "WAITING" {
-		interviewRequest.StatusPozInt = 0
-	} else if status == "AFFIRMED" {
-		interviewRequest.StatusPozInt = 1
-	} else if status == "REJECTED" {
-		interviewRequest.StatusPozInt = 2
-	}
+	fromStatusString(status, &interviewRequestDAO)
+	interviewRequest := &model.InterviewRequest{}
+	interviewRequest.FromDAO(&interviewRequestDAO)
 
-	return &interviewRequest, nil
+	return interviewRequest, nil
 }
 
 func (repo *interviewRequestRepository) GetAllBySenderID(userID int) ([]model.InterviewRequest, error) {
@@ -82,22 +74,18 @@ func (repo *interviewRequestRepository) GetAllBySenderID(userID int) ([]model.In
 
 	var interviewRequests []model.InterviewRequest
 	for rows.Next() {
-		var interviewRequest model.InterviewRequest
+		var interviewRequestDAO model.InterviewRequestDAO
 		var status string
-		if err := rows.Scan(&interviewRequest.IdPozInt, &interviewRequest.MesOdrPozInt, &interviewRequest.DatVrePozInt,
-			&status, &interviewRequest.RazOdbPozInt, &interviewRequest.IdRegrut, &interviewRequest.IdTrener); err != nil {
+		if err := rows.Scan(&interviewRequestDAO.IdPozInt, &interviewRequestDAO.MesOdrPozInt, &interviewRequestDAO.DatVrePozInt,
+			&status, &interviewRequestDAO.RazOdbPozInt, &interviewRequestDAO.IdRegrut, &interviewRequestDAO.IdTrener); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		if status == "WAITING" {
-			interviewRequest.StatusPozInt = 0
-		} else if status == "AFFIRMED" {
-			interviewRequest.StatusPozInt = 1
-		} else if status == "REJECTED" {
-			interviewRequest.StatusPozInt = 2
-		}
+		fromStatusString(status, &interviewRequestDAO)
+		interviewRequest := &model.InterviewRequest{}
+		interviewRequest.FromDAO(&interviewRequestDAO)
 
-		interviewRequests = append(interviewRequests, interviewRequest)
+		interviewRequests = append(interviewRequests, *interviewRequest)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -116,22 +104,18 @@ func (repo *interviewRequestRepository) GetAllByReceiverID(userID int) ([]model.
 
 	var interviewRequests []model.InterviewRequest
 	for rows.Next() {
-		var interviewRequest model.InterviewRequest
+		var interviewRequestDAO model.InterviewRequestDAO
 		var status string
-		if err := rows.Scan(&interviewRequest.IdPozInt, &interviewRequest.MesOdrPozInt, &interviewRequest.DatVrePozInt,
-			&status, &interviewRequest.RazOdbPozInt, &interviewRequest.IdRegrut, &interviewRequest.IdTrener); err != nil {
+		if err := rows.Scan(&interviewRequestDAO.IdPozInt, &interviewRequestDAO.MesOdrPozInt, &interviewRequestDAO.DatVrePozInt,
+			&status, &interviewRequestDAO.RazOdbPozInt, &interviewRequestDAO.IdRegrut, &interviewRequestDAO.IdTrener); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		if status == "WAITING" {
-			interviewRequest.StatusPozInt = 0
-		} else if status == "AFFIRMED" {
-			interviewRequest.StatusPozInt = 1
-		} else if status == "REJECTED" {
-			interviewRequest.StatusPozInt = 2
-		}
+		fromStatusString(status, &interviewRequestDAO)
+		interviewRequest := &model.InterviewRequest{}
+		interviewRequest.FromDAO(&interviewRequestDAO)
 
-		interviewRequests = append(interviewRequests, interviewRequest)
+		interviewRequests = append(interviewRequests, *interviewRequest)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -144,8 +128,8 @@ func (repo *interviewRequestRepository) GetAllByReceiverID(userID int) ([]model.
 func (repo *interviewRequestRepository) Create(interviewRequest *model.InterviewRequest) error {
 	_, err := repo.db.Exec("INSERT INTO PozivNaIntervju (IDPOZINT, MESODRINT, DATVREPOZINT, STATUSPOZINT, RAZODBPOZINT, "+
 		"IDREGRUT, IDTRENER) "+
-		"VALUES (:1, :2, :3, :4, :5)", interviewRequest.IdPozInt, interviewRequest.MesOdrPozInt, interviewRequest.DatVrePozInt,
-		interviewRequest.StatusPozInt, &interviewRequest.RazOdbPozInt, interviewRequest.IdRegrut, interviewRequest.IdTrener)
+		"VALUES (:1, :2, :3, :4, :5)", interviewRequest.ID, interviewRequest.OccurrenceLocation, interviewRequest.OccurrenceDateTime,
+		interviewRequest.Status, &interviewRequest.DenialReason, interviewRequest.RecruitId, interviewRequest.CoachId)
 	if err != nil {
 		return fmt.Errorf("failed to create a interview request: %v", err)
 	}
@@ -154,10 +138,21 @@ func (repo *interviewRequestRepository) Create(interviewRequest *model.Interview
 
 func (repo *interviewRequestRepository) Update(interviewRequest *model.InterviewRequest) error {
 	_, err := repo.db.Exec("UPDATE PozivNaIntervju SET MESODRINT = :2, DATVREPOZINT = :3, STATUSPOZINT = :4,"+
-		" RAZODBPOZINT = :5 WHERE IDPOZINT = :1", interviewRequest.IdPozInt, interviewRequest.MesOdrPozInt,
-		interviewRequest.DatVrePozInt, interviewRequest.StatusPozInt, interviewRequest.RazOdbPozInt)
+		" RAZODBPOZINT = :5 WHERE IDPOZINT = :1", interviewRequest.ID, interviewRequest.OccurrenceLocation,
+		interviewRequest.OccurrenceDateTime, interviewRequest.Status, &interviewRequest.DenialReason)
 	if err != nil {
 		return fmt.Errorf("failed to update interview request: %v", err)
 	}
 	return nil
+}
+
+func fromStatusString(status string, interviewRequest *model.InterviewRequestDAO) {
+	switch status {
+	case "WAITING":
+		interviewRequest.StatusPozInt = 0
+	case "AFFIRMED":
+		interviewRequest.StatusPozInt = 1
+	default:
+		interviewRequest.StatusPozInt = 2
+	}
 }

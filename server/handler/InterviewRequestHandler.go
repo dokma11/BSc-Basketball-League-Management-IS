@@ -17,17 +17,24 @@ func NewInterviewRequestHandler(InterviewRequestService *service.InterviewReques
 	return &InterviewRequestHandler{InterviewRequestService: InterviewRequestService}
 }
 
-func (handler *InterviewRequestHandler) GetAll(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *InterviewRequestHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	interviewRequests, err := handler.InterviewRequestService.GetAll()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	json.NewEncoder(w).Encode(interviewRequests) // Proveriti samo da li valja
+	var interviewRequestResponseDTOs []model.InterviewRequestResponseDTO
+	for _, interviewRequest := range *interviewRequests {
+		var interviewRequestResponseDTO model.InterviewRequestResponseDTO
+		interviewRequest.FromModel(&interviewRequestResponseDTO)
+		interviewRequestResponseDTOs = append(interviewRequestResponseDTOs, interviewRequestResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(interviewRequestResponseDTOs)
 }
 
-func (handler *InterviewRequestHandler) GetByID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *InterviewRequestHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
@@ -45,10 +52,13 @@ func (handler *InterviewRequestHandler) GetByID(w http.ResponseWriter, r *http.R
 		return
 	}
 
-	json.NewEncoder(w).Encode(interviewRequest)
+	var interviewRequestResponseDTO model.InterviewRequestResponseDTO
+	interviewRequest.FromModel(&interviewRequestResponseDTO)
+
+	json.NewEncoder(w).Encode(interviewRequestResponseDTO)
 }
 
-func (handler *InterviewRequestHandler) GetAllBySenderID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *InterviewRequestHandler) GetAllBySenderID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	userID, err := strconv.Atoi(vars["userId"])
 	if err != nil {
@@ -62,10 +72,17 @@ func (handler *InterviewRequestHandler) GetAllBySenderID(w http.ResponseWriter, 
 		return
 	}
 
-	json.NewEncoder(w).Encode(interviewRequests) // Proveriti samo da li valja
+	var interviewRequestResponseDTOs []model.InterviewRequestResponseDTO
+	for _, interviewRequest := range *interviewRequests {
+		var interviewRequestResponseDTO model.InterviewRequestResponseDTO
+		interviewRequest.FromModel(&interviewRequestResponseDTO)
+		interviewRequestResponseDTOs = append(interviewRequestResponseDTOs, interviewRequestResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(interviewRequests)
 }
 
-func (handler *InterviewRequestHandler) GetAllByReceiverID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *InterviewRequestHandler) GetAllByReceiverID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	userID, err := strconv.Atoi(vars["userId"])
 	if err != nil {
@@ -79,17 +96,27 @@ func (handler *InterviewRequestHandler) GetAllByReceiverID(w http.ResponseWriter
 		return
 	}
 
-	json.NewEncoder(w).Encode(interviewRequests) // Proveriti samo da li valja
+	var interviewRequestResponseDTOs []model.InterviewRequestResponseDTO
+	for _, interviewRequest := range *interviewRequests {
+		var interviewRequestResponseDTO model.InterviewRequestResponseDTO
+		interviewRequest.FromModel(&interviewRequestResponseDTO)
+		interviewRequestResponseDTOs = append(interviewRequestResponseDTOs, interviewRequestResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(interviewRequests)
 }
 
 func (handler *InterviewRequestHandler) Create(w http.ResponseWriter, r *http.Request) {
-	var interviewRequest model.InterviewRequest
-	if err := json.NewDecoder(r.Body).Decode(&interviewRequest); err != nil {
+	var interviewRequestDTO model.InterviewRequestCreateDTO
+	if err := json.NewDecoder(r.Body).Decode(&interviewRequestDTO); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	err := handler.InterviewRequestService.Create(&interviewRequest)
+	interviewRequest := &model.InterviewRequest{}
+	interviewRequest.FromDTO(&interviewRequestDTO)
+
+	err := handler.InterviewRequestService.Create(interviewRequest)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -99,13 +126,16 @@ func (handler *InterviewRequestHandler) Create(w http.ResponseWriter, r *http.Re
 }
 
 func (handler *InterviewRequestHandler) Update(w http.ResponseWriter, r *http.Request) {
-	var interviewRequest model.InterviewRequest
-	if err := json.NewDecoder(r.Body).Decode(&interviewRequest); err != nil {
+	var interviewRequestDTO model.InterviewRequestUpdateDTO
+	if err := json.NewDecoder(r.Body).Decode(&interviewRequestDTO); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	err := handler.InterviewRequestService.Update(&interviewRequest)
+	interviewRequest := &model.InterviewRequest{}
+	interviewRequest.FromUpdateDTO(&interviewRequestDTO)
+
+	err := handler.InterviewRequestService.Update(interviewRequest)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

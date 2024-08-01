@@ -17,17 +17,24 @@ func NewTrainingRequestHandler(TrainingRequestService *service.TrainingRequestSe
 	return &TrainingRequestHandler{TrainingRequestService: TrainingRequestService}
 }
 
-func (handler *TrainingRequestHandler) GetAll(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *TrainingRequestHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	trainingRequests, err := handler.TrainingRequestService.GetAll()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	json.NewEncoder(w).Encode(trainingRequests) // Proveriti samo da li valja
+	var trainingRequestResponseDTOs []model.TrainingRequestResponseDTO
+	for _, trainingRequest := range *trainingRequests {
+		var trainingRequestResponseDTO model.TrainingRequestResponseDTO
+		trainingRequest.FromModel(&trainingRequestResponseDTO)
+		trainingRequestResponseDTOs = append(trainingRequestResponseDTOs, trainingRequestResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(trainingRequestResponseDTOs)
 }
 
-func (handler *TrainingRequestHandler) GetByID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *TrainingRequestHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
@@ -45,10 +52,12 @@ func (handler *TrainingRequestHandler) GetByID(w http.ResponseWriter, r *http.Re
 		return
 	}
 
-	json.NewEncoder(w).Encode(trainingRequest)
+	var trainingRequestResponseDTO model.TrainingRequestResponseDTO
+	trainingRequest.FromModel(&trainingRequestResponseDTO)
+	json.NewEncoder(w).Encode(trainingRequestResponseDTO)
 }
 
-func (handler *TrainingRequestHandler) GetAllBySenderID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *TrainingRequestHandler) GetAllBySenderID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	userID, err := strconv.Atoi(vars["userId"])
 	if err != nil {
@@ -62,10 +71,17 @@ func (handler *TrainingRequestHandler) GetAllBySenderID(w http.ResponseWriter, r
 		return
 	}
 
-	json.NewEncoder(w).Encode(trainingRequests) // Proveriti samo da li valja
+	var trainingRequestResponseDTOs []model.TrainingRequestResponseDTO
+	for _, trainingRequest := range *trainingRequests {
+		var trainingRequestResponseDTO model.TrainingRequestResponseDTO
+		trainingRequest.FromModel(&trainingRequestResponseDTO)
+		trainingRequestResponseDTOs = append(trainingRequestResponseDTOs, trainingRequestResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(trainingRequestResponseDTOs)
 }
 
-func (handler *TrainingRequestHandler) GetAllByReceiverID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *TrainingRequestHandler) GetAllByReceiverID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	userID, err := strconv.Atoi(vars["userId"])
 	if err != nil {
@@ -79,17 +95,27 @@ func (handler *TrainingRequestHandler) GetAllByReceiverID(w http.ResponseWriter,
 		return
 	}
 
-	json.NewEncoder(w).Encode(trainingRequests) // Proveriti samo da li valja
+	var trainingRequestResponseDTOs []model.TrainingRequestResponseDTO
+	for _, trainingRequest := range *trainingRequests {
+		var trainingRequestResponseDTO model.TrainingRequestResponseDTO
+		trainingRequest.FromModel(&trainingRequestResponseDTO)
+		trainingRequestResponseDTOs = append(trainingRequestResponseDTOs, trainingRequestResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(trainingRequestResponseDTOs)
 }
 
 func (handler *TrainingRequestHandler) Create(w http.ResponseWriter, r *http.Request) {
-	var trainingRequest model.TrainingRequest
-	if err := json.NewDecoder(r.Body).Decode(&trainingRequest); err != nil {
+	var trainingRequestDTO model.TrainingRequestCreateDTO
+	if err := json.NewDecoder(r.Body).Decode(&trainingRequestDTO); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	err := handler.TrainingRequestService.Create(&trainingRequest)
+	trainingRequest := &model.TrainingRequest{}
+	trainingRequest.FromDTO(&trainingRequestDTO)
+
+	err := handler.TrainingRequestService.Create(trainingRequest)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -99,13 +125,16 @@ func (handler *TrainingRequestHandler) Create(w http.ResponseWriter, r *http.Req
 }
 
 func (handler *TrainingRequestHandler) Update(w http.ResponseWriter, r *http.Request) {
-	var trainingRequest model.TrainingRequest
-	if err := json.NewDecoder(r.Body).Decode(&trainingRequest); err != nil {
+	var trainingRequestDTO model.TrainingRequestUpdateDTO
+	if err := json.NewDecoder(r.Body).Decode(&trainingRequestDTO); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	err := handler.TrainingRequestService.Update(&trainingRequest)
+	trainingRequest := &model.TrainingRequest{}
+	trainingRequest.FromUpdateDTO(&trainingRequestDTO)
+
+	err := handler.TrainingRequestService.Update(trainingRequest)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

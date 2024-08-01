@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="E282E541-F132-DDE1-8DCE-C4159C126DD3" containerWithKeyObject="9F908EA7-8570-4F4F-10F7-0605C02AFE08" localFKIndex="1B9E394C-6687-A3C4-1610-F4AD2ECD9712" name="ZeljaTima_Tim_FK">
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="16E21249-CAFC-4C63-63C4-D3B29CC643FE" containerWithKeyObject="D5CB9565-A3AE-E336-7267-7CCEC8BE6461" localFKIndex="2934905C-A221-366D-0089-7A0E4FDF69AC" name="Kreira_Tim_FK">
 <createdBy>HP Pavilion</createdBy>
-<createdTime>2024-07-24 16:54:31 UTC</createdTime>
+<createdTime>2024-08-01 09:59:34 UTC</createdTime>
 <generatorID>85CADE04-5A43-54FC-DE3A-DC9F37180A58</generatorID>
 <ownerDesignName>basketball-league</ownerDesignName>
 <referredTableLongName>Tim</referredTableLongName>
@@ -9,7 +9,7 @@
 <referredTableID>77763C08-26BF-D3A1-4310-BF1D14D2F003</referredTableID>
 <keyObject>2BD6E60F-8EC1-058C-5A59-4131A84728B2</keyObject>
 <referredKeyID>2BD6E60F-8EC1-058C-5A59-4131A84728B2</referredKeyID>
-<mandatory>false</mandatory>
+<mandatory>true</mandatory>
 <refColNames>IdTim</refColNames>
 <transferable>true</transferable>
 <rely>false</rely>

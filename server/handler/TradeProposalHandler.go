@@ -4,6 +4,7 @@ import (
 	"basketball-league-server/model"
 	"basketball-league-server/service"
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -25,7 +26,15 @@ func (handler *TradeProposalHandler) GetAll(w http.ResponseWriter, r *http.Reque
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	json.NewEncoder(w).Encode(tradeProposals)
+
+	var tradeProposalResponseDTOs []model.TradeProposalResponseDTO
+	for _, tradeProposal := range *tradeProposals {
+		var tradeProposalResponseDTO model.TradeProposalResponseDTO
+		tradeProposal.FromModel(&tradeProposalResponseDTO)
+		tradeProposalResponseDTOs = append(tradeProposalResponseDTOs, tradeProposalResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(tradeProposalResponseDTOs)
 }
 
 func (handler *TradeProposalHandler) GetByID(w http.ResponseWriter, r *http.Request) {
@@ -46,7 +55,9 @@ func (handler *TradeProposalHandler) GetByID(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	json.NewEncoder(w).Encode(tradeProposal)
+	var tradeProposalResponseDTO model.TradeProposalResponseDTO
+	tradeProposal.FromModel(&tradeProposalResponseDTO)
+	json.NewEncoder(w).Encode(tradeProposalResponseDTO)
 }
 
 func (handler *TradeProposalHandler) GetAllReceivedByManagerID(w http.ResponseWriter, r *http.Request) {
@@ -63,7 +74,14 @@ func (handler *TradeProposalHandler) GetAllReceivedByManagerID(w http.ResponseWr
 		return
 	}
 
-	json.NewEncoder(w).Encode(tradeProposals)
+	var tradeProposalResponseDTOs []model.TradeProposalResponseDTO
+	for _, tradeProposal := range *tradeProposals {
+		var tradeProposalResponseDTO model.TradeProposalResponseDTO
+		tradeProposal.FromModel(&tradeProposalResponseDTO)
+		tradeProposalResponseDTOs = append(tradeProposalResponseDTOs, tradeProposalResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(tradeProposalResponseDTOs)
 }
 
 func (handler *TradeProposalHandler) GetAllSentByManagerID(w http.ResponseWriter, r *http.Request) {
@@ -80,7 +98,14 @@ func (handler *TradeProposalHandler) GetAllSentByManagerID(w http.ResponseWriter
 		return
 	}
 
-	json.NewEncoder(w).Encode(tradeProposals)
+	var tradeProposalResponseDTOs []model.TradeProposalResponseDTO
+	for _, tradeProposal := range *tradeProposals {
+		var tradeProposalResponseDTO model.TradeProposalResponseDTO
+		tradeProposal.FromModel(&tradeProposalResponseDTO)
+		tradeProposalResponseDTOs = append(tradeProposalResponseDTOs, tradeProposalResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(tradeProposalResponseDTOs)
 }
 
 func (handler *TradeProposalHandler) Create(w http.ResponseWriter, r *http.Request) {
@@ -109,13 +134,18 @@ func (handler *TradeProposalHandler) Create(w http.ResponseWriter, r *http.Reque
 }
 
 func (handler *TradeProposalHandler) Update(w http.ResponseWriter, r *http.Request) {
-	var tradeProposal model.TradeProposal
-	if err := json.NewDecoder(r.Body).Decode(&tradeProposal); err != nil {
+	var tradeProposalDTO model.TradeProposalUpdateDTO
+	if err := json.NewDecoder(r.Body).Decode(&tradeProposalDTO); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	err := handler.TradeProposalService.Update(&tradeProposal)
+	fmt.Println(tradeProposalDTO)
+
+	tradeProposal := &model.TradeProposal{}
+	tradeProposal.FromUpdateDTO(&tradeProposalDTO)
+
+	err := handler.TradeProposalService.Update(tradeProposal)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -134,23 +164,26 @@ func (handler *TradeProposalHandler) GetLatest(w http.ResponseWriter, r *http.Re
 		http.NotFound(w, r)
 		return
 	}
-	json.NewEncoder(w).Encode(tradeProposal)
+
+	var tradeProposalResponseDTO model.TradeProposalResponseDTO
+	tradeProposal.FromModel(&tradeProposalResponseDTO)
+	json.NewEncoder(w).Encode(tradeProposalResponseDTO)
 }
 
 func (handler *TradeProposalHandler) mapFromDTO(tradeProposalDTO *model.TradeProposalCreateDTO) (*model.TradeProposal, error) {
 	var tradeProposal model.TradeProposal
-	tradeProposal.DatZahTrg = tradeProposalDTO.DatZahTrg
-	tradeProposal.TipZahTrg = tradeProposalDTO.TipZahTrg
+	tradeProposal.Date = tradeProposalDTO.DatZahTrg
+	tradeProposal.Type = tradeProposalDTO.TipZahTrg
 	if tradeProposalDTO.TipZahTrg == 0 {
-		tradeProposal.TipZahTrg = 0
+		tradeProposal.Type = 0
 	} else if tradeProposalDTO.TipZahTrg == 1 {
-		tradeProposal.TipZahTrg = 1
+		tradeProposal.Type = 1
 	} else if tradeProposalDTO.TipZahTrg == 2 {
-		tradeProposal.TipZahTrg = 2
+		tradeProposal.Type = 2
 	}
 
-	tradeProposal.StatusZahTrg = 0 // 0 = IN_PROGRESS
-	tradeProposal.IdMenadzerPos = tradeProposalDTO.IdMenadzerPos
+	tradeProposal.Status = 0 // 0 = IN_PROGRESS
+	tradeProposal.SenderId = tradeProposalDTO.IdMenadzerPos
 
 	manager, err := handler.EmployeeService.GetByTeamID(int(tradeProposalDTO.IdMenadzerPrimTim))
 	if err != nil {
@@ -158,7 +191,7 @@ func (handler *TradeProposalHandler) mapFromDTO(tradeProposalDTO *model.TradePro
 		return nil, err
 	}
 
-	tradeProposal.IdMenadzerPrim = manager.Id
-	tradeProposal.RazlogOdbij = ""
+	tradeProposal.ReceiverId = manager.ID
+	tradeProposal.DenialReason = ""
 	return &tradeProposal, nil
 }

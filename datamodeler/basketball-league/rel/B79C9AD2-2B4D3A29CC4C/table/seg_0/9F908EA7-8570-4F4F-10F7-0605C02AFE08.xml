@@ -58,22 +58,6 @@
 <colAssociation fkAssociation="31BA88D7-7AA7-789F-80DF-AB8E2F58A28A" referredColumn="14293C54-9BBB-61E5-5D9C-ADA1FECF5432"/>
 </associations>
 </Column>
-<Column name="IdTim" id="777F1FE1-7F1E-BC30-80A6-80B883A67DC3">
-<createdBy>HP Pavilion</createdBy>
-<createdTime>2024-07-24 16:54:31 UTC</createdTime>
-<generatorID>D5A10D3B-843F-3C02-B564-E23FFE534CC2</generatorID>
-<ownerDesignName>basketball-league</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="E282E541-F132-DDE1-8DCE-C4159C126DD3" referredColumn="00A781D7-3E50-ADDF-1CB2-13CF39362D08"/>
-</associations>
-</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="CCF9A1E2-DEA1-C69A-742F-D90CA7B70B6F" name="ZeljaTima_PK">
@@ -86,28 +70,6 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="F9F77F18-04DA-6C3C-6627-200DFA77108A"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="6DF0BFC1-B789-5FBE-2FAF-AD4D14B6AD66" name="ZeljaTima__IDX">
-<createdBy>HP Pavilion</createdBy>
-<createdTime>2024-07-24 16:54:31 UTC</createdTime>
-<ownerDesignName>basketball-league</ownerDesignName>
-<indexState>Unique Plain Index</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<relationGeneratorID>85CADE04-5A43-54FC-DE3A-DC9F37180A58</relationGeneratorID>
-<indexColumnUsage>
-<colUsage columnID="777F1FE1-7F1E-BC30-80A6-80B883A67DC3"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="1B9E394C-6687-A3C4-1610-F4AD2ECD9712" name="ZeljaTima_Tim_FK">
-<createdBy>HP Pavilion</createdBy>
-<createdTime>2024-07-24 16:54:31 UTC</createdTime>
-<generatorID>85CADE04-5A43-54FC-DE3A-DC9F37180A58</generatorID>
-<ownerDesignName>basketball-league</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="777F1FE1-7F1E-BC30-80A6-80B883A67DC3"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="1C6B1E05-3AB6-2BF6-C1C3-C9C1A8A062AF" name="ZeljaTima_TipZelje_FK">

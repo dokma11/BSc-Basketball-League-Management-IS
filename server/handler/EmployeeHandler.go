@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"basketball-league-server/model"
 	"basketball-league-server/service"
 	"encoding/json"
 	"github.com/gorilla/mux"
@@ -17,17 +18,24 @@ func NewEmployeeHandler(EmployeeService *service.EmployeeService) *EmployeeHandl
 	return &EmployeeHandler{EmployeeService: EmployeeService}
 }
 
-func (handler *EmployeeHandler) GetAll(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *EmployeeHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	employees, err := handler.EmployeeService.GetAll()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	json.NewEncoder(w).Encode(employees) // Proveriti samo da li valja
+	var employeeResponseDTOs []model.EmployeeResponseDTO
+	for _, employee := range *employees {
+		var employeeResponseDTO model.EmployeeResponseDTO
+		employee.FromModel(&employeeResponseDTO)
+		employeeResponseDTOs = append(employeeResponseDTOs, employeeResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(employeeResponseDTOs)
 }
 
-func (handler *EmployeeHandler) GetByID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *EmployeeHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
@@ -45,10 +53,13 @@ func (handler *EmployeeHandler) GetByID(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	json.NewEncoder(w).Encode(employee)
+	var employeeResponseDTO model.EmployeeResponseDTO
+	employee.FromModel(&employeeResponseDTO)
+
+	json.NewEncoder(w).Encode(employeeResponseDTO)
 }
 
-func (handler *EmployeeHandler) GetByTeamID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *EmployeeHandler) GetByTeamID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	teamID, err := strconv.Atoi(vars["teamId"])
 	if err != nil {
@@ -68,5 +79,8 @@ func (handler *EmployeeHandler) GetByTeamID(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	json.NewEncoder(w).Encode(employee)
+	var employeeResponseDTO model.EmployeeResponseDTO
+	employee.FromModel(&employeeResponseDTO)
+
+	json.NewEncoder(w).Encode(employeeResponseDTO)
 }

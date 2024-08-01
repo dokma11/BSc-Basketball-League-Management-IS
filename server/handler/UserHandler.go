@@ -17,17 +17,24 @@ func NewUserHandler(UserService *service.UserService) *UserHandler {
 	return &UserHandler{UserService: UserService}
 }
 
-func (handler *UserHandler) GetAll(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *UserHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	users, err := handler.UserService.GetAll()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	json.NewEncoder(w).Encode(users) // Proveriti samo da li valja
+	var userResponseDTOs []model.UserResponseDTO
+	for _, user := range *users {
+		var userResponseDTO model.UserResponseDTO
+		user.FromModel(&userResponseDTO)
+		userResponseDTOs = append(userResponseDTOs, userResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(userResponseDTOs)
 }
 
-func (handler *UserHandler) GetByID(w http.ResponseWriter, r *http.Request) { // Ovde proveriti da li su neophodni parametri
+func (handler *UserHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
@@ -45,17 +52,22 @@ func (handler *UserHandler) GetByID(w http.ResponseWriter, r *http.Request) { //
 		return
 	}
 
-	json.NewEncoder(w).Encode(user)
+	var userResponseDTO model.UserResponseDTO
+	user.FromModel(&userResponseDTO)
+	json.NewEncoder(w).Encode(userResponseDTO)
 }
 
 func (handler *UserHandler) Update(w http.ResponseWriter, r *http.Request) {
-	var user model.User
-	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
+	var userDTO model.UserUpdateDTO
+	if err := json.NewDecoder(r.Body).Decode(&userDTO); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	err := handler.UserService.Update(&user)
+	user := &model.User{}
+	user.FromDTO(&userDTO)
+
+	err := handler.UserService.Update(user)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

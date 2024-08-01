@@ -67,21 +67,6 @@
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="IdTim" id="D5A10D3B-843F-3C02-B564-E23FFE534CC2">
-<createdBy>HP Pavilion</createdBy>
-<createdTime>2024-07-24 16:51:29 UTC</createdTime>
-<generatorID>85CADE04-5A43-54FC-DE3A-DC9F37180A58</generatorID>
-<ownerDesignName>basketball-league</ownerDesignName>
-<engineerTo>
-<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
-</engineerTo>
-<nullsAllowed>true</nullsAllowed>
-<referedAttribute>8661B55D-0729-C0AF-D28F-B6D21A9BCCBC</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="27411BFE-FB64-C282-30AF-0B586D629090" name="ZeljaTima PK">

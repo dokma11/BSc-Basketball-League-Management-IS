@@ -27,16 +27,18 @@ func (repo *playerRepository) GetAll() ([]model.Player, error) {
 
 	var players []model.Player
 	for rows.Next() {
-		var player model.Player
+		var playerDAO model.PlayerDAO
 		var role, position string
-		if err := rows.Scan(&player.Id, &player.Ime, &player.Prezime, &player.Email, &player.DatRodj,
-			&player.Lozinka, &role, &player.VisIgr, &player.TezIgr, &position); err != nil {
+		if err := rows.Scan(&playerDAO.ID, &playerDAO.FirstName, &playerDAO.LastName, &playerDAO.Email, &playerDAO.DateOfBirth,
+			&playerDAO.Password, &role, &playerDAO.VisIgr, &playerDAO.TezIgr, &position); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		mapPlayerEnums(role, position, &player)
+		fromRoleAndPositionString(role, position, &playerDAO)
+		player := &model.Player{}
+		player.FromDAO(&playerDAO)
 
-		players = append(players, player)
+		players = append(players, *player)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -47,22 +49,24 @@ func (repo *playerRepository) GetAll() ([]model.Player, error) {
 }
 
 func (repo *playerRepository) GetByID(id int) (*model.Player, error) {
-	var player model.Player
+	var playerDAO model.PlayerDAO
 	var role, position string
 	row := repo.db.QueryRow(`SELECT K.ID, K.IME, K.PREZIME, K.EMAIL, K.DATRODJ, K.LOZINKA, K.ULOGA, I.VISIGR, I.TEZIGR, I.POZIGR
 								   FROM IGRAC I, KORISNIK K
 								   WHERE I.ID = K.ID AND K.ID = :1`, id)
-	if err := row.Scan(&player.Id, &player.Ime, &player.Prezime, &player.Email, &player.DatRodj,
-		&player.Lozinka, &role, &player.VisIgr, &player.TezIgr, &position); err != nil {
+	if err := row.Scan(&playerDAO.ID, &playerDAO.FirstName, &playerDAO.LastName, &playerDAO.Email, &playerDAO.DateOfBirth,
+		&playerDAO.Password, &role, &playerDAO.VisIgr, &playerDAO.TezIgr, &position); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
 
-	mapPlayerEnums(role, position, &player)
+	fromRoleAndPositionString(role, position, &playerDAO)
+	player := &model.Player{}
+	player.FromDAO(&playerDAO)
 
-	return &player, nil
+	return player, nil
 }
 
 func (repo *playerRepository) GetAllByTeamID(teamId int) ([]model.Player, error) {
@@ -77,17 +81,19 @@ func (repo *playerRepository) GetAllByTeamID(teamId int) ([]model.Player, error)
 
 	var players []model.Player
 	for rows.Next() {
-		var player model.Player
+		var playerDAO model.PlayerDAO
 		var role, position string
-		if err := rows.Scan(&player.Id, &player.Ime, &player.Prezime, &player.Email, &player.DatRodj,
-			&player.Lozinka, &role, &player.VisIgr, &player.TezIgr, &position); err != nil {
+		if err := rows.Scan(&playerDAO.ID, &playerDAO.FirstName, &playerDAO.LastName, &playerDAO.Email, &playerDAO.DateOfBirth,
+			&playerDAO.Password, &role, &playerDAO.VisIgr, &playerDAO.TezIgr, &position); err != nil {
 			fmt.Println(err)
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		mapPlayerEnums(role, position, &player)
+		fromRoleAndPositionString(role, position, &playerDAO)
+		player := &model.Player{}
+		player.FromDAO(&playerDAO)
 
-		players = append(players, player)
+		players = append(players, *player)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -97,11 +103,11 @@ func (repo *playerRepository) GetAllByTeamID(teamId int) ([]model.Player, error)
 	return players, nil
 }
 
-func mapPlayerEnums(role string, position string, player *model.Player) {
+func fromRoleAndPositionString(role string, position string, player *model.PlayerDAO) {
 	if role == "Zaposleni" {
-		player.Uloga = 1
+		player.Role = 1
 	} else if role == "Regrut" {
-		player.Uloga = 0
+		player.Role = 0
 	}
 
 	if position == "PG" {

@@ -30,18 +30,18 @@ func (handler *AuthenticationHandler) LogIn(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	if user == nil || user.Lozinka != credentials.Password {
+	if user == nil || user.Password != credentials.Password {
 		http.Error(w, "Invalid credentials", http.StatusUnauthorized)
 		return
 	}
 
-	team, err := handler.TeamService.GetByUserID(int(user.Id))
+	team, err := handler.TeamService.GetByUserID(int(user.ID))
 	if err != nil {
 		http.Error(w, "Error querying team", http.StatusInternalServerError)
 		return
 	}
 
-	token, err := model.GenerateJWT(user.Id, user.Email, team.IdTim)
+	token, err := model.GenerateJWT(user.ID, user.Email, team.ID)
 	if err != nil {
 		http.Error(w, "Error generating token", http.StatusInternalServerError)
 		return

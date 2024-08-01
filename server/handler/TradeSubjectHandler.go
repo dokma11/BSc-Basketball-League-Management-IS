@@ -38,7 +38,14 @@ func (handler *TradeSubjectHandler) GetAll(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	json.NewEncoder(w).Encode(tradeSubjects)
+	var tradeSubjectResponseDTOs []model.TradeSubjectResponseDTO
+	for _, tradeSubject := range *tradeSubjects {
+		var tradeSubjectResponseDTO model.TradeSubjectResponseDTO
+		tradeSubject.FromModel(&tradeSubjectResponseDTO)
+		tradeSubjectResponseDTOs = append(tradeSubjectResponseDTOs, tradeSubjectResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(tradeSubjectResponseDTOs)
 }
 
 func (handler *TradeSubjectHandler) GetByID(w http.ResponseWriter, r *http.Request) {
@@ -59,7 +66,9 @@ func (handler *TradeSubjectHandler) GetByID(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	json.NewEncoder(w).Encode(tradeSubject)
+	var tradeSubjectResponseDTO model.TradeSubjectResponseDTO
+	tradeSubject.FromModel(&tradeSubjectResponseDTO)
+	json.NewEncoder(w).Encode(tradeSubjectResponseDTO)
 }
 
 func (handler *TradeSubjectHandler) GetAllByTradeID(w http.ResponseWriter, r *http.Request) {
@@ -76,7 +85,14 @@ func (handler *TradeSubjectHandler) GetAllByTradeID(w http.ResponseWriter, r *ht
 		return
 	}
 
-	json.NewEncoder(w).Encode(tradeSubjects)
+	var tradeSubjectResponseDTOs []model.TradeSubjectResponseDTO
+	for _, tradeSubject := range *tradeSubjects {
+		var tradeSubjectResponseDTO model.TradeSubjectResponseDTO
+		tradeSubject.FromModel(&tradeSubjectResponseDTO)
+		tradeSubjectResponseDTOs = append(tradeSubjectResponseDTOs, tradeSubjectResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(tradeSubjectResponseDTOs)
 }
 
 func (handler *TradeSubjectHandler) Create(w http.ResponseWriter, r *http.Request) {
@@ -119,64 +135,64 @@ func (handler *TradeSubjectHandler) CommitTrade(w http.ResponseWriter, r *http.R
 	}
 
 	for _, tradeSubject := range *tradeSubjects {
-		if tradeSubject.TipPredTrg == 0 { // Player
-			team, err := handler.TeamService.GetPlayerTradeDestination(int(tradeSubject.IdPredTrg))
+		if tradeSubject.Type == 0 { // Player
+			team, err := handler.TeamService.GetPlayerTradeDestination(int(tradeSubject.ID))
 			if err != nil {
 				log.Println(err)
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
 
-			player, err := handler.EmployeeService.GetByID(int(tradeSubject.IdIgrac)) // Player is considered as an employee
+			player, err := handler.EmployeeService.GetByID(int(tradeSubject.PlayerId)) // Player is considered as an employee
 			if err != nil {
 				log.Println(err)
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
 
-			contract, err := handler.ContractService.GetByID(int(player.IdUgo))
+			contract, err := handler.ContractService.GetByID(int(player.ContractId))
 			if err != nil {
 				log.Println(err)
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
 
-			contract.IdTim = team.IdTim // Switch player's team
+			contract.TeamId = team.ID // Switch player's team
 			contractError := handler.ContractService.Update(contract)
 			if contractError != nil {
 				log.Println(contractError)
 				return
 			}
-		} else if tradeSubject.TipPredTrg == 1 { // Pick
-			team, err := handler.TeamService.GetPickTradeDestination(int(tradeSubject.IdPredTrg))
+		} else if tradeSubject.Type == 1 { // Pick
+			team, err := handler.TeamService.GetPickTradeDestination(int(tradeSubject.ID))
 			if err != nil {
 				log.Println(err)
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 			}
 
-			pick, err := handler.PickService.GetByID(int(tradeSubject.IdPik))
+			pick, err := handler.PickService.GetByID(int(tradeSubject.PickId))
 			if err != nil {
 				log.Println(err)
 			}
 
-			pick.IdTim = team.IdTim
+			pick.TeamId = team.ID
 			pickError := handler.PickService.Update(pick)
 			if pickError != nil {
 				log.Println(pickError)
 			}
-		} else if tradeSubject.TipPredTrg == 2 { // Draft Right
-			team, err := handler.TeamService.GetDraftRightsTradeDestination(int(tradeSubject.IdPredTrg))
+		} else if tradeSubject.Type == 2 { // Draft Right
+			team, err := handler.TeamService.GetDraftRightsTradeDestination(int(tradeSubject.ID))
 			if err != nil {
 				log.Println(err)
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 			}
 
-			draftRights, err := handler.DraftRightService.GetByID(int(tradeSubject.IdPrava))
+			draftRights, err := handler.DraftRightService.GetByID(int(tradeSubject.DraftRightsId))
 			if err != nil {
 				log.Println(err)
 			}
 
-			draftRights.IdTim = team.IdTim
+			draftRights.TeamId = team.ID
 			draftRightsError := handler.DraftRightService.Update(draftRights)
 			if draftRightsError != nil {
 				log.Println(draftRightsError)
@@ -243,16 +259,16 @@ func (handler *TradeSubjectHandler) GetDetailsForTradeProposal(w http.ResponseWr
 
 func (handler *TradeSubjectHandler) mapSubjectFromDTO(tradeSubjectDTO *model.TradeSubjectCreateDTO) (*model.TradeSubject, error) {
 	var tradeSubject model.TradeSubject
-	tradeSubject.IdPik = tradeSubjectDTO.IdPik
-	tradeSubject.IdPrava = tradeSubjectDTO.IdPrava
-	tradeSubject.IdIgrac = tradeSubjectDTO.IdIgrac
+	tradeSubject.PickId = tradeSubjectDTO.IdPik
+	tradeSubject.DraftRightsId = tradeSubjectDTO.IdPrava
+	tradeSubject.PlayerId = tradeSubjectDTO.IdIgrac
 
 	if tradeSubjectDTO.TipPredTrg == 0 {
-		tradeSubject.TipPredTrg = 0
+		tradeSubject.Type = 0
 	} else if tradeSubjectDTO.TipPredTrg == 1 {
-		tradeSubject.TipPredTrg = 1
+		tradeSubject.Type = 1
 	} else if tradeSubjectDTO.TipPredTrg == 2 {
-		tradeSubject.TipPredTrg = 2
+		tradeSubject.Type = 2
 	}
 
 	latestTradeProposal, err := handler.TradeProposalService.GetLatest()
@@ -261,7 +277,7 @@ func (handler *TradeSubjectHandler) mapSubjectFromDTO(tradeSubjectDTO *model.Tra
 		return nil, err
 	}
 
-	tradeSubject.IdZahTrg = latestTradeProposal.IdZahTrg
+	tradeSubject.TradeProposalId = latestTradeProposal.ID
 
 	return &tradeSubject, nil
 }
