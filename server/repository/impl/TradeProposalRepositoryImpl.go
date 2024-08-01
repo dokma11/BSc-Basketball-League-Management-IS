@@ -137,9 +137,6 @@ func (repo *tradeProposalRepository) Create(tradeProposal *model.TradeProposal) 
 }
 
 func (repo *tradeProposalRepository) Update(tradeProposal *model.TradeProposal) error {
-
-	fmt.Println(tradeProposal.Type)
-
 	status, _ := fromStatusAndTypeForWriting(tradeProposal)
 	_, err := repo.db.Exec("UPDATE ZahtevZaTrgovinu SET STATUSZAHTRG = :1, RAZLOGODBIJ = :2 WHERE IDZAHTRG = :3",
 		status, tradeProposal.DenialReason, tradeProposal.ID)
