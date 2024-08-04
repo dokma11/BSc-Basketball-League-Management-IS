@@ -66,7 +66,7 @@
 <ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="IdTipTrng" id="975263B8-90E2-7F14-2B42-4644AD52BEC7">
+<Column name="TipTreninga_IdTipTrng" id="975263B8-90E2-7F14-2B42-4644AD52BEC7">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>EA4FEA64-8304-7BBD-1396-7AC7272037E1</generatorID>
@@ -81,7 +81,7 @@
 <colAssociation fkAssociation="810DB2D6-302A-7FD9-0280-159E8FFA8035" referredColumn="8274ACDD-BB3A-1F3F-5455-9C52C557E6B1"/>
 </associations>
 </Column>
-<Column name="IdPozTrng" id="CD9DC5AA-6692-65B9-5C1E-16CB86E34623">
+<Column name="PozivNaTrening_IdPozTrng" id="CD9DC5AA-6692-65B9-5C1E-16CB86E34623">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>4A057B3C-F249-4348-022A-299FD883A485</generatorID>

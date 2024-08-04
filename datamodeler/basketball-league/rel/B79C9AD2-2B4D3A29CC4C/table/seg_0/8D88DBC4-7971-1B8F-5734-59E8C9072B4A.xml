@@ -66,7 +66,7 @@
 <ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="IdTrener" id="CB7C4B30-D99A-1E5B-56BF-948B536D052A">
+<Column name="Trener_Id" id="CB7C4B30-D99A-1E5B-56BF-948B536D052A">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>3AE4A901-2D26-90C6-69AD-58461ABE4634</generatorID>

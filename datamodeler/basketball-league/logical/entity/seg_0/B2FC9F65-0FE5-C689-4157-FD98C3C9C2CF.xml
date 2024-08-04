@@ -54,5 +54,31 @@
 <domain>F8A605CE-6BF2-6C6D-6DA3-8DB8F250F761</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="NedodListIgr" id="B1AB5D80-467E-D328-AE81-D1D1135CECB6">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:31:19 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>5 CHAR</dataTypeSize>
+<ownDataTypeParameters>5 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TrgListIgr" id="94935E7C-B52E-7AF6-ECBD-39D307650EAD">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:31:31 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>5 CHAR</dataTypeSize>
+<ownDataTypeParameters>5 CHAR,,</ownDataTypeParameters>
+</Attribute>
 </attributes>
 </Entity>

@@ -54,7 +54,7 @@
 <ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="IdPozInt" id="E2E88059-B091-5DDA-F68A-DE23D6F0670E">
+<Column name="PozivNaIntervju_IdPozInt" id="E2E88059-B091-5DDA-F68A-DE23D6F0670E">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>6D4ED5DE-6551-7907-05CF-342B73C0DA35</generatorID>
@@ -69,7 +69,7 @@
 <colAssociation fkAssociation="80F58128-CD7F-735F-26D4-A9687751BF9E" referredColumn="D19E9425-0F92-B552-D94B-6575F8230EE7"/>
 </associations>
 </Column>
-<Column name="IdRegrut" id="041C0E34-2ED3-F1DE-F868-B559A92EE95A">
+<Column name="Regrut_Id" id="041C0E34-2ED3-F1DE-F868-B559A92EE95A">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>A3F3D91F-506B-9EFC-4F4D-DB039174FC90</generatorID>

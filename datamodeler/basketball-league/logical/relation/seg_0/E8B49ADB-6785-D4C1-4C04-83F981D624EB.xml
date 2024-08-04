@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Predstavlja" directorySegmentName="seg_0" id="E8B49ADB-6785-D4C1-4C04-83F981D624EB">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:33:07 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<sourcePk>27411BFE-FB64-C282-30AF-0B586D629090</sourcePk>
+<targetPk>8A0B8D32-5208-667C-E94F-3A1A8F46E1E3</targetPk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>C16C07F1-5401-A7AD-273F-933960A37A47</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>1DD77CD9-DF65-EAA5-780F-1B83AB6CFBDE</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

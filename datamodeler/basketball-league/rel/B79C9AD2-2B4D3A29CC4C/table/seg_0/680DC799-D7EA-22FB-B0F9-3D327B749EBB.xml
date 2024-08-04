@@ -55,7 +55,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="IdTim" id="5E013145-31FF-B9FD-4626-E5B2CD2B5834">
+<Column name="Tim_IdTim" id="5E013145-31FF-B9FD-4626-E5B2CD2B5834">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>E5B6E1E3-255F-207F-73E9-DC58DD75C3EB</generatorID>
@@ -70,7 +70,7 @@
 <colAssociation fkAssociation="D9424CE6-80FB-D75A-1B29-B0BA9597AA0C" referredColumn="00A781D7-3E50-ADDF-1CB2-13CF39362D08"/>
 </associations>
 </Column>
-<Column name="IdRegrut" id="83EB4BC6-2E4B-1767-8642-5A14DA854681">
+<Column name="Bira_Regrut_Id" id="83EB4BC6-2E4B-1767-8642-5A14DA854681">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>23C5FC97-D772-2E82-BE81-8A0A6F7D7391</generatorID>
@@ -85,7 +85,7 @@
 <colAssociation fkAssociation="B79BEF14-27E2-2D21-8D7A-326A7F0A602B" referredColumn="94DF066E-2BD8-3E33-1471-E77033A3C263"/>
 </associations>
 </Column>
-<Column name="IdPik" id="73A09508-2481-9FC9-828A-1E3524D0FEF9">
+<Column name="Bira_Pik_IdPik" id="73A09508-2481-9FC9-828A-1E3524D0FEF9">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>BEA40298-4252-0E12-1BDC-03EBE476C071</generatorID>
@@ -99,6 +99,30 @@
 <associations>
 <colAssociation fkAssociation="B79BEF14-27E2-2D21-8D7A-326A7F0A602B" referredColumn="B06596E6-3D70-ED81-2912-CF2A82E36C7C"/>
 </associations>
+</Column>
+<Column name="NedodListPrava" id="A6C68E00-D4EF-8824-29E7-7ADF6C319BA7">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:37:26 UTC</createdTime>
+<generatorID>723C6CA7-9EDE-B7BE-7804-FB5599CA9DB0</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>5 CHAR</dataTypeSize>
+<ownDataTypeParameters>5 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TrgListPrava" id="BCE29898-E0B5-DFC3-F057-63FAD81915D9">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:37:26 UTC</createdTime>
+<generatorID>AAC7EE9D-D753-0873-0366-B016CAED50A1</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>5 CHAR</dataTypeSize>
+<ownDataTypeParameters>5 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">

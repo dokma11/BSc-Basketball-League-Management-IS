@@ -67,6 +67,51 @@
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="IdPrava" id="5CB82902-6FB5-0245-1482-FEB2D4FAFD32">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:33:22 UTC</createdTime>
+<generatorID>E8B49ADB-6785-D4C1-4C04-83F981D624EB</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>7B6F94A8-8C2C-7451-D62E-76ABDF5B6B20</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="IdPik" id="A418F00B-FD37-DCFE-541B-70B0DBE294E1">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:33:47 UTC</createdTime>
+<generatorID>2782446E-CFDF-6F58-0CEB-86F73BA34508</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>96958B4B-98AA-48A4-65B5-371D2E1E0521</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Id" id="2AA7D034-E88F-3AD9-C51D-57A591E7791C">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:35:11 UTC</createdTime>
+<generatorID>9211B86A-24F9-F397-6E5A-37627C1BD868</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>B829AB3A-B06E-88B7-55D5-3AB46479680F</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="27411BFE-FB64-C282-30AF-0B586D629090" name="ZeljaTima PK">

@@ -65,7 +65,7 @@
 <ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="IdMenadzerPos" id="2FA515F4-7068-7614-4428-F76657B7EEA6">
+<Column name="Menadzer_Id" id="2FA515F4-7068-7614-4428-F76657B7EEA6">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>DF4B0EBA-FCE3-6BFF-7B23-B3374F2D4EAE</generatorID>
@@ -80,7 +80,7 @@
 <colAssociation fkAssociation="C0D18E7E-4C59-6D54-C59E-9538832A8EC1" referredColumn="E42EDEB4-D680-F78C-37AE-1A77F9913128"/>
 </associations>
 </Column>
-<Column name="IdMenadzerPrim" id="32390798-C0EB-0B89-F307-C6A37ECA0DF3">
+<Column name="Menadzer_Id2" id="32390798-C0EB-0B89-F307-C6A37ECA0DF3">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>A36DD367-7756-D094-E526-A754A672108D</generatorID>

@@ -27,45 +27,6 @@
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="ImeIgrPrava" id="54EA7FB4-E8F9-A736-09BC-02602F0BE14B">
-<createdBy>HP Pavilion</createdBy>
-<createdTime>2024-07-24 14:57:30 UTC</createdTime>
-<ownerDesignName>basketball-league</ownerDesignName>
-<engineerTo>
-<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
-</engineerTo>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>24 CHAR</dataTypeSize>
-<ownDataTypeParameters>24 CHAR,,</ownDataTypeParameters>
-</Attribute>
-<Attribute name="PrezimeIgrPrava" id="39A70052-F017-76A9-327D-E53309AE798F">
-<createdBy>HP Pavilion</createdBy>
-<createdTime>2024-07-24 14:57:49 UTC</createdTime>
-<ownerDesignName>basketball-league</ownerDesignName>
-<engineerTo>
-<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
-</engineerTo>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>24 CHAR</dataTypeSize>
-<ownDataTypeParameters>24 CHAR,,</ownDataTypeParameters>
-</Attribute>
-<Attribute name="PozicijaIgrPrava" id="EA29EAB6-C580-E3AC-2C95-0F51E9928F4D">
-<createdBy>HP Pavilion</createdBy>
-<createdTime>2024-07-24 14:58:06 UTC</createdTime>
-<ownerDesignName>basketball-league</ownerDesignName>
-<engineerTo>
-<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
-</engineerTo>
-<nullsAllowed>true</nullsAllowed>
-<use>0</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<domain>F8A605CE-6BF2-6C6D-6DA3-8DB8F250F761</domain>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
 <Attribute name="IdTim" id="E5B6E1E3-255F-207F-73E9-DC58DD75C3EB">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 14:58:19 UTC</createdTime>
@@ -107,6 +68,32 @@
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="NedodListPrava" id="723C6CA7-9EDE-B7BE-7804-FB5599CA9DB0">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:28:08 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>5 CHAR</dataTypeSize>
+<ownDataTypeParameters>5 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TrgListPrava" id="AAC7EE9D-D753-0873-0366-B016CAED50A1">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:28:31 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>5 CHAR</dataTypeSize>
+<ownDataTypeParameters>5 CHAR,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
