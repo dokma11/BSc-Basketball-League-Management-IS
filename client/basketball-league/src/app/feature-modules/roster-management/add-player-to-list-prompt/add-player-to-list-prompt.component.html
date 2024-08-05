@@ -4,18 +4,33 @@
     <h1 *ngIf="this.list == 'wishlist'">Add to wishlist</h1>
     <p *ngIf="this.list == 'wishlist'">Are you sure you want to add this asset to the wishlist</p>
 
-    <h1 *ngIf="this.list === 'untouchable list'">Add to untouchable list</h1>
-    <p *ngIf="this.list === 'untouchable list'">Are you sure you want to add this asset to the untouchable list?</p>
+    <h1 *ngIf="this.list === 'untouchable list' && this.action == 'add'">Add to untouchable list</h1>
+    <p *ngIf="this.list === 'untouchable list' && this.action == 'add'">Are you sure you want to add this asset to the untouchable list?</p>
 
-    <h1 *ngIf="this.list == 'trade list'">Add to trade list</h1>
-    <p *ngIf="this.list == 'trade list'">Are you sure you want to add this asset to the trade list?</p>
+    <h1 *ngIf="this.list == 'trade list' && this.action == 'add'">Add to trade list</h1>
+    <p *ngIf="this.list == 'trade list' && this.action == 'add'">Are you sure you want to add this asset to the trade list?</p>
+
+    <h1 *ngIf="this.list === 'untouchable list' && this.action == 'remove'">Remove from untouchable list</h1>
+    <p *ngIf="this.list === 'untouchable list' && this.action == 'remove'">Are you sure you want to remove this asset from the untouchable list?</p>
+
+    <h1 *ngIf="this.list == 'trade list' && this.action == 'remove'">Remove from trade list</h1>
+    <p *ngIf="this.list == 'trade list' && this.action == 'remove'">Are you sure you want to remove this asset from the trade list?</p>
+
 
     <div class="buttons">
       <button type="submit"
               class="btn"
+              *ngIf="this.action == 'add'"
               (click)="addButtonClicked()"
               [@buttonState]="addButtonState"
               >Add
+      </button>
+      <button type="submit"
+              class="btn"
+              *ngIf="this.action == 'remove'"
+              (click)="addButtonClicked()"
+              [@buttonState]="addButtonState"
+              >Remove
       </button>
       <button type="submit"
               class="btn"

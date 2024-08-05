@@ -4,6 +4,8 @@ export interface Player extends Employee {
   visIgr: number; // Height
   tezIgr: number; // Weight
   pozIgr: Pozicija; // Position
+  nedodListIgr: boolean; // Is player added to the untouchables list
+  trgListIgr: boolean; // Is player added to the trade list
 }
 
 export enum Uloga {

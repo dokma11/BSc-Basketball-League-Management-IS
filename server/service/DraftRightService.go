@@ -42,6 +42,15 @@ func (service *DraftRightService) GetAllByTeamID(teamID int) ([]model.DraftRight
 	return draftRights, nil
 }
 
+func (service *DraftRightService) GetAllAvailableByTeamID(teamID int) ([]model.DraftRight, error) {
+	draftRights, err := service.DraftRightRepository.GetAllAvailableByTeamID(teamID)
+	if err != nil {
+		return nil, fmt.Errorf(fmt.Sprintf("no available draft rights with that team id were found"))
+	}
+
+	return draftRights, nil
+}
+
 func (service *DraftRightService) Update(draftRights *model.DraftRight) error {
 	err := service.DraftRightRepository.Update(draftRights)
 	if err != nil {

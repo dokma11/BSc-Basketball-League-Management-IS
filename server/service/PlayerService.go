@@ -40,3 +40,21 @@ func (service *PlayerService) GetAllByTeamID(teamId int) (*[]model.Player, error
 
 	return &players, nil
 }
+
+func (service *PlayerService) GetAllAvailableByTeamID(teamId int) (*[]model.Player, error) {
+	players, err := service.PlayerRepository.GetAllAvailableByTeamID(teamId)
+	if err != nil {
+		return nil, fmt.Errorf(fmt.Sprintf("no available players with that team id were found"))
+	}
+
+	return &players, nil
+}
+
+func (service *PlayerService) Update(player *model.Player) error {
+	err := service.PlayerRepository.Update(player)
+	if err != nil {
+		_ = fmt.Errorf(fmt.Sprintf("no players were updated"))
+		return err
+	}
+	return nil
+}

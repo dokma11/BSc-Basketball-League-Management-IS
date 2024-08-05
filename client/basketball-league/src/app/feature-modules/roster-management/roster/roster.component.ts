@@ -53,6 +53,7 @@ export class RosterComponent implements OnInit{
   private teamsSubject: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(this.teams);
   public filteredTeams: Observable<string[]> = this.teamsSubject.asObservable();
   initialTeamName: string = 'Team name';
+  ownTeamChosen: boolean = true;
 
   @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect | undefined;
 
@@ -132,6 +133,7 @@ export class RosterComponent implements OnInit{
     this.fullTeams.forEach(team =>{
       if(team.idTim == this.user?.teamId){
         this.initialTeamName = team.nazTim;
+        this.ownTeamChosen = true;
         if (this.assetForm.value.selectedAssetType === 'Players') {
           this.rosterService.getAllPlayersByTeamId(team.idTim).subscribe({
             next: (result: Player[] | Player) => {
@@ -156,7 +158,7 @@ export class RosterComponent implements OnInit{
             }
           })
         }  
-        else if (this.assetForm.value.selectedAssetType === 'Draft Rights') {
+        else if (this.assetForm.value.selectedAssetType === 'Draft rights') {
           this.rosterService.getAllDraftRightsByTeamId(team.idTim).subscribe({
             next: (result: DraftRight[] | DraftRight) => {
               if(Array.isArray(result)){
@@ -178,6 +180,11 @@ export class RosterComponent implements OnInit{
       this.fullTeams.forEach(team => {
           if(this.teamCtrl.value === team.nazTim){
             teamId = team.idTim;
+            if (team.idTim == this.user?.teamId) {
+              this.ownTeamChosen = true;
+            } else {
+              this.ownTeamChosen = false;
+            }
           }
         }
       )
@@ -206,7 +213,7 @@ export class RosterComponent implements OnInit{
           }
         })
       }  
-      else if (this.assetForm.value.selectedAssetType === 'Draft Rights') {
+      else if (this.assetForm.value.selectedAssetType === 'Draft rights') {
         this.rosterService.getAllDraftRightsByTeamId(teamId).subscribe({
           next: (result: DraftRight[] | DraftRight) => {
             if(Array.isArray(result)){
@@ -218,6 +225,8 @@ export class RosterComponent implements OnInit{
           }
         })
       }  
+    } else{
+      this.getLoggedInUsersAssets();
     }
   }
 

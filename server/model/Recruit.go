@@ -93,7 +93,7 @@ func (r *Recruit) FromDAO(recruitDAO *RecruitDAO) {
 }
 
 type RecruitResponseDTO struct {
-	User
+	UserResponseDTO
 	KonTelefonReg string   `json:"konTelefonReg"` // Phone number
 	VisReg        string   `json:"visReg"`        // Height
 	TezReg        string   `json:"tezReg"`        // Weight
@@ -104,7 +104,13 @@ type RecruitResponseDTO struct {
 }
 
 func (r *Recruit) FromModel(recruitDTO *RecruitResponseDTO) {
-	recruitDTO.User = r.User
+	recruitDTO.UserResponseDTO.Id = r.User.ID
+	recruitDTO.UserResponseDTO.Email = r.User.Email
+	recruitDTO.UserResponseDTO.Ime = r.User.FirstName
+	recruitDTO.UserResponseDTO.Prezime = r.User.LastName
+	recruitDTO.UserResponseDTO.DatRodj = r.User.DateOfBirth
+	recruitDTO.UserResponseDTO.Lozinka = r.User.Password
+	recruitDTO.UserResponseDTO.Uloga = r.User.Role
 	recruitDTO.KonTelefonReg = r.PhoneNumber
 	recruitDTO.VisReg = r.Height
 	recruitDTO.TezReg = r.Weight

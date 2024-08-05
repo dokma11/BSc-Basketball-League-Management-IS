@@ -2,7 +2,7 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { faPlus, faMinus, faList, faBan } from '@fortawesome/free-solid-svg-icons';
+import { faList, faBan, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Pick } from 'src/app/shared/model/pick.model';
@@ -45,7 +45,7 @@ export class PickRosterCardComponent implements OnInit{
   private dialogRef: any;
   user: User | undefined;
   @Output() dialogRefClosed: EventEmitter<any> = new EventEmitter<any>();
-  ownTeam: boolean = false;
+  @Input() ownTeam!: boolean;
 
   constructor(private dialog: MatDialog,
               private authService: AuthService,
@@ -54,14 +54,12 @@ export class PickRosterCardComponent implements OnInit{
       this.user = user;
     });
   
-    // Treba nekako videti za koji tim se traze pikovi i onda ih ucitati u this.picks recimo
   }
 
   ngOnInit(): void {
-    // TODO: Dodati ovde sta treba pri inicijalizaciji komponenti
   }
 
-  addToWishlistButtonClicked(player: any){
+  addToWishlistButtonClicked(pick: any){
     // TODO: Implementirati lpogiku za dodavanje odredjenog pika na listu zelja, vrv treba u samom modalnom da se to uradi
 
     this.addToWishlistButtonState = 'clicked';
@@ -72,20 +70,62 @@ export class PickRosterCardComponent implements OnInit{
   }
 
   addToTradeListButtonClicked(pick: Pick) {
-    // TODO: Implementirati lpogiku za dodavanje odredjenog igraca na listu zelja, vrv treba u samom modalnom da se to uradi
-
     this.addToUntouchablesListButtonState = 'clicked';
     setTimeout(() => { this.addToUntouchablesListButtonState = 'idle'; }, 200);
+    
+    if(!this.pick.nedodListPik){
+      this.dialogRef = this.dialog.open(AddPlayerToListPromptComponent, {
+        data: {
+          list: 'trade list',
+          pick: this.pick, 
+          action: 'add',
+        }
+      });
+    } else {
+      this.showNotification('Can not add an untouchable pick to the trade list!')
+    }
+  }
+
+  removeFromTradeListButtonClicked(pick: any){
+    this.addToTradeListButtonState = 'clicked';
+    setTimeout(() => { this.addToTradeListButtonState = 'idle'; }, 200);
+
     this.dialogRef = this.dialog.open(AddPlayerToListPromptComponent, {
-      data: 'untouchable list'
+      data: {
+        list: 'trade list',
+        pick: this.pick, 
+        action: 'remove',
+      }
     });
   }
 
   addToUntouchablesListButtonClicked(pick: Pick) {
     this.addToTradeListButtonState = 'clicked';
     setTimeout(() => { this.addToTradeListButtonState = 'idle'; }, 200);
+    
+    if(!this.pick.trgListPik){
+      this.dialogRef = this.dialog.open(AddPlayerToListPromptComponent, {
+        data: {
+          list: 'untouchable list',
+          pick: this.pick,
+          action: 'add',
+        }
+      });
+    } else {
+      this.showNotification('Can not add a tradeable pick to the untouchables list!')
+    }
+  }
+
+  removeFromUntouchablesListButtonClicked(pick: any){
+    this.addToUntouchablesListButtonState = 'clicked';
+    setTimeout(() => { this.addToUntouchablesListButtonState = 'idle'; }, 200);
+    
     this.dialogRef = this.dialog.open(AddPlayerToListPromptComponent, {
-      data: 'trade list'
+      data: {
+        list: 'untouchable list',
+        pick: this.pick, 
+        action: 'remove',
+      }
     });
   }
 
@@ -99,4 +139,5 @@ export class PickRosterCardComponent implements OnInit{
 
   faList = faList;
   faBan = faBan;
+  faHeart = faHeart;
 }

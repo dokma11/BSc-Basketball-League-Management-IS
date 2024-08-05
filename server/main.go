@@ -9,12 +9,23 @@ import (
 	_ "github.com/godror/godror"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 	"log"
 	"net/http"
+	"os"
 )
 
 func initDB() sql.DB {
-	dsn := `user="C##Dokma11" password="dokma11" connectString="localhost:1521/xe" sysdba=0`
+	err := godotenv.Load("./env/DATABASE.env")
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+
+	dbConnectString := os.Getenv("DB_CONNECT_STRING")
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASSWORD")
+
+	dsn := fmt.Sprintf(`user="%s" password="%s" connectString="%s" sysdba=0`, dbUser, dbPassword, dbConnectString)
 	db, err := sql.Open("godror", dsn)
 	if err != nil {
 		log.Fatalf("Failed to open a connection: %v", err)
@@ -40,20 +51,24 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	router.HandleFunc("/pick", pickHandler.GetAll).Methods("GET")
 	router.HandleFunc("/pick/{id}", pickHandler.GetByID).Methods("GET")
 	router.HandleFunc("/pick/team/{teamId}", pickHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/pick-available-team/{teamId}", pickHandler.GetAllAvailableByTeamID).Methods("GET")
 	router.HandleFunc("/pick/year/{year}", pickHandler.GetAllByYear).Methods("GET")
+	router.HandleFunc("/pick", pickHandler.Update).Methods("PUT")
 
 	router.HandleFunc("/user", userHandler.GetAll).Methods("GET")
 	router.HandleFunc("/user/{id}", userHandler.GetByID).Methods("GET")
 	router.HandleFunc("/user", userHandler.Update).Methods("PUT")
 
 	router.HandleFunc("/recruit", recruitHandler.GetAll).Methods("GET")
-	router.HandleFunc("/recruit/{id}", recruitHandler.GetByID).Methods("GET")
+	router.HandleFunc("/recruit-id/{id}", recruitHandler.GetByID).Methods("GET")
 	router.HandleFunc("/recruit", recruitHandler.Create).Methods("POST")
 	router.HandleFunc("/recruit", recruitHandler.Update).Methods("PUT")
 
 	router.HandleFunc("/player", playerHandler.GetAll).Methods("GET")
 	router.HandleFunc("/player/{id}", playerHandler.GetByID).Methods("GET")
 	router.HandleFunc("/player/team/{teamId}", playerHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/player-available-team/{teamId}", playerHandler.GetAllAvailableByTeamID).Methods("GET")
+	router.HandleFunc("/player", playerHandler.Update).Methods("PUT")
 
 	router.HandleFunc("/employee", employeeHandler.GetAll).Methods("GET")
 	router.HandleFunc("/employee/{id}", employeeHandler.GetByID).Methods("GET")
@@ -63,7 +78,9 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 
 	router.HandleFunc("/draftRight", draftRightHandler.GetAll).Methods("GET")
 	router.HandleFunc("/draftRight/{id}", draftRightHandler.GetByID).Methods("GET")
-	router.HandleFunc("/draftRight/team/{teamId}", draftRightHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/draftRight-team/{teamId}", draftRightHandler.GetAllByTeamID).Methods("GET")
+	router.HandleFunc("/draftRight-available-team/{teamId}", draftRightHandler.GetAllAvailableByTeamID).Methods("GET")
+	router.HandleFunc("/draftRight", draftRightHandler.Update).Methods("PUT")
 
 	router.HandleFunc("/contract", contractHandler.GetAll).Methods("GET")
 	router.HandleFunc("/contract/{id}", contractHandler.GetByID).Methods("GET")

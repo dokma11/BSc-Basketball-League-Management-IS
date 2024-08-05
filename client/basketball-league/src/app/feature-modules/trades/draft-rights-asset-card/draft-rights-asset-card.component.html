@@ -3,13 +3,13 @@
       <div class="player-card-top">
         <div class="player-tags">
           <div class="player-tag"
-               *ngIf="this.player.trgListIgr"
+               *ngIf="this.draftRight.trgListPrava"
                style="background-color: orange; color: white">
             Added to the Trade list
           </div>
           <!-- OVDE SAMO OBRATI PAZNJU KADA SE DODA WISHLIST DA SE PROMENI -->
           <div class="player-tag"
-              *ngIf="this.player.nedodListIgr"
+              *ngIf="this.draftRight.nedodListPrava"
               style="background-color: olivedrab; color: white">
               Added to the Wishlist
           </div>
@@ -18,23 +18,23 @@
       <div class="player-card-information">
           <div class="player-card-center">
                 <div class="player-name-value">
-                  <strong>Name:</strong> {{ player.ime }} {{ player.prezime }}
+                  <strong>Name:</strong> {{ this.draftRightPlayer?.ime }} {{ this.draftRightPlayer?.prezime }}
                 </div>
                 <div class="trade-date">
                   <div class="player-age-value">
                     <strong>Age:</strong>  {{ this.age }}
                   </div>
                 </div>
-                <div class="player-position-value" *ngIf="player.pozIgr === 0"><strong>Position:</strong> PG</div>
-                <div class="player-position-value" *ngIf="player.pozIgr === 1"><strong>Position:</strong> SG</div>
-                <div class="player-position-value" *ngIf="player.pozIgr === 2"><strong>Position:</strong> SF</div>
-                <div class="player-position-value" *ngIf="player.pozIgr === 3"><strong>Position:</strong> PF</div>
-                <div class="player-position-value" *ngIf="player.pozIgr === 4"><strong>Position:</strong> C</div>
+                <div class="player-position-value" *ngIf="this.draftRightPlayer?.pozReg === 0"><strong>Position:</strong> PG</div>
+                <div class="player-position-value" *ngIf="this.draftRightPlayer?.pozReg === 1"><strong>Position:</strong> SG</div>
+                <div class="player-position-value" *ngIf="this.draftRightPlayer?.pozReg === 2"><strong>Position:</strong> SF</div>
+                <div class="player-position-value" *ngIf="this.draftRightPlayer?.pozReg === 3"><strong>Position:</strong> PF</div>
+                <div class="player-position-value" *ngIf="this.draftRightPlayer?.pozReg === 4"><strong>Position:</strong> C</div>
                 <div class="player-height-value">
-                  <strong>Height:</strong> {{ player.visIgr }}cm
+                  <strong>Height:</strong> {{ this.draftRightPlayer?.visReg }}cm
                 </div>
                 <div class="player-weight-value">
-                  <strong>Weight:</strong> {{ player.tezIgr }}kg
+                  <strong>Weight:</strong> {{ this.draftRightPlayer?.tezReg }}kg
                 </div>
           </div>
 
@@ -42,7 +42,7 @@
             <button
             class="btn"
             *ngIf="!assetSelected"
-            (click)="addAssetButtonClicked(player);$event.stopPropagation()"
+            (click)="addAssetButtonClicked(this.draftRight);$event.stopPropagation()"
             [@buttonState]="addAssetButtonState"
           >
             <fa-icon [icon]="faPlus" />
@@ -52,7 +52,7 @@
           <button
             class="btn"
             *ngIf="assetSelected"
-            (click)="removeAssetButtonClicked(player);$event.stopPropagation()"
+            (click)="removeAssetButtonClicked(this.draftRight);$event.stopPropagation()"
             [@buttonState]="removeAssetButtonState"
           >
             <fa-icon [icon]="faMinus" />

@@ -42,6 +42,15 @@ func (service *PickService) GetAllByTeamID(teamId int) (*[]model.Pick, error) {
 	return &picks, nil
 }
 
+func (service *PickService) GetAllAvailableByTeamID(teamId int) (*[]model.Pick, error) {
+	picks, err := service.PickRepository.GetAllAvailableByTeamID(teamId)
+	if err != nil {
+		return nil, fmt.Errorf(fmt.Sprintf("no available picks with that team id were found"))
+	}
+
+	return &picks, nil
+}
+
 func (service *PickService) GetAllByYear(year string) (*[]model.Pick, error) {
 	picks, err := service.PickRepository.GetAllByYear(year)
 	if err != nil {

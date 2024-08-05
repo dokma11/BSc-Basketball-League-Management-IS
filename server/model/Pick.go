@@ -7,12 +7,14 @@ import (
 )
 
 type Pick struct {
-	ID        int64
-	Order     string
-	Round     string // (can be first and second)
-	Year      string
-	ManagerId int64 // Manager that used the pick foreign key
-	TeamId    int64 // Team foreign key
+	ID          int64
+	Order       string
+	Round       string // (can be first and second)
+	Year        string
+	Untouchable bool  // Is pick added to the untouchables list
+	Tradeable   bool  // Is pick added to the trade list
+	ManagerId   int64 // Manager that used the pick foreign key
+	TeamId      int64 // Team foreign key
 }
 
 func NewPick(idPik int64, redBrPik string, brRunPik string, godPik string) (*Pick, error) {
@@ -51,19 +53,21 @@ func (p *Pick) Validate() error {
 	return nil
 }
 
-// Bira Gerund
+// Bira (Chooses) Gerund
 type Bira struct {
 	IdRegrut int64 `json:"idRegrut"` // Recruit foreign key
 	IdPik    int64 `json:"idPik"`    // Pick foreign key
 }
 
 type PickDAO struct {
-	IdPik      int64
-	RedBrPik   string // Pick order
-	BrRunPik   string // Pick round (can be first and second)
-	GodPik     string // Pick year
-	IdMenadzer int64  // Manager that used the pick foreign key
-	IdTim      int64  // Team foreign key
+	IdPik        int64
+	RedBrPik     string // Pick order
+	BrRunPik     string // Pick round (can be first and second)
+	GodPik       string // Pick year
+	NedodListPik string // Is pick added to the untouchables list
+	TrgListPik   string // Is pick added to the trade list
+	IdMenadzer   int64  // Manager that used the pick foreign key
+	IdTim        int64  // Team foreign key
 }
 
 func (p *Pick) FromDAO(pickDAO *PickDAO) {
@@ -73,15 +77,27 @@ func (p *Pick) FromDAO(pickDAO *PickDAO) {
 	p.Year = pickDAO.GodPik
 	p.ManagerId = pickDAO.IdMenadzer
 	p.TeamId = pickDAO.IdTim
+	if pickDAO.NedodListPik == "TRUE" {
+		p.Untouchable = true
+	} else if pickDAO.NedodListPik == "FALSE" {
+		p.Untouchable = false
+	}
+	if pickDAO.TrgListPik == "TRUE" {
+		p.Tradeable = true
+	} else if pickDAO.TrgListPik == "FALSE" {
+		p.Tradeable = false
+	}
 }
 
 type PickResponseDTO struct {
-	IdPik      int64  `json:"idPik"`
-	RedBrPik   string `json:"redBrPik"`   // Pick order
-	BrRunPik   string `json:"brRunPik"`   // Pick round (can be first and second)
-	GodPik     string `json:"godPik"`     // Pick year
-	IdMenadzer int64  `json:"idMenadzer"` // Manager that used the pick foreign key
-	IdTim      int64  `json:"idTim"`      // Team foreign key
+	IdPik        int64  `json:"idPik"`
+	RedBrPik     string `json:"redBrPik"`     // Pick order
+	BrRunPik     string `json:"brRunPik"`     // Pick round (can be first and second)
+	GodPik       string `json:"godPik"`       // Pick year
+	NedodListPik bool   `json:"nedodListPik"` // Is pick added to the untouchables list
+	TrgListPik   bool   `json:"trgListPik"`   // Is pick added to the trade list
+	IdMenadzer   int64  `json:"idMenadzer"`   // Manager that used the pick foreign key
+	IdTim        int64  `json:"idTim"`        // Team foreign key
 }
 
 func (p *Pick) FromModel(pickDTO *PickResponseDTO) {
@@ -91,4 +107,20 @@ func (p *Pick) FromModel(pickDTO *PickResponseDTO) {
 	pickDTO.GodPik = p.Year
 	pickDTO.IdMenadzer = p.ManagerId
 	pickDTO.IdTim = p.TeamId
+	pickDTO.NedodListPik = p.Untouchable
+	pickDTO.TrgListPik = p.Tradeable
+}
+
+type PickUpdateDTO struct {
+	IdPik        int64 `json:"idPik"`
+	IdTim        int64 `json:"idTim"`        // Team foreign key
+	NedodListPik bool  `json:"nedodListPik"` // Is pick added to the untouchables list
+	TrgListPik   bool  `json:"trgListPik"`   // Is pick added to the trade list
+}
+
+func (p *Pick) FromUpdateDTO(pickDTO *PickUpdateDTO) {
+	p.ID = pickDTO.IdPik
+	p.TeamId = pickDTO.IdTim
+	p.Untouchable = pickDTO.NedodListPik
+	p.Tradeable = pickDTO.TrgListPik
 }

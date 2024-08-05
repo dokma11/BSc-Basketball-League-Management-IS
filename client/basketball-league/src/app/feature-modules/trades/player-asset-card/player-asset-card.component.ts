@@ -41,9 +41,7 @@ export class PlayerAssetCardComponent implements OnInit{
   age: string = '';
   @Output() dialogRefClosed: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private snackBar: MatSnackBar) {
-    
-  }
+  constructor(private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     const today = new Date();

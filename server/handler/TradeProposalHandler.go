@@ -4,7 +4,6 @@ import (
 	"basketball-league-server/model"
 	"basketball-league-server/service"
 	"encoding/json"
-	"fmt"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -139,8 +138,6 @@ func (handler *TradeProposalHandler) Update(w http.ResponseWriter, r *http.Reque
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
-	fmt.Println(tradeProposalDTO)
 
 	tradeProposal := &model.TradeProposal{}
 	tradeProposal.FromUpdateDTO(&tradeProposalDTO)

@@ -7,7 +7,7 @@ require (
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/gorilla/handlers v1.5.2
 	github.com/gorilla/mux v1.8.1
-	golang.org/x/crypto v0.25.0
+	github.com/joho/godotenv v1.5.1
 )
 
 require (
@@ -15,5 +15,6 @@ require (
 	github.com/go-logfmt/logfmt v0.6.0 // indirect
 	github.com/godror/knownpb v0.1.1 // indirect
 	golang.org/x/exp v0.0.0-20240506185415-9bf2ced13842 // indirect
+	golang.org/x/term v0.22.0 // indirect
 	google.golang.org/protobuf v1.34.1 // indirect
 )

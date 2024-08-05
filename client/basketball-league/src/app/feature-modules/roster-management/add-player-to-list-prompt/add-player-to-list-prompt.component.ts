@@ -1,8 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DeclineRequestPromptComponent } from '../../trades/decline-request-prompt/decline-request-prompt.component';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { RosterService } from '../roster.service';
+import { Player } from 'src/app/shared/model/player.model';
+import { Pick } from 'src/app/shared/model/pick.model';
+import { DraftRight } from 'src/app/shared/model/draftRight.model';
 
 @Component({
   selector: 'app-add-player-to-list-prompt',
@@ -36,48 +39,130 @@ export class AddPlayerToListPromptComponent {
   cancelButtonState: string = 'idle';
   addButtonState: string = 'idle';
   focused: string = '';
-  private ownDialogRef: any;
-  adultTicketPrice: string = "0";
-  minorTicketPrice: string = "0";
-  public list: string = ''; // OVO JE ZAMENA DOK NE DODJE POVEZIVANJE SA BEKOM
+  list: string = ''; 
+  action: string = '';
+  player: Player | undefined;
+  pick: Pick | undefined;
+  draftRights: DraftRight | undefined;
 
-  constructor(private snackBar: MatSnackBar,
-              private dialogRef: MatDialogRef<DeclineRequestPromptComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              private dialog: MatDialog,) {
-    this.list = data;
+  constructor(private rosterService: RosterService,
+              private snackBar: MatSnackBar,
+              private dialogRef: MatDialogRef<AddPlayerToListPromptComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.list = data.list;
+    this.action = data.action;
+    if (data.player){
+      this.player = data.player;
+    }
+    if (data.pick){
+      this.pick = data.pick;
+    }
+    if (data.draftRights){
+      this.draftRights = data.draftRights;
+    }
   }
 
   addButtonClicked(){
       this.addButtonState = 'clicked';
       setTimeout(() => { this.addButtonState = 'idle'; }, 200);
 
-      // TODO: Uraditi logiku za dodavanje igraca na odredjenu listu
-
-      // this.request!.status = PersonalTourRequestStatus.ACCEPTED;
-
-      // this.toursService.updateTourRequest(this.request!).subscribe({
-      //   next: () => {
-
-      //     const tour: PersonalTour = {
-      //       occurrenceDateTime: this.request!.occurrenceDateTime || new Date(),
-      //       adultTicketPrice: this.adultTicketPrice || "",
-      //       minorTicketPrice: this.minorTicketPrice || "",
-      //       guestNumber: this.request!.guestNumber || "",
-      //       proposerId: this.request!.proposerId || 0,
-      //       guideId: this.selectedCurator[0].id || 7,
-      //       duration: "0",
-      //       exhibitions: this.request?.exhibitions || []
-      //     };
-
-      //     this.toursService.addPersonalTour(tour).subscribe({
-      //       next: () => {
-      //         this.showNotification('Tour request successfully accepted!');
-      //         this.dialogRef.close();
-      //       }
-      //     })
-      //   }
-      // });
+      if(this.list == 'untouchable list' && this.action == 'add' && this.player){
+        this.player!.nedodListIgr = true;
+        this.rosterService.updatePlayer(this.player!).subscribe({
+          next: (result: Player) => {
+            this.dialogRef.close();
+            this.showNotification('Player successfully added to the untouchables list!');
+          }
+        })
+      } else if(this.list == 'untouchable list' && this.action == 'remove' && this.player){
+        this.player!.nedodListIgr = false;
+        this.rosterService.updatePlayer(this.player!).subscribe({
+          next: (result: Player) => {
+            this.dialogRef.close();
+            this.showNotification('Player successfully removed from the untouchables list!');
+          }
+        })
+      } else if(this.list == 'trade list' && this.action == 'add' && this.player){
+        this.player!.trgListIgr = true;
+        this.rosterService.updatePlayer(this.player!).subscribe({
+          next: (result: Player) => {
+            this.dialogRef.close();
+            this.showNotification('Player successfully added to the trade list!');
+          }
+        })
+      } else if(this.list == 'trade list' && this.action == 'remove' && this.player){
+        this.player!.trgListIgr = false;
+        this.rosterService.updatePlayer(this.player!).subscribe({
+          next: (result: Player) => {
+            this.dialogRef.close();
+            this.showNotification('Player successfully removed from the trade list!');
+          }
+        })
+      } else if(this.list == 'untouchable list' && this.action == 'add' && this.pick){
+        this.pick!.nedodListPik = true;
+        this.rosterService.updatePick(this.pick!).subscribe({
+          next: (result: Pick) => {
+            this.dialogRef.close();
+            this.showNotification('Pick successfully added to the untouchables list!');
+          }
+        })
+      } else if(this.list == 'untouchable list' && this.action == 'remove' && this.pick){
+        this.pick!.nedodListPik = false;
+        this.rosterService.updatePick(this.pick!).subscribe({
+          next: (result: Pick) => {
+            this.dialogRef.close();
+            this.showNotification('Pick successfully removed from the untouchables list!');
+          }
+        })
+      } else if(this.list == 'trade list' && this.action == 'add' && this.pick){
+        this.pick!.trgListPik = true;
+        this.rosterService.updatePick(this.pick!).subscribe({
+          next: (result: Pick) => {
+            this.dialogRef.close();
+            this.showNotification('Pick successfully added to the trade list!');
+          }
+        })
+      } else if(this.list == 'trade list' && this.action == 'remove' && this.pick){
+        this.pick!.trgListPik = false;
+        this.rosterService.updatePick(this.pick!).subscribe({
+          next: (result: Pick) => {
+            this.dialogRef.close();
+            this.showNotification('Pick successfully removed form the trade list!');
+          }
+        })
+      }  else if(this.list == 'untouchable list' && this.action == 'add' && this.draftRights){
+        this.draftRights!.nedodListPrava = true;
+        this.rosterService.updateDraftRights(this.draftRights!).subscribe({
+          next: (result: DraftRight) => {
+            this.dialogRef.close();
+            this.showNotification('Draft Rights successfully added to the untouchables list!');
+          }
+        })
+      } else if(this.list == 'untouchable list' && this.action == 'remove' && this.draftRights){
+        this.draftRights!.nedodListPrava = false;
+        this.rosterService.updateDraftRights(this.draftRights!).subscribe({
+          next: (result: DraftRight) => {
+            this.dialogRef.close();
+            this.showNotification('Draft Rights successfully removed from the untouchables list!');
+          }
+        })
+      } else if(this.list == 'trade list' && this.action == 'add' && this.draftRights){
+        this.draftRights!.trgListPrava = true;
+        this.rosterService.updateDraftRights(this.draftRights!).subscribe({
+          next: (result: DraftRight) => {
+            this.dialogRef.close();
+            this.showNotification('Draft Rights successfully added to the trade list!');
+          }
+        })
+      } else if(this.list == 'trade list' && this.action == 'remove' && this.draftRights){
+        this.draftRights!.trgListPrava = false;
+        this.rosterService.updateDraftRights(this.draftRights!).subscribe({
+          next: (result: DraftRight) => {
+            this.dialogRef.close();
+            this.showNotification('Draft Rights successfully removed form the trade list!');
+          }
+        })
+      }
   }
 
   cancelButtonClicked(){

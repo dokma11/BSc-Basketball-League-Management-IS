@@ -97,3 +97,36 @@
   transform: scale(1.03);
   transition: transform 300ms ease;
 }
+
+.pick-tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 70%;
+}
+
+.pick-tag {
+  font-family: var(--fnt-body);
+  font-size: 0.8rem;
+  color: rgba(var(--clr-text), 1);
+  background-color: rgba(var(--clr-background-secondary), 1);
+  border-radius: 0.3125rem;
+  padding: 0.125rem 0.25rem;
+  transition: background-color 0.15s, color 0.15s;
+  cursor: pointer;
+}
+
+.pick-tag:hover {
+  background-color: rgba(var(--clr-background-secondary), 0.75);
+}
+
+.pick-card-top {
+  margin-top: -1.8rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%; 
+  position: absolute;
+  margin-left: 0.45rem;
+}

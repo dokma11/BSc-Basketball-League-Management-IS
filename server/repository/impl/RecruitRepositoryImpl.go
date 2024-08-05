@@ -17,7 +17,10 @@ func NewRecruitRepository(db *sql.DB) repository.RecruitRepository {
 }
 
 func (repo *recruitRepository) GetAll() ([]model.Recruit, error) {
-	rows, err := repo.db.Query("SELECT * FROM REGRUT")
+	rows, err := repo.db.Query(`SELECT K.ID, K.IME, K.PREZIME, K.EMAIL, K.DATRODJ, K.LOZINKA, K.ULOGA, R.KONTELEFON,
+										R.VISREG, R.TEZREG, R.POZREG, R.PROSRANKREG, R.PROSOCREG, R.IDDRAFT
+										FROM KORISNIK K, REGRUT R
+										WHERE K.ID = R.ID`)
 	if err != nil {
 		return nil, fmt.Errorf("failed to query all recruits: %v", err)
 	}
@@ -26,13 +29,14 @@ func (repo *recruitRepository) GetAll() ([]model.Recruit, error) {
 	var recruits []model.Recruit
 	for rows.Next() {
 		var recruitDAO model.RecruitDAO
-		var position string
-		if err := rows.Scan(&recruitDAO.ID, &recruitDAO.KonTelefonReg, &recruitDAO.VisReg, &recruitDAO.TezReg, &position,
-			&recruitDAO.ProsRankReg, &recruitDAO.ProsOcReg); err != nil {
+		var role, position string
+		if err := rows.Scan(&recruitDAO.ID, &recruitDAO.FirstName, &recruitDAO.LastName, &recruitDAO.Email, &recruitDAO.DateOfBirth,
+			&recruitDAO.Password, &role, &recruitDAO.KonTelefonReg, &recruitDAO.VisReg, &recruitDAO.TezReg, &position,
+			&recruitDAO.ProsRankReg, &recruitDAO.ProsOcReg, &recruitDAO.IdDraft); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %v", err)
 		}
 
-		fromRecruitPositionString(position, &recruitDAO)
+		fromRecruitPositionAndRoleString(position, role, &recruitDAO)
 		recruit := &model.Recruit{}
 		recruit.FromDAO(&recruitDAO)
 
@@ -48,17 +52,22 @@ func (repo *recruitRepository) GetAll() ([]model.Recruit, error) {
 
 func (repo *recruitRepository) GetByID(id int) (*model.Recruit, error) {
 	var recruitDAO model.RecruitDAO
-	var position string
-	row := repo.db.QueryRow("SELECT * FROM REGRUT WHERE ID = :1", id)
-	if err := row.Scan(&recruitDAO.ID, &recruitDAO.KonTelefonReg, &recruitDAO.VisReg, &recruitDAO.TezReg, &position,
-		&recruitDAO.ProsRankReg, &recruitDAO.ProsOcReg); err != nil {
+	var role, position string
+	row := repo.db.QueryRow(`SELECT K.ID, K.IME, K.PREZIME, K.EMAIL, K.DATRODJ, K.LOZINKA, K.ULOGA, R.KONTELEFON,
+									R.VISREG, R.TEZREG, R.POZREG, R.PROSRANKREG, R.PROSOCREG, R.IDDRAFT
+									FROM KORISNIK K, REGRUT R
+									WHERE K.ID = R.ID AND R.ID = :1`, id)
+	if err := row.Scan(&recruitDAO.ID, &recruitDAO.FirstName, &recruitDAO.LastName, &recruitDAO.Email, &recruitDAO.DateOfBirth,
+		&recruitDAO.Password, &role, &recruitDAO.KonTelefonReg, &recruitDAO.VisReg, &recruitDAO.TezReg, &position,
+		&recruitDAO.ProsRankReg, &recruitDAO.ProsOcReg, &recruitDAO.IdDraft); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // No result found
 		}
+		fmt.Println(err)
 		return nil, fmt.Errorf("failed to scan row: %v", err)
 	}
 
-	fromRecruitPositionString(position, &recruitDAO)
+	fromRecruitPositionAndRoleString(position, role, &recruitDAO)
 	recruit := &model.Recruit{}
 	recruit.FromDAO(&recruitDAO)
 
@@ -86,7 +95,7 @@ func (repo *recruitRepository) Update(recruit *model.Recruit) error {
 	return nil
 }
 
-func fromRecruitPositionString(position string, recruitDAO *model.RecruitDAO) {
+func fromRecruitPositionAndRoleString(position string, role string, recruitDAO *model.RecruitDAO) {
 	switch position {
 	case "PG":
 		recruitDAO.PozReg = 0
@@ -98,5 +107,11 @@ func fromRecruitPositionString(position string, recruitDAO *model.RecruitDAO) {
 		recruitDAO.PozReg = 3
 	default:
 		recruitDAO.PozReg = 4
+	}
+	switch role {
+	case "UloRegrut":
+		recruitDAO.Role = 0
+	default:
+		recruitDAO.Role = 1
 	}
 }
