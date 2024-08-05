@@ -44,6 +44,7 @@ export class AddPlayerToListPromptComponent {
   player: Player | undefined;
   pick: Pick | undefined;
   draftRights: DraftRight | undefined;
+  loggedInUserTeamId: number | undefined;
 
   constructor(private rosterService: RosterService,
               private snackBar: MatSnackBar,
@@ -59,6 +60,9 @@ export class AddPlayerToListPromptComponent {
     }
     if (data.draftRights){
       this.draftRights = data.draftRights;
+    }
+    if (data.teamId != undefined){
+      this.loggedInUserTeamId = data.teamId;
     }
   }
 
@@ -98,6 +102,21 @@ export class AddPlayerToListPromptComponent {
             this.showNotification('Player successfully removed from the trade list!');
           }
         })
+      }  else if(this.list == 'wishlist' && this.action == 'add' && this.player){
+        console.log(this.loggedInUserTeamId);
+        this.rosterService.addPlayerToWishlist(this.player!, this.loggedInUserTeamId!).subscribe({
+          next: (result: Player) => {
+            this.dialogRef.close();
+            this.showNotification('Player successfully added to the wishlist!');
+          }
+        })
+      } else if(this.list == 'wishlist' && this.action == 'remove' && this.player){
+        this.rosterService.removePlayerFromWishlist(this.player!, this.loggedInUserTeamId!).subscribe({
+          next: (result: Player) => {
+            this.dialogRef.close();
+            this.showNotification('Player successfully removed from the wishlist!');
+          }
+        })
       } else if(this.list == 'untouchable list' && this.action == 'add' && this.pick){
         this.pick!.nedodListPik = true;
         this.rosterService.updatePick(this.pick!).subscribe({
@@ -130,7 +149,21 @@ export class AddPlayerToListPromptComponent {
             this.showNotification('Pick successfully removed form the trade list!');
           }
         })
-      }  else if(this.list == 'untouchable list' && this.action == 'add' && this.draftRights){
+      } else if(this.list == 'wishlist' && this.action == 'add' && this.pick){
+        this.rosterService.addPickToWishlist(this.pick!, this.loggedInUserTeamId!).subscribe({
+          next: (result: Pick) => {
+            this.dialogRef.close();
+            this.showNotification('Pick successfully added to the wishlist!');
+          }
+        })
+      } else if(this.list == 'wishlist' && this.action == 'remove' && this.pick){
+        this.rosterService.removePickFromWishlist(this.pick!, this.loggedInUserTeamId!).subscribe({
+          next: (result: Pick) => {
+            this.dialogRef.close();
+            this.showNotification('Pick successfully removed from the wishlist!');
+          }
+        })
+      } else if(this.list == 'untouchable list' && this.action == 'add' && this.draftRights){
         this.draftRights!.nedodListPrava = true;
         this.rosterService.updateDraftRights(this.draftRights!).subscribe({
           next: (result: DraftRight) => {
@@ -144,6 +177,20 @@ export class AddPlayerToListPromptComponent {
           next: (result: DraftRight) => {
             this.dialogRef.close();
             this.showNotification('Draft Rights successfully removed from the untouchables list!');
+          }
+        })
+      } else if(this.list == 'wishlist' && this.action == 'add' && this.draftRights){
+        this.rosterService.addDraftRightsToWishlist(this.draftRights!, this.loggedInUserTeamId!).subscribe({
+          next: (result: DraftRight) => {
+            this.dialogRef.close();
+            this.showNotification('Draft Rights successfully added to the wishlist!');
+          }
+        })
+      } else if(this.list == 'wishlist' && this.action == 'remove' && this.draftRights){
+        this.rosterService.removeDraftRightsFromWishlist(this.draftRights!, this.loggedInUserTeamId!).subscribe({
+          next: (result: DraftRight) => {
+            this.dialogRef.close();
+            this.showNotification('Draft Rights successfully removed form the wishlist!');
           }
         })
       } else if(this.list == 'trade list' && this.action == 'add' && this.draftRights){

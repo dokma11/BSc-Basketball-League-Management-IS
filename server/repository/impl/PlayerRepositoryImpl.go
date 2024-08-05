@@ -147,6 +147,23 @@ func (repo *playerRepository) Update(player *model.Player) error {
 	return nil
 }
 
+func (repo *playerRepository) AddToWishlist(player *model.Player, teamId int) error {
+	_, err := repo.db.Exec(`INSERT INTO ZELJATIMA VALUES (0, SYSDATE, 'IGRAC', 0, NULL, NULL, :1, :2)`, // 0 is Player type
+		player.ID, teamId)
+	if err != nil {
+		return fmt.Errorf("failed to add player to the wishlist: %v", err)
+	}
+	return nil
+}
+
+func (repo *playerRepository) RemoveFromWishlist(player *model.Player, teamId int) error {
+	_, err := repo.db.Exec(`DELETE FROM ZELJATIMA WHERE IDIGRAC = :1 AND IDTIM = :2`, player.ID, teamId)
+	if err != nil {
+		return fmt.Errorf("failed to remove player from the wishlist: %v", err)
+	}
+	return nil
+}
+
 func fromRoleAndPositionString(role string, position string, player *model.PlayerDAO) {
 	if role == "Zaposleni" {
 		player.Role = 1

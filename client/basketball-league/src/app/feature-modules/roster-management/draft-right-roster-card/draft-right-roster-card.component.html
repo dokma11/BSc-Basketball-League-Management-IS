@@ -3,21 +3,30 @@
         <div class="player-card-top">
             <div class="player-tags">
                 <div class="player-tag"
-                    *ngIf="this.draftRight.trgListPrava"
+                    *ngIf="this.draftRight.trgListPrava && this.ownTeam"
                     style="background-color: orange; color: white">
-                Added to the Trade list
+                    On your Trade list
                 </div>
                 <div class="player-tag"
-                    *ngIf="this.draftRight.nedodListPrava"
-                    style="background-color: rgb(132, 40, 40); color: white">
-                    Added to the Untouchables list
+                    *ngIf="this.draftRight.trgListPrava && !this.ownTeam"
+                    style="background-color: orange; color: white">
+                    On their Trade list
                 </div>
-                <!-- OVDE SAMO OBRATI PAZNJU KADA SE DODA WISHLIST DA SE PROMENI -->
-                <!-- <div class="player-tag"
-                    *ngIf="this.draftRight.nedodListPrava"
+                <div class="player-tag"
+                    *ngIf="this.draftRight.nedodListPrava && this.ownTeam"
+                    style="background-color: rgb(132, 40, 40); color: white">
+                    On your Untouchables list
+                </div>
+                <div class="player-tag"
+                    *ngIf="this.draftRight.nedodListPrava && !this.ownTeam"
+                    style="background-color: rgb(132, 40, 40); color: white">
+                    On their Untouchables list
+                </div>
+                <div class="player-tag"
+                    *ngIf="this.onWishlist"
                     style="background-color: olivedrab; color: white">
-                    Added to the Wishlist
-                </div> -->
+                    On your Wishlist
+                </div>
             </div>
         </div>
       <div class="player-card-information">
@@ -61,12 +70,22 @@
           <div class="player-card-right">
               <button
                   class="btn"
-                  *ngIf="!ownTeam"
+                  *ngIf="!ownTeam && !this.onWishlist"
                   (click)="addToWishlistButtonClicked(draftRight);$event.stopPropagation()"
                   [@buttonState]="addToWishlistButtonState"
               >
                   <fa-icon [icon]="faHeart" />
                   &nbsp;Add to wishlist
+              </button>
+
+              <button
+                  class="btn"
+                  *ngIf="!ownTeam && this.onWishlist"
+                  (click)="removeFromWishlistButtonClicked(draftRight);$event.stopPropagation()"
+                  [@buttonState]="addToWishlistButtonState"
+              >
+                  <fa-icon [icon]="faWindowClose" />
+                  &nbsp;Remove from wishlist
               </button>
 
               <button

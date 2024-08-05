@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { faHeart, faBan, faList } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faBan, faList, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Team } from 'src/app/shared/model/team.model';
@@ -10,6 +10,7 @@ import { DraftRight } from 'src/app/shared/model/draftRight.model';
 import { Recruit } from 'src/app/shared/model/recruit.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { WishlistAsset } from 'src/app/shared/model/wishlistAsset.model';
 
 @Component({
   selector: 'app-draft-right-roster-card',
@@ -50,6 +51,8 @@ export class DraftRightRosterCardComponent implements OnInit{
   @Output() dialogRefClosed: EventEmitter<any> = new EventEmitter<any>();
   age: string = '';
   @Input() ownTeam!: boolean;
+  wishlistItems: WishlistAsset[] = [];
+  onWishlist: boolean = false;
 
   constructor(private dialog: MatDialog,
               private authService: AuthService,
@@ -73,12 +76,65 @@ export class DraftRightRosterCardComponent implements OnInit{
   }
 
   addToWishlistButtonClicked(player: any){
-    // TODO: Implementirati lpogiku za dodavanje odredjenog igraca na listu zelja, vrv treba u samom modalnom da se to uradi
-
     this.addToWishlistButtonState = 'clicked';
     setTimeout(() => { this.addToWishlistButtonState = 'idle'; }, 200);
+
+    if (!this.draftRight.nedodListPrava){
+      this.dialogRef = this.dialog.open(AddPlayerToListPromptComponent, {
+        data: {
+          list: 'wishlist',
+          draftRights: this.draftRight,
+          action: 'add',
+          teamId: this.user?.teamId,
+        }      
+      });
+
+      this.dialogRef.afterClosed().subscribe((result: any) => {
+        this.rosterService.getWishlistByTeamID(this.user?.teamId!).subscribe({
+          next: (result: WishlistAsset) => {
+            if (Array.isArray(result)){
+              this.wishlistItems = result;
+    
+              this.wishlistItems.forEach(asset => {
+                if (asset.idPrava == this.draftRight.idPrava){
+                  this.onWishlist = true;
+                }
+              });
+            }
+          }
+        });
+      });
+    }
+  }
+
+  removeFromWishlistButtonClicked(player: any) {
+    this.addToWishlistButtonState = 'clicked';
+    setTimeout(() => { this.addToWishlistButtonState = 'idle'; }, 200);
+
     this.dialogRef = this.dialog.open(AddPlayerToListPromptComponent, {
-      data: 'wishlist'
+      data: {
+        list: 'wishlist',
+        draftRights: this.draftRight,
+        action: 'remove',
+        teamId: this.user?.teamId,
+      }
+    });
+
+    this.dialogRef.afterClosed().subscribe((result: any) => {
+      this.onWishlist = false;
+      this.rosterService.getWishlistByTeamID(this.user?.teamId!).subscribe({
+        next: (result: WishlistAsset) => {
+          if (Array.isArray(result)){
+            this.wishlistItems = result;
+  
+            this.wishlistItems.forEach(asset => {
+              if (asset.idPrava == this.draftRight.idPrava){
+                this.onWishlist = true;
+              }
+            });
+          }
+        }
+      });
     });
   }
 
@@ -153,4 +209,5 @@ export class DraftRightRosterCardComponent implements OnInit{
   faHeart = faHeart;
   faBan = faBan;
   faList = faList;
+  faWindowClose = faWindowClose;
 }

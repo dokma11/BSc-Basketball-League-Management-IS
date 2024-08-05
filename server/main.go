@@ -47,6 +47,7 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	router.HandleFunc("/team/{id}", teamHandler.GetByID).Methods("GET")
 	router.HandleFunc("/team-user/{userId}", teamHandler.GetByUserID).Methods("GET")
 	router.HandleFunc("/team-trade-subject/{tradeSubjectId}", teamHandler.GetPlayerTradeDestination).Methods("GET")
+	router.HandleFunc("/team-wishlist/{teamId}", teamHandler.GetWishlistByTeamID).Methods("GET")
 
 	router.HandleFunc("/pick", pickHandler.GetAll).Methods("GET")
 	router.HandleFunc("/pick/{id}", pickHandler.GetByID).Methods("GET")
@@ -54,6 +55,8 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	router.HandleFunc("/pick-available-team/{teamId}", pickHandler.GetAllAvailableByTeamID).Methods("GET")
 	router.HandleFunc("/pick/year/{year}", pickHandler.GetAllByYear).Methods("GET")
 	router.HandleFunc("/pick", pickHandler.Update).Methods("PUT")
+	router.HandleFunc("/pick-wishlist/{teamId}", pickHandler.AddToWishlist).Methods("POST")
+	router.HandleFunc("/pick-wishlist-remove/{teamId}", pickHandler.RemoveFromWishlist).Methods("POST")
 
 	router.HandleFunc("/user", userHandler.GetAll).Methods("GET")
 	router.HandleFunc("/user/{id}", userHandler.GetByID).Methods("GET")
@@ -69,6 +72,8 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	router.HandleFunc("/player/team/{teamId}", playerHandler.GetAllByTeamID).Methods("GET")
 	router.HandleFunc("/player-available-team/{teamId}", playerHandler.GetAllAvailableByTeamID).Methods("GET")
 	router.HandleFunc("/player", playerHandler.Update).Methods("PUT")
+	router.HandleFunc("/player-wishlist/{teamId}", playerHandler.AddToWishlist).Methods("POST")
+	router.HandleFunc("/player-wishlist-remove/{teamId}", playerHandler.RemoveFromWishlist).Methods("POST")
 
 	router.HandleFunc("/employee", employeeHandler.GetAll).Methods("GET")
 	router.HandleFunc("/employee/{id}", employeeHandler.GetByID).Methods("GET")
@@ -81,6 +86,8 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	router.HandleFunc("/draftRight-team/{teamId}", draftRightHandler.GetAllByTeamID).Methods("GET")
 	router.HandleFunc("/draftRight-available-team/{teamId}", draftRightHandler.GetAllAvailableByTeamID).Methods("GET")
 	router.HandleFunc("/draftRight", draftRightHandler.Update).Methods("PUT")
+	router.HandleFunc("/draftRight-wishlist/{teamId}", draftRightHandler.AddToWishlist).Methods("POST")
+	router.HandleFunc("/draftRight-wishlist-remove/{teamId}", draftRightHandler.RemoveFromWishlist).Methods("POST")
 
 	router.HandleFunc("/contract", contractHandler.GetAll).Methods("GET")
 	router.HandleFunc("/contract/{id}", contractHandler.GetByID).Methods("GET")

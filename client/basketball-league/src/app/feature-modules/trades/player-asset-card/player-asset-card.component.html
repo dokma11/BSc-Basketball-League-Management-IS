@@ -3,15 +3,19 @@
       <div class="player-card-top">
         <div class="player-tags">
           <div class="player-tag"
-               *ngIf="this.player.trgListIgr"
+               *ngIf="this.player.trgListIgr && this.ownTeam"
                style="background-color: orange; color: white">
-            Added to the Trade list
+              On your Trade list
           </div>
-          <!-- OVDE SAMO OBRATI PAZNJU KADA SE DODA WISHLIST DA SE PROMENI -->
           <div class="player-tag"
-              *ngIf="this.player.nedodListIgr"
+               *ngIf="this.player.trgListIgr && !this.ownTeam"
+               style="background-color: orange; color: white">
+              On their Trade list
+          </div>
+          <div class="player-tag"
+              *ngIf="this.onWishlist"
               style="background-color: olivedrab; color: white">
-              Added to the Wishlist
+              On your Wishlist
           </div>
         </div>
       </div>

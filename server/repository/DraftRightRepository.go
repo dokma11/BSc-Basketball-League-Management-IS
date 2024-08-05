@@ -8,4 +8,6 @@ type DraftRightRepository interface {
 	GetAllByTeamID(teamID int) ([]model.DraftRight, error)
 	GetAllAvailableByTeamID(teamID int) ([]model.DraftRight, error)
 	Update(draftRights *model.DraftRight) error
+	AddToWishlist(draftRight *model.DraftRight, teamId int) error
+	RemoveFromWishlist(draftRight *model.DraftRight, teamId int) error
 }

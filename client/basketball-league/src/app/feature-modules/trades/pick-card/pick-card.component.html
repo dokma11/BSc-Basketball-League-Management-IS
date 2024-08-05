@@ -3,15 +3,19 @@
       <div class="pick-card-top">
         <div class="pick-tags">
           <div class="pick-tag"
-              *ngIf="this.pick.trgListPik"
+              *ngIf="this.pick.trgListPik && this.ownTeam"
               style="background-color: orange; color: white">
-            Added to the Trade list
+            On your Trade list
           </div>
-          <!-- OVDE SAMO OBRATI PAZNJU KADA SE DODA WISHLIST DA SE PROMENI -->
           <div class="pick-tag"
-              *ngIf="this.pick.nedodListPik"
+              *ngIf="this.pick.trgListPik && !this.ownTeam"
+              style="background-color: orange; color: white">
+            On their Trade list
+          </div>
+          <div class="pick-tag"
+              *ngIf="this.onWishlist"
               style="background-color: olivedrab; color: white">
-              Added to the Wishlist
+              On your Wishlist
           </div>
         </div>
       </div>

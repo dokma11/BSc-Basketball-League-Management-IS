@@ -70,10 +70,13 @@ func (t *Team) FromModel(teamDTO *TeamResponseDTO) {
 
 type WishlistAsset struct {
 	IdZeljTim     int64     `json:"idZeljTim"`
-	DatDodZeljTim time.Time `json:"datDodZeljTim"`
-	BelesZeljTim  *string   `json:"belesZeljTim"`
-	IdTipZelje    int64     `json:"idTipZelje"`
-	IdTim         *int64    `json:"idTim"`
+	DatDodZeljTim time.Time `json:"datDodZeljTim"` // Date of creation
+	BelesZeljTim  string    `json:"belesZeljTim"`  // Notes
+	IdTipZelje    int64     `json:"idTipZelje"`    // Wishlist Asset Type foreign key
+	IdPrava       int64     `json:"idPrava"`       // Draft Rights foreign key
+	IdPik         int64     `json:"idPik"`         // Pick foreign key
+	IdIgrac       int64     `json:"idIgrac"`       // Player foreign key
+	IdTim         int64     `json:"idTim"`         // Team foreign key
 }
 
 type WishlistAssetType struct {

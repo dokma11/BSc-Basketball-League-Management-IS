@@ -5,13 +5,13 @@
 <ownerDesignName>basketball-league</ownerDesignName>
 <engineerTo>
 <item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
 </engineerTo>
 <sourcePk>9D0C8D82-9C87-2028-96EA-4F503D73F8C6</sourcePk>
-<targetPk>27411BFE-FB64-C282-30AF-0B586D629090</targetPk>
 <identifying>false</identifying>
 <optionalSource>true</optionalSource>
-<optionalTarget>true</optionalTarget>
-<sourceCardinality>*</sourceCardinality>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
 <sourceEntity>B5DE9037-36C0-7F81-6F6D-ACACE41E3AD3</sourceEntity>
 <targetCardinalityString>*</targetCardinalityString>
 <targetEntity>C16C07F1-5401-A7AD-273F-933960A37A47</targetEntity>

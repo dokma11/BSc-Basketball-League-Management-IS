@@ -62,6 +62,24 @@ func (dr *DraftRight) FromModel(draftRightDTO *DraftRightResponseDTO) {
 	draftRightDTO.TrgListPrava = dr.Tradeable
 }
 
+type DraftRightCreateDTO struct {
+	IdPrava        int64 `json:"idPrava"`
+	IdTim          int64 `json:"idTim"`          // Team foreign key (team that is in the possession of this)
+	IdRegrut       int64 `json:"idRegrut"`       // Recruit foreign key
+	IdPik          int64 `json:"idPik"`          // Pick foreign key (pick that was used to pick the recruit)
+	NedodListPrava bool  `json:"nedodListPrava"` // Is the draft right added to the untouchables list
+	TrgListPrava   bool  `json:"trgListPrava"`   // Is the draft right added to the trade list
+}
+
+func (dr *DraftRight) FromCreateDTO(draftRightDTO *DraftRightCreateDTO) {
+	dr.ID = draftRightDTO.IdPrava
+	dr.TeamId = draftRightDTO.IdTim
+	dr.RecruitId = draftRightDTO.IdRegrut
+	dr.PickId = draftRightDTO.IdPik
+	dr.Untouchable = draftRightDTO.NedodListPrava
+	dr.Tradeable = draftRightDTO.TrgListPrava
+}
+
 type DraftRightUpdateDTO struct {
 	IdPrava        int64 `json:"idPrava"`
 	NedodListPrava bool  `json:"nedodListPrava"` // Is the draft right added to the untouchables list

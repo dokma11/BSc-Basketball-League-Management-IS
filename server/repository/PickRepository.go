@@ -9,4 +9,6 @@ type PickRepository interface {
 	GetAllAvailableByTeamID(teamId int) ([]model.Pick, error)
 	GetAllByYear(year string) ([]model.Pick, error)
 	Update(pick *model.Pick) error
+	AddToWishlist(pick *model.Pick, teamId int) error
+	RemoveFromWishlist(pick *model.Pick, teamId int) error
 }

@@ -118,7 +118,7 @@
 <colUsage columnID="78F560DD-C875-94E0-8540-5FADA2A4BD6A"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="DF4B117D-8565-C86B-EF50-6DEC0157A2ED" name="PredTrg_ZahtevZaTrg_FK">
+<ind_PK_UK id="DF4B117D-8565-C86B-EF50-6DEC0157A2ED" name="PredTrg_ZahZaTrg_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>3933AFCB-6ABD-8D7D-0DCC-04C7EE357EE2</generatorID>

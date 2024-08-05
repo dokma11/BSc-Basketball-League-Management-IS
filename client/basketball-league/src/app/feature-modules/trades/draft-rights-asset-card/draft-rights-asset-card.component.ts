@@ -5,6 +5,8 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { DraftRight } from 'src/app/shared/model/draftRight.model';
 import { Recruit } from 'src/app/shared/model/recruit.model';
 import { RosterService } from '../../roster-management/roster.service';
+import { WishlistAsset } from 'src/app/shared/model/wishlistAsset.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'app-draft-rights-asset-card',
@@ -22,9 +24,16 @@ export class DraftRightsAssetCardComponent implements OnInit{
   @Output() dialogRefClosed: EventEmitter<any> = new EventEmitter<any>();
   ownTeam: boolean = false;
   age: string = '';
-
+  wishlistItems: WishlistAsset[] = [];
+  onWishlist: boolean = false;
+  
   constructor(private snackBar: MatSnackBar,
-              private rosterService: RosterService) { }
+              private rosterService: RosterService,
+              private authService: AuthService) {          
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    });
+  }
 
   ngOnInit(): void {
     if(this.chosenDraftRights){
@@ -35,6 +44,10 @@ export class DraftRightsAssetCardComponent implements OnInit{
       })
     }
 
+    if (this.draftRight.idTim == this.user?.teamId) {
+      this.ownTeam = true;
+    }
+
     this.rosterService.getRecruitById(this.draftRight.idRegrut).subscribe({
       next: (result: Recruit) => {
         this.draftRightPlayer = result;
@@ -42,6 +55,20 @@ export class DraftRightsAssetCardComponent implements OnInit{
         const today = new Date();
         const birthDate = new Date(this.draftRightPlayer.datRodj!);
         this.age = (today.getFullYear() - birthDate.getFullYear()).toString();
+      }
+    });
+
+    this.rosterService.getWishlistByTeamID(this.user?.teamId!).subscribe({
+      next: (result: WishlistAsset[] | WishlistAsset) => {
+        if (Array.isArray(result)) {
+          this.wishlistItems = result;
+
+          this.wishlistItems.forEach(asset => {
+            if (asset.idPrava == this.draftRight.idPrava){
+              this.onWishlist = true;
+            }
+          });
+        }
       }
     });
   }

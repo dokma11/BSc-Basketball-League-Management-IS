@@ -111,6 +111,28 @@ func (p *Pick) FromModel(pickDTO *PickResponseDTO) {
 	pickDTO.TrgListPik = p.Tradeable
 }
 
+type PickCreateDTO struct {
+	IdPik        int64  `json:"idPik"`
+	RedBrPik     string `json:"redBrPik"`     // Pick order
+	BrRunPik     string `json:"brRunPik"`     // Pick round (can be first and second)
+	GodPik       string `json:"godPik"`       // Pick year
+	NedodListPik bool   `json:"nedodListPik"` // Is pick added to the untouchables list
+	TrgListPik   bool   `json:"trgListPik"`   // Is pick added to the trade list
+	IdMenadzer   int64  `json:"idMenadzer"`   // Manager that used the pick foreign key
+	IdTim        int64  `json:"idTim"`        // Team foreign key
+}
+
+func (p *Pick) FromCreateDTO(pickDTO *PickCreateDTO) {
+	p.ID = pickDTO.IdPik
+	p.Order = pickDTO.RedBrPik
+	p.Round = pickDTO.BrRunPik
+	p.Year = pickDTO.GodPik
+	p.Untouchable = pickDTO.NedodListPik
+	p.Tradeable = pickDTO.TrgListPik
+	p.ManagerId = pickDTO.IdMenadzer
+	p.TeamId = pickDTO.IdTim
+}
+
 type PickUpdateDTO struct {
 	IdPik        int64 `json:"idPik"`
 	IdTim        int64 `json:"idTim"`        // Team foreign key

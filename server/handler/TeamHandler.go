@@ -148,3 +148,24 @@ func (handler *TeamHandler) GetDraftRightsTradeDestination(w http.ResponseWriter
 	team.FromModel(&teamResponseDTO)
 	json.NewEncoder(w).Encode(teamResponseDTO)
 }
+
+func (handler *TeamHandler) GetWishlistByTeamID(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	teamID, err := strconv.Atoi(vars["teamId"])
+	if err != nil {
+		http.Error(w, "Invalid team ID", http.StatusBadRequest)
+		return
+	}
+
+	wishlist, err := handler.TeamService.GetWishlistByTeamID(teamID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if len(wishlist) == 0 {
+		http.NotFound(w, r)
+		return
+	}
+
+	json.NewEncoder(w).Encode(wishlist)
+}

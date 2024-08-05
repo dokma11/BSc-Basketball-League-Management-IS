@@ -67,10 +67,6 @@ export class AssetChoosingFormComponent implements OnInit{
     this.getAssets();
   }
 
-  addTourButtonClicked() {
-    
-  }
-
   finishButtonClicked(): void {
     this.finishButtonState = 'clicked';
     setTimeout(() => { this.finishButtonState = 'idle'; }, 200);

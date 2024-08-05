@@ -7,6 +7,7 @@ import { Player } from 'src/app/shared/model/player.model';
 import { Pick } from 'src/app/shared/model/pick.model';
 import { DraftRight } from 'src/app/shared/model/draftRight.model';
 import { Recruit } from 'src/app/shared/model/recruit.model';
+import { WishlistAsset } from 'src/app/shared/model/wishlistAsset.model';
 
 @Injectable({
   providedIn: 'root'
@@ -61,6 +62,34 @@ export class RosterService {
 
   getRecruitById(recruitId: number): Observable<Recruit> {
     return this.http.get<Recruit>(environment.host + 'recruit-id/' + recruitId);
+  }
+
+  addPlayerToWishlist(player: Player, teamId: number): Observable<Player> {
+    return this.http.post<Player>(environment.host + 'player-wishlist/' + teamId, player);
+  }
+
+  addPickToWishlist(pick: Pick, teamId: number): Observable<Pick> {
+    return this.http.post<Pick>(environment.host + 'pick-wishlist/' + teamId, pick);
+  }
+
+  addDraftRightsToWishlist(draftRight: DraftRight, teamId: number): Observable<DraftRight> {
+    return this.http.post<DraftRight>(environment.host + 'draftRight-wishlist/' + teamId, draftRight);
+  }
+
+  removePlayerFromWishlist(player: Player, teamId: number): Observable<Player> {
+    return this.http.post<Player>(environment.host + 'player-wishlist-remove/' + teamId, player);
+  }
+
+  removePickFromWishlist(pick: Pick, teamId: number): Observable<Pick> {
+    return this.http.post<Pick>(environment.host + 'pick-wishlist-remove/' + teamId, pick);
+  }
+
+  removeDraftRightsFromWishlist(draftRight: DraftRight, teamId: number): Observable<DraftRight> {
+    return this.http.post<DraftRight>(environment.host + 'draftRight-wishlist-remove/' + teamId, draftRight);
+  }
+
+  getWishlistByTeamID(teamId: number): Observable<WishlistAsset> {
+    return this.http.get<WishlistAsset>(environment.host + 'team-wishlist/' + teamId);
   }
 
 }

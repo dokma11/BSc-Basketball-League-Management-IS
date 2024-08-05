@@ -139,3 +139,55 @@ func (handler *PickHandler) Update(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusCreated)
 }
+
+func (handler *PickHandler) AddToWishlist(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	teamId, err := strconv.Atoi(vars["teamId"])
+	if err != nil {
+		http.Error(w, "Invalid team ID", http.StatusBadRequest)
+		return
+	}
+
+	var pickDTO model.PickCreateDTO
+	if err := json.NewDecoder(r.Body).Decode(&pickDTO); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	pick := &model.Pick{}
+	pick.FromCreateDTO(&pickDTO)
+
+	err = handler.PickService.AddToWishlist(pick, teamId)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
+}
+
+func (handler *PickHandler) RemoveFromWishlist(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	teamId, err := strconv.Atoi(vars["teamId"])
+	if err != nil {
+		http.Error(w, "Invalid team ID", http.StatusBadRequest)
+		return
+	}
+
+	var pickDTO model.PickCreateDTO
+	if err := json.NewDecoder(r.Body).Decode(&pickDTO); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	pick := &model.Pick{}
+	pick.FromCreateDTO(&pickDTO)
+
+	err = handler.PickService.RemoveFromWishlist(pick, teamId)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
+}

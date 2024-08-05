@@ -9,4 +9,5 @@ type TeamRepository interface {
 	GetPlayerTradeDestination(userID int) (*model.Team, error)
 	GetPickTradeDestination(userID int) (*model.Team, error)
 	GetDraftRightsTradeDestination(userID int) (*model.Team, error)
+	GetWishlistByTeamID(teamID int) ([]model.WishlistAsset, error)
 }

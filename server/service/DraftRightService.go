@@ -59,3 +59,21 @@ func (service *DraftRightService) Update(draftRights *model.DraftRight) error {
 	}
 	return nil
 }
+
+func (service *DraftRightService) AddToWishlist(draftRights *model.DraftRight, teamId int) error {
+	err := service.DraftRightRepository.AddToWishlist(draftRights, teamId)
+	if err != nil {
+		log.Println("Error adding draft rights to the wishlist")
+		return err
+	}
+	return nil
+}
+
+func (service *DraftRightService) RemoveFromWishlist(draftRights *model.DraftRight, teamId int) error {
+	err := service.DraftRightRepository.RemoveFromWishlist(draftRights, teamId)
+	if err != nil {
+		log.Println("Error removing draft rights from the wishlist")
+		return err
+	}
+	return nil
+}

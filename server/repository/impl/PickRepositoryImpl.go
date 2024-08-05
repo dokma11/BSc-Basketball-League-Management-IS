@@ -182,6 +182,23 @@ func (repo *pickRepository) Update(pick *model.Pick) error {
 	return nil
 }
 
+func (repo *pickRepository) AddToWishlist(pick *model.Pick, teamId int) error {
+	_, err := repo.db.Exec(`INSERT INTO ZELJATIMA VALUES (0, SYSDATE, 'IGRAC', 1, NULL, :1, NULL, :2)`, // 1 is Pick type
+		pick.ID, teamId)
+	if err != nil {
+		return fmt.Errorf("failed to add pick to the wishlist: %v", err)
+	}
+	return nil
+}
+
+func (repo *pickRepository) RemoveFromWishlist(pick *model.Pick, teamId int) error {
+	_, err := repo.db.Exec(`DELETE FROM ZELJATIMA WHERE IDPIK = :1 AND IDTIM = :2`, pick.ID, teamId)
+	if err != nil {
+		return fmt.Errorf("failed to remove pick from the wishlist: %v", err)
+	}
+	return nil
+}
+
 func fromPickLists(pick *model.Pick) (string, string) {
 	var untouchable, tradeable string
 	if pick.Untouchable {

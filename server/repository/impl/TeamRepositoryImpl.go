@@ -143,3 +143,41 @@ func (repo *teamRepository) GetDraftRightsTradeDestination(tradeSubjectID int) (
 
 	return team, nil
 }
+
+func (repo *teamRepository) GetWishlistByTeamID(teamID int) ([]model.WishlistAsset, error) {
+	rows, err := repo.db.Query(`SELECT * FROM ZELJATIMA WHERE IDTIM = :1`, teamID)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query team's wishlist: %v", err)
+	}
+	defer rows.Close()
+
+	var wishlist []model.WishlistAsset
+	for rows.Next() {
+		var wish model.WishlistAsset
+		var draftRightsID, pickID, playerID sql.NullInt64
+		if err := rows.Scan(&wish.IdZeljTim, &wish.DatDodZeljTim, &wish.BelesZeljTim, &wish.IdTipZelje,
+			&draftRightsID, &pickID, &playerID, &wish.IdTim); err != nil {
+			return nil, fmt.Errorf("failed to scan row: %v", err)
+		}
+
+		fromNullables(draftRightsID, pickID, playerID, &wish)
+
+		wishlist = append(wishlist, wish)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("row iteration error: %v", err)
+	}
+
+	return wishlist, nil
+}
+
+func fromNullables(draftRightsID sql.NullInt64, pickID sql.NullInt64, playerID sql.NullInt64, wishlist *model.WishlistAsset) {
+	if draftRightsID.Valid {
+		wishlist.IdPrava = draftRightsID.Int64
+	} else if pickID.Valid {
+		wishlist.IdPik = pickID.Int64
+	} else if playerID.Valid {
+		wishlist.IdIgrac = playerID.Int64
+	}
+}

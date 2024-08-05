@@ -5,4 +5,5 @@ export interface Pick {
   godPik: string; // Pick year
   nedodListPik: boolean; // Is pick added to the untouchables list
   trgListPik: boolean; // Is pick added to the trade list
+  idTim: number; // Team foreign key
 }

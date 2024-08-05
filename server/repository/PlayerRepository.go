@@ -10,4 +10,6 @@ type PlayerRepository interface {
 	GetAllByTeamID(teamId int) ([]model.Player, error)
 	GetAllAvailableByTeamID(teamId int) ([]model.Player, error)
 	Update(player *model.Player) error
+	AddToWishlist(player *model.Player, teamId int) error
+	RemoveFromWishlist(player *model.Player, teamId int) error
 }

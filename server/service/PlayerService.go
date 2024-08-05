@@ -58,3 +58,21 @@ func (service *PlayerService) Update(player *model.Player) error {
 	}
 	return nil
 }
+
+func (service *PlayerService) AddToWishlist(player *model.Player, teamId int) error {
+	err := service.PlayerRepository.AddToWishlist(player, teamId)
+	if err != nil {
+		_ = fmt.Errorf(fmt.Sprintf("no players were added to wishlist"))
+		return err
+	}
+	return nil
+}
+
+func (service *PlayerService) RemoveFromWishlist(player *model.Player, teamId int) error {
+	err := service.PlayerRepository.RemoveFromWishlist(player, teamId)
+	if err != nil {
+		_ = fmt.Errorf(fmt.Sprintf("no players were removed from the wishlist"))
+		return err
+	}
+	return nil
+}

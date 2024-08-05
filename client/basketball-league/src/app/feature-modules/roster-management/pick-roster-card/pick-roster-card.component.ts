@@ -2,11 +2,13 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { faList, faBan, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faList, faBan, faHeart, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Pick } from 'src/app/shared/model/pick.model';
 import { AddPlayerToListPromptComponent } from '../add-player-to-list-prompt/add-player-to-list-prompt.component';
+import { RosterService } from '../roster.service';
+import { WishlistAsset } from 'src/app/shared/model/wishlistAsset.model';
 
 @Component({
   selector: 'app-pick-roster-card',
@@ -46,26 +48,94 @@ export class PickRosterCardComponent implements OnInit{
   user: User | undefined;
   @Output() dialogRefClosed: EventEmitter<any> = new EventEmitter<any>();
   @Input() ownTeam!: boolean;
+  wishlistItems: WishlistAsset[] = [];
+  onWishlist: boolean = false;
 
   constructor(private dialog: MatDialog,
               private authService: AuthService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private rosterService: RosterService) {
     this.authService.user$.subscribe(user => {
       this.user = user;
     });
-  
   }
 
   ngOnInit(): void {
+    // Check if user is on the teams wishlist already
+    if (!this.ownTeam){
+      this.rosterService.getWishlistByTeamID(this.user?.teamId!).subscribe({
+        next: (result: WishlistAsset) => {
+          if (Array.isArray(result)){
+            this.wishlistItems = result;
+  
+            this.wishlistItems.forEach(asset => {
+              if (asset.idPik == this.pick.idPik){
+                this.onWishlist = true;
+              }
+            });
+          }
+        }
+      });
+    }
   }
 
   addToWishlistButtonClicked(pick: any){
-    // TODO: Implementirati lpogiku za dodavanje odredjenog pika na listu zelja, vrv treba u samom modalnom da se to uradi
-
     this.addToWishlistButtonState = 'clicked';
     setTimeout(() => { this.addToWishlistButtonState = 'idle'; }, 200);
+    
+    if (!this.pick.nedodListPik) {
+      this.dialogRef = this.dialog.open(AddPlayerToListPromptComponent, {
+        data: {
+          list: 'wishlist',
+          pick: this.pick,
+          action: 'add',
+          teamId: this.user?.teamId,
+        }
+      });
+
+      this.dialogRef.afterClosed().subscribe((result: any) => {
+        this.rosterService.getWishlistByTeamID(this.user?.teamId!).subscribe({
+          next: (result: WishlistAsset) => {
+            if (Array.isArray(result)){
+              this.wishlistItems = result;
+    
+              this.wishlistItems.forEach(asset => {
+                if (asset.idPik == this.pick.idPik){
+                  this.onWishlist = true;
+                }
+              });
+            }
+          }
+        });
+      });
+    }
+  }
+
+  removeFromWishlistButtonClicked(pick: Pick) {
     this.dialogRef = this.dialog.open(AddPlayerToListPromptComponent, {
-      data: 'wishlist'
+      data: {
+        list: 'wishlist',
+        pick: this.pick,
+        action: 'remove',
+        teamId: this.user?.teamId,
+      }
+    });
+
+    this.dialogRef.afterClosed().subscribe((result: any) => {
+      this.onWishlist = false;
+      this.rosterService.getWishlistByTeamID(this.user?.teamId!).subscribe({
+        next: (result: WishlistAsset) => {
+          if (Array.isArray(result)){
+            this.wishlistItems = result;
+  
+            this.wishlistItems.forEach(asset => {
+              if (asset.idPik == this.pick.idPik){
+                this.onWishlist = true;
+              }
+            });
+          }
+        }
+      });
     });
   }
 
@@ -140,4 +210,5 @@ export class PickRosterCardComponent implements OnInit{
   faList = faList;
   faBan = faBan;
   faHeart = faHeart;
+  faWindowClose = faWindowClose;
 }

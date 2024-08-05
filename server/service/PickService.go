@@ -68,3 +68,21 @@ func (service *PickService) Update(pick *model.Pick) error {
 	}
 	return nil
 }
+
+func (service *PickService) AddToWishlist(pick *model.Pick, teamId int) error {
+	err := service.PickRepository.AddToWishlist(pick, teamId)
+	if err != nil {
+		log.Println("Error adding pick to the wishlist")
+		return err
+	}
+	return nil
+}
+
+func (service *PickService) RemoveFromWishlist(pick *model.Pick, teamId int) error {
+	err := service.PickRepository.RemoveFromWishlist(pick, teamId)
+	if err != nil {
+		log.Println("Error removing pick from the wishlist")
+		return err
+	}
+	return nil
+}

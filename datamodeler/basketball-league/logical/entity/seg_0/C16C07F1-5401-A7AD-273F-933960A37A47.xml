@@ -5,6 +5,7 @@
 <ownerDesignName>basketball-league</ownerDesignName>
 <engineerTo>
 <item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -21,6 +22,7 @@
 <ownerDesignName>basketball-league</ownerDesignName>
 <engineerTo>
 <item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -33,6 +35,7 @@
 <ownerDesignName>basketball-league</ownerDesignName>
 <engineerTo>
 <item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -45,6 +48,7 @@
 <ownerDesignName>basketball-league</ownerDesignName>
 <engineerTo>
 <item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -60,6 +64,7 @@
 <ownerDesignName>basketball-league</ownerDesignName>
 <engineerTo>
 <item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
 </engineerTo>
 <referedAttribute>02DDA84E-4EB4-4A3A-86FE-08B218B187E6</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
@@ -74,6 +79,7 @@
 <ownerDesignName>basketball-league</ownerDesignName>
 <engineerTo>
 <item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <referedAttribute>7B6F94A8-8C2C-7451-D62E-76ABDF5B6B20</referedAttribute>
@@ -89,6 +95,7 @@
 <ownerDesignName>basketball-league</ownerDesignName>
 <engineerTo>
 <item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <referedAttribute>96958B4B-98AA-48A4-65B5-371D2E1E0521</referedAttribute>
@@ -104,9 +111,25 @@
 <ownerDesignName>basketball-league</ownerDesignName>
 <engineerTo>
 <item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <referedAttribute>B829AB3A-B06E-88B7-55D5-3AB46479680F</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="IdTim" id="7F85BDCD-23A3-12FE-A6A6-39B2CA5B9A7A">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-05 16:53:39 UTC</createdTime>
+<generatorID>85CADE04-5A43-54FC-DE3A-DC9F37180A58</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
+</engineerTo>
+<referedAttribute>8661B55D-0729-C0AF-D28F-B6D21A9BCCBC</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -120,6 +143,7 @@
 <ownerDesignName>basketball-league</ownerDesignName>
 <engineerTo>
 <item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
