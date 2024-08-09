@@ -55,7 +55,7 @@
 <ownDataTypeParameters>4 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="IdMenadzer" id="A3893878-6FE5-E3BD-79F6-C9592165A160">
+<Column name="Menadzer_Id" id="A3893878-6FE5-E3BD-79F6-C9592165A160">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>08662EA5-3E6E-D076-74DF-0FA6DEA9A81D</generatorID>
@@ -71,7 +71,7 @@
 <colAssociation fkAssociation="14E30F96-C1CD-EBF3-E501-2D17AAA13803" referredColumn="E42EDEB4-D680-F78C-37AE-1A77F9913128"/>
 </associations>
 </Column>
-<Column name="IdTim" id="FF07B066-737B-CC87-96EE-4018F416E4AC">
+<Column name="Tim_IdTim" id="FF07B066-737B-CC87-96EE-4018F416E4AC">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>86AA9356-8007-C57D-53EF-77547E650304</generatorID>
@@ -85,6 +85,30 @@
 <associations>
 <colAssociation fkAssociation="AC17E645-3656-281E-208C-3E05A5C1D558" referredColumn="00A781D7-3E50-ADDF-1CB2-13CF39362D08"/>
 </associations>
+</Column>
+<Column name="NedodListPik" id="EEEC56B4-28FF-35B3-4A0F-D63EF15A1E43">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:37:26 UTC</createdTime>
+<generatorID>17C4D5FE-167A-5103-3056-2B10856114C7</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>5 CHAR</dataTypeSize>
+<ownDataTypeParameters>5 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TrgListPik" id="7AA04E56-92E9-BAA6-EC76-308A9A01096A">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:37:26 UTC</createdTime>
+<generatorID>8885E3A4-2E30-CFE0-C5C9-57536C41E284</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>5 CHAR</dataTypeSize>
+<ownDataTypeParameters>5 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">

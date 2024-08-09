@@ -22,7 +22,8 @@
   height: 50rem;
 }
 
-.roster-header {
+.roster-header, 
+.roster-header-partner {
   color: #fff;
   display: flex;
   flex-direction: row;
@@ -31,22 +32,42 @@
 }
 
 .player-name{
-  margin-left: 13%;
+  margin-left: 11%;
 }
 
 .player-age{
-  margin-left: 13.5%;
+  margin-left: 15%;
 }
 
 .player-position{
-  margin-left: 2%;
+  margin-left: 2.5%;
 }
 
 .player-height{
-  margin-left: 4%;
+  margin-left: 4.2%;
 }
 
 .player-weight{
+  margin-left: 5%;
+}
+
+.player-name-partner{
+  margin-left: 11%;
+}
+
+.player-age-partner{
+  margin-left: 18.7%;
+}
+
+.player-position-partner{
+  margin-left: 3%;
+}
+
+.player-height-partner{
+  margin-left: 4.5%;
+}
+
+.player-weight-partner{
   margin-left: 5.5%;
 }
 
@@ -129,7 +150,7 @@ h2 {
   width: 30%;
   margin-top: 2%;
   margin-right: -9%;
-  color: #fff;  /* Ovde samo paziti kada se promeni pozadina da se i boja slova uskladi */
+  color: #fff;  
 }
 
 .select-dropdown {
@@ -166,7 +187,7 @@ h2 {
 .asset-type {
   display: flex;
   margin-left: 12%;
-  color: #fff;  /* Ovde samo paziti kada se promeni pozadina da se i boja slova uskladi */
+  color: #fff;
   font-size: 14px;
   width: 100%;
 }

@@ -1,8 +1,24 @@
 <div class="pick-card">
-
-<!-- MOZDA DA DODAM KAO TAG RECIMO ADDED TO TRADE LIST ILI WISHLIST I SL -->
-
   <div class="pick-card-content">
+      <div class="pick-card-top">
+        <div class="pick-tags">
+          <div class="pick-tag"
+              *ngIf="this.pick.trgListPik && this.ownTeam"
+              style="background-color: orange; color: white">
+            On your Trade list
+          </div>
+          <div class="pick-tag"
+              *ngIf="this.pick.trgListPik && !this.ownTeam"
+              style="background-color: orange; color: white">
+            On their Trade list
+          </div>
+          <div class="pick-tag"
+              *ngIf="this.onWishlist"
+              style="background-color: olivedrab; color: white">
+              On your Wishlist
+          </div>
+        </div>
+      </div>
       <div class="pick-card-information">
           <div class="pick-card-center">
               <div class="pick-number" 

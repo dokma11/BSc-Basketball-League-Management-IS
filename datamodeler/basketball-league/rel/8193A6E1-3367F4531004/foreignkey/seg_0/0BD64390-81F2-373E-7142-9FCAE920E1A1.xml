@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="0BD64390-81F2-373E-7142-9FCAE920E1A1" containerWithKeyObject="3EC97FE1-7410-D10A-49F5-2D72B45595AD" localFKIndex="562FAACA-8503-32CB-B403-C574719C9F50" name="Zaposleni_Ugovor_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:41:55 UTC</createdTime>
+<generatorID>9F30A3D6-4D97-C028-05D8-41FFB75E826F</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<referredTableLongName>Ugovor</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>AD272209-56BB-4591-3074-816F69B3879B</referredTableID>
+<keyObject>8BCB2527-A521-8A91-1D44-ED7367D306C0</keyObject>
+<referredKeyID>8BCB2527-A521-8A91-1D44-ED7367D306C0</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>IdUgo</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

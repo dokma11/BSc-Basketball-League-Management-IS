@@ -93,7 +93,7 @@
 <ownDataTypeParameters>6 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="IdDraft" id="11973015-DA1F-5D54-0373-30CDD3435F9D">
+<Column name="Draft_IdDraft" id="11973015-DA1F-5D54-0373-30CDD3435F9D">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>5904FB2E-E8AF-D77C-1689-901CC4332CDA</generatorID>

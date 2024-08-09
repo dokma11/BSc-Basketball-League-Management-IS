@@ -2,7 +2,6 @@
 <div class="dialogue">
   <div class="wrapper">
     <form>
-      <!-- Ovde treba da stoji naziv tima koji smo prosledili iz proslog dijaloga -->
         <h1>Assets of the {{ this.team?.nazTim }}</h1>
 
         <form [formGroup]="assetForm">
@@ -20,31 +19,29 @@
             </div>
           </div>
         </form>
-        
-
-        <!-- U zavisnosti od odabranog selekta se pojave odredjeni aseti, bice ngFor umesto ovako rucno kada povezem sa bekom -->
+  
         <div class="assets">
           <app-pick-card
-          [@fadeIn]
-          *ngFor="let pick of picks"
-          [pick]="pick"
-          [chosenPicks]="chosenPicks"
-        ></app-pick-card>
+            [@fadeIn]
+            *ngFor="let pick of picks"
+            [pick]="pick"
+            [chosenPicks]="chosenPicks"
+          ></app-pick-card>
 
-        <app-player-asset-card
-          [@fadeIn]
-          *ngFor="let player of players"
-          [player]="player"
-          [chosenPlayers]="chosenPlayers"
-        ></app-player-asset-card>
+          <app-player-asset-card
+            [@fadeIn]
+            *ngFor="let player of players"
+            [player]="player"
+            [chosenPlayers]="chosenPlayers"
+            [team]="team!"
+          ></app-player-asset-card>
 
-        <!-- Nekako ovde moram da uradim da bude isto kao igrac samo draft rights, msm da se to svakako prosledjuje preko
-         *nFor pa da mi nece praviti neke probleme, bar se nadam ne znam. Treba u ovoj komponenti da dobavim sve te asete -->
-        <app-player-asset-card
-          [@fadeIn]
-          *ngIf="this.assetForm.value.selectedAssetType == 'Draft rights'"
-        ></app-player-asset-card>
-
+          <app-draft-rights-asset-card
+            [@fadeIn]
+            *ngFor="let draftRight of draftRights"
+            [draftRight]="draftRight"
+            [chosenDraftRights]="chosenDraftRights"
+          ></app-draft-rights-asset-card>
         </div>
 
         <button type="submit" 

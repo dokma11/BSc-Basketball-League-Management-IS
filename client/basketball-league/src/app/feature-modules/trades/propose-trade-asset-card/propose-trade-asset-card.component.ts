@@ -7,6 +7,8 @@ import { Pick } from 'src/app/shared/model/pick.model';
 import { Player } from 'src/app/shared/model/player.model';
 import { TradeSubject } from 'src/app/shared/model/tradeSubject.model';
 import { TradesService } from '../trades.service';
+import { RosterService } from '../../roster-management/roster.service';
+import { Recruit } from 'src/app/shared/model/recruit.model';
 
 @Component({
   selector: 'app-propose-trade-asset-card',
@@ -58,7 +60,8 @@ export class ProposeTradeAssetCardComponent implements OnInit{
   draftRights: DraftRight | undefined;
 
   constructor(private snackBar: MatSnackBar, 
-              private tradesService: TradesService) {}
+              private tradesService: TradesService,
+              private rosterService: RosterService) {}
 
   ngOnInit(): void {
     if(!this.detailedView){
@@ -75,7 +78,11 @@ export class ProposeTradeAssetCardComponent implements OnInit{
           this.description = 'Pick order: ' + this.chosenPick.redBrPik + ' Round: ' + this.chosenPick.brRunPik + ' Year:' + this.chosenPick.godPik;
         }
       } else if(this.chosenDraftRight) {
-        console.log('ma n p');
+              this.rosterService.getRecruitById(this.chosenDraftRight.idRegrut).subscribe({
+                next: (result: Recruit) => {
+                  this.description = 'Player: ' + result.ime + ' ' + result.prezime;
+                }
+              });
       }
     } else {
       if(this.ownTradeSubject){
@@ -105,7 +112,11 @@ export class ProposeTradeAssetCardComponent implements OnInit{
           this.tradesService.getDraftRightsByID(this.ownTradeSubject.idIgrac!).subscribe({
             next: (result: DraftRight) => {
               this.draftRights = result;
-              console.log('ma nek se npk')
+              this.rosterService.getRecruitById(this.draftRights.idRegrut).subscribe({
+                next: (result: Recruit) => {
+                  this.description = 'Player: ' + result.ime + ' ' + result.prezime;
+                }
+              });
             }
           });
         }  
@@ -136,7 +147,11 @@ export class ProposeTradeAssetCardComponent implements OnInit{
           this.tradesService.getDraftRightsByID(this.partnerTradeSubject.idIgrac!).subscribe({
             next: (result: DraftRight) => {
               this.draftRights = result;
-              console.log('ma nek se npk')
+              this.rosterService.getRecruitById(this.draftRights.idRegrut).subscribe({
+                next: (result: Recruit) => {
+                  this.description = 'Player: ' + result.ime + ' ' + result.prezime;
+                }
+              });            
             }
           });
         }
@@ -147,9 +162,7 @@ export class ProposeTradeAssetCardComponent implements OnInit{
   removeAssetButtonClicked(asset: any): void {
     this.removeAssetButtonState = 'clicked';
     setTimeout(() => { this.removeAssetButtonState = 'idle'; }, 200);
-
-    console.log('prvo')
-
+    
     if(this.chosenPlayer) {
       this.chosenPlayers.forEach((player, index) => {
         if(player.id === asset.id){
@@ -172,8 +185,6 @@ export class ProposeTradeAssetCardComponent implements OnInit{
         }
       });
     }
-
-    this.showNotification("Asset successfully removed!");
   }
 
   showNotification(message: string): void {

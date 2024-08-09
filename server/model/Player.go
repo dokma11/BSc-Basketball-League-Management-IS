@@ -7,9 +7,11 @@ import (
 
 type Player struct {
 	Employee
-	Height   string
-	Weight   string
-	Position Pozicija
+	Height      string
+	Weight      string
+	Position    Pozicija
+	Untouchable bool // Is the player added to the untouchables list
+	Tradeable   bool // Is the player added to the trade list
 }
 
 func NewPlayer(id int64, email string, ime string, prezime string, datRodj time.Time, lozinka string, uloga Uloga,
@@ -59,9 +61,11 @@ func (p *Player) Validate() error {
 
 type PlayerDAO struct {
 	Employee
-	VisIgr string   // Height
-	TezIgr string   // Weight
-	PozIgr Pozicija // Position (Point Guard, Shooting Guard, Small Forward, Power Forward, Center)
+	VisIgr       string   // Height
+	TezIgr       string   // Weight
+	PozIgr       Pozicija // Position (Point Guard, Shooting Guard, Small Forward, Power Forward, Center)
+	NedodListIgr string   // Is player added to the untouchables list
+	TrgListIgr   string   // Is player added to the trade list
 }
 
 func (p *Player) FromDAO(playerDAO *PlayerDAO) {
@@ -73,13 +77,25 @@ func (p *Player) FromDAO(playerDAO *PlayerDAO) {
 	p.Height = playerDAO.VisIgr
 	p.Weight = playerDAO.TezIgr
 	p.Position = playerDAO.PozIgr
+	if playerDAO.NedodListIgr == "TRUE" {
+		p.Untouchable = true
+	} else if playerDAO.NedodListIgr == "FALSE" {
+		p.Untouchable = false
+	}
+	if playerDAO.TrgListIgr == "TRUE" {
+		p.Tradeable = true
+	} else if playerDAO.TrgListIgr == "FALSE" {
+		p.Tradeable = false
+	}
 }
 
 type PlayerResponseDTO struct {
 	EmployeeResponseDTO
-	VisIgr string   `json:"visIgr"` // Height
-	TezIgr string   `json:"tezIgr"` // Weight
-	PozIgr Pozicija `json:"pozIgr"` // Position (Point Guard, Shooting Guard, Small Forward, Power Forward, Center)
+	VisIgr       string   `json:"visIgr"`       // Height
+	TezIgr       string   `json:"tezIgr"`       // Weight
+	PozIgr       Pozicija `json:"pozIgr"`       // Position (Point Guard, Shooting Guard, Small Forward, Power Forward, Center)
+	NedodListIgr bool     `json:"nedodListIgr"` // Is player added to the untouchables list
+	TrgListIgr   bool     `json:"trgListIgr"`   // Is player added to the trade list
 }
 
 func (p *Player) FromModel(playerDTO *PlayerResponseDTO) {
@@ -91,4 +107,40 @@ func (p *Player) FromModel(playerDTO *PlayerResponseDTO) {
 	playerDTO.VisIgr = p.Height
 	playerDTO.TezIgr = p.Weight
 	playerDTO.PozIgr = p.Position
+	playerDTO.NedodListIgr = p.Untouchable
+	playerDTO.TrgListIgr = p.Tradeable
+}
+
+type PlayerCreateDTO struct {
+	EmployeeResponseDTO
+	VisIgr       string   `json:"visIgr"`       // Height
+	TezIgr       string   `json:"tezIgr"`       // Weight
+	PozIgr       Pozicija `json:"pozIgr"`       // Position (Point Guard, Shooting Guard, Small Forward, Power Forward, Center)
+	NedodListIgr bool     `json:"nedodListIgr"` // Is player added to the untouchables list
+	TrgListIgr   bool     `json:"trgListIgr"`   // Is player added to the trade list
+}
+
+func (p *Player) FromCreateDTO(playerDTO *PlayerCreateDTO) {
+	p.Employee.ID = playerDTO.Id
+	p.Employee.Email = playerDTO.Email
+	p.Employee.FirstName = playerDTO.Ime
+	p.Employee.LastName = playerDTO.Prezime
+	p.Employee.DateOfBirth = playerDTO.DatRodj
+	p.Employee.Password = playerDTO.Lozinka
+	p.Height = playerDTO.VisIgr
+	p.Weight = playerDTO.TezIgr
+	p.Untouchable = playerDTO.NedodListIgr
+	p.Tradeable = playerDTO.TrgListIgr
+}
+
+type PlayerUpdateDTO struct {
+	ID           int64 `json:"id"`
+	NedodListIgr bool  `json:"nedodListIgr"` // Is player added to the untouchables list
+	TrgListIgr   bool  `json:"trgListIgr"`   // Is player added to the trade list
+}
+
+func (p *Player) FromUpdateDTO(playerDTO *PlayerUpdateDTO) {
+	p.ID = playerDTO.ID
+	p.Untouchable = playerDTO.NedodListIgr
+	p.Tradeable = playerDTO.TrgListIgr
 }

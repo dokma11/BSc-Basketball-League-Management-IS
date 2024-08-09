@@ -8,7 +8,7 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="IdRegrut" id="94DF066E-2BD8-3E33-1471-E77033A3C263">
+<Column name="Regrut_Id" id="94DF066E-2BD8-3E33-1471-E77033A3C263">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>29EAAF5B-B06C-B6CD-7B99-985316FF9669</generatorID>
@@ -23,7 +23,7 @@
 <colAssociation fkAssociation="5333DFC5-E753-808A-AB47-66ECD765C046" referredColumn="B0E093D9-AB4A-7724-16E4-DE201CB2C19E"/>
 </associations>
 </Column>
-<Column name="IdPik" id="B06596E6-3D70-ED81-2912-CF2A82E36C7C">
+<Column name="Pik_IdPik" id="B06596E6-3D70-ED81-2912-CF2A82E36C7C">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>71F3D286-B0D1-D5C8-15C4-E0EB90BCC20A</generatorID>

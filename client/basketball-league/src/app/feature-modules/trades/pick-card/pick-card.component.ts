@@ -4,6 +4,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Pick } from 'src/app/shared/model/pick.model';
+import { WishlistAsset } from 'src/app/shared/model/wishlistAsset.model';
+import { RosterService } from '../../roster-management/roster.service';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'app-pick-card',
@@ -42,9 +45,15 @@ export class PickCardComponent implements OnInit{
   user: User | undefined;
   @Output() dialogRefClosed: EventEmitter<any> = new EventEmitter<any>();
   ownTeam: boolean = false;
-
-  constructor(private snackBar: MatSnackBar) {
-    
+  wishlistItems: WishlistAsset[] = [];
+  onWishlist: boolean = false;
+  
+  constructor(private snackBar: MatSnackBar,
+              private rosterService: RosterService,
+              private authService: AuthService) {
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {
@@ -55,6 +64,24 @@ export class PickCardComponent implements OnInit{
         }
       })
     }
+
+    if (this.pick.idTim == this.user?.teamId) {
+      this.ownTeam = true;
+    }
+
+    this.rosterService.getWishlistByTeamID(this.user?.teamId!).subscribe({
+      next: (result: WishlistAsset[] | WishlistAsset) => {
+        if (Array.isArray(result)) {
+          this.wishlistItems = result;
+
+          this.wishlistItems.forEach(asset => {
+            if (asset.idPik == this.pick.idPik){
+              this.onWishlist = true;
+            }
+          });
+        }
+      }
+    });
   }
 
   addAssetButtonClicked(asset: Pick): void {

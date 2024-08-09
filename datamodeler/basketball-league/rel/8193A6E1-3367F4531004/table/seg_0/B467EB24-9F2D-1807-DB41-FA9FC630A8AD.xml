@@ -1,0 +1,91 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B467EB24-9F2D-1807-DB41-FA9FC630A8AD" name="Nadgleda">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:41:55 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="IdSkaut" id="E39D8505-DC19-8EC9-8271-E8ACB71D4F9F">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:41:55 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6C39D5BD-DED6-8E98-016A-CCA6A44AF862" referredColumn="DC1FE28B-5380-EF52-A32E-18A428517FFD"/>
+</associations>
+</Column>
+<Column name="IdRegrut" id="9231BE7F-C63F-D879-E909-AE2872AD27CF">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:41:55 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="273AAF1C-334F-C89B-DB1C-2CB72B3EE84B" referredColumn="CD1C65A1-FE75-3AA7-3968-105C01636BE9"/>
+</associations>
+</Column>
+<Column name="IdTrng" id="DEF272A5-B55A-5AF3-74FE-4827D58C1D35">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:41:55 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="273AAF1C-334F-C89B-DB1C-2CB72B3EE84B" referredColumn="ABD63C45-5F58-504D-0C2D-0D6CE1A8F361"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="6E21CA54-5691-20AB-85BA-48DCFF10277E" name="Nadgleda_PK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:41:55 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E39D8505-DC19-8EC9-8271-E8ACB71D4F9F"/>
+<colUsage columnID="9231BE7F-C63F-D879-E909-AE2872AD27CF"/>
+<colUsage columnID="DEF272A5-B55A-5AF3-74FE-4827D58C1D35"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="25CC815F-C4EB-4D02-BD8E-DC659804F53D" name="Nadgleda_Skaut_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:41:55 UTC</createdTime>
+<generatorID>85D93E11-109F-A764-B30C-873BC50C6A6E</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E39D8505-DC19-8EC9-8271-E8ACB71D4F9F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6DB5D81B-A105-BD36-DCC3-3B387EA429A7" name="Nadgleda_Ucestvuje_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:41:55 UTC</createdTime>
+<generatorID>85D93E11-109F-A764-B30C-873BC50C6A6E</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9231BE7F-C63F-D879-E909-AE2872AD27CF"/>
+<colUsage columnID="DEF272A5-B55A-5AF3-74FE-4827D58C1D35"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -18,6 +18,7 @@ import { DeclineRequestPromptComponent } from './decline-request-prompt/decline-
 import { ShowRequestDetailsPromptComponent } from './show-request-details-prompt/show-request-details-prompt.component';
 import { SeeDenialExplanationPromptComponent } from './see-denial-explanation-prompt/see-denial-explanation-prompt.component';
 import { CancelRequestPromptComponent } from './cancel-request-prompt/cancel-request-prompt.component';
+import { DraftRightsAssetCardComponent } from './draft-rights-asset-card/draft-rights-asset-card.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { CancelRequestPromptComponent } from './cancel-request-prompt/cancel-req
     ShowRequestDetailsPromptComponent,
     SeeDenialExplanationPromptComponent,
     CancelRequestPromptComponent,
+    DraftRightsAssetCardComponent,
   ],
   imports: [
     CommonModule,

@@ -30,7 +30,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="IdPrava" id="C9B71BF2-B8C3-0BE4-B407-B2B4BC9690A2">
+<Column name="PravaNaIgraca_IdPrava" id="C9B71BF2-B8C3-0BE4-B407-B2B4BC9690A2">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>5D2EA56B-9820-3EEF-B2C3-828763ED1CF0</generatorID>
@@ -46,7 +46,7 @@
 <colAssociation fkAssociation="57BF20CA-2EF0-0194-C27A-D73377819440" referredColumn="D2C6D4F2-D810-68D6-0777-EC85288B3D02"/>
 </associations>
 </Column>
-<Column name="IdIgrac" id="D250312A-17DB-646D-5782-7CB04B729653">
+<Column name="Igrac_Id" id="D250312A-17DB-646D-5782-7CB04B729653">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>421990B0-E080-02E2-705D-BC22DF286B74</generatorID>
@@ -62,7 +62,7 @@
 <colAssociation fkAssociation="80220834-0A01-25C2-F150-F64CACDA06F4" referredColumn="25E6F95F-4CB1-B622-EAE9-CA12F9F9EB15"/>
 </associations>
 </Column>
-<Column name="IdZahTrg" id="EAD4796B-22D5-7441-F333-DE950AA2AD09">
+<Column name="ZahtevZaTrgovinu_IdZahTrg" id="EAD4796B-22D5-7441-F333-DE950AA2AD09">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>20F2E2CD-8A81-2FE0-DAB8-3BD6FF19CE28</generatorID>
@@ -77,7 +77,7 @@
 <colAssociation fkAssociation="E258A1B7-6452-988C-FE0A-6860047C5BF9" referredColumn="47918731-3339-3140-BC67-D7AC0FE3DAEB"/>
 </associations>
 </Column>
-<Column name="IdPik" id="EBE2B295-8597-55C7-95E9-2CA1B17BF63D">
+<Column name="Pik_IdPik" id="EBE2B295-8597-55C7-95E9-2CA1B17BF63D">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>86ABB8B7-6256-32FF-5302-E204654D37FB</generatorID>
@@ -107,7 +107,7 @@
 <colUsage columnID="FF7B56A4-AE10-11AE-0DF0-96F9019E859D"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="3B51E71D-7738-DFF8-B611-932C3EF7CA6F" name="PredTrg_PravaNaIgraca_FK">
+<ind_PK_UK id="3B51E71D-7738-DFF8-B611-932C3EF7CA6F" name="PredmetTrgovine_PravaNaIgraca_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>08411186-2E7C-CE07-C4C5-B3A5D7CF5936</generatorID>
@@ -118,7 +118,7 @@
 <colUsage columnID="C9B71BF2-B8C3-0BE4-B407-B2B4BC9690A2"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="1C5A6296-314C-997C-D52B-EF4F4287BB68" name="PredTrg_ZahZaTrg_FK">
+<ind_PK_UK id="1C5A6296-314C-997C-D52B-EF4F4287BB68" name="PredmetTrgovine_ZahtevZaTrgovinu_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>3933AFCB-6ABD-8D7D-0DCC-04C7EE357EE2</generatorID>
@@ -129,7 +129,7 @@
 <colUsage columnID="EAD4796B-22D5-7441-F333-DE950AA2AD09"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="8061CDF1-2F8A-ECA4-92C0-6ECEC14E128B" name="PredTrg_Igrac_FK">
+<ind_PK_UK id="8061CDF1-2F8A-ECA4-92C0-6ECEC14E128B" name="PredmetTrgovine_Igrac_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:32 UTC</createdTime>
 <generatorID>7EA6072E-6DAB-DCD6-E010-83876353736B</generatorID>
@@ -140,7 +140,7 @@
 <colUsage columnID="D250312A-17DB-646D-5782-7CB04B729653"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="FA5B85A1-2C6D-4842-FBAB-3B6A3B94FD05" name="PredTrg_Pik_FK">
+<ind_PK_UK id="FA5B85A1-2C6D-4842-FBAB-3B6A3B94FD05" name="PredmetTrgovine_Pik_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:32 UTC</createdTime>
 <generatorID>EFE0A66A-9633-F2E6-176B-79CC5AE458A0</generatorID>

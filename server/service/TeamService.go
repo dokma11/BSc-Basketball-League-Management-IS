@@ -61,3 +61,11 @@ func (service *TeamService) GetDraftRightsTradeDestination(tradeSubjectID int) (
 	}
 	return team, nil
 }
+
+func (service *TeamService) GetWishlistByTeamID(teamID int) ([]model.WishlistAsset, error) {
+	wishlist, err := service.TeamRepository.GetWishlistByTeamID(teamID)
+	if err != nil {
+		return nil, fmt.Errorf(fmt.Sprintf("no wishlists with that team id were found"))
+	}
+	return wishlist, nil
+}

@@ -61,17 +61,10 @@ export class AssetChoosingFormComponent implements OnInit{
     this.chosenPicks = data.chosenPicks;
     this.chosenPlayers = data.chosenPlayers;
     this.chosenDraftRights = data.chosenDraftRights;
-
-    console.log(this.chosenPicks);
-    console.log(this.chosenPlayers);
   }
 
   ngOnInit(): void {
     this.getAssets();
-  }
-
-  addTourButtonClicked() {
-    
   }
 
   finishButtonClicked(): void {
@@ -91,7 +84,7 @@ export class AssetChoosingFormComponent implements OnInit{
 
   getAssets() {
       if (this.assetForm.value.selectedAssetType === 'Players') {
-        this.rosterService.getAllPlayersByTeamId(this.team?.idTim!).subscribe({
+        this.rosterService.getAllAvailablePlayersByTeamId(this.team?.idTim!).subscribe({
           next: (result: Player[] | Player) => {
             if(Array.isArray(result)){
               this.players = result;
@@ -103,7 +96,7 @@ export class AssetChoosingFormComponent implements OnInit{
         })
       } 
       else if (this.assetForm.value.selectedAssetType === 'Picks') {
-        this.rosterService.getAllPicksByTeamId(this.team?.idTim!).subscribe({
+        this.rosterService.getAllAvailablePicksByTeamId(this.team?.idTim!).subscribe({
           next: (result: Pick[] | Pick) => {
             if(Array.isArray(result)){
               this.picks = result;
@@ -114,8 +107,8 @@ export class AssetChoosingFormComponent implements OnInit{
           }
         })
       }  
-      else if (this.assetForm.value.selectedAssetType === 'Draft Rights') {
-        this.rosterService.getAllDraftRightsByTeamId(this.team?.idTim!).subscribe({
+      else if (this.assetForm.value.selectedAssetType === 'Draft rights') {
+        this.rosterService.getAllAvailableDraftRightsByTeamId(this.team?.idTim!).subscribe({
           next: (result: DraftRight[] | DraftRight) => {
             if(Array.isArray(result)){
               this.draftRights = result;

@@ -65,7 +65,7 @@
 <ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="IdRegrut" id="0FFAF4CF-28F1-458C-F72B-8F80BBC7F449">
+<Column name="Regrut_Id" id="0FFAF4CF-28F1-458C-F72B-8F80BBC7F449">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>A80CA8F0-3796-4A43-9B82-B8A1740F4A3A</generatorID>
@@ -81,7 +81,7 @@
 <colAssociation fkAssociation="FE3548B3-2AB3-DC09-897A-150476057DF8" referredColumn="B0E093D9-AB4A-7724-16E4-DE201CB2C19E"/>
 </associations>
 </Column>
-<Column name="IdTrener" id="F1194D2C-563F-30B1-076D-7836C548438E">
+<Column name="Trener_Id" id="F1194D2C-563F-30B1-076D-7836C548438E">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>6D16E483-71E7-D19C-3B89-968B66EBE5A1</generatorID>

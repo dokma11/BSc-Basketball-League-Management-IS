@@ -34,7 +34,6 @@
       <h2>Select team:</h2>
       <div class="select-dropdown">
         <mat-form-field appearance="fill" class="mat-form-field-oval">
-          <!-- MORAM POKUSAATI DA GA UOBLICIM -->
           <mat-select [formControl]="teamCtrl" 
                       placeholder= "{{ this.initialTeamName }}"
                       (selectionChange)="onTeamSelected($event)" 
@@ -59,7 +58,7 @@
   
   <div class="roster">
     <div class="roster-header"
-         *ngIf="this.assetForm.value.selectedAssetType == 'Players'">
+         *ngIf="this.assetForm.value.selectedAssetType !== 'Picks' && this.ownTeamChosen">
       <div class="player-name">
         Name
       </div>
@@ -76,12 +75,31 @@
         Weight
       </div>
     </div>
+
+    <div class="roster-header-partner"
+         *ngIf="this.assetForm.value.selectedAssetType !== 'Picks' && !this.ownTeamChosen">
+      <div class="player-name-partner">
+        Name
+      </div>
+      <div class="player-age-partner">
+        Age
+      </div>
+      <div class="player-position-partner">
+        Position
+      </div>
+      <div class="player-height-partner">
+        Height
+      </div>
+      <div class="player-weight-partner">
+        Weight
+      </div>
+    </div>
     <div class="roster-container">
-        <!-- Dodati iznad neki kao heder koji ce da ispise stvari za igraca -->
         <app-player-card
             [@fadeIn]
             *ngFor="let player of players"
             [player]="player"
+            [ownTeam]="this.ownTeamChosen"
             (dialogRefClosed)="handleDialogClosed($event)"
         ></app-player-card>
 
@@ -89,6 +107,7 @@
             [@fadeIn]
             *ngFor="let pick of picks"
             [pick]="pick"
+            [ownTeam]="this.ownTeamChosen"
             (dialogRefClosed)="handleDialogClosed($event)"
         ></app-pick-roster-card>
 
@@ -96,6 +115,7 @@
             [@fadeIn]
             *ngFor="let draftRight of draftRights"
             [draftRight]="draftRight"
+            [ownTeam]="this.ownTeamChosen"
             (dialogRefClosed)="handleDialogClosed($event)"
         ></app-draft-right-roster-card>
     </div>

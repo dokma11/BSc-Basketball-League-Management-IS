@@ -3,6 +3,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { Player } from 'src/app/shared/model/player.model';
+import { WishlistAsset } from 'src/app/shared/model/wishlistAsset.model';
+import { RosterService } from '../../roster-management/roster.service';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Team } from 'src/app/shared/model/team.model';
 
 @Component({
   selector: 'app-player-asset-card',
@@ -40,9 +45,18 @@ export class PlayerAssetCardComponent implements OnInit{
   @Input() chosenPlayers!: Player[];
   age: string = '';
   @Output() dialogRefClosed: EventEmitter<any> = new EventEmitter<any>();
+  wishlistItems: WishlistAsset[] = [];
+  onWishlist: boolean = false;
+  user: User | undefined;
+  @Input() team!: Team;
+  ownTeam: boolean = false;
 
-  constructor(private snackBar: MatSnackBar) {
-    
+  constructor(private snackBar: MatSnackBar,
+              private rosterService: RosterService,
+              private authService: AuthService) { 
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {
@@ -57,6 +71,24 @@ export class PlayerAssetCardComponent implements OnInit{
         }
       })
     }
+
+    if (this.team.idTim == this.user?.teamId) {
+      this.ownTeam = true;
+    }
+
+    this.rosterService.getWishlistByTeamID(this.user?.teamId!).subscribe({
+      next: (result: WishlistAsset[] | WishlistAsset) => {
+        if (Array.isArray(result)) {
+          this.wishlistItems = result;
+
+          this.wishlistItems.forEach(asset => {
+            if (asset.idIgrac == this.player.id){
+              this.onWishlist = true;
+            }
+          });
+        }
+      }
+    });
   }
 
   addAssetButtonClicked(asset: Player): void {

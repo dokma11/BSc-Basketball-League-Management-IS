@@ -43,7 +43,7 @@
 <ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="IdTipZelje" id="0C00D293-3F98-AF25-D313-52283446C316">
+<Column name="TipZelje_IdTipZelje" id="0C00D293-3F98-AF25-D313-52283446C316">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>DCD4D8EA-FBF5-B465-34F1-612A4B91D1D3</generatorID>
@@ -56,6 +56,54 @@
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
 <colAssociation fkAssociation="31BA88D7-7AA7-789F-80DF-AB8E2F58A28A" referredColumn="14293C54-9BBB-61E5-5D9C-ADA1FECF5432"/>
+</associations>
+</Column>
+<Column name="PravaNaIgraca_IdPrava" id="4A22AAAE-30A1-0124-FA37-004540040DBB">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:37:26 UTC</createdTime>
+<generatorID>5CB82902-6FB5-0245-1482-FEB2D4FAFD32</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="055DA75B-E121-995D-3AA9-91F07962E809" referredColumn="D2C6D4F2-D810-68D6-0777-EC85288B3D02"/>
+</associations>
+</Column>
+<Column name="Pik_IdPik" id="F73DCFC3-FBAC-3494-1F60-5D9F300D2D61">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:37:26 UTC</createdTime>
+<generatorID>A418F00B-FD37-DCFE-541B-70B0DBE294E1</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0B1C7503-8557-EF42-8100-80932E0EB15C" referredColumn="E54BBFB8-E132-FF37-6742-71A2D8F2A69D"/>
+</associations>
+</Column>
+<Column name="Igrac_Id" id="F8B3A741-8F85-8CCD-13A0-A6FBEB865097">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:37:26 UTC</createdTime>
+<generatorID>2AA7D034-E88F-3AD9-C51D-57A591E7791C</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1B08785F-2485-A216-4B6D-4B319AA5E899" referredColumn="25E6F95F-4CB1-B622-EAE9-CA12F9F9EB15"/>
 </associations>
 </Column>
 </columns>
@@ -81,6 +129,39 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="0C00D293-3F98-AF25-D313-52283446C316"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="61B5F64D-D626-BF65-215D-226B9DBF063C" name="ZeljaTima_PravaNaIgraca_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:37:26 UTC</createdTime>
+<generatorID>E8B49ADB-6785-D4C1-4C04-83F981D624EB</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4A22AAAE-30A1-0124-FA37-004540040DBB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EE380102-D523-F5D6-8A54-C0E2831DC4FE" name="ZeljaTima_Pik_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:37:26 UTC</createdTime>
+<generatorID>2782446E-CFDF-6F58-0CEB-86F73BA34508</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F73DCFC3-FBAC-3494-1F60-5D9F300D2D61"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="349D40EF-2277-9C11-F1F6-946117EB6E09" name="ZeljaTima_Igrac_FK">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-04 20:41:24 UTC</createdTime>
+<generatorID>9211B86A-24F9-F397-6E5A-37627C1BD868</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F8B3A741-8F85-8CCD-13A0-A6FBEB865097"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

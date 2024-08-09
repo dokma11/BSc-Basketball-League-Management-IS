@@ -1,5 +1,34 @@
 <div class="pick-card">
   <div class="pick-card-content">
+        <div class="pick-card-top">
+            <div class="pick-tags">
+                <div class="pick-tag"
+                    *ngIf="this.pick.trgListPik && this.ownTeam"
+                    style="background-color: orange; color: white">
+                    On your Trade list
+                </div>
+                <div class="pick-tag"
+                    *ngIf="this.pick.trgListPik && !this.ownTeam"
+                    style="background-color: orange; color: white">
+                    On their Trade list
+                </div>
+                <div class="pick-tag"
+                    *ngIf="this.pick.nedodListPik && this.ownTeam"
+                    style="background-color: rgb(132, 40, 40); color: white">
+                    On your Untouchables list
+                </div>
+                <div class="pick-tag"
+                    *ngIf="this.pick.nedodListPik && !this.ownTeam"
+                    style="background-color: rgb(132, 40, 40); color: white">
+                    On their Untouchables list
+                </div>
+                <div class="pick-tag"
+                    *ngIf="this.onWishlist"
+                    style="background-color: olivedrab; color: white">
+                    On your Wishlist
+                </div>
+            </div>
+        </div>
         <div class="pick-card-information">
             <div class="pick-card-center">
                   <div class="pick-number" 
@@ -18,18 +47,29 @@
                   </div>
             </div>
             <div class="pick-card-right">
-                  <!-- Obratiti paznju na user.role -->
-                <!-- <button
+                <button
                     class="btn"
-                    (click)="addToWishlistButtonClicked(player);$event.stopPropagation()"
+                    *ngIf="!ownTeam && !this.onWishlist"
+                    (click)="addToWishlistButtonClicked(pick);$event.stopPropagation()"
                     [@buttonState]="addToWishlistButtonState"
                 >
                     <fa-icon [icon]="faHeart" />
                     &nbsp;Add to wishlist
-                </button> -->
+                </button>
 
                 <button
                     class="btn"
+                    *ngIf="!ownTeam && this.onWishlist"
+                    (click)="removeFromWishlistButtonClicked(pick);$event.stopPropagation()"
+                    [@buttonState]="addToWishlistButtonState"
+                >
+                    <fa-icon [icon]="faWindowClose" />
+                    &nbsp;Remove from wishlist
+                </button>
+
+                <button
+                    class="btn"
+                    *ngIf="ownTeam && !this.pick.trgListPik"
                     (click)="addToTradeListButtonClicked(pick);$event.stopPropagation()"
                     [@buttonState]="addToTradeListButtonState"
                 >
@@ -39,11 +79,31 @@
 
                 <button
                     class="btn"
+                    *ngIf="ownTeam && this.pick.trgListPik"
+                    (click)="removeFromTradeListButtonClicked(pick);$event.stopPropagation()"
+                    [@buttonState]="addToTradeListButtonState"
+                >
+                    <fa-icon [icon]="faList" />
+                    &nbsp;Remove from trade list
+                </button>
+                
+                <button
+                    class="btn"
+                    *ngIf="ownTeam && !this.pick.nedodListPik"
                     (click)="addToUntouchablesListButtonClicked(pick);$event.stopPropagation()"
                     [@buttonState]="addToUntouchablesListButtonState"
                 >
                     <fa-icon [icon]="faBan" />
                     &nbsp;Add to untouchables list
+                </button>
+
+                <button
+                    class="btn"
+                    *ngIf="ownTeam && this.pick.nedodListPik"
+                    (click)="removeFromUntouchablesListButtonClicked(pick);$event.stopPropagation()"
+                    [@buttonState]="addToUntouchablesListButtonState"
+                >
+                    &nbsp;Remove from untouchables
                 </button>
             </div>
         </div>

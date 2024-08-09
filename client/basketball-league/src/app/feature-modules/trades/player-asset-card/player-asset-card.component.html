@@ -1,15 +1,31 @@
 <div class="player-card">
-
-<!-- MOZDA DA DODAM KAO TAG RECIMO ADDED TO TRADE LIST ILI WISHLIST I SL -->
-
   <div class="player-card-content">
+      <div class="player-card-top">
+        <div class="player-tags">
+          <div class="player-tag"
+               *ngIf="this.player.trgListIgr && this.ownTeam"
+               style="background-color: orange; color: white">
+              On your Trade list
+          </div>
+          <div class="player-tag"
+               *ngIf="this.player.trgListIgr && !this.ownTeam"
+               style="background-color: orange; color: white">
+              On their Trade list
+          </div>
+          <div class="player-tag"
+              *ngIf="this.onWishlist"
+              style="background-color: olivedrab; color: white">
+              On your Wishlist
+          </div>
+        </div>
+      </div>
       <div class="player-card-information">
           <div class="player-card-center">
                 <div class="player-name-value">
                   <strong>Name:</strong> {{ player.ime }} {{ player.prezime }}
                 </div>
                 <div class="trade-date">
-                  <div class="trade-date-value">
+                  <div class="player-age-value">
                     <strong>Age:</strong>  {{ this.age }}
                   </div>
                 </div>
@@ -19,10 +35,10 @@
                 <div class="player-position-value" *ngIf="player.pozIgr === 3"><strong>Position:</strong> PF</div>
                 <div class="player-position-value" *ngIf="player.pozIgr === 4"><strong>Position:</strong> C</div>
                 <div class="player-height-value">
-                  <strong>Height:</strong> {{ player.visIgr }}
+                  <strong>Height:</strong> {{ player.visIgr }}cm
                 </div>
                 <div class="player-weight-value">
-                  <strong>Weight:</strong> {{ player.tezIgr }}
+                  <strong>Weight:</strong> {{ player.tezIgr }}kg
                 </div>
           </div>
 

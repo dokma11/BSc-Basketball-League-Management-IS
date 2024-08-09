@@ -65,7 +65,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="IdTim" id="342BE4FF-B64C-E9EE-99C9-ABCBB06A2C45">
+<Column name="Tim_IdTim" id="342BE4FF-B64C-E9EE-99C9-ABCBB06A2C45">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>5FD8096C-EAC1-DDF3-8360-4BAAB1D9FF6A</generatorID>
@@ -80,7 +80,7 @@
 <colAssociation fkAssociation="C046D967-EC15-A2BF-2A34-6B4A8DBB9C28" referredColumn="00A781D7-3E50-ADDF-1CB2-13CF39362D08"/>
 </associations>
 </Column>
-<Column name="IdTipUgo" id="8B07E358-D4D6-9D69-28C6-64B209358709">
+<Column name="TipUgovora_IdTipUgo" id="8B07E358-D4D6-9D69-28C6-64B209358709">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>66C6A140-C639-0E84-8AF2-610BC3DC5329</generatorID>

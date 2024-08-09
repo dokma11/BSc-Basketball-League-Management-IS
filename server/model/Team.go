@@ -7,10 +7,9 @@ import (
 
 type Team struct {
 	ID                int64
-	Name              string // Name
-	EstablishmentYear string // Establishment year
-	Location          string // Location
-	// TODO: Razmotriti za liste samo da li FK da bude ili da pravim materijalizovani pogled
+	Name              string
+	EstablishmentYear string
+	Location          string
 }
 
 func NewTeam(idTeam int64, nazTeam string, godOsnTeam string, lokTeam string) (*Team, error) {
@@ -69,37 +68,15 @@ func (t *Team) FromModel(teamDTO *TeamResponseDTO) {
 	teamDTO.LokTim = t.Location
 }
 
-type AssetForTrade struct {
-	IdImoTrgTim     int64     `json:"idImoTrgTim"`
-	DatDodImoTrgTim time.Time `json:"datDodImoTrgTim"`
-	BelesImoTrgTim  string    `json:"belesImoTrgTim"`
-	IdTipImoTrg     int64     `json:"idTipImoTrg"`
-	IdTim           *int64    `json:"idTim"`
-}
-
-type AssetForTradeType struct {
-	IdTipImoTrg  int64  `json:"idTipImoTrg"`
-	NazTipImoTrg string `json:"nazTipImoTrg"`
-}
-
-type UntouchableAsset struct {
-	IdNedIdTim      int64     `json:"idNedIdTim"`
-	DatDodNedImoTim time.Time `json:"datDodNedImoTim"`
-	BelesNedImoTim  string    `json:"belesNedImoTim"`
-	IdTim           *int64    `json:"idTim"`
-}
-
-type UntouchableAssetType struct {
-	IdTipNedImo  int64  `json:"idTipNedImo"`
-	NazTipNedImo string `json:"nazTipNedImo"`
-}
-
 type WishlistAsset struct {
 	IdZeljTim     int64     `json:"idZeljTim"`
-	DatDodZeljTim time.Time `json:"datDodZeljTim"`
-	BelesZeljTim  *string   `json:"belesZeljTim"`
-	IdTipZelje    int64     `json:"idTipZelje"`
-	IdTim         *int64    `json:"idTim"`
+	DatDodZeljTim time.Time `json:"datDodZeljTim"` // Date of creation
+	BelesZeljTim  string    `json:"belesZeljTim"`  // Notes
+	IdTipZelje    int64     `json:"idTipZelje"`    // Wishlist Asset Type foreign key
+	IdPrava       int64     `json:"idPrava"`       // Draft Rights foreign key
+	IdPik         int64     `json:"idPik"`         // Pick foreign key
+	IdIgrac       int64     `json:"idIgrac"`       // Player foreign key
+	IdTim         int64     `json:"idTim"`         // Team foreign key
 }
 
 type WishlistAssetType struct {

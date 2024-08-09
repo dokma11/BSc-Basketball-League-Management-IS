@@ -42,6 +42,15 @@ func (service *PickService) GetAllByTeamID(teamId int) (*[]model.Pick, error) {
 	return &picks, nil
 }
 
+func (service *PickService) GetAllAvailableByTeamID(teamId int) (*[]model.Pick, error) {
+	picks, err := service.PickRepository.GetAllAvailableByTeamID(teamId)
+	if err != nil {
+		return nil, fmt.Errorf(fmt.Sprintf("no available picks with that team id were found"))
+	}
+
+	return &picks, nil
+}
+
 func (service *PickService) GetAllByYear(year string) (*[]model.Pick, error) {
 	picks, err := service.PickRepository.GetAllByYear(year)
 	if err != nil {
@@ -55,6 +64,24 @@ func (service *PickService) Update(pick *model.Pick) error {
 	err := service.PickRepository.Update(pick)
 	if err != nil {
 		log.Println("Error updating pick")
+		return err
+	}
+	return nil
+}
+
+func (service *PickService) AddToWishlist(pick *model.Pick, teamId int) error {
+	err := service.PickRepository.AddToWishlist(pick, teamId)
+	if err != nil {
+		log.Println("Error adding pick to the wishlist")
+		return err
+	}
+	return nil
+}
+
+func (service *PickService) RemoveFromWishlist(pick *model.Pick, teamId int) error {
+	err := service.PickRepository.RemoveFromWishlist(pick, teamId)
+	if err != nil {
+		log.Println("Error removing pick from the wishlist")
 		return err
 	}
 	return nil

@@ -8,7 +8,7 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="IdRegrut" id="B2278992-CD87-25F5-FB1A-FDEE7BFB9A99">
+<Column name="Regrut_Id" id="B2278992-CD87-25F5-FB1A-FDEE7BFB9A99">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>F0E833AC-8C21-751F-3C8A-B6BFCFA8C804</generatorID>
@@ -20,10 +20,10 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="DB61305A-F461-1C2F-7CA2-9C23A374BFCB" referredColumn="B0E093D9-AB4A-7724-16E4-DE201CB2C19E"/>
+<colAssociation fkAssociation="ACE31588-7E86-7410-7D3B-2E97F6D0008F" referredColumn="B0E093D9-AB4A-7724-16E4-DE201CB2C19E"/>
 </associations>
 </Column>
-<Column name="IdTrng" id="36E32B2D-A411-D3AF-D40D-5FB4ABC0104E">
+<Column name="Trening_IdTrng" id="36E32B2D-A411-D3AF-D40D-5FB4ABC0104E">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>E8A99BF6-46A2-3B34-7924-BC8C0A7532AA</generatorID>
@@ -64,9 +64,9 @@
 <colUsage columnID="36E32B2D-A411-D3AF-D40D-5FB4ABC0104E"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="2477A3B4-E531-BBD1-1D14-9E0493450C3E" name="Ucestvuje_Regrut_FK">
+<ind_PK_UK id="9EECC5D4-46B9-FC3F-1693-1F245797E2B2" name="Ucestvuje_Regrut_FK">
 <createdBy>HP Pavilion</createdBy>
-<createdTime>2024-08-01 09:59:34 UTC</createdTime>
+<createdTime>2024-08-04 20:41:24 UTC</createdTime>
 <generatorID>ADEDBDFE-BC98-7D11-5636-B6ED512439A4</generatorID>
 <ownerDesignName>basketball-league</ownerDesignName>
 <indexState>Foreign Key</indexState>

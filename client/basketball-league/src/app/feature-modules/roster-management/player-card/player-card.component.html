@@ -1,6 +1,33 @@
 <div class="player-card">
     <div class="player-card-content">
         <div class="player-card-top">
+            <div class="player-tags">
+                <div class="player-tag"
+                     *ngIf="this.player.trgListIgr && this.ownTeam"
+                     style="background-color: orange; color: white">
+                  On your Trade list
+                </div>
+                <div class="player-tag"
+                     *ngIf="this.player.trgListIgr && !this.ownTeam"
+                     style="background-color: orange; color: white">
+                  On their Trade list
+                </div>
+                <div class="player-tag"
+                    *ngIf="this.player.nedodListIgr && this.ownTeam"
+                    style="background-color: rgb(132, 40, 40); color: white">
+                    On your Untouchables list
+                </div>
+                <div class="player-tag"
+                    *ngIf="this.player.nedodListIgr && !this.ownTeam"
+                    style="background-color: rgb(132, 40, 40); color: white">
+                    On their Untouchables list
+                </div>
+                <div class="player-tag"
+                    *ngIf="this.onWishlist"
+                    style="background-color: olivedrab; color: white">
+                    On your Wishlist
+                </div>
+              </div>
         </div>
         <div class="player-card-information">
             <div class="player-card-center">
@@ -26,18 +53,29 @@
             </div>
 
             <div class="player-card-right">
-                <!-- Obratiti paznju na user.role -->
-                <!-- <button
+                <button
                     class="btn"
+                    *ngIf="!ownTeam && !this.onWishlist"
                     (click)="addToWishlistButtonClicked(player);$event.stopPropagation()"
                     [@buttonState]="addToWishlistButtonState"
                 >
                     <fa-icon [icon]="faHeart" />
                     &nbsp;Add to wishlist
-                </button> -->
+                </button>
 
                 <button
                     class="btn"
+                    *ngIf="!ownTeam && this.onWishlist"
+                    (click)="removeFromWishlistButtonClicked(player);$event.stopPropagation()"
+                    [@buttonState]="addToWishlistButtonState"
+                >
+                    <fa-icon [icon]="faWindowClose" />
+                    &nbsp;Remove from wishlist
+                </button>
+
+                <button
+                    class="btn"
+                    *ngIf="ownTeam && !this.player.trgListIgr"
                     (click)="addToTradeListButtonClicked(player);$event.stopPropagation()"
                     [@buttonState]="addToTradeListButtonState"
                 >
@@ -47,11 +85,31 @@
 
                 <button
                     class="btn"
+                    *ngIf="ownTeam && this.player.trgListIgr"
+                    (click)="removeFromTradeListButtonClicked(player);$event.stopPropagation()"
+                    [@buttonState]="addToTradeListButtonState"
+                >
+                    <fa-icon [icon]="faList" />
+                    &nbsp;Remove from trade list
+                </button>
+
+                <button
+                    class="btn"
+                    *ngIf="ownTeam && !this.player.nedodListIgr"
                     (click)="addToUntouchablesListButtonClicked(player);$event.stopPropagation()"
                     [@buttonState]="addToUntouchablesListButtonState"
                 >
                     <fa-icon [icon]="faBan" />
                     &nbsp;Add to untouchables list
+                </button>
+
+                <button
+                    class="btn"
+                    *ngIf="ownTeam && this.player.nedodListIgr"
+                    (click)="removeFromUntouchablesListButtonClicked(player);$event.stopPropagation()"
+                    [@buttonState]="addToUntouchablesListButtonState"
+                >
+                    &nbsp;Remove from untouchables
                 </button>
             </div>
         </div>

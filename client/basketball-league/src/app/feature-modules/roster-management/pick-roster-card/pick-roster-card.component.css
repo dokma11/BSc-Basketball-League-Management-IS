@@ -25,18 +25,20 @@
       -1px 0px 3px rgba(var(--clr-primary-500), 0.2);
 }
 
-.selected {
-  background-color: rgba(var(--clr-primary-500), 0.4);
-}
-
-.selectable {
-  cursor: pointer;
-}
-
 .pick-card-content {
   display: flex;
   flex-direction: row;
   width: calc(100% - 14rem);
+}
+
+.pick-card-top {
+  margin-top: -1.8rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%; 
+  position: absolute;
+  margin-left: 1rem;
 }
 
 .pick-card-information {
@@ -67,14 +69,6 @@
   margin-right: -20%;
 }
 
-.add-to-wishlist {
-  margin-top: 0rem;
-  max-width: 60%;
-  min-width: 15rem;
-  margin-left: auto;
-  margin-bottom: 0.5rem;
-}
-
 .btn {
   width: 300px;
   height: 40px;
@@ -95,4 +89,41 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transform: scale(1.03);
   transition: transform 300ms ease;
+}
+
+.pick-number {
+  position: absolute;
+}
+
+.pick-round {
+  position: absolute;
+  margin-left: 15rem;
+}
+
+.pick-year {
+  position: absolute;
+  margin-left: 25rem;
+}
+
+.pick-tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 70%;
+}
+
+.pick-tag {
+  font-family: var(--fnt-body);
+  font-size: 0.8rem;
+  color: rgba(var(--clr-text), 1);
+  background-color: rgba(var(--clr-background-secondary), 1);
+  border-radius: 0.3125rem;
+  padding: 0.125rem 0.25rem;
+  transition: background-color 0.15s, color 0.15s;
+  cursor: pointer;
+}
+
+.pick-tag:hover {
+  background-color: rgba(var(--clr-background-secondary), 0.75);
 }
