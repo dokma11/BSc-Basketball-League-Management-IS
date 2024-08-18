@@ -8,6 +8,7 @@ import { LeagueNewsComponent } from './feature-modules/news/league-news/league-n
 import { TradeManagementComponent } from './feature-modules/trades/trade-management/trade-management.component';
 import { MyProfileComponent } from './feature-modules/profile/my-profile/my-profile.component';
 import { RecruitManagementComponent } from './feature-modules/recruits/recruit-management/recruit-management.component';
+import { ProposalManagementComponent } from './feature-modules/recruits/proposal-management/proposal-management.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'recruit-management',
     component: RecruitManagementComponent
+  },
+  {
+    path: 'proposal-management',
+    component: ProposalManagementComponent
   },
 ];
 

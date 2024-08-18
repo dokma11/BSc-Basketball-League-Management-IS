@@ -115,8 +115,8 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 
 	router.HandleFunc("/trainingRequest", trainingRequestHandler.GetAll).Methods("GET")
 	router.HandleFunc("/trainingRequest/{id}", trainingRequestHandler.GetByID).Methods("GET")
-	router.HandleFunc("/trainingRequest/sender/{userId}", trainingRequestHandler.GetAllBySenderID).Methods("GET")
-	router.HandleFunc("/trainingRequest/receiver/{userId}", trainingRequestHandler.GetAllByReceiverID).Methods("GET")
+	router.HandleFunc("/trainingRequest-sender/{userId}", trainingRequestHandler.GetAllBySenderID).Methods("GET")
+	router.HandleFunc("/trainingRequest-receiver/{userId}", trainingRequestHandler.GetAllByReceiverID).Methods("GET")
 	router.HandleFunc("/trainingRequest", trainingRequestHandler.Create).Methods("POST")
 	router.HandleFunc("/trainingRequest", trainingRequestHandler.Update).Methods("PUT")
 
@@ -127,8 +127,8 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 
 	router.HandleFunc("/interviewRequest", interviewRequestHandler.GetAll).Methods("GET")
 	router.HandleFunc("/interviewRequest/{id}", interviewRequestHandler.GetByID).Methods("GET")
-	router.HandleFunc("/interviewRequest/sender/{userId}", interviewRequestHandler.GetAllBySenderID).Methods("GET")
-	router.HandleFunc("/interviewRequest/receiver/{userId}", interviewRequestHandler.GetAllByReceiverID).Methods("GET")
+	router.HandleFunc("/interviewRequest-sender/{userId}", interviewRequestHandler.GetAllBySenderID).Methods("GET")
+	router.HandleFunc("/interviewRequest-receiver/{userId}", interviewRequestHandler.GetAllByReceiverID).Methods("GET")
 	router.HandleFunc("/interviewRequest", interviewRequestHandler.Create).Methods("POST")
 	router.HandleFunc("/interviewRequest", interviewRequestHandler.Update).Methods("PUT")
 

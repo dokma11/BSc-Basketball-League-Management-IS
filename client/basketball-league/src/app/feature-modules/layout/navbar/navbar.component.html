@@ -13,6 +13,7 @@
       </button>
 
       <button
+              *ngIf="this.user?.uloga !==  this.regrutUloga"
               class="feat-button"
               color="white"
               mat-raised-button
@@ -22,6 +23,7 @@
       </button>
 
       <button
+              *ngIf="this.user?.uloga !==  this.regrutUloga"
               class="feat-button"
               color="white"
               mat-raised-button
@@ -31,6 +33,7 @@
       </button>
       
       <button
+              *ngIf="this.user?.uloga !==  this.regrutUloga"
               class="feat-button"
               color="white"
               mat-raised-button
@@ -39,6 +42,16 @@
         &nbsp;Recruit management
       </button>
 
+      <button
+              *ngIf="this.user?.uloga ===  this.regrutUloga"
+              class="feat-button"
+              color="white"
+              mat-raised-button
+              [routerLink]="['proposal-management']">
+        <fa-icon [icon]="faPencilSquare" />
+        &nbsp;Proposal management
+      </button>
+      
       <button
               class="feat-button"
               color="white"
