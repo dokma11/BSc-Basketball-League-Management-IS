@@ -1,0 +1,50 @@
+<div class="overview">
+  <div class="h2-wrapper">
+    <h2>Recruit management</h2>
+  </div>
+  <br>
+
+  <div class="p-wrapper">
+    <p>Welcome to the Recruits Management page! Here, you can explore detailed profiles of the latest draft prospects. 
+      Manage your team's future by selecting top talent, inviting them to trainings and interviews, and tracking players who fit your strategic vision. 
+      Take charge of your draft strategy and make key decisions that will shape the future success of your team.
+    </p>
+  </div>
+
+  <!-- OVDE MOZDA BUDEM MORAO DA DODAM PRETRAGE I SL TAKO DA CU OSTAVITI MESTA -->
+
+  <div class="roster">
+    <div class="roster-header">
+      <div class="player-name">
+        Name
+      </div>
+      <div class="player-age">
+        Age
+      </div>
+      <div class="player-position">
+        Position
+      </div>
+      <div class="player-height">
+        Height
+      </div>
+      <div class="player-weight">
+        Weight
+      </div>
+    </div>
+    
+    <div class="roster-container">
+      <!-- OVDE MORA DA BUDE RECRUIT CARD KAO -->
+        <!-- <app-player-card
+            [@fadeIn]
+            *ngFor="let player of players"
+            [player]="player"
+            [ownTeam]="this.ownTeamChosen"
+            (dialogRefClosed)="handleDialogClosed($event)"
+        ></app-player-card> -->
+    </div>
+
+    <button (click)="probazaformuintervju()"> NESTO</button>
+
+    <button (click)="probazaformutrening()"> NESTOTRENING</button>
+  </div>
+</div>

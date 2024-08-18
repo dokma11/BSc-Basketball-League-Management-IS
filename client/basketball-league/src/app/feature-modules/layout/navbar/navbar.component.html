@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <div>
-    <!-- TREBA DODATI NEKI LOGO I MOZDA IZRAVNATI PARAGRAF-->
+    <fa-icon id="logo" [icon]="faBasketball" />
     <p>Basketball league</p>
     <div id="buttons">
       <button
@@ -28,6 +28,15 @@
               [routerLink]="['trade-management']">
         <fa-icon [icon]="faPencilSquare" />
         &nbsp;Trade management
+      </button>
+      
+      <button
+              class="feat-button"
+              color="white"
+              mat-raised-button
+              [routerLink]="['recruit-management']">
+        <fa-icon [icon]="faBinoculars" />
+        &nbsp;Recruit management
       </button>
 
       <button

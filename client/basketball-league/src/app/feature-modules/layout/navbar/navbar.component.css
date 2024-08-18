@@ -41,3 +41,7 @@ button.feat-button::after {
 button.feat-button:hover::after {
   width: 90%; 
 }
+
+#logo {
+  margin-top: 1rem;
+}

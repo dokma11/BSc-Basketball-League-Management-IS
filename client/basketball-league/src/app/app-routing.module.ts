@@ -7,6 +7,7 @@ import { RosterComponent } from './feature-modules/roster-management/roster/rost
 import { LeagueNewsComponent } from './feature-modules/news/league-news/league-news.component';
 import { TradeManagementComponent } from './feature-modules/trades/trade-management/trade-management.component';
 import { MyProfileComponent } from './feature-modules/profile/my-profile/my-profile.component';
+import { RecruitManagementComponent } from './feature-modules/recruits/recruit-management/recruit-management.component';
 
 const routes: Routes = [
   {
@@ -36,7 +37,11 @@ const routes: Routes = [
   {
     path: 'my-profile',
     component: MyProfileComponent
-  }
+  },
+  {
+    path: 'recruit-management',
+    component: RecruitManagementComponent
+  },
 ];
 
 @NgModule({
