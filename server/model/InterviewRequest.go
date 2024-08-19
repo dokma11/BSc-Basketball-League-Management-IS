@@ -80,7 +80,7 @@ type InterviewRequestResponseDTO struct {
 	StatusPozInt InterviewRequestStatus `json:"statusPozInt"`
 	RazOdbPozInt string                 `json:"razOdbPozInt"` // Denial reason
 	IdRegrut     int64                  `json:"idRegrut"`     // Recruit foreign key
-	IdTrener     int64                  `json:"idTrenter"`    // Coach foreign key
+	IdTrener     int64                  `json:"idTrener"`     // Coach foreign key
 }
 
 func (i *InterviewRequest) FromModel(interviewRequestDTO *InterviewRequestResponseDTO) {
@@ -94,39 +94,28 @@ func (i *InterviewRequest) FromModel(interviewRequestDTO *InterviewRequestRespon
 }
 
 type InterviewRequestCreateDTO struct {
-	MesOdrPozInt string                 `json:"mesOdrPozInt"` // Occurrence location
-	DatVrePozInt time.Time              `json:"datVrePozInt"` // Occurrence date and time
-	StatusPozInt InterviewRequestStatus `json:"statusPozInt"`
-	RazOdbPozInt string                 `json:"razOdbPozInt"` // Denial reason
-	IdRegrut     int64                  `json:"idRegrut"`     // Recruit foreign key
-	IdTrener     int64                  `json:"idTrenter"`    // Coach foreign key
+	MesOdrPozInt string    `json:"mesOdrPozInt"` // Occurrence location
+	DatVrePozInt time.Time `json:"datVrePozInt"` // Occurrence date and time
+	IdRegrut     int64     `json:"idRegrut"`     // Recruit foreign key
+	IdTrener     int64     `json:"idTrener"`     // Coach foreign key
 }
 
 func (i *InterviewRequest) FromDTO(interviewRequestDTO *InterviewRequestCreateDTO) {
 	i.OccurrenceLocation = interviewRequestDTO.MesOdrPozInt
 	i.OccurrenceDateTime = interviewRequestDTO.DatVrePozInt
-	i.Status = interviewRequestDTO.StatusPozInt
-	i.DenialReason = interviewRequestDTO.RazOdbPozInt
+	i.Status = 0
 	i.RecruitId = interviewRequestDTO.IdRegrut
 	i.CoachId = interviewRequestDTO.IdTrener
 }
 
 type InterviewRequestUpdateDTO struct {
 	IdPozInt     int64                  `json:"idInt"`
-	MesOdrPozInt string                 `json:"mesOdrPozInt"` // Occurrence location
-	DatVrePozInt time.Time              `json:"datVrePozInt"` // Occurrence date and time
 	StatusPozInt InterviewRequestStatus `json:"statusPozInt"`
 	RazOdbPozInt string                 `json:"razOdbPozInt"` // Denial reason
-	IdRegrut     int64                  `json:"idRegrut"`     // Recruit foreign key
-	IdTrener     int64                  `json:"idTrenter"`    // Coach foreign key
 }
 
 func (i *InterviewRequest) FromUpdateDTO(interviewRequestDTO *InterviewRequestUpdateDTO) {
 	i.ID = interviewRequestDTO.IdPozInt
-	i.OccurrenceLocation = interviewRequestDTO.MesOdrPozInt
-	i.OccurrenceDateTime = interviewRequestDTO.DatVrePozInt
 	i.Status = interviewRequestDTO.StatusPozInt
 	i.DenialReason = interviewRequestDTO.RazOdbPozInt
-	i.RecruitId = interviewRequestDTO.IdRegrut
-	i.CoachId = interviewRequestDTO.IdTrener
 }

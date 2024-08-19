@@ -4,11 +4,35 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { InterviewProposal, InterviewProposalStatus } from 'src/app/shared/model/interviewProposal.model';
 import { TrainingProposal, TrainingProposalStatus } from 'src/app/shared/model/trainingProposal.model';
 import { RecruitsService } from '../recruits.service';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 @Component({
   selector: 'app-accept-proposal-prompt',
   templateUrl: './accept-proposal-prompt.component.html',
-  styleUrls: ['./accept-proposal-prompt.component.css']
+  styleUrls: ['./accept-proposal-prompt.component.css'],
+  animations: [
+      trigger("fadeIn", [
+        transition(":enter", [
+            style({ opacity: 0, transform: "translateX(-40px)" }),
+            animate(
+                "0.5s ease",
+                style({ opacity: 1, transform: "translateX(0)" }),
+            ),
+        ]),
+      ]),
+      trigger('buttonState', [
+        state('clicked', style({
+          transform: 'scale(0.9)',
+          opacity: 0.5
+        })),
+        transition('* => clicked', [
+          animate('200ms')
+        ]),
+        transition('clicked => idle', [
+          animate('200ms')
+        ])
+      ]),
+  ],
 })
 export class AcceptProposalPromptComponent {
   cancelButtonState: string = 'idle';
@@ -22,9 +46,9 @@ export class AcceptProposalPromptComponent {
               private dialogRef: MatDialogRef<AcceptProposalPromptComponent>,
               private recruitsService: RecruitsService,
               @Inject(MAT_DIALOG_DATA) public data: any,) {
-    if (data.interview) {
+    if (data.interviewProposal) {
       this.interviewProposal = data.interviewProposal;
-    } else if (data.training) {
+    } else if (data.trainingProposal) {
       this.trainingProposal = data.trainingProposal;
       this.interviewChosen = false;
     }

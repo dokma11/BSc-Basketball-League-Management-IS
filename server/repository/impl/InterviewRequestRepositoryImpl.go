@@ -96,7 +96,7 @@ func (repo *interviewRequestRepository) GetAllBySenderID(userID int) ([]model.In
 }
 
 func (repo *interviewRequestRepository) GetAllByReceiverID(userID int) ([]model.InterviewRequest, error) {
-	rows, err := repo.db.Query("SELECT * FROM PozivNaIntervju = :1", userID)
+	rows, err := repo.db.Query("SELECT * FROM PozivNaIntervju WHERE IDREGRUT = :1", userID)
 	if err != nil {
 		return nil, fmt.Errorf("failed to query all interview requests: %v", err)
 	}
@@ -126,10 +126,9 @@ func (repo *interviewRequestRepository) GetAllByReceiverID(userID int) ([]model.
 }
 
 func (repo *interviewRequestRepository) Create(interviewRequest *model.InterviewRequest) error {
-	_, err := repo.db.Exec("INSERT INTO PozivNaIntervju (IDPOZINT, MESODRINT, DATVREPOZINT, STATUSPOZINT, RAZODBPOZINT, "+
-		"IDREGRUT, IDTRENER) "+
-		"VALUES (:1, :2, :3, :4, :5)", interviewRequest.ID, interviewRequest.OccurrenceLocation, interviewRequest.OccurrenceDateTime,
-		interviewRequest.Status, &interviewRequest.DenialReason, interviewRequest.RecruitId, interviewRequest.CoachId)
+	_, err := repo.db.Exec(`INSERT INTO PozivNaIntervju (IDPOZINT, MESODRPOZINT, DATVREPOZINT, STATUSPOZINT, RAZODBPOZINT, IDREGRUT, IDTRENER)
+		VALUES (0, :1, :2, 'WAITING', NULL, :3, :4)`, interviewRequest.OccurrenceLocation, interviewRequest.OccurrenceDateTime,
+		interviewRequest.RecruitId, interviewRequest.CoachId)
 	if err != nil {
 		return fmt.Errorf("failed to create a interview request: %v", err)
 	}
@@ -137,9 +136,9 @@ func (repo *interviewRequestRepository) Create(interviewRequest *model.Interview
 }
 
 func (repo *interviewRequestRepository) Update(interviewRequest *model.InterviewRequest) error {
-	_, err := repo.db.Exec("UPDATE PozivNaIntervju SET MESODRINT = :2, DATVREPOZINT = :3, STATUSPOZINT = :4,"+
-		" RAZODBPOZINT = :5 WHERE IDPOZINT = :1", interviewRequest.ID, interviewRequest.OccurrenceLocation,
-		interviewRequest.OccurrenceDateTime, interviewRequest.Status, &interviewRequest.DenialReason)
+	status := fromStatusEnum(interviewRequest)
+	_, err := repo.db.Exec("UPDATE PozivNaIntervju SET STATUSPOZINT = :1, RAZODBPOZINT = :2 WHERE IDPOZINT = :3",
+		status, &interviewRequest.DenialReason, interviewRequest.ID)
 	if err != nil {
 		return fmt.Errorf("failed to update interview request: %v", err)
 	}
@@ -155,4 +154,17 @@ func fromStatusString(status string, interviewRequest *model.InterviewRequestDAO
 	default:
 		interviewRequest.StatusPozInt = 2
 	}
+}
+
+func fromStatusEnum(interviewRequest *model.InterviewRequest) string {
+	var status string
+	switch interviewRequest.Status {
+	case 0:
+		status = "WAITING"
+	case 1:
+		status = "AFFIRMED"
+	default:
+		status = "REJECTED"
+	}
+	return status
 }

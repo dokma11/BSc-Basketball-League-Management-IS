@@ -4,16 +4,40 @@ import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Employee } from 'src/app/shared/model/employee.model';
 import { Team } from 'src/app/shared/model/team.model';
-import { AcceptRequestPromptComponent } from '../../trades/accept-request-prompt/accept-request-prompt.component';
-import { DeclineRequestPromptComponent } from '../../trades/decline-request-prompt/decline-request-prompt.component';
 import { TradesService } from '../../trades/trades.service';
 import { InterviewProposal } from 'src/app/shared/model/interviewProposal.model';
 import { RecruitsService } from '../recruits.service';
+import { trigger, transition, style, animate, state } from '@angular/animations';
+import { AcceptProposalPromptComponent } from '../accept-proposal-prompt/accept-proposal-prompt.component';
+import { DeclineProposalPromptComponent } from '../decline-proposal-prompt/decline-proposal-prompt.component';
 
 @Component({
   selector: 'app-interview-proposal-card',
   templateUrl: './interview-proposal-card.component.html',
-  styleUrls: ['./interview-proposal-card.component.css']
+  styleUrls: ['./interview-proposal-card.component.css'],
+  animations: [
+      trigger("fadeIn", [
+        transition(":enter", [
+            style({ opacity: 0, transform: "translateX(-40px)" }),
+            animate(
+                "0.5s ease",
+                style({ opacity: 1, transform: "translateX(0)" }),
+            ),
+        ]),
+      ]),
+      trigger('buttonState', [
+        state('clicked', style({
+          transform: 'scale(0.9)',
+          opacity: 0.5
+        })),
+        transition('* => clicked', [
+          animate('200ms')
+        ]),
+        transition('clicked => idle', [
+          animate('200ms')
+        ])
+      ]),
+  ],
 })
 export class InterviewProposalCardComponent implements OnInit{
   acceptButtonState: string = 'idle';
@@ -59,8 +83,10 @@ export class InterviewProposalCardComponent implements OnInit{
     this.acceptButtonState = 'clicked';
     setTimeout(() => { this.acceptButtonState = 'idle'; }, 200);
     
-    this.dialogRef = this.dialog.open(AcceptRequestPromptComponent, {
-      data: this.interviewProposal
+    this.dialogRef = this.dialog.open(AcceptProposalPromptComponent, {
+      data: {
+        interviewProposal: this.interviewProposal
+      } 
     });
     
     this.dialogRef.afterClosed().subscribe((result: any) => {
@@ -72,8 +98,10 @@ export class InterviewProposalCardComponent implements OnInit{
     this.declineButtonState = 'clicked';
     setTimeout(() => { this.declineButtonState = 'idle'; }, 200);
     
-    this.dialogRef = this.dialog.open(DeclineRequestPromptComponent, {
-      data: this.interviewProposal
+    this.dialogRef = this.dialog.open(DeclineProposalPromptComponent, {
+      data: {
+        interviewProposal: this.interviewProposal
+      } 
     });
     
     this.dialogRef.afterClosed().subscribe((result: any) => {

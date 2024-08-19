@@ -2,7 +2,7 @@ export interface InterviewProposal {
   idPozInt?: number;
   mesOdrPozInt: string;
   datVrePozInt: Date;
-  statusPozInt: InterviewProposalStatus;
+  statusPozInt?: InterviewProposalStatus;
   razOdbPozInt?: string;
   idRegrut: number;
   idTrener: number;

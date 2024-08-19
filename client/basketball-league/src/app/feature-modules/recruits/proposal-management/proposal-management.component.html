@@ -48,13 +48,19 @@
 
   <div class="trades">
     <div class="trade-container">
-      <!-- OVDE MORAM DODATI KAO ZA TRENINGE I INTERVJUE OVE KARTICE PA DA SE POJAVLJUJU SPRAM ONOG SRANJA, MOZDA DA RESETUJEM TAMO U IFOVIMA SUPROTNE LISTE -->
-        <!-- <app-trade-request-card
-            [@fadeIn]
-            *ngFor="let proposal of tradeProposals"
-            [tradeProposal]="proposal"
-            (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-trade-request-card> -->
+      <app-interview-proposal-card
+        [@fadeIn]
+        *ngFor="let proposal of interviewProposals"
+        [interviewProposal]="proposal"
+        (dialogRefClosed)="handleDialogClosed($event)"
+      ></app-interview-proposal-card>
+
+      <app-training-proposal-card
+        [@fadeIn]
+        *ngFor="let proposal of trainingProposals"
+        [trainingProposal]="proposal"
+        (dialogRefClosed)="handleDialogClosed($event)"
+      ></app-training-proposal-card>
     </div>
   </div>
 </div>

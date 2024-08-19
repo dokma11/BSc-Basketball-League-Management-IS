@@ -34,7 +34,7 @@ import { RecruitsService } from '../recruits.service';
           animate('200ms')
         ])
       ]),
-  ],
+  ]
 })
 export class ProposalManagementComponent implements OnInit{
   user: User | undefined;
@@ -68,6 +68,7 @@ export class ProposalManagementComponent implements OnInit{
       this.recruitsService.getInterviewProposalsByRecruitId(this.user?.id!).subscribe({
         next: (result: InterviewProposal[] | InterviewProposal) => {
           if(Array.isArray(result)){
+            this.trainingProposals = [];
             this.interviewProposals = [];
             this.interviewProposals = result;
             
@@ -85,6 +86,7 @@ export class ProposalManagementComponent implements OnInit{
       this.recruitsService.getTrainingProposalsByRecruitId(this.user?.id!).subscribe({
         next: (result: TrainingProposal[] | TrainingProposal) => {
           if(Array.isArray(result)){
+            this.interviewProposals = [];
             this.trainingProposals = [];
             this.trainingProposals = result;
             

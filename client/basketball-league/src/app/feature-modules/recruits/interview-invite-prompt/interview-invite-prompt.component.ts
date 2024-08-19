@@ -67,6 +67,9 @@ export class InterviewInvitePromptComponent implements OnInit{
 
     this.recruitId = data.recruitId;
     this.coachId = data.coachId;
+
+    console.log(this.recruitId);
+    console.log(this.coachId);
   }
 
   interviewInviteForm = new FormGroup({
@@ -98,7 +101,6 @@ export class InterviewInvitePromptComponent implements OnInit{
     const interviewProposal : InterviewProposal = {
       mesOdrPozInt: this.interviewInviteForm.value.address || "",
       datVrePozInt: dateTime || "",
-      statusPozInt: InterviewProposalStatus.WAITING,
       idRegrut: this.recruitId,
       idTrener: this.coachId
     }
