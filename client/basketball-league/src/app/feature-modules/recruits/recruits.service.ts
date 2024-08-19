@@ -51,6 +51,10 @@ export class RecruitsService {
     return this.http.put<TrainingProposal>(environment.host + 'trainingProposal', proposal);
   }
 
+  declareForDraft(recruit: Recruit): Observable<Recruit> {
+    return this.http.post<Recruit>(environment.host + 'recruit', recruit);
+  }
+
   mapReverseSearch(lat: number, lon: number): Observable<any> {
     return this.http.get(
       `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&<params>`

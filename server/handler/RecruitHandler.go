@@ -11,10 +11,11 @@ import (
 
 type RecruitHandler struct {
 	RecruitService *service.RecruitService
+	DraftService   *service.DraftService
 }
 
-func NewRecruitHandler(RecruitService *service.RecruitService) *RecruitHandler {
-	return &RecruitHandler{RecruitService: RecruitService}
+func NewRecruitHandler(RecruitService *service.RecruitService, DraftService *service.DraftService) *RecruitHandler {
+	return &RecruitHandler{RecruitService: RecruitService, DraftService: DraftService}
 }
 
 func (handler *RecruitHandler) GetAll(w http.ResponseWriter, r *http.Request) {
@@ -68,6 +69,15 @@ func (handler *RecruitHandler) Create(writer http.ResponseWriter, req *http.Requ
 
 	recruit := &model.Recruit{}
 	recruit.FromDTO(&recruitDTO)
+
+	var draft, draftErr = handler.DraftService.GetLatest()
+	if draftErr != nil {
+		println("Error while getting latest draft")
+		writer.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	recruit.DraftId = draft.ID
 
 	err = handler.RecruitService.Create(recruit)
 	if err != nil {

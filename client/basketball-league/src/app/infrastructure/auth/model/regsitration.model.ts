@@ -1,9 +1,10 @@
 export interface Registration {
-  firstName: string,
-  lastName: string,
+  ime: string,
+  prezime: string,
   email: string,
-  password: string,
-  role: Role
+  datRodj: Date,
+  lozinka: string,
+  role?: Role
 }
 
 export enum Role {

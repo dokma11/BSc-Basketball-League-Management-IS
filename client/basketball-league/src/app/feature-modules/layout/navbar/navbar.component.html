@@ -13,7 +13,7 @@
       </button>
 
       <button
-              *ngIf="this.user?.uloga !==  this.regrutUloga"
+              *ngIf="this.user?.uloga !== this.regrutUloga"
               class="feat-button"
               color="white"
               mat-raised-button
@@ -23,7 +23,7 @@
       </button>
 
       <button
-              *ngIf="this.user?.uloga !==  this.regrutUloga"
+              *ngIf="this.user?.uloga !== this.regrutUloga"
               class="feat-button"
               color="white"
               mat-raised-button
@@ -33,7 +33,7 @@
       </button>
       
       <button
-              *ngIf="this.user?.uloga !==  this.regrutUloga"
+              *ngIf="this.user?.uloga !== this.regrutUloga"
               class="feat-button"
               color="white"
               mat-raised-button
@@ -43,7 +43,7 @@
       </button>
 
       <button
-              *ngIf="this.user?.uloga ===  this.regrutUloga"
+              *ngIf="this.user?.uloga === this.regrutUloga && user?.email != ''"
               class="feat-button"
               color="white"
               mat-raised-button
@@ -83,6 +83,17 @@
       >
       <fa-icon [icon]="faPencilSquare" />
         &nbsp;Sign up
+      </button>
+
+      <button
+              class="feat-button"
+              *ngIf="user && user.uloga === 0 && user.email != '' && showDeclaration"
+              color="white"
+              mat-raised-button
+              [routerLink]="['declare-for-draft']"
+      >
+      <fa-icon [icon]="faPenClip" />
+        &nbsp;Declare for draft
       </button>
 
       <button

@@ -13,16 +13,40 @@ type Claims struct {
 	Id       int64  `json:"id"`
 	Username string `json:"username"`
 	TeamId   int64  `json:"teamId"`
+	Role     int64  `json:"role"`
 	jwt.RegisteredClaims
 }
 
-func GenerateJWT(id int64, username string, teamId int64) (string, error) {
+func GenerateJWT(id int64, username string, teamId int64, role int64) (string, error) {
 	expirationTime := time.Now().Add(60 * time.Minute)
 
 	claims := &Claims{
 		Id:       id,
 		Username: username,
 		TeamId:   teamId,
+		Role:     role,
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(expirationTime),
+		},
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+	tokenString, err := token.SignedString(jwtKey)
+	if err != nil {
+		return "", err
+	}
+
+	return tokenString, nil
+}
+
+func GenerateRecruitJWT(id int64, username string, role int64) (string, error) {
+	expirationTime := time.Now().Add(60 * time.Minute)
+
+	claims := &Claims{
+		Id:       id,
+		Username: username,
+		Role:     role,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(expirationTime),
 		},

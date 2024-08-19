@@ -1,0 +1,51 @@
+<body>
+  <div class="container">
+    <div class="left-side"></div>
+    <div class="right-side">
+      <div class="wrapper" [@fadeInOut]>
+        <form [formGroup]="registrationForm" (ngSubmit)="register()">
+          <h1>Declare for draft</h1>
+          <div class="input-box">
+            <input 
+                    type="number" 
+                    formControlName="height"
+                    required
+            />
+            <label [class.active]="registrationForm.get('height')?.value || focused === 'height'">Height (in cm)</label>
+          </div>
+          <div class="input-box">
+            <input 
+                    type="number" 
+                    formControlName="weight"
+                    required
+            />
+            <label [class.active]="registrationForm.get('weight')?.value || focused === 'weight'">Weight (in kg)</label>
+          </div>
+          <div class="position">
+            <label>Position</label>
+            <div>
+              <select id="position-select"
+                      formControlName="selectedPosition"
+                      required>
+                <option value="PG">Point Guard (PG)</option>
+                <option value="SG">Shooting Guard (SG)</option>
+                <option value="SF">Small Forward (SF)</option>
+                <option value="PF">Power Forward (PF)</option>
+                <option value="C">Center (C)</option>
+              </select>  
+            </div>
+          </div>
+          <div class="input-box">
+            <input 
+                    type="text"
+                    formControlName="phoneNumber" 
+                    required
+            />
+            <label [class.active]="registrationForm.get('phoneNumber')?.value || focused === 'phoneNumber'">Phone number</label>
+          </div>
+          <button type="submit" class="btn" [@buttonState]="buttonState">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>

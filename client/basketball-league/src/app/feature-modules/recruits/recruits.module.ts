@@ -13,6 +13,7 @@ import { TrainingProposalCardComponent } from './training-proposal-card/training
 import { InterviewProposalCardComponent } from './interview-proposal-card/interview-proposal-card.component';
 import { AcceptProposalPromptComponent } from './accept-proposal-prompt/accept-proposal-prompt.component';
 import { DeclineProposalPromptComponent } from './decline-proposal-prompt/decline-proposal-prompt.component';
+import { DeclareForDraftComponent } from './declare-for-draft/declare-for-draft.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { DeclineProposalPromptComponent } from './decline-proposal-prompt/declin
     InterviewProposalCardComponent,
     AcceptProposalPromptComponent,
     DeclineProposalPromptComponent,
+    DeclareForDraftComponent,
   ],
   imports: [
     CommonModule,

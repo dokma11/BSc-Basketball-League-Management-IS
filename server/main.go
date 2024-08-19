@@ -80,6 +80,7 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	router.HandleFunc("/employee/team/{teamId}", employeeHandler.GetByTeamID).Methods("GET")
 
 	router.HandleFunc("/login", authenticationHandler.LogIn).Methods("POST")
+	router.HandleFunc("/register", authenticationHandler.Register).Methods("POST")
 
 	router.HandleFunc("/draftRight", draftRightHandler.GetAll).Methods("GET")
 	router.HandleFunc("/draftRight/{id}", draftRightHandler.GetByID).Methods("GET")
@@ -163,9 +164,13 @@ func main() {
 	userService := service.NewUserService(userRepository)
 	userHandler := handler.NewUserHandler(userService)
 
+	draftRepository := impl.NewDraftRepository(&db)
+	draftService := service.NewDraftService(draftRepository)
+	draftHandler := handler.NewDraftHandler(draftService)
+
 	recruitRepository := impl.NewRecruitRepository(&db)
 	recruitService := service.NewRecruitService(recruitRepository)
-	recruitHandler := handler.NewRecruitHandler(recruitService)
+	recruitHandler := handler.NewRecruitHandler(recruitService, draftService)
 
 	playerRepository := impl.NewPlayerRepository(&db)
 	playerService := service.NewPlayerService(playerRepository)
@@ -184,10 +189,6 @@ func main() {
 	contractRepository := impl.NewContractRepository(&db)
 	contractService := service.NewContractService(contractRepository)
 	contractHandler := handler.NewContractHandler(contractService)
-
-	draftRepository := impl.NewDraftRepository(&db)
-	draftService := service.NewDraftService(draftRepository)
-	draftHandler := handler.NewDraftHandler(draftService)
 
 	tradeProposalRepository := impl.NewTradeProposalRepository(&db)
 	tradeProposalService := service.NewTradeProposalService(tradeProposalRepository)

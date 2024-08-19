@@ -7,4 +7,5 @@ type UserRepository interface {
 	GetByID(id int) (*model.User, error)
 	GetByEmail(email string) (*model.User, error)
 	Update(user *model.User) error
+	Create(user *model.User) error
 }

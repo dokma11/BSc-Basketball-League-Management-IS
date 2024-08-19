@@ -9,6 +9,7 @@ import { TradeManagementComponent } from './feature-modules/trades/trade-managem
 import { MyProfileComponent } from './feature-modules/profile/my-profile/my-profile.component';
 import { RecruitManagementComponent } from './feature-modules/recruits/recruit-management/recruit-management.component';
 import { ProposalManagementComponent } from './feature-modules/recruits/proposal-management/proposal-management.component';
+import { DeclareForDraftComponent } from './feature-modules/recruits/declare-for-draft/declare-for-draft.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,10 @@ const routes: Routes = [
     path: 'proposal-management',
     component: ProposalManagementComponent
   },
+  {
+    path: 'declare-for-draft',
+    component: DeclareForDraftComponent
+  }
 ];
 
 @NgModule({

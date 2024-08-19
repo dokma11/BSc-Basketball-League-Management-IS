@@ -61,10 +61,11 @@ export class RegistrationComponent {
 
   register(): void {
     const registration: Registration = {
-      firstName: this.registrationForm.value.firstName || "",
-      lastName: this.registrationForm.value.lastName || "",
+      ime: this.registrationForm.value.firstName || "",
+      prezime: this.registrationForm.value.lastName || "",
       email: this.registrationForm.value.email || "",
-      password: this.registrationForm.value.password || "",
+      lozinka: this.registrationForm.value.password || "",
+      datRodj: new Date(this.registrationForm.value.dateOfBirth!),
       role: 0
     };
 
