@@ -110,3 +110,57 @@ func (handler *RecruitHandler) Update(writer http.ResponseWriter, req *http.Requ
 	writer.WriteHeader(http.StatusCreated)
 	writer.Header().Set("Content-Type", "application/json")
 }
+
+func (handler *RecruitHandler) AddToWishlist(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	teamId, err := strconv.Atoi(vars["teamId"])
+	if err != nil {
+		println(err)
+		println(err.Error())
+		http.Error(w, "Invalid team ID", http.StatusBadRequest)
+		return
+	}
+
+	var recruitDTO model.RecruitCreateDTO
+	if err := json.NewDecoder(r.Body).Decode(&recruitDTO); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	recruit := &model.Recruit{}
+	recruit.FromDTO(&recruitDTO)
+
+	err = handler.RecruitService.AddToWishlist(recruit, teamId)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
+}
+
+func (handler *RecruitHandler) RemoveFromWishlist(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	teamId, err := strconv.Atoi(vars["teamId"])
+	if err != nil {
+		http.Error(w, "Invalid team ID", http.StatusBadRequest)
+		return
+	}
+
+	var recruitDTO model.RecruitCreateDTO
+	if err := json.NewDecoder(r.Body).Decode(&recruitDTO); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	recruit := &model.Recruit{}
+	recruit.FromDTO(&recruitDTO)
+
+	err = handler.RecruitService.RemoveFromWishlist(recruit, teamId)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
+}

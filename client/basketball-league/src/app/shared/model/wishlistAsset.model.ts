@@ -7,4 +7,5 @@ export interface WishlistAsset {
 	idPik: number; // Pick foreign key
 	idIgrac: number; // Player foreign key
 	idTim: number; // Team foreign key
+	idRegrut: number; // Recruit foreign key
 }

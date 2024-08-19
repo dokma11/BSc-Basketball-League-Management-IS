@@ -12,23 +12,23 @@
       <div class="player-card-information">
           <div class="player-card-center">
                 <div class="player-name-value">
-                  {{ player.ime }} {{ player.prezime }}
+                  {{ recruit.ime }} {{ recruit.prezime }}
                 </div>
                 <div class="trade-date">
                   <div class="trade-date-value">
                     {{ this.age }}
                   </div>
                 </div>
-                <div class="player-position-value" *ngIf="player.pozReg === 0">PG</div>
-                <div class="player-position-value" *ngIf="player.pozReg === 1">SG</div>
-                <div class="player-position-value" *ngIf="player.pozReg === 2">SF</div>
-                <div class="player-position-value" *ngIf="player.pozReg === 3">PF</div>
-                <div class="player-position-value" *ngIf="player.pozReg === 4">C</div>
+                <div class="player-position-value" *ngIf="recruit.pozReg === 0">PG</div>
+                <div class="player-position-value" *ngIf="recruit.pozReg === 1">SG</div>
+                <div class="player-position-value" *ngIf="recruit.pozReg === 2">SF</div>
+                <div class="player-position-value" *ngIf="recruit.pozReg === 3">PF</div>
+                <div class="player-position-value" *ngIf="recruit.pozReg === 4">C</div>
                 <div class="player-height-value">
-                   {{ player.visReg}}cm
+                   {{ recruit.visReg}}cm
                 </div>
                 <div class="player-weight-value">
-                  {{ player.tezReg }}kg
+                  {{ recruit.tezReg }}kg
                 </div>
           </div>
 
@@ -36,7 +36,7 @@
               <button
                   class="btn"
                   *ngIf="!this.onWishlist"
-                  (click)="addToWishlistButtonClicked(player);$event.stopPropagation()"
+                  (click)="addToWishlistButtonClicked(recruit);$event.stopPropagation()"
                   [@buttonState]="addToWishlistButtonState"
               >
                   <fa-icon [icon]="faHeart" />
@@ -46,7 +46,7 @@
               <button
                   class="btn"
                   *ngIf="this.onWishlist"
-                  (click)="removeFromWishlistButtonClicked(player);$event.stopPropagation()"
+                  (click)="removeFromWishlistButtonClicked(recruit);$event.stopPropagation()"
                   [@buttonState]="addToWishlistButtonState"
               >
                   <fa-icon [icon]="faWindowClose" />
@@ -55,7 +55,7 @@
 
               <button
                   class="btn"
-                  (click)="inviteToTrainingButtonClicked(player);$event.stopPropagation()"
+                  (click)="inviteToTrainingButtonClicked(recruit);$event.stopPropagation()"
                   [@buttonState]="inviteToTrainingButtonState"
               >
                   <fa-icon [icon]="faDumbbell" />
@@ -64,7 +64,7 @@
 
               <button
                   class="btn"
-                  (click)="inviteToInterviewButtonClicked(player);$event.stopPropagation()"
+                  (click)="inviteToInterviewButtonClicked(recruit);$event.stopPropagation()"
                   [@buttonState]="inviteToInterviewButtonState"
               >
                   <fa-icon [icon]="faClipboard" />

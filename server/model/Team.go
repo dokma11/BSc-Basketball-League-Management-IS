@@ -77,6 +77,7 @@ type WishlistAsset struct {
 	IdPik         int64     `json:"idPik"`         // Pick foreign key
 	IdIgrac       int64     `json:"idIgrac"`       // Player foreign key
 	IdTim         int64     `json:"idTim"`         // Team foreign key
+	IdRegrut      int64     `json:"idRegrut"`      // Recruit foreign key
 }
 
 type WishlistAssetType struct {

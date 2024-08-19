@@ -33,14 +33,12 @@
     </div>
     
     <div class="roster-container">
-      <!-- OVDE MORA DA BUDE RECRUIT CARD KAO -->
-        <!-- <app-player-card
+        <app-recruit-card
             [@fadeIn]
-            *ngFor="let player of players"
-            [player]="player"
-            [ownTeam]="this.ownTeamChosen"
+            *ngFor="let recruit of recruits"
+            [recruit]="recruit"
             (dialogRefClosed)="handleDialogClosed($event)"
-        ></app-player-card> -->
+        ></app-recruit-card>
     </div>
 
     <button (click)="probazaformuintervju()"> NESTO</button>

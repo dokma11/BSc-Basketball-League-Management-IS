@@ -148,7 +148,7 @@ func (repo *playerRepository) Update(player *model.Player) error {
 }
 
 func (repo *playerRepository) AddToWishlist(player *model.Player, teamId int) error {
-	_, err := repo.db.Exec(`INSERT INTO ZELJATIMA VALUES (0, SYSDATE, 'IGRAC', 0, NULL, NULL, :1, :2)`, // 0 is Player type
+	_, err := repo.db.Exec(`INSERT INTO ZELJATIMA VALUES (0, SYSDATE, 'IGRAC', 0, NULL, NULL, :1, :2, NULL)`, // 0 is Player type
 		player.ID, teamId)
 	if err != nil {
 		return fmt.Errorf("failed to add player to the wishlist: %v", err)

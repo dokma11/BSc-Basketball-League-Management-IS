@@ -7,4 +7,6 @@ type RecruitRepository interface {
 	GetByID(id int) (*model.Recruit, error)
 	Create(*model.Recruit) error
 	Update(*model.Recruit) error
+	AddToWishlist(recruit *model.Recruit, teamId int) error
+	RemoveFromWishlist(recruit *model.Recruit, teamId int) error
 }

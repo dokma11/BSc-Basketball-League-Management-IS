@@ -96,6 +96,22 @@ func (repo *recruitRepository) Update(recruit *model.Recruit) error {
 	return nil
 }
 
+func (repo *recruitRepository) AddToWishlist(recruit *model.Recruit, teamId int) error {
+	_, err := repo.db.Exec(`INSERT INTO ZELJATIMA VALUES (0, SYSDATE, 'REGRUT', 3, NULL, NULL, NULL, :1, :2)`, teamId, recruit.ID) // 3 is recruit type
+	if err != nil {
+		return fmt.Errorf("failed to add recruit to the wishlist: %v", err)
+	}
+	return nil
+}
+
+func (repo *recruitRepository) RemoveFromWishlist(recruit *model.Recruit, teamId int) error {
+	_, err := repo.db.Exec(`DELETE FROM ZELJATIMA WHERE IDREGRUT = :1 AND IDTIM = :2`, recruit.ID, teamId)
+	if err != nil {
+		return fmt.Errorf("failed to remove recruit from the wishlist: %v", err)
+	}
+	return nil
+}
+
 func fromRecruitPositionAndRoleString(position string, role string, recruitDAO *model.RecruitDAO) {
 	switch position {
 	case "PG":

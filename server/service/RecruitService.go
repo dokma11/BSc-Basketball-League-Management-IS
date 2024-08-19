@@ -49,3 +49,21 @@ func (service *RecruitService) Update(recruit *model.Recruit) error {
 	}
 	return nil
 }
+
+func (service *RecruitService) AddToWishlist(recruit *model.Recruit, teamId int) error {
+	err := service.RecruitRepository.AddToWishlist(recruit, teamId)
+	if err != nil {
+		_ = fmt.Errorf(fmt.Sprintf("no recruits were added to wishlist"))
+		return err
+	}
+	return nil
+}
+
+func (service *RecruitService) RemoveFromWishlist(recruit *model.Recruit, teamId int) error {
+	err := service.RecruitRepository.RemoveFromWishlist(recruit, teamId)
+	if err != nil {
+		_ = fmt.Errorf(fmt.Sprintf("no recruits were removed from the wishlist"))
+		return err
+	}
+	return nil
+}

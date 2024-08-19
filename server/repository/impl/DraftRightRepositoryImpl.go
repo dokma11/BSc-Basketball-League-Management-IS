@@ -136,7 +136,7 @@ func (repo *draftRightRepository) Update(draftRights *model.DraftRight) error {
 }
 
 func (repo *draftRightRepository) AddToWishlist(draftRight *model.DraftRight, teamId int) error {
-	_, err := repo.db.Exec(`INSERT INTO ZELJATIMA VALUES (0, SYSDATE, 'IGRAC', 2, :1, NULL, NULL, :2)`, // 2 is Draft Right type
+	_, err := repo.db.Exec(`INSERT INTO ZELJATIMA VALUES (0, SYSDATE, 'Prava na igraca', 2, :1, NULL, NULL, :2, NULL)`, // 2 is Draft Right type
 		draftRight.ID, teamId)
 	if err != nil {
 		return fmt.Errorf("failed to add draft rights to the wishlist: %v", err)

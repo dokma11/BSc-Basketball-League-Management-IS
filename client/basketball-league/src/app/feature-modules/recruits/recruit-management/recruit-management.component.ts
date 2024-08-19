@@ -39,10 +39,13 @@ export class RecruitManagementComponent implements OnInit{
   private dialogRef: any;
 
   constructor(private recruitsService: RecruitsService,
-              private dialog: MatDialog,
-  ) { }
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.getRecruits();
+  }
+
+  getRecruits() {
     this.recruitsService.getAllRecruits().subscribe({
       next: (result: Recruit[] | Recruit) => {
         if (Array.isArray(result)) {
@@ -50,8 +53,6 @@ export class RecruitManagementComponent implements OnInit{
         }
       }
     });
-
-    
   }
 
   probazaformuintervju() {
@@ -72,4 +73,7 @@ export class RecruitManagementComponent implements OnInit{
     });
   }
 
+  handleDialogClosed(result: any) {
+    this.getRecruits();
+  }
 }

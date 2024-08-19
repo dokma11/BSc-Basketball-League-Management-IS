@@ -10,6 +10,8 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
 import { AddPlayerToListPromptComponent } from '../../roster-management/add-player-to-list-prompt/add-player-to-list-prompt.component';
 import { InterviewInvitePromptComponent } from '../interview-invite-prompt/interview-invite-prompt.component';
 import { TrainingInvitePromptComponent } from '../training-invite-prompt/training-invite-prompt.component';
+import { RosterService } from '../../roster-management/roster.service';
+import { WishlistAsset } from 'src/app/shared/model/wishlistAsset.model';
 
 @Component({
   selector: 'app-recruit-card',
@@ -44,7 +46,8 @@ export class RecruitCardComponent implements OnInit{
   inviteToTrainingButtonState: string = '';
   inviteToInterviewButtonState: string = '';
   user: User | undefined;
-  @Input() player!: Recruit;
+  @Input() recruit!: Recruit;
+  wishlistItems: WishlistAsset[] = [];
   onWishlist: boolean = false;
   age: string = '';
   private dialogRef: any;
@@ -53,14 +56,31 @@ export class RecruitCardComponent implements OnInit{
   constructor(private authService: AuthService,
               private dialog: MatDialog,
               private snackBar: MatSnackBar,
-              private recruitsService: RecruitsService) {
+              private rosterService: RosterService) {
     this.authService.user$.subscribe(user => {
       this.user = user;
     });
   }
 
   ngOnInit(): void {
-    
+    const today = new Date();
+    const birthDate = new Date(this.recruit.datRodj!);
+    this.age = (today.getFullYear() - birthDate.getFullYear()).toString();
+
+    // Check if recruit is on the teams wishlist already
+      this.rosterService.getWishlistByTeamID(this.user?.teamId!).subscribe({
+        next: (result: WishlistAsset) => {
+          if (Array.isArray(result)){
+            this.wishlistItems = result;
+  
+            this.wishlistItems.forEach(asset => {
+              if (asset.idRegrut == this.recruit.id){
+                this.onWishlist = true;
+              }
+            });
+          }
+        }
+      });
   }
 
   addToWishlistButtonClicked(recruit: any) {
@@ -70,12 +90,27 @@ export class RecruitCardComponent implements OnInit{
     this.dialogRef = this.dialog.open(AddPlayerToListPromptComponent, {
       data: {
         list: 'wishlist',
-        player: this.player,  // ovde samo staviti regrut i to promeniti
+        recruit: this.recruit,  
         action: 'add',
         teamId: this.user?.teamId,
       }
     });
     
+    this.dialogRef.afterClosed().subscribe((result: any) => {
+      this.rosterService.getWishlistByTeamID(this.user?.teamId!).subscribe({
+        next: (result: WishlistAsset) => {
+          if (Array.isArray(result)){
+            this.wishlistItems = result;
+  
+            this.wishlistItems.forEach(asset => {
+              if (asset.idRegrut == this.recruit.id){
+                this.onWishlist = true;
+              }
+            });
+          }
+        }
+      });
+    });
   }
 
   removeFromWishlistButtonClicked(recruit: any) {
@@ -85,10 +120,27 @@ export class RecruitCardComponent implements OnInit{
     this.dialogRef = this.dialog.open(AddPlayerToListPromptComponent, {
       data: {
         list: 'wishlist',
-        player: this.player, // ovde samo staviti regrut i to promeniti
+        recruit: this.recruit,
         action: 'remove',
         teamId: this.user?.teamId,
       }
+    });
+
+    this.dialogRef.afterClosed().subscribe((result: any) => {
+      this.onWishlist = false;
+      this.rosterService.getWishlistByTeamID(this.user?.teamId!).subscribe({
+        next: (result: WishlistAsset) => {
+          if (Array.isArray(result)){
+            this.wishlistItems = result;
+  
+            this.wishlistItems.forEach(asset => {
+              if (asset.idRegrut == this.recruit.id){
+                this.onWishlist = true;
+              }
+            });
+          }
+        }
+      });
     });
   }
 
@@ -98,7 +150,7 @@ export class RecruitCardComponent implements OnInit{
 
     this.dialogRef = this.dialog.open(InterviewInvitePromptComponent, {
       data: {
-        player: this.player, // ovde samo staviti regrut i to promeniti
+        player: this.recruit, // ovde samo staviti regrut i to promeniti
         teamId: this.user?.teamId, // mozda ovde da bude kao korisnik id da se zna koji trener je u pitanju
       }
     });
@@ -110,7 +162,7 @@ export class RecruitCardComponent implements OnInit{
 
     this.dialogRef = this.dialog.open(TrainingInvitePromptComponent, {
       data: {
-        player: this.player, // ovde samo staviti regrut i to promeniti
+        player: this.recruit, // ovde samo staviti regrut i to promeniti
         teamId: this.user?.teamId, // mozda ovde da bude kao korisnik id da se zna koji trener je u pitanju
       }
     });
