@@ -47,6 +47,7 @@
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>90D83437-15F7-29AB-C889-E01DE5843D85</generatorID>
 <ownerDesignName>basketball-league</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>

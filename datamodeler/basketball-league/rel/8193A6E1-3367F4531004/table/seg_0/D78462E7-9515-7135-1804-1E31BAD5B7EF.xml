@@ -81,6 +81,30 @@
 <colAssociation fkAssociation="572EA081-5673-6205-A5EB-31C1BFB2FC7E" referredColumn="19B894BA-F49C-E4E0-F4EF-53D44CF88C1D"/>
 </associations>
 </Column>
+<Column name="TrajTrng" id="366A6250-9554-4BB8-854D-A1FC1D4E7DE7">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-18 09:33:38 UTC</createdTime>
+<generatorID>D170E08F-ABF9-BB84-B645-20DED2DB5FB8</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>3 CHAR</dataTypeSize>
+<ownDataTypeParameters>3 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NazTipTrng" id="F0FC3B23-D34E-7CCB-4E7F-5C5E759F1ED3">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-18 09:33:38 UTC</createdTime>
+<generatorID>E72EBDEB-C681-06BD-368A-72D6E3E8ECC5</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>32 CHAR</dataTypeSize>
+<ownDataTypeParameters>32 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="05C7485F-BC02-7713-7155-2828D193FEB6" name="PozivNaTrening_PK">
