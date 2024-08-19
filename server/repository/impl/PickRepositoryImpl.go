@@ -183,7 +183,7 @@ func (repo *pickRepository) Update(pick *model.Pick) error {
 }
 
 func (repo *pickRepository) AddToWishlist(pick *model.Pick, teamId int) error {
-	_, err := repo.db.Exec(`INSERT INTO ZELJATIMA VALUES (0, SYSDATE, 'IGRAC', 1, NULL, :1, NULL, :2)`, // 1 is Pick type
+	_, err := repo.db.Exec(`INSERT INTO ZELJATIMA VALUES (0, SYSDATE, 'Pik', 1, NULL, :1, NULL, :2, NULL)`, // 1 is Pick type
 		pick.ID, teamId)
 	if err != nil {
 		return fmt.Errorf("failed to add pick to the wishlist: %v", err)

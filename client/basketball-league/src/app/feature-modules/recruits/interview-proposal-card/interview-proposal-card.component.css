@@ -1,0 +1,103 @@
+.trade-card {
+  display: flex;
+  height: 8rem;
+  width: 70%;
+  padding: 0.5rem;
+  padding-right: 1rem;
+  border: 2px solid rgba(255, 255, 255, .2);
+  border-radius: 10px;
+  background-color: rgba(var(--clr-background), 1);
+  transition: background-color 0.15s;
+  box-shadow: 1px 2px 3px rgba(140, 140, 140, 0.2),
+      -1px 0px 3px rgba(140, 140, 140, 0.2);
+  transition: 0.3s ease;
+  margin-left: auto;
+  margin-right: auto;
+  color: #fff;
+  backdrop-filter: blur(15px);
+}
+
+.trade-card:hover {
+  transform: scale(1.01);
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, .2);
+  box-shadow: 1px 2px 3px rgba(var(--clr-primary-500), 0.2),
+      -1px 0px 3px rgba(var(--clr-primary-500), 0.2);
+}
+
+.trade-card-content {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 14rem);
+}
+
+.trade-card-top {
+  padding-left: 1rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.trade-card-information {
+  display: flex;
+  width: 100%;
+}
+
+.trade-card-center {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  font-size: 18px;
+  gap: 3px;
+  margin-left: 2%;
+  margin-top: 1%;
+}
+
+.trade-card-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 50%;
+  height: auto;
+  gap: 20px;
+  margin-top: 4.25%;
+  margin-right: -20%;
+}
+
+.trade-tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 70%;
+}
+
+.trade-tag {
+  font-size: 0.8rem;
+  border-radius: 0.3125rem;
+  padding: 0.125rem 0.25rem;
+  transition: background-color 0.15s, color 0.15s;
+  cursor: pointer;
+}
+
+.btn {
+  width: 300px;
+  height: 40px;
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+  margin-top: -3%;
+}
+
+.btn:hover {
+  background-color: #f2f2f2;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.03);
+  transition: transform 300ms ease;
+}

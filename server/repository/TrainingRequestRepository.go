@@ -7,6 +7,6 @@ type TrainingRequestRepository interface {
 	GetByID(id int) (*model.TrainingRequest, error)
 	GetAllBySenderID(userID int) ([]model.TrainingRequest, error)
 	GetAllByReceiverID(userID int) ([]model.TrainingRequest, error)
-	Create(*model.TrainingRequest) error
-	Update(*model.TrainingRequest) error
+	Create(trainingRequest *model.TrainingRequest, recruitId int64) error
+	Update(trainingRequest *model.TrainingRequest) error
 }

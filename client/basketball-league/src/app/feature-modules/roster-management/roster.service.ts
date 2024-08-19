@@ -76,6 +76,10 @@ export class RosterService {
     return this.http.post<DraftRight>(environment.host + 'draftRight-wishlist/' + teamId, draftRight);
   }
 
+  addRecruitToWishlist(recruit: Recruit, teamId: number): Observable<Recruit> {
+    return this.http.post<Recruit>(environment.host + 'recruit-wishlist/' + teamId, recruit);
+  }
+
   removePlayerFromWishlist(player: Player, teamId: number): Observable<Player> {
     return this.http.post<Player>(environment.host + 'player-wishlist-remove/' + teamId, player);
   }
@@ -88,6 +92,10 @@ export class RosterService {
     return this.http.post<DraftRight>(environment.host + 'draftRight-wishlist-remove/' + teamId, draftRight);
   }
 
+  removeRecruitFromWishlist(recruit: Recruit, teamId: number): Observable<Recruit> {
+    return this.http.post<Recruit>(environment.host + 'recruit-wishlist-remove/' + teamId, recruit);
+  }
+  
   getWishlistByTeamID(teamId: number): Observable<WishlistAsset> {
     return this.http.get<WishlistAsset>(environment.host + 'team-wishlist/' + teamId);
   }

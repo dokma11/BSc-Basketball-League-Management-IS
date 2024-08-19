@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Oznacava" directorySegmentName="seg_0" id="741A6C39-50FF-EBCD-EDD7-188AB852E5DF">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-18 09:24:00 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
+</engineerTo>
+<sourcePk>27411BFE-FB64-C282-30AF-0B586D629090</sourcePk>
+<targetPk>3CA6F0A0-5C30-755A-F7CE-DF45CC769EEA</targetPk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>C16C07F1-5401-A7AD-273F-933960A37A47</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>B2FC9F65-0FE5-C689-4157-FD98C3C9C2CF</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

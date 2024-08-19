@@ -66,6 +66,8 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	router.HandleFunc("/recruit-id/{id}", recruitHandler.GetByID).Methods("GET")
 	router.HandleFunc("/recruit", recruitHandler.Create).Methods("POST")
 	router.HandleFunc("/recruit", recruitHandler.Update).Methods("PUT")
+	router.HandleFunc("/recruit-wishlist/{teamId}", recruitHandler.AddToWishlist).Methods("POST")
+	router.HandleFunc("/recruit-wishlist-remove/{teamId}", recruitHandler.RemoveFromWishlist).Methods("POST")
 
 	router.HandleFunc("/player", playerHandler.GetAll).Methods("GET")
 	router.HandleFunc("/player/{id}", playerHandler.GetByID).Methods("GET")
@@ -80,6 +82,7 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	router.HandleFunc("/employee/team/{teamId}", employeeHandler.GetByTeamID).Methods("GET")
 
 	router.HandleFunc("/login", authenticationHandler.LogIn).Methods("POST")
+	router.HandleFunc("/register", authenticationHandler.Register).Methods("POST")
 
 	router.HandleFunc("/draftRight", draftRightHandler.GetAll).Methods("GET")
 	router.HandleFunc("/draftRight/{id}", draftRightHandler.GetByID).Methods("GET")
@@ -115,8 +118,8 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 
 	router.HandleFunc("/trainingRequest", trainingRequestHandler.GetAll).Methods("GET")
 	router.HandleFunc("/trainingRequest/{id}", trainingRequestHandler.GetByID).Methods("GET")
-	router.HandleFunc("/trainingRequest/sender/{userId}", trainingRequestHandler.GetAllBySenderID).Methods("GET")
-	router.HandleFunc("/trainingRequest/receiver/{userId}", trainingRequestHandler.GetAllByReceiverID).Methods("GET")
+	router.HandleFunc("/trainingRequest-sender/{userId}", trainingRequestHandler.GetAllBySenderID).Methods("GET")
+	router.HandleFunc("/trainingRequest-receiver/{userId}", trainingRequestHandler.GetAllByReceiverID).Methods("GET")
 	router.HandleFunc("/trainingRequest", trainingRequestHandler.Create).Methods("POST")
 	router.HandleFunc("/trainingRequest", trainingRequestHandler.Update).Methods("PUT")
 
@@ -127,8 +130,8 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 
 	router.HandleFunc("/interviewRequest", interviewRequestHandler.GetAll).Methods("GET")
 	router.HandleFunc("/interviewRequest/{id}", interviewRequestHandler.GetByID).Methods("GET")
-	router.HandleFunc("/interviewRequest/sender/{userId}", interviewRequestHandler.GetAllBySenderID).Methods("GET")
-	router.HandleFunc("/interviewRequest/receiver/{userId}", interviewRequestHandler.GetAllByReceiverID).Methods("GET")
+	router.HandleFunc("/interviewRequest-sender/{userId}", interviewRequestHandler.GetAllBySenderID).Methods("GET")
+	router.HandleFunc("/interviewRequest-receiver/{userId}", interviewRequestHandler.GetAllByReceiverID).Methods("GET")
 	router.HandleFunc("/interviewRequest", interviewRequestHandler.Create).Methods("POST")
 	router.HandleFunc("/interviewRequest", interviewRequestHandler.Update).Methods("PUT")
 
@@ -163,9 +166,13 @@ func main() {
 	userService := service.NewUserService(userRepository)
 	userHandler := handler.NewUserHandler(userService)
 
+	draftRepository := impl.NewDraftRepository(&db)
+	draftService := service.NewDraftService(draftRepository)
+	draftHandler := handler.NewDraftHandler(draftService)
+
 	recruitRepository := impl.NewRecruitRepository(&db)
 	recruitService := service.NewRecruitService(recruitRepository)
-	recruitHandler := handler.NewRecruitHandler(recruitService)
+	recruitHandler := handler.NewRecruitHandler(recruitService, draftService)
 
 	playerRepository := impl.NewPlayerRepository(&db)
 	playerService := service.NewPlayerService(playerRepository)
@@ -184,10 +191,6 @@ func main() {
 	contractRepository := impl.NewContractRepository(&db)
 	contractService := service.NewContractService(contractRepository)
 	contractHandler := handler.NewContractHandler(contractService)
-
-	draftRepository := impl.NewDraftRepository(&db)
-	draftService := service.NewDraftService(draftRepository)
-	draftHandler := handler.NewDraftHandler(draftService)
 
 	tradeProposalRepository := impl.NewTradeProposalRepository(&db)
 	tradeProposalService := service.NewTradeProposalService(tradeProposalRepository)

@@ -1,0 +1,76 @@
+<div class="player-card">
+  <div class="player-card-content">
+      <div class="player-card-top">
+          <div class="player-tags">
+              <div class="player-tag"
+                  *ngIf="this.onWishlist"
+                  style="background-color: olivedrab; color: white">
+                  On your Wishlist
+              </div>
+            </div>
+      </div>
+      <div class="player-card-information">
+          <div class="player-card-center">
+                <div class="player-name-value">
+                  {{ recruit.ime }} {{ recruit.prezime }}
+                </div>
+                <div class="trade-date">
+                  <div class="trade-date-value">
+                    {{ this.age }}
+                  </div>
+                </div>
+                <div class="player-position-value" *ngIf="recruit.pozReg === 0">PG</div>
+                <div class="player-position-value" *ngIf="recruit.pozReg === 1">SG</div>
+                <div class="player-position-value" *ngIf="recruit.pozReg === 2">SF</div>
+                <div class="player-position-value" *ngIf="recruit.pozReg === 3">PF</div>
+                <div class="player-position-value" *ngIf="recruit.pozReg === 4">C</div>
+                <div class="player-height-value">
+                   {{ recruit.visReg}}cm
+                </div>
+                <div class="player-weight-value">
+                  {{ recruit.tezReg }}kg
+                </div>
+          </div>
+
+          <div class="player-card-right">
+              <button
+                  class="btn"
+                  *ngIf="!this.onWishlist"
+                  (click)="addToWishlistButtonClicked(recruit);$event.stopPropagation()"
+                  [@buttonState]="addToWishlistButtonState"
+              >
+                  <fa-icon [icon]="faHeart" />
+                  &nbsp;Add to wishlist
+              </button>
+
+              <button
+                  class="btn"
+                  *ngIf="this.onWishlist"
+                  (click)="removeFromWishlistButtonClicked(recruit);$event.stopPropagation()"
+                  [@buttonState]="addToWishlistButtonState"
+              >
+                  <fa-icon [icon]="faWindowClose" />
+                  &nbsp;Remove from wishlist
+              </button>
+
+              <button
+                  class="btn"
+                  (click)="inviteToTrainingButtonClicked(recruit);$event.stopPropagation()"
+                  [@buttonState]="inviteToTrainingButtonState"
+              >
+                  <fa-icon [icon]="faDumbbell" />
+                  &nbsp;Invite to a training
+              </button>
+
+              <button
+                  class="btn"
+                  (click)="inviteToInterviewButtonClicked(recruit);$event.stopPropagation()"
+                  [@buttonState]="inviteToInterviewButtonState"
+              >
+                  <fa-icon [icon]="faClipboard" />
+                  &nbsp;Invite to an interview
+              </button>
+          </div>
+      </div>
+  </div>
+</div>

@@ -93,6 +93,15 @@ func (repo *userRepository) Update(user *model.User) error {
 	return nil
 }
 
+func (repo *userRepository) Create(user *model.User) error {
+	_, err := repo.db.Exec("INSERT INTO KORISNIK VALUES (0, :1, :2, :3, :4, :5, 'Regrut')",
+		user.Email, user.FirstName, user.LastName, user.DateOfBirth, user.Password)
+	if err != nil {
+		return fmt.Errorf("failed to update suer: %v", err)
+	}
+	return nil
+}
+
 func fromRole(role string, userDAO *model.UserDAO) {
 	if role == "Regrut" {
 		userDAO.Uloga = 0

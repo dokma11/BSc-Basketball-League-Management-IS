@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Sadrzi" directorySegmentName="seg_0" id="6321C0BA-5BA8-FA0E-365A-77B75ECC4F22">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-18 09:26:34 UTC</createdTime>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
+</engineerTo>
+<sourcePk>7EF4316B-C213-209F-C0E4-D6EBD868507F</sourcePk>
+<targetPk>F9709F3F-C23E-82EF-275A-4D208D2BA767</targetPk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>E8F6495F-5D9C-6B3A-5685-E7E48BDE7280</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>4C8D0828-2FFC-DF8C-7D3F-3D066AC8EF2F</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

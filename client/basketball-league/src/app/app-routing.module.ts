@@ -7,6 +7,9 @@ import { RosterComponent } from './feature-modules/roster-management/roster/rost
 import { LeagueNewsComponent } from './feature-modules/news/league-news/league-news.component';
 import { TradeManagementComponent } from './feature-modules/trades/trade-management/trade-management.component';
 import { MyProfileComponent } from './feature-modules/profile/my-profile/my-profile.component';
+import { RecruitManagementComponent } from './feature-modules/recruits/recruit-management/recruit-management.component';
+import { ProposalManagementComponent } from './feature-modules/recruits/proposal-management/proposal-management.component';
+import { DeclareForDraftComponent } from './feature-modules/recruits/declare-for-draft/declare-for-draft.component';
 
 const routes: Routes = [
   {
@@ -36,6 +39,18 @@ const routes: Routes = [
   {
     path: 'my-profile',
     component: MyProfileComponent
+  },
+  {
+    path: 'recruit-management',
+    component: RecruitManagementComponent
+  },
+  {
+    path: 'proposal-management',
+    component: ProposalManagementComponent
+  },
+  {
+    path: 'declare-for-draft',
+    component: DeclareForDraftComponent
   }
 ];
 

@@ -1,0 +1,74 @@
+<div class="trade-card">
+  <div class="trade-card-content">
+      <div class="trade-card-top">
+        <div class="trade-tags">
+          <div class="trade-tag"
+               style="background-color: rgb(11, 38, 117); color: white">
+               Training
+          </div>
+          <div class="trade-tag"
+               *ngIf="trainingProposal.statusPozTrng == 0"
+               style="background-color: orange; color: white">
+               In progress
+          </div>
+          <div class="trade-tag"
+               *ngIf="trainingProposal.statusPozTrng == 1"
+               style="background-color: olivedrab; color: white">
+               Accepted
+          </div>
+          <div class="trade-tag"
+               *ngIf="trainingProposal.statusPozTrng == 2"
+               style="background-color: rgb(150, 28, 28); color: white">
+               Declined
+          </div>
+        </div>
+      </div>
+      <div class="trade-card-information">
+          <div class="trade-card-center">
+              <div class="trade-team-value">
+                <strong>Team: </strong> {{ this.coachsTeam?.nazTim }}
+              </div>
+              <div class="trade-manager-value">
+                  <strong>Coach: </strong> {{ this.coach?.ime }} {{ this.coach?.prezime }}
+              </div>
+              <div class="trade-date">
+                <div class="trade-date-value">
+                  <strong>Date: </strong> {{ this.proposalOccurrenceDate }}
+                </div>
+              </div>
+              <div class="trade-date">
+                <div class="trade-date-value">
+                  <strong>Location: </strong> {{ this.trainingProposal.mesOdrPozTrng }}
+                </div>
+              </div>
+              <div class="trade-date">
+                <div class="trade-date-value">
+                  <strong>Training type: </strong> {{ this.trainingProposal.nazTipTrng }}
+                </div>
+              </div>
+          </div>
+
+          <div class="trade-card-right">
+              <button
+                  class="btn"
+                  *ngIf="this.trainingProposal.statusPozTrng == 0"
+                  (click)="acceptButtonClicked();$event.stopPropagation()"
+                  [@buttonState]="acceptButtonState"
+              >
+                  <fa-icon [icon]="faCheck" />
+                  &nbsp;Accept
+              </button>
+
+              <button
+                  class="btn"
+                  *ngIf="this.trainingProposal.statusPozTrng == 0"
+                  (click)="declineButtonClicked();$event.stopPropagation()"
+                  [@buttonState]="declineButtonState"
+              >
+                  <fa-icon [icon]="faTimes" />
+                  &nbsp;Decline
+              </button>
+          </div>
+      </div>
+  </div>
+</div>

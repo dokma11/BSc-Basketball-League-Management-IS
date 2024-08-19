@@ -31,3 +31,12 @@ func (service *DraftService) GetByID(id int) (*model.Draft, error) {
 
 	return draft, nil
 }
+
+func (service *DraftService) GetLatest() (*model.Draft, error) {
+	draft, err := service.DraftRepository.GetLatest()
+	if err != nil {
+		return nil, fmt.Errorf(fmt.Sprintf("no latest drafts were found"))
+	}
+
+	return draft, nil
+}

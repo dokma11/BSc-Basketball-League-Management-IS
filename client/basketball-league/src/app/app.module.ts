@@ -10,12 +10,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from './infrastructure/auth/auth.module';
 import { TradesModule } from './feature-modules/trades/trades.module';
 import { NewsModule } from './feature-modules/news/news.module';
-import { RosterModule } from './feature-modules/roster-management/roster.module';
 import { ProfileModule } from './feature-modules/profile/profile.module';
+import { RecruitsModule } from './feature-modules/recruits/recruits.module';
+import { RosterModule } from './feature-modules/roster-management/roster.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +31,7 @@ import { ProfileModule } from './feature-modules/profile/profile.module';
     NewsModule,
     RosterModule,
     ProfileModule,
+    RecruitsModule,
 ],
   providers: [],
   bootstrap: [AppComponent]

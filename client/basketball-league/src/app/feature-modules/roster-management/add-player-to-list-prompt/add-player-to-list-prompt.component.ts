@@ -6,6 +6,7 @@ import { RosterService } from '../roster.service';
 import { Player } from 'src/app/shared/model/player.model';
 import { Pick } from 'src/app/shared/model/pick.model';
 import { DraftRight } from 'src/app/shared/model/draftRight.model';
+import { Recruit } from 'src/app/shared/model/recruit.model';
 
 @Component({
   selector: 'app-add-player-to-list-prompt',
@@ -44,6 +45,7 @@ export class AddPlayerToListPromptComponent {
   player: Player | undefined;
   pick: Pick | undefined;
   draftRights: DraftRight | undefined;
+  recruit: Recruit | undefined;
   loggedInUserTeamId: number | undefined;
 
   constructor(private rosterService: RosterService,
@@ -52,16 +54,19 @@ export class AddPlayerToListPromptComponent {
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.list = data.list;
     this.action = data.action;
-    if (data.player){
+    if (data.player) {
       this.player = data.player;
     }
-    if (data.pick){
+    if (data.pick) {
       this.pick = data.pick;
     }
-    if (data.draftRights){
+    if (data.draftRights) {
       this.draftRights = data.draftRights;
     }
-    if (data.teamId != undefined){
+    if (data.recruit) {
+      this.recruit = data.recruit;
+    }
+    if (data.teamId != undefined) {
       this.loggedInUserTeamId = data.teamId;
     }
   }
@@ -209,7 +214,22 @@ export class AddPlayerToListPromptComponent {
             this.showNotification('Draft Rights successfully removed form the trade list!');
           }
         })
-      }
+      } else if(this.list == 'wishlist' && this.action == 'add' && this.recruit){
+        console.log(this.loggedInUserTeamId);
+        this.rosterService.addRecruitToWishlist(this.recruit!, this.loggedInUserTeamId!).subscribe({
+          next: (result: Recruit) => {
+            this.dialogRef.close();
+            this.showNotification('Recruit successfully added to the wishlist!');
+          }
+        })
+      } else if(this.list == 'wishlist' && this.action == 'remove' && this.recruit){
+        this.rosterService.removeRecruitFromWishlist(this.recruit!, this.loggedInUserTeamId!).subscribe({
+          next: (result: Recruit) => {
+            this.dialogRef.close();
+            this.showNotification('Recruit successfully removed from the wishlist!');
+          }
+        })
+      } 
   }
 
   cancelButtonClicked(){

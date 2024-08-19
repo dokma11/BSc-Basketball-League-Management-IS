@@ -75,10 +75,11 @@ func (repo *recruitRepository) GetByID(id int) (*model.Recruit, error) {
 }
 
 func (repo *recruitRepository) Create(recruit *model.Recruit) error {
-	_, err := repo.db.Exec("INSERT INTO REGRUT (ID, KONTELEFONREG, "+
-		"MESRODJREG, VISREG, TEZREG, POZREG, PROSRANKREG, PROSOCREG) "+
-		"VALUES (:1, :2, :3, :4, :5, :6, :7)", recruit.ID, recruit.PhoneNumber, recruit.Height, recruit.Weight,
-		recruit.Position, recruit.AverageRank, recruit.AverageGrade)
+	position := fromRecruitPosition(recruit)
+	_, err := repo.db.Exec("INSERT INTO REGRUT (ID, KONTELEFON, "+
+		"VISREG, TEZREG, POZREG, PROSRANKREG, PROSOCREG, IDDRAFT) "+
+		"VALUES (:1, :2, :3, :4, :5, :6, :7, :8)", recruit.ID, recruit.PhoneNumber, recruit.Height, recruit.Weight,
+		position, recruit.AverageRank, recruit.AverageGrade, recruit.DraftId)
 	if err != nil {
 		return fmt.Errorf("failed to create recruit: %v", err)
 	}
@@ -91,6 +92,22 @@ func (repo *recruitRepository) Update(recruit *model.Recruit) error {
 		recruit.Position, recruit.AverageRank, recruit.AverageGrade)
 	if err != nil {
 		return fmt.Errorf("failed to update recruit: %v", err)
+	}
+	return nil
+}
+
+func (repo *recruitRepository) AddToWishlist(recruit *model.Recruit, teamId int) error {
+	_, err := repo.db.Exec(`INSERT INTO ZELJATIMA VALUES (0, SYSDATE, 'REGRUT', 3, NULL, NULL, NULL, :1, :2)`, teamId, recruit.ID) // 3 is recruit type
+	if err != nil {
+		return fmt.Errorf("failed to add recruit to the wishlist: %v", err)
+	}
+	return nil
+}
+
+func (repo *recruitRepository) RemoveFromWishlist(recruit *model.Recruit, teamId int) error {
+	_, err := repo.db.Exec(`DELETE FROM ZELJATIMA WHERE IDREGRUT = :1 AND IDTIM = :2`, recruit.ID, teamId)
+	if err != nil {
+		return fmt.Errorf("failed to remove recruit from the wishlist: %v", err)
 	}
 	return nil
 }
@@ -114,4 +131,21 @@ func fromRecruitPositionAndRoleString(position string, role string, recruitDAO *
 	default:
 		recruitDAO.Role = 1
 	}
+}
+
+func fromRecruitPosition(recruitDAO *model.Recruit) string {
+	var position string
+	switch recruitDAO.Position {
+	case 0:
+		position = "PG"
+	case 1:
+		position = "SG"
+	case 2:
+		position = "SF"
+	case 3:
+		position = "PF"
+	default:
+		position = "C"
+	}
+	return position
 }

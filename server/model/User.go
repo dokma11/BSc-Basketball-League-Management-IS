@@ -129,3 +129,19 @@ func (u *User) FromDTO(userDTO *UserUpdateDTO) {
 	u.Password = userDTO.Lozinka
 	u.Role = userDTO.Uloga
 }
+
+type UserCreateDTO struct {
+	Email   string    `json:"email"`
+	Ime     string    `json:"ime"`     // First name
+	Prezime string    `json:"prezime"` // Last name
+	DatRodj time.Time `json:"datRodj"` // Date of birth
+	Lozinka string    `json:"lozinka"` // Password
+}
+
+func (u *User) FromCreateDTO(userDTO *UserCreateDTO) {
+	u.Email = userDTO.Email
+	u.FirstName = userDTO.Ime
+	u.LastName = userDTO.Prezime
+	u.DateOfBirth = userDTO.DatRodj
+	u.Password = userDTO.Lozinka
+}

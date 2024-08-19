@@ -1,0 +1,145 @@
+.trades {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+  width: 98%;
+  margin-top: 3%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.trade-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+  margin-bottom: 7%;
+  overflow-y: scroll;
+  height: 50rem;
+}
+
+.trade-container::-webkit-scrollbar {
+  display: none;
+}
+
+.btn {
+  width: 10%;
+  height: 5%;
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+  margin-top: -3%;
+}
+
+.btn:hover {
+  background-color: #f2f2f2;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.03);
+  transition: transform 300ms ease;
+}
+
+.overview {
+  height: auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: url('https://e1.pxfuel.com/desktop-wallpaper/71/12/desktop-wallpaper-gaussian-blur-gradient-simple-backgrounds-blurred-colors-color-gradient.jpg') no-repeat;
+  background-position: center;
+  background-size: cover;
+  transition: background-size 0.3s ease;
+}
+
+.h2-wrapper {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  color: #fff;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: auto;
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2%;
+  padding: 1% 1%;
+}
+
+.p-wrapper {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  color: #fff;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: auto;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2%;
+  padding: 1% 1%;
+}
+
+h2 {
+  margin: 0;
+}
+
+#trade-type-select, 
+#trade-status-select {
+  border-radius: 40px;
+  display: flex;
+  height: 60%;
+  width: 115%;
+  padding-left: 10%;
+  margin-top: 15%;
+  margin-left: 50%;
+}
+
+.trade-type, 
+.trade-status {
+  display: flex;
+  color: #fff;
+  margin-top: 2%;
+}
+
+.propose-trade-btn {
+  width: 300px;
+  height: 40px;
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+  margin-left: 68%;
+  margin-top: -3%;
+}
+
+.propose-trade-btn:hover {
+  background-color: #f2f2f2;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.03);
+  transition: transform 300ms ease;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  margin-left: 16%;
+  gap: 5%;
+  margin-top: 2%;
+}

@@ -1,0 +1,66 @@
+<div class="overview">
+  <div class="h2-wrapper">
+    <h2>Proposal management</h2>
+  </div>
+  <br>
+
+  <div class="p-wrapper">
+    <p>Welcome to the Proposal Management page! Here, you can easily access information about all received interview and training proposals and manage them easily and efficiently. 
+      Take control of your future by reviewing and responding to proposals.
+    </p>
+  </div>
+
+  <div class="filters">
+    <form [formGroup]="proposalForm">
+      <div class="trade-type">
+        <h3>Choose your proposal type:</h3>
+        <div>
+          <select id="trade-type-select"
+                  formControlName="selectedProposalType" 
+                  (change)="onTradeTypeChange($event)"
+                  required>
+            <option value="Interview">Interview</option>
+            <option value="Training">Training</option>
+          </select>  
+        </div>
+      </div>
+    </form>
+  
+    <form [formGroup]="proposalStatusForm">
+      <div class="trade-status">
+        <h3>Filter by status:</h3>
+        <div>
+          <select id="trade-status-select"
+                  formControlName="selectedStatus" 
+                  (change)="onTradeStatusChange($event)"
+                  required>
+            <option value="None">None</option>
+            <option value="In progress">In progress</option>
+            <option value="Accepted">Accepted</option>
+            <option value="Declined">Declined</option>
+          </select>  
+        </div>
+      </div>
+    </form>  
+  </div>
+
+<!-- MOZDA DODATI KAO SORTIRANJE PREMA NJIHOVOM STATUSU NEKAKO -->
+
+  <div class="trades">
+    <div class="trade-container">
+      <app-interview-proposal-card
+        [@fadeIn]
+        *ngFor="let proposal of interviewProposals"
+        [interviewProposal]="proposal"
+        (dialogRefClosed)="handleDialogClosed($event)"
+      ></app-interview-proposal-card>
+
+      <app-training-proposal-card
+        [@fadeIn]
+        *ngFor="let proposal of trainingProposals"
+        [trainingProposal]="proposal"
+        (dialogRefClosed)="handleDialogClosed($event)"
+      ></app-training-proposal-card>
+    </div>
+  </div>
+</div>

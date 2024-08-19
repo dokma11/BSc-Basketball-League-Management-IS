@@ -114,8 +114,9 @@ func (handler *TrainingRequestHandler) Create(w http.ResponseWriter, r *http.Req
 
 	trainingRequest := &model.TrainingRequest{}
 	trainingRequest.FromDTO(&trainingRequestDTO)
+	recruitId := trainingRequestDTO.IdRegrut
 
-	err := handler.TrainingRequestService.Create(trainingRequest)
+	err := handler.TrainingRequestService.Create(trainingRequest, recruitId)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -127,6 +128,7 @@ func (handler *TrainingRequestHandler) Create(w http.ResponseWriter, r *http.Req
 func (handler *TrainingRequestHandler) Update(w http.ResponseWriter, r *http.Request) {
 	var trainingRequestDTO model.TrainingRequestUpdateDTO
 	if err := json.NewDecoder(r.Body).Decode(&trainingRequestDTO); err != nil {
+		println(err.Error())
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
@@ -136,6 +138,7 @@ func (handler *TrainingRequestHandler) Update(w http.ResponseWriter, r *http.Req
 
 	err := handler.TrainingRequestService.Update(trainingRequest)
 	if err != nil {
+		println(err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}

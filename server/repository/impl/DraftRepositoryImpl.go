@@ -58,3 +58,19 @@ func (repo *draftRepository) GetByID(id int) (*model.Draft, error) {
 
 	return draft, nil
 }
+
+func (repo *draftRepository) GetLatest() (*model.Draft, error) {
+	var draftDAO model.DraftDAO
+	row := repo.db.QueryRow("SELECT * FROM DRAFT ORDER BY IDDRAFT DESC")
+	if err := row.Scan(&draftDAO.IdDraft, &draftDAO.GodOdrDraft, &draftDAO.LokOdrDraft); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, nil // No result found
+		}
+		return nil, fmt.Errorf("failed to scan row: %v", err)
+	}
+
+	draft := &model.Draft{}
+	draft.FromDAO(&draftDAO)
+
+	return draft, nil
+}

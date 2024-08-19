@@ -1,0 +1,76 @@
+<div class="modal-overlay" (click)="overviewClicked()"></div>
+<div class="dialogue">
+  <div class="wrapper">
+    <form [formGroup]="trainingInviteForm">
+        <h1>Invite recruit to a training</h1>
+
+        <label focused = "true">
+          Choose the occurrence date and time
+        </label>
+        
+        <div class="date-time">
+            <div class="input-box">
+                <input
+                        type="date"
+                        id="datepicker"
+                        name="datepicker"
+                        formControlName="occurrenceDate"
+                        [min]="minDate">
+            </div>
+            <div class="input-box">
+                    <input matInput
+                        type="time"
+                        id="timepicker"
+                        name="timepicker"
+                        formControlName="occurrenceTime">
+            </div>
+        </div>
+
+        <div class="input-box">
+          <input 
+                  type="number" 
+                  formControlName="duration" 
+                  required
+          />
+          <label [class.active]="trainingInviteForm.get('duration')?.value || focused === 'duration'">Duration (in minutes)</label>
+        </div>
+
+        <div class="training-type">
+          <label>Training type</label>
+          <div>
+            <select id="training-select"
+                    formControlName="selectedTrainingType"
+                    required>
+              <option value="Conditioning">Conditioning</option>
+              <option value="Gym">Gym</option>
+              <option value="Shooting">Shooting</option>
+              <option value="Passing">Passing</option>
+              <option value="Ball Handling">Ball Handling</option>
+              <option value="Perimeter Defense">Perimeter Defense</option>
+              <option value="Interior Defense">Interior Defense</option>
+              <option value="Playmaking">Playmaking</option>
+              <option value="Rebounding">Rebounding</option>
+              <option value="Transition Offense/Defense">Transition Offense/Defense</option>
+              <option value="Agility and Footwork">Agility and Footwork</option>
+              <option value="Pick and Roll Offense/Defense">Pick and Roll Offense/Defense</option>
+            </select>  
+          </div>
+        </div>
+
+        <label focused = "true">
+          Choose the address
+        </label>
+        <!-- MAPA -->
+        <div class="row">
+          <div id="hotel_map_dialogue"></div>
+        </div>
+
+        <button type="submit" 
+                class="submit-btn" 
+                [@buttonState]="buttonState" 
+                (click)="submitInviteButtonClicked()">
+                Submit
+        </button>
+    </form>
+  </div>
+</div>

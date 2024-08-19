@@ -65,7 +65,7 @@ export class PlayerCardComponent implements OnInit{
     const birthDate = new Date(this.player.datRodj!);
     this.age = (today.getFullYear() - birthDate.getFullYear()).toString();
 
-    // Check if user is on the teams wishlist already
+    // Check if player is on the teams wishlist already
     if (!this.ownTeam){
       this.rosterService.getWishlistByTeamID(this.user?.teamId!).subscribe({
         next: (result: WishlistAsset) => {

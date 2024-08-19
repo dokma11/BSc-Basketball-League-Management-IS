@@ -50,3 +50,12 @@ func (service *UserService) Update(user *model.User) error {
 	}
 	return nil
 }
+
+func (service *UserService) Create(user *model.User) error {
+	err := service.UserRepository.Create(user)
+	if err != nil {
+		log.Println("Error creating user")
+		return err
+	}
+	return nil
+}

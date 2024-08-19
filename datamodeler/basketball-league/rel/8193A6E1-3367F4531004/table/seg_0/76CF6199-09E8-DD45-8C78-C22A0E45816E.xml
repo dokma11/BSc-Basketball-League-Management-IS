@@ -59,6 +59,7 @@
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>3812E15C-E2C9-85A2-7982-8390FC759993</generatorID>
 <ownerDesignName>basketball-league</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -132,7 +133,7 @@
 <colUsage columnID="59A14FDA-AFBE-C2DC-8A6F-3297FAC85ACB"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="D49027E6-6E74-E859-424E-7FDC1757A6C4" name="Trening_PozivNaTrening_FK">
+<ind_PK_UK id="D49027E6-6E74-E859-424E-7FDC1757A6C4" name="Trening_PozNaTrng_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>1BC7AD1D-F40C-34D9-B1E9-F879A12B1C0C</generatorID>

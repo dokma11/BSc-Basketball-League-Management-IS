@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <div>
-    <!-- TREBA DODATI NEKI LOGO I MOZDA IZRAVNATI PARAGRAF-->
+    <fa-icon id="logo" [icon]="faBasketball" />
     <p>Basketball league</p>
     <div id="buttons">
       <button
@@ -13,6 +13,7 @@
       </button>
 
       <button
+              *ngIf="this.user?.uloga !== this.regrutUloga"
               class="feat-button"
               color="white"
               mat-raised-button
@@ -22,6 +23,7 @@
       </button>
 
       <button
+              *ngIf="this.user?.uloga !== this.regrutUloga"
               class="feat-button"
               color="white"
               mat-raised-button
@@ -29,7 +31,27 @@
         <fa-icon [icon]="faPencilSquare" />
         &nbsp;Trade management
       </button>
+      
+      <button
+              *ngIf="this.user?.uloga !== this.regrutUloga"
+              class="feat-button"
+              color="white"
+              mat-raised-button
+              [routerLink]="['recruit-management']">
+        <fa-icon [icon]="faBinoculars" />
+        &nbsp;Recruit management
+      </button>
 
+      <button
+              *ngIf="this.user?.uloga === this.regrutUloga && user?.email != ''"
+              class="feat-button"
+              color="white"
+              mat-raised-button
+              [routerLink]="['proposal-management']">
+        <fa-icon [icon]="faPencilSquare" />
+        &nbsp;Proposal management
+      </button>
+      
       <button
               class="feat-button"
               color="white"
@@ -61,6 +83,17 @@
       >
       <fa-icon [icon]="faPencilSquare" />
         &nbsp;Sign up
+      </button>
+
+      <button
+              class="feat-button"
+              *ngIf="user && user.uloga === 0 && user.email != '' && showDeclaration"
+              color="white"
+              mat-raised-button
+              [routerLink]="['declare-for-draft']"
+      >
+      <fa-icon [icon]="faPenClip" />
+        &nbsp;Declare for draft
       </button>
 
       <button

@@ -1,0 +1,45 @@
+<div class="modal-overlay" (click)="overviewClicked()"></div>
+<div class="dialogue">
+  <div class="wrapper">
+    <form [formGroup]="interviewInviteForm">
+        <h1>Invite recruit to an interview</h1>
+
+        <label focused = "true">
+          Choose the occurrence date and time:
+        </label>
+        
+        <div class="date-time">
+            <div class="input-box">
+                <input
+                        type="date"
+                        id="datepicker"
+                        name="datepicker"
+                        formControlName="occurrenceDate"
+                        [min]="minDate">
+            </div>
+            <div class="input-box">
+                    <input matInput
+                        type="time"
+                        id="timepicker"
+                        name="timepicker"
+                        formControlName="occurrenceTime">
+            </div>
+        </div>
+
+        <label focused = "true">
+          Choose the address:
+        </label>
+        <!-- MAPA -->
+        <div class="row">
+          <div id="hotel_map_dialogue"></div>
+        </div>
+
+        <button type="submit" 
+                class="submit-btn" 
+                [@buttonState]="buttonState" 
+                (click)="submitInviteButtonClicked()">
+                Submit
+        </button>
+    </form>
+  </div>
+</div>

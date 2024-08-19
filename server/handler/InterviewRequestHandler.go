@@ -79,7 +79,7 @@ func (handler *InterviewRequestHandler) GetAllBySenderID(w http.ResponseWriter, 
 		interviewRequestResponseDTOs = append(interviewRequestResponseDTOs, interviewRequestResponseDTO)
 	}
 
-	json.NewEncoder(w).Encode(interviewRequests)
+	json.NewEncoder(w).Encode(interviewRequestResponseDTOs)
 }
 
 func (handler *InterviewRequestHandler) GetAllByReceiverID(w http.ResponseWriter, r *http.Request) {
@@ -103,7 +103,7 @@ func (handler *InterviewRequestHandler) GetAllByReceiverID(w http.ResponseWriter
 		interviewRequestResponseDTOs = append(interviewRequestResponseDTOs, interviewRequestResponseDTO)
 	}
 
-	json.NewEncoder(w).Encode(interviewRequests)
+	json.NewEncoder(w).Encode(interviewRequestResponseDTOs)
 }
 
 func (handler *InterviewRequestHandler) Create(w http.ResponseWriter, r *http.Request) {

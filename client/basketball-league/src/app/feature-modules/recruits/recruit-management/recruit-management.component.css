@@ -1,0 +1,151 @@
+.roster {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+  width: 98%;
+  margin-top: 1%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.roster-container::-webkit-scrollbar {
+  display: none;
+}
+
+.roster-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+  margin-bottom: 7%;
+  overflow-y: scroll;
+  height: 50rem;
+}
+
+.roster-header, 
+.roster-header-partner {
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  font-size: 21px;
+  margin-bottom: 1%;
+}
+
+.player-name{
+  margin-left: 11%;
+}
+
+.player-age{
+  margin-left: 15%;
+}
+
+.player-position{
+  margin-left: 2.5%;
+}
+
+.player-height{
+  margin-left: 4.2%;
+}
+
+.player-weight{
+  margin-left: 5%;
+}
+
+.player-name-partner{
+  margin-left: 11%;
+}
+
+.player-age-partner{
+  margin-left: 18.7%;
+}
+
+.player-position-partner{
+  margin-left: 3%;
+}
+
+.player-height-partner{
+  margin-left: 4.5%;
+}
+
+.player-weight-partner{
+  margin-left: 5.5%;
+}
+
+.btn {
+  width: 10%;
+  height: 5%;
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+  margin-top: -3%;
+}
+
+.btn:hover {
+  background-color: #f2f2f2;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.03);
+  transition: transform 300ms ease;
+}
+
+.overview {
+  height: auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: url('https://files.123freevectors.com/wp-content/original/110797-dark-color-blurred-background-vector.jpg') no-repeat;
+  transition: background-size 0.3s ease;
+}
+
+.h2-wrapper {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  color: #fff;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: auto;
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2%;
+  padding: 1% 1%;
+}
+
+.p-wrapper {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  color: #fff;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: auto;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2%;
+  padding: 1% 1%;
+}
+
+h2 {
+  margin: 0;
+}
+
+.assets-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40%;
+}

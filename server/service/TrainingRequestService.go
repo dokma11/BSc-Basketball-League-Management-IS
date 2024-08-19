@@ -46,8 +46,8 @@ func (service *TrainingRequestService) GetAllByReceiverID(userID int) (*[]model.
 	return &trainingRequests, nil
 }
 
-func (service *TrainingRequestService) Create(TrainingRequest *model.TrainingRequest) error {
-	err := service.TrainingRequestRepository.Create(TrainingRequest)
+func (service *TrainingRequestService) Create(TrainingRequest *model.TrainingRequest, recruitId int64) error {
+	err := service.TrainingRequestRepository.Create(TrainingRequest, recruitId)
 	if err != nil {
 		_ = fmt.Errorf(fmt.Sprintf("no training requests were created"))
 		return err

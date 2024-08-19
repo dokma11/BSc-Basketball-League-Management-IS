@@ -17,7 +17,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
 
   user$ = new BehaviorSubject<User>({ email: '', id: -100, uloga: 0, teamId: -100 });
-  basePath = environment.apiHost + 'auth/'; // ovo proveriti
+  basePath = environment.apiHost + 'auth/';
 
   constructor(
     private http: HttpClient,
@@ -38,7 +38,7 @@ export class AuthService {
 
   register(registration: Registration): Observable<AuthenticationResponse> {
     return this.http
-      .post<AuthenticationResponse>(this.basePath + 'register', registration)
+      .post<AuthenticationResponse>(environment.host + 'register', registration)
       .pipe(
         tap((authenticationResponse) => {
           this.tokenStorage.saveAccessToken(authenticationResponse.token);

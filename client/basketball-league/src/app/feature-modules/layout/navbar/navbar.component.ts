@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { faUser, faSignOut, faSignIn, faPencilSquare, faHome, faInstitution, faCalendar, faBuilding, faBookmark, faBinoculars, faAddressBook, faEnvelopeOpen, faArchive, faAddressCard, faNewspaper } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faSignOut, faSignIn, faPencilSquare, faHome, faBinoculars, faAddressBook, faEnvelopeOpen, faAddressCard, faNewspaper, faBasketball, faPenClip } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Uloga } from 'src/app/shared/model/player.model';
+import { RecruitsService } from '../../recruits/recruits.service';
+import { Recruit } from 'src/app/shared/model/recruit.model';
 
 @Component({
   selector: 'app-navbar',
@@ -9,14 +12,33 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-
   user: User | undefined;
+  regrutUloga: Uloga = Uloga.UloRegrut;
+  declaredRecruits: Recruit[] = [];
+  showDeclaration: boolean = true;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+              private recruitsServie: RecruitsService) {}
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       this.user = user;
+
+      if(this.user.uloga == this.regrutUloga) {
+        this.recruitsServie.getAllRecruits().subscribe({
+          next: (result: Recruit[] | Recruit) => {
+            if(Array.isArray(result)) {
+              this.declaredRecruits = result;
+
+              this.declaredRecruits.forEach(recruit => {
+                if (recruit.id == this.user?.id) {
+                  this.showDeclaration = false;
+                }
+              })
+            }
+          }
+        });
+      }
     });
   }
 
@@ -33,4 +55,7 @@ export class NavbarComponent {
   faEnvelopeOpen = faEnvelopeOpen;
   faAddressCard = faAddressCard;
   faNewsPaper = faNewspaper;
+  faBasketball = faBasketball;
+  faBinoculars = faBinoculars;
+  faPenClip = faPenClip;
 }

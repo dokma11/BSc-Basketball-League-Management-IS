@@ -103,15 +103,64 @@
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="IdPik" id="956FC1E5-C318-C113-7FF4-F11AAD9516FB">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-18 09:23:43 UTC</createdTime>
+<generatorID>064663F1-8172-7D08-32D3-B1BD565B62FD</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>96958B4B-98AA-48A4-65B5-371D2E1E0521</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="IdIgrac" id="6E340795-4F6E-912E-6005-2E33FEE0F550">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-18 09:24:11 UTC</createdTime>
+<generatorID>741A6C39-50FF-EBCD-EDD7-188AB852E5DF</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>B829AB3A-B06E-88B7-55D5-3AB46479680F</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="IdRegrut" id="6F91DE6B-3EED-5732-7D9A-44B26D935554">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-18 09:25:17 UTC</createdTime>
+<generatorID>2E34654E-B700-D378-653C-9EBBD70A7EF1</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<engineerTo>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>B829AB3A-B06E-88B7-55D5-3AB46479680F</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="27411BFE-FB64-C282-30AF-0B586D629090" name="ZeljaTima PK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-07-24 16:42:27 UTC</createdTime>
 <ownerDesignName>basketball-league</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
 <item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
-<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="true"/>
+<item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="false"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
