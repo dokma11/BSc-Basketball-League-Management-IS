@@ -48,7 +48,7 @@ export class RecruitsService {
   }
 
   updateTrainingProposal(proposal: TrainingProposal): Observable<TrainingProposal> {
-    return this.http.put<TrainingProposal>(environment.host + 'trainingProposal', proposal);
+    return this.http.put<TrainingProposal>(environment.host + 'trainingRequest', proposal);
   }
 
   declareForDraft(recruit: Recruit): Observable<Recruit> {

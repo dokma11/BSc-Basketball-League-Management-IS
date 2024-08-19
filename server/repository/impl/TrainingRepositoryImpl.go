@@ -17,7 +17,7 @@ func NewTrainingRepository(db *sql.DB) repository.TrainingRepository {
 }
 
 func (repo *trainingRepository) GetAll() ([]model.Training, error) {
-	rows, err := repo.db.Query("SELECT * FROM TRENING") // proveriti naziv samo
+	rows, err := repo.db.Query("SELECT * FROM TRENING")
 	if err != nil {
 		return nil, fmt.Errorf("failed to query all trainings: %v", err)
 	}
@@ -62,8 +62,9 @@ func (repo *trainingRepository) GetByID(id int) (*model.Training, error) {
 }
 
 func (repo *trainingRepository) GetAllByUserID(userID int) ([]model.Training, error) {
-	// TODO: Implementirati ovu metodu kada se spoji sve kako treba (za sada je samo kao GetAll())
-	rows, err := repo.db.Query("SELECT * FROM TRENING") // ovde treba dodati idTima
+	rows, err := repo.db.Query(`SELECT T.IDTRNG, TRAJTRNG, DATVRETRNG, MESODRTRNG, BELESTRNG, IDTIPTRNG, IDPOZTRNG
+									  FROM TRENING T, UCESTVUJE U
+									  WHERE T.IDTRNG = U.IDTRNG AND U.IDREGRUT = :1`, userID)
 	if err != nil {
 		return nil, fmt.Errorf("failed to query all trainings: %v", err)
 	}

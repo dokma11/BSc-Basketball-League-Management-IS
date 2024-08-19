@@ -20,6 +20,8 @@ type TrainingRequest struct {
 	Status             TrainingRequestStatus
 	DenialReason       string
 	CoachId            int64 // Coach foreign key
+	Duration           string
+	TrainingTypeName   string
 }
 
 func NewTrainingRequest(idPozTrng int64, datVrePozTrng time.Time, mesOdrPozTrng string, statusPozTrng TrainingRequestStatus,
@@ -59,6 +61,8 @@ type TrainingRequestDAO struct {
 	StatusPozTrng TrainingRequestStatus `json:"statusPozTrng"`
 	RazOdbPozTrng string                `json:"razOdbPozTrng"` // Denial reason
 	IdTrener      int64                 `json:"idTrener"`      // Coach foreign key
+	TrajTrng      string                `json:"trajTrng"`      // Duration
+	NazTipTrng    string                `json:"nazTipTrng"`    // Training type name
 }
 
 func (t *TrainingRequest) FromDAO(trainingRequestDAO *TrainingRequestDAO) {
@@ -68,6 +72,8 @@ func (t *TrainingRequest) FromDAO(trainingRequestDAO *TrainingRequestDAO) {
 	t.Status = trainingRequestDAO.StatusPozTrng
 	t.DenialReason = trainingRequestDAO.RazOdbPozTrng
 	t.CoachId = trainingRequestDAO.IdTrener
+	t.Duration = trainingRequestDAO.TrajTrng
+	t.TrainingTypeName = trainingRequestDAO.NazTipTrng
 }
 
 type TrainingRequestResponseDTO struct {
@@ -77,6 +83,9 @@ type TrainingRequestResponseDTO struct {
 	StatusPozTrng TrainingRequestStatus `json:"statusPozTrng"`
 	RazOdbPozTrng string                `json:"razOdbPozTrng"` // Denial reason
 	IdTrener      int64                 `json:"idTrener"`      // Coach foreign key
+	TrajTrng      string                `json:"trajTrng"`      // Duration
+	NazTipTrng    string                `json:"nazTipTrng"`    // Training type name
+	IdRegrut      int64                 `json:"idRegrut"`      // Recruit foreign key
 }
 
 func (t *TrainingRequest) FromModel(trainingRequestDTO *TrainingRequestResponseDTO) {
@@ -86,38 +95,37 @@ func (t *TrainingRequest) FromModel(trainingRequestDTO *TrainingRequestResponseD
 	trainingRequestDTO.StatusPozTrng = t.Status
 	trainingRequestDTO.RazOdbPozTrng = t.DenialReason
 	trainingRequestDTO.IdTrener = t.CoachId
+	trainingRequestDTO.TrajTrng = t.Duration
+	trainingRequestDTO.NazTipTrng = t.TrainingTypeName
 }
 
 type TrainingRequestCreateDTO struct {
-	DatVrePozTrng time.Time             `json:"datVrePozTrng"` // Occurrence date and time
-	MesOdrPozTrng string                `json:"mesOdrPozTrng"` // Occurrence location
-	StatusPozTrng TrainingRequestStatus `json:"statusPozTrng"`
-	RazOdbPozTrng string                `json:"razOdbPozTrng"` // Denial reason
-	IdTrener      int64                 `json:"idTrener"`      // Coach foreign key
+	DatVrePozTrng time.Time `json:"datVrePozTrng"` // Occurrence date and time
+	MesOdrPozTrng string    `json:"mesOdrPozTrng"` // Occurrence location
+	IdTrener      int64     `json:"idTrener"`      // Coach foreign key
+	TrajTrng      string    `json:"trajTrng"`      // Duration
+	NazTipTrng    string    `json:"nazTipTrng"`    // Training type name
+	IdRegrut      int64     `json:"idRegrut"`      // Recruit foreign key
 }
 
 func (t *TrainingRequest) FromDTO(trainingRequestDTO *TrainingRequestCreateDTO) {
 	t.OccurrenceDateTime = trainingRequestDTO.DatVrePozTrng
 	t.OccurrenceLocation = trainingRequestDTO.MesOdrPozTrng
-	t.Status = trainingRequestDTO.StatusPozTrng
-	t.DenialReason = trainingRequestDTO.RazOdbPozTrng
+	t.Status = 0
 	t.CoachId = trainingRequestDTO.IdTrener
+	t.Duration = trainingRequestDTO.TrajTrng
+	t.TrainingTypeName = trainingRequestDTO.TrajTrng
 }
 
 type TrainingRequestUpdateDTO struct {
 	IdPozTrng     int64                 `json:"idPozTrng"`
-	DatVrePozTrng time.Time             `json:"datVrePozTrng"` // Occurrence date and time
-	MesOdrPozTrng string                `json:"mesOdrPozTrng"` // Occurrence location
 	StatusPozTrng TrainingRequestStatus `json:"statusPozTrng"`
 	RazOdbPozTrng string                `json:"razOdbPozTrng"` // Denial reason
-	IdTrener      int64                 `json:"idTrener"`      // Coach foreign key
+	IdRegrut      int64                 `json:"idRegrut"`      // Recruit foreign key
 }
 
 func (t *TrainingRequest) FromUpdateDTO(trainingRequestDTO *TrainingRequestUpdateDTO) {
 	t.ID = trainingRequestDTO.IdPozTrng
-	t.OccurrenceDateTime = trainingRequestDTO.DatVrePozTrng
-	t.OccurrenceLocation = trainingRequestDTO.MesOdrPozTrng
 	t.Status = trainingRequestDTO.StatusPozTrng
 	t.DenialReason = trainingRequestDTO.RazOdbPozTrng
-	t.CoachId = trainingRequestDTO.IdTrener
 }

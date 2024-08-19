@@ -162,8 +162,8 @@ export class RecruitCardComponent implements OnInit{
 
     this.dialogRef = this.dialog.open(TrainingInvitePromptComponent, {
       data: {
-        player: this.recruit, // ovde samo staviti regrut i to promeniti
-        teamId: this.user?.teamId, // mozda ovde da bude kao korisnik id da se zna koji trener je u pitanju
+        recruitId: this.recruit.id, 
+        coachId: this.user?.id,
       }
     });
   }

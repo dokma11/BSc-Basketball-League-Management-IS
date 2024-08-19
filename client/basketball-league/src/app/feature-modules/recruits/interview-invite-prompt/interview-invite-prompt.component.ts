@@ -126,12 +126,6 @@ export class InterviewInvitePromptComponent implements OnInit{
 
       interviewProposal.mesOdrPozInt = concatenatedAddress;
 
-      console.log('ide ispis samog objekta: ' + interviewProposal);
-      console.log(interviewProposal.datVrePozInt);
-      console.log(interviewProposal.mesOdrPozInt);
-      console.log(interviewProposal.idRegrut);
-      console.log(interviewProposal.idTrener);
-
       this.recruitsService.createInterviewProposal(interviewProposal).subscribe({
         next: (result: any) => {
           this.showNotification('Interview invite successfully sent!');

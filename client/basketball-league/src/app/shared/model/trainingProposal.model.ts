@@ -5,6 +5,9 @@ export interface TrainingProposal {
   statusPozTrng: TrainingProposalStatus;
   razOdbPozTrng?: string;
   idTrener: number;
+  trajTrng: string;
+  nazTipTrng: string;
+  idRegrut?: number;
 }
 
 export enum TrainingProposalStatus {

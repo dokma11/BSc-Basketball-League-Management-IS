@@ -3,6 +3,10 @@
       <div class="trade-card-top">
         <div class="trade-tags">
           <div class="trade-tag"
+               style="background-color: rgb(11, 38, 117); color: white">
+               Training
+          </div>
+          <div class="trade-tag"
                *ngIf="trainingProposal.statusPozTrng == 0"
                style="background-color: orange; color: white">
                In progress
@@ -34,12 +38,12 @@
               </div>
               <div class="trade-date">
                 <div class="trade-date-value">
-                  <strong>Location: </strong> {{ this.proposalOccurrenceDate }} <!-- DODATI LOKACIJU LEPO SERDITI -->
+                  <strong>Location: </strong> {{ this.trainingProposal.mesOdrPozTrng }}
                 </div>
               </div>
               <div class="trade-date">
                 <div class="trade-date-value">
-                  <strong>Training type: </strong> {{ this.proposalOccurrenceDate }} <!-- DODATI TIP TRENINGA -->
+                  <strong>Training type: </strong> {{ this.trainingProposal.nazTipTrng }}
                 </div>
               </div>
           </div>
@@ -47,6 +51,7 @@
           <div class="trade-card-right">
               <button
                   class="btn"
+                  *ngIf="this.trainingProposal.statusPozTrng == 0"
                   (click)="acceptButtonClicked();$event.stopPropagation()"
                   [@buttonState]="acceptButtonState"
               >
@@ -56,6 +61,7 @@
 
               <button
                   class="btn"
+                  *ngIf="this.trainingProposal.statusPozTrng == 0"
                   (click)="declineButtonClicked();$event.stopPropagation()"
                   [@buttonState]="declineButtonState"
               >

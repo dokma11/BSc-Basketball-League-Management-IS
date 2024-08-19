@@ -67,6 +67,9 @@ export class AcceptProposalPromptComponent {
         }
       });
     } else {
+      console.log(this.trainingProposal);
+      console.log('ovo je id regruta koji prihvata sve');
+      console.log(this.trainingProposal?.idRegrut);
       this.trainingProposal!.statusPozTrng = TrainingProposalStatus.APPROVED;
       this.recruitsService.updateTrainingProposal(this.trainingProposal!).subscribe({
         next: () => {

@@ -73,7 +73,7 @@ export class DeclineProposalPromptComponent {
         }
       });
     } else {
-      this.trainingProposal!.statusPozTrng = TrainingProposalStatus.APPROVED;
+      this.trainingProposal!.statusPozTrng = TrainingProposalStatus.DISAPPROVED;
       this.trainingProposal!.razOdbPozTrng = this.declineRequestForm.value.explanation || "";
       this.recruitsService.updateTrainingProposal(this.trainingProposal!).subscribe({
         next: () => {

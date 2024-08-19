@@ -68,6 +68,9 @@ export class TrainingInvitePromptComponent implements OnInit{
 
     this.recruitId = data.recruitId;
     this.coachId = data.coachId;
+
+    console.log(this.recruitId);
+    console.log(this.coachId);
   }
 
   trainingInviteForm = new FormGroup({
@@ -102,8 +105,10 @@ export class TrainingInvitePromptComponent implements OnInit{
       mesOdrPozTrng: this.trainingInviteForm.value.address || "",
       datVrePozTrng: dateTime || "",
       statusPozTrng: TrainingProposalStatus.PENDING,
-      // idRegrut: this.recruitId,
-      idTrener: this.coachId
+      idTrener: this.coachId,
+      idRegrut: this.recruitId,
+      trajTrng: this.trainingInviteForm.value.duration?.toString() || "",
+      nazTipTrng: this.trainingInviteForm.value.selectedTrainingType || ""
     }
 
     console.log('int lon: ' + this.trainingInviteForm.value.longitude);
@@ -126,6 +131,8 @@ export class TrainingInvitePromptComponent implements OnInit{
       addressInfo.postalCode + " " + addressInfo.country;
 
       trainingProposal.mesOdrPozTrng = concatenatedAddress;
+
+      console.log(trainingProposal);
 
       this.recruitsService.createTrainingProposal(trainingProposal).subscribe({
         next: (result: any) => {
