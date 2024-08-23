@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="335210D1-D7AF-3E27-A2BC-9F6B6A8E3B59" containerWithKeyObject="0C4B3082-A9AF-CBB3-E626-72C9166E5F1F" localFKIndex="0EAB1387-9213-DCE2-C8FB-CF68D38223CA" name="Trgovina_ZahtevZaTrgovinu_FK">
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="335210D1-D7AF-3E27-A2BC-9F6B6A8E3B59" containerWithKeyObject="0C4B3082-A9AF-CBB3-E626-72C9166E5F1F" localFKIndex="0EAB1387-9213-DCE2-C8FB-CF68D38223CA" name="Trgovina_ZahZaTrg_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>B373C11B-0C65-89F1-463A-F1709102BC68</generatorID>

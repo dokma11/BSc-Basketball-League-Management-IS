@@ -54,8 +54,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>64 CHAR</dataTypeSize>
-<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>256 CHAR</dataTypeSize>
+<ownDataTypeParameters>256 CHAR,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="IdTipZelje" id="DCD4D8EA-FBF5-B465-34F1-612A4B91D1D3">
 <createdBy>HP Pavilion</createdBy>
@@ -159,7 +159,7 @@
 <ownerDesignName>basketball-league</ownerDesignName>
 <shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="false"/>
 <item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="false"/>
 </engineerTo>
 <pk>true</pk>

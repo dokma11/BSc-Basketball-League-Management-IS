@@ -93,6 +93,54 @@
 <colAssociation fkAssociation="41961233-6144-515A-85B7-0DFD730C69EC" referredColumn="E54BBFB8-E132-FF37-6742-71A2D8F2A69D"/>
 </associations>
 </Column>
+<Column name="Igrac_Id2" id="AFD6F3B6-5AF7-7677-088C-532476229717">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-23 10:23:18 UTC</createdTime>
+<generatorID>710FA272-44CB-F91E-D980-1681E8D941E3</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3087FFA2-85D7-A15D-0959-15B3D0871AE8" referredColumn="25E6F95F-4CB1-B622-EAE9-CA12F9F9EB15"/>
+</associations>
+</Column>
+<Column name="Pik_IdPik2" id="86822C7C-8107-DFCF-77D3-B60B1E138BC3">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-23 10:23:18 UTC</createdTime>
+<generatorID>E1987639-930B-6FAD-354B-D735B0926A27</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B0DA05C8-9A86-B230-322C-F446ED5BC158" referredColumn="E54BBFB8-E132-FF37-6742-71A2D8F2A69D"/>
+</associations>
+</Column>
+<Column name="PravaNaIgraca_IdPrava2" id="88FA53CD-1F49-DA86-91D8-6105E371E00A">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-23 10:23:18 UTC</createdTime>
+<generatorID>8C68417D-2510-7590-F51C-3057E565B81D</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A836D7D0-0BD7-FCEF-A3D9-7650A81FD96A" referredColumn="D2C6D4F2-D810-68D6-0777-EC85288B3D02"/>
+</associations>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="C2440EAC-57E0-F2E6-0C8B-6C4FAD6720D0" name="PredmetTrgovine_PK">
@@ -149,6 +197,39 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="EBE2B295-8597-55C7-95E9-2CA1B17BF63D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F0BC52AA-B2DC-11DB-9B78-C75B818B4C57" name="PredmetTrgovine_PravaNaIgraca_FKv2">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-23 10:23:18 UTC</createdTime>
+<generatorID>B0B80F6A-3F22-1B1A-4411-A8FE78D17A27</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="88FA53CD-1F49-DA86-91D8-6105E371E00A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="44609DCB-36F2-4F4B-0C62-AAA33DAB297E" name="PredmetTrgovine_Igrac_FKv2">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-23 10:23:18 UTC</createdTime>
+<generatorID>28177A33-BD9A-2877-A151-C695C78DC4E6</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AFD6F3B6-5AF7-7677-088C-532476229717"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3AD6232E-5554-FD8D-93A1-A08253C70AA2" name="PredmetTrgovine_Pik_FKv2">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-23 10:23:18 UTC</createdTime>
+<generatorID>6321C0BA-5BA8-FA0E-365A-77B75ECC4F22</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="86822C7C-8107-DFCF-77D3-B60B1E138BC3"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

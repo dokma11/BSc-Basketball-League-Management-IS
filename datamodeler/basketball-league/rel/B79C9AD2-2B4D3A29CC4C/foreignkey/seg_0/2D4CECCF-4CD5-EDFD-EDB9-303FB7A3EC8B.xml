@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="16E21249-CAFC-4C63-63C4-D3B29CC643FE" containerWithKeyObject="D5CB9565-A3AE-E336-7267-7CCEC8BE6461" localFKIndex="2934905C-A221-366D-0089-7A0E4FDF69AC" name="Kreira_Tim_FK">
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="2D4CECCF-4CD5-EDFD-EDB9-303FB7A3EC8B" containerWithKeyObject="9F908EA7-8570-4F4F-10F7-0605C02AFE08" localFKIndex="B08414AC-9B2B-87F1-A098-18A53CD4B713" name="ZeljaTima_Tim_FK">
 <createdBy>HP Pavilion</createdBy>
-<createdTime>2024-08-01 09:59:34 UTC</createdTime>
+<createdTime>2024-08-23 10:23:18 UTC</createdTime>
 <generatorID>85CADE04-5A43-54FC-DE3A-DC9F37180A58</generatorID>
 <ownerDesignName>basketball-league</ownerDesignName>
 <referredTableLongName>Tim</referredTableLongName>

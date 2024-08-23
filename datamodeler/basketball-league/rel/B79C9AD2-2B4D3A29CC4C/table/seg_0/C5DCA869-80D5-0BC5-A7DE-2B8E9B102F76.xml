@@ -27,8 +27,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>24 CHAR</dataTypeSize>
-<ownDataTypeParameters>24 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>128 CHAR</dataTypeSize>
+<ownDataTypeParameters>128 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="DatVrePozInt" id="AFB9A211-14C4-B86F-94C3-C37C04FEF881">
@@ -58,11 +58,12 @@
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>4F600D7D-FDE3-E276-96CA-2A11005FAB07</generatorID>
 <ownerDesignName>basketball-league</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>64 CHAR</dataTypeSize>
-<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>128 CHAR</dataTypeSize>
+<ownDataTypeParameters>128 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="Regrut_Id" id="0FFAF4CF-28F1-458C-F72B-8F80BBC7F449">

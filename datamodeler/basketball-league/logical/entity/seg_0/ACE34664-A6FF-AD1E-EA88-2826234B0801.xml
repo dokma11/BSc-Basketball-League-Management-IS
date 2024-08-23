@@ -40,8 +40,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>24 CHAR</dataTypeSize>
-<ownDataTypeParameters>24 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>128 CHAR</dataTypeSize>
+<ownDataTypeParameters>128 CHAR,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="DatVrePozInt" id="E8AB423D-38C7-5325-A91C-D79F3642A0F0">
 <createdBy>HP Pavilion</createdBy>
@@ -81,8 +81,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>64 CHAR</dataTypeSize>
-<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>128 CHAR</dataTypeSize>
+<ownDataTypeParameters>128 CHAR,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="IdRegrut" id="A80CA8F0-3796-4A43-9B82-B8A1740F4A3A">
 <createdBy>HP Pavilion</createdBy>
@@ -123,7 +123,7 @@
 <ownerDesignName>basketball-league</ownerDesignName>
 <shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="false"/>
 <item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="false"/>
 </engineerTo>
 <pk>true</pk>

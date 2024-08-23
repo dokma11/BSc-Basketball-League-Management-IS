@@ -125,7 +125,7 @@
 <colUsage columnID="9D1DCD29-46C3-F16D-0693-BD6D640EB3CA"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="BD4713D3-30E3-6A19-E0AE-35F25F052C92" name="PravNaIgr_Bira_FK">
+<ind_PK_UK id="BD4713D3-30E3-6A19-E0AE-35F25F052C92" name="PravaNaIgraca_Bira_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>BED6C7F0-D0D0-9DCB-0C7E-1D992E9CFDBE</generatorID>

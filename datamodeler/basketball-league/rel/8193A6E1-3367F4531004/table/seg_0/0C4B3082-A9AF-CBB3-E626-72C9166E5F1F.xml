@@ -41,7 +41,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="IdZahTrg" id="C65F33A7-22BA-BC8B-9E95-2C70753974CC">
+<Column name="ZahtevZaTrgovinu_IdZahTrg" id="C65F33A7-22BA-BC8B-9E95-2C70753974CC">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>3F747E7B-75D3-AF22-7097-F5944E6E6C8D</generatorID>
@@ -81,7 +81,7 @@
 <colUsage columnID="C65F33A7-22BA-BC8B-9E95-2C70753974CC"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="0EAB1387-9213-DCE2-C8FB-CF68D38223CA" name="Trgovina_ZahtevZaTrgovinu_FK">
+<ind_PK_UK id="0EAB1387-9213-DCE2-C8FB-CF68D38223CA" name="Trgovina_ZahZaTrg_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>B373C11B-0C65-89F1-463A-F1709102BC68</generatorID>
