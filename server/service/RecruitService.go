@@ -67,3 +67,11 @@ func (service *RecruitService) RemoveFromWishlist(recruit *model.Recruit, teamId
 	}
 	return nil
 }
+
+func (service *RecruitService) GetAllByName(name string) (*[]model.Recruit, error) {
+	recruits, err := service.RecruitRepository.GetAllByName(name)
+	if err != nil {
+		return nil, fmt.Errorf(fmt.Sprintf("no recruits with that name were found"))
+	}
+	return &recruits, nil
+}

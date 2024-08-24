@@ -1,6 +1,6 @@
 .trade-card {
   display: flex;
-  height: 8rem;
+  height: 9.5rem;
   width: 70%;
   padding: 0.5rem;
   padding-right: 1rem;
@@ -60,7 +60,7 @@
   width: 50%;
   height: auto;
   gap: 20px;
-  margin-top: 4.25%;
+  margin-top: 5.5%;
   margin-right: -20%;
 }
 

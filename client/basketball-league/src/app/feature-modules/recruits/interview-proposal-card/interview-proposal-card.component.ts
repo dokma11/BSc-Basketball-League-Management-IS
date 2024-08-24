@@ -46,13 +46,15 @@ export class InterviewProposalCardComponent implements OnInit{
   private dialogRef: any;
   user: User | undefined;
   @Output() dialogRefClosed: EventEmitter<any> = new EventEmitter<any>();
-  proposalOccurrenceTime: string = "";
-  proposalOccurrenceDate: string = "";
+  proposalOccurrenceTime: string = '';
+  proposalOccurrenceDate: string = '';
   coach: Employee | undefined;
   coachsTeam: Team | undefined;
-  dateDay: string = "";
-  dateMonth: string = "";
-  dateYear: string = "";
+  dateDay: string = '';
+  dateMonth: string = '';
+  dateYear: string = '';
+  time: string = '';
+  timeAddition: string = '';
 
   constructor(private dialog: MatDialog, 
               private tradesService: TradesService, 
@@ -63,8 +65,14 @@ export class InterviewProposalCardComponent implements OnInit{
   ngOnInit(): void {
     const proposalDateTimeString = this.interviewProposal.datVrePozInt.toString();
     [this.proposalOccurrenceDate, this.proposalOccurrenceTime] = proposalDateTimeString.split('T');
+    [this.time, this.timeAddition] = this.proposalOccurrenceTime.split('+');
     [this.dateYear, this.dateMonth, this.dateDay] = this.proposalOccurrenceDate.split('-');
+    
+    const [hours, minutes] = this.time.split(':'); 
+    this.time = `${parseInt(hours, 10) - 1}:${minutes}`; 
+    
     this.proposalOccurrenceDate = this.dateDay + '.' + this.dateMonth + '.' + this.dateYear + '.'
+    this.proposalOccurrenceTime = this.time + 'h';
 
     this.recruitsService.getTeamByCoachID(this.interviewProposal.idTrener).subscribe({
       next: (result: Team) => {

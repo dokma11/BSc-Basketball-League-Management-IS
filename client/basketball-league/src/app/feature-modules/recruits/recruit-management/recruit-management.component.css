@@ -149,3 +149,109 @@ h2 {
   justify-content: center;
   gap: 40%;
 }
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  width: 85%;
+  gap: 33%;
+  margin-left: 12rem;
+  margin-top: 1rem;
+}
+
+.search {
+  width: 40%;
+  margin-top: 1rem;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: row;
+  gap: 5%;
+}
+
+#trade-type-select, 
+#trade-status-select {
+  border-radius: 40px;
+  display: flex;
+  height: 55%;
+  width: 115%;
+  padding-left: 10%;
+  margin-top: 0.7rem;
+  margin-left: 50%;
+}
+
+.trade-type, 
+.trade-status {
+  display: flex;
+  color: #fff;
+  margin-top: 2%;
+}
+
+.input-box {
+  position: relative;
+  width: 100%;
+  height: 10%;
+  border-radius: 40px;
+  display: flex;
+}
+
+.input-box input {
+  width: 100%;
+  height: 50%;
+  border-radius: 40px;
+  font-size: 16px;
+  padding: 2% 6%;
+  border: 2px solid #fff;
+}
+
+.input-box input::placeholder {
+  color: #1b1b1b;
+}
+
+.input-box fa-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+}
+
+.input-box label {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  color: rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+}
+
+.input-box input:focus + label,
+.input-box label.active {
+  top: -13px;
+  left: 5px;
+  font-size: 16px;
+  color: #fff;
+}
+
+.submit-btn {
+  width: 23rem;
+  height: 2.3rem;
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #1b1b1b;
+  font-weight: 600;
+}
+
+.submit-btn:hover {
+  background-color: rgb(172, 172, 172);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.03);
+  transition: transform 300ms ease;
+}

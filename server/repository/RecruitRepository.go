@@ -9,4 +9,5 @@ type RecruitRepository interface {
 	Update(*model.Recruit) error
 	AddToWishlist(recruit *model.Recruit, teamId int) error
 	RemoveFromWishlist(recruit *model.Recruit, teamId int) error
+	GetAllByName(name string) ([]model.Recruit, error)
 }
