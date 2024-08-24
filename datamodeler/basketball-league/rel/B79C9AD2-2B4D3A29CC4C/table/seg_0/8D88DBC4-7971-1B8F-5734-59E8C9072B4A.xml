@@ -38,8 +38,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>32 CHAR</dataTypeSize>
-<ownDataTypeParameters>32 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>128 CHAR</dataTypeSize>
+<ownDataTypeParameters>128 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="StatusPozTrng" id="2D179AD5-095D-C188-AA20-5702AAEF61F5">
@@ -62,8 +62,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>64 CHAR</dataTypeSize>
-<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>128 CHAR</dataTypeSize>
+<ownDataTypeParameters>128 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="Trener_Id" id="CB7C4B30-D99A-1E5B-56BF-948B536D052A">
@@ -80,6 +80,30 @@
 <associations>
 <colAssociation fkAssociation="94A000BD-7E38-3971-1E8E-56F0B6E4080A" referredColumn="26146AD7-7B0B-A894-B41E-1E83C337CF2D"/>
 </associations>
+</Column>
+<Column name="TrajTrng" id="C98AF82E-29BF-639D-08E8-64A2F7612418">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-23 10:23:18 UTC</createdTime>
+<generatorID>D170E08F-ABF9-BB84-B645-20DED2DB5FB8</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>3 CHAR</dataTypeSize>
+<ownDataTypeParameters>3 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NazTipTrng" id="C04DE8BD-8BD3-949A-3184-998DC6CAB68C">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-23 10:23:18 UTC</createdTime>
+<generatorID>E72EBDEB-C681-06BD-368A-72D6E3E8ECC5</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>64 CHAR</dataTypeSize>
+<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">

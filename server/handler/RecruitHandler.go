@@ -164,3 +164,23 @@ func (handler *RecruitHandler) RemoveFromWishlist(w http.ResponseWriter, r *http
 
 	w.WriteHeader(http.StatusCreated)
 }
+
+func (handler *RecruitHandler) GetAllByName(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	name := vars["name"]
+
+	recruits, err := handler.RecruitService.GetAllByName(name)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	var recruitResponseDTOs []model.RecruitResponseDTO
+	for _, recruit := range *recruits {
+		var recruitResponseDTO model.RecruitResponseDTO
+		recruit.FromModel(&recruitResponseDTO)
+		recruitResponseDTOs = append(recruitResponseDTOs, recruitResponseDTO)
+	}
+
+	json.NewEncoder(w).Encode(recruitResponseDTOs)
+}

@@ -114,7 +114,7 @@ func (t *TrainingRequest) FromDTO(trainingRequestDTO *TrainingRequestCreateDTO) 
 	t.Status = 0
 	t.CoachId = trainingRequestDTO.IdTrener
 	t.Duration = trainingRequestDTO.TrajTrng
-	t.TrainingTypeName = trainingRequestDTO.TrajTrng
+	t.TrainingTypeName = trainingRequestDTO.NazTipTrng
 }
 
 type TrainingRequestUpdateDTO struct {

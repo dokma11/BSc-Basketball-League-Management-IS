@@ -50,8 +50,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>32 CHAR</dataTypeSize>
-<ownDataTypeParameters>32 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>128 CHAR</dataTypeSize>
+<ownDataTypeParameters>128 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="BelesTrng" id="7959E3D1-45E5-427E-401B-41A1BC364683">
@@ -59,11 +59,12 @@
 <createdTime>2024-07-24 16:54:31 UTC</createdTime>
 <generatorID>3812E15C-E2C9-85A2-7982-8390FC759993</generatorID>
 <ownerDesignName>basketball-league</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>64 CHAR</dataTypeSize>
-<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>256 CHAR</dataTypeSize>
+<ownDataTypeParameters>256 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="TipTreninga_IdTipTrng" id="975263B8-90E2-7F14-2B42-4644AD52BEC7">

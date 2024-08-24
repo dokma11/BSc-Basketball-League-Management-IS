@@ -53,8 +53,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>32 CHAR</dataTypeSize>
-<ownDataTypeParameters>32 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>128 CHAR</dataTypeSize>
+<ownDataTypeParameters>128 CHAR,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="StatusPozTrng" id="5C92B071-B626-AA04-C7B6-2BF7777721D0">
 <createdBy>HP Pavilion</createdBy>
@@ -81,8 +81,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>64 CHAR</dataTypeSize>
-<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>128 CHAR</dataTypeSize>
+<ownDataTypeParameters>128 CHAR,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="IdTrener" id="3AE4A901-2D26-90C6-69AD-58461ABE4634">
 <createdBy>HP Pavilion</createdBy>
@@ -124,8 +124,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>32 CHAR</dataTypeSize>
-<ownDataTypeParameters>32 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>64 CHAR</dataTypeSize>
+<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
@@ -135,7 +135,7 @@
 <ownerDesignName>basketball-league</ownerDesignName>
 <shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="true"/>
+<item key="B79C9AD2-FDB3-9718-DDEE-2B4D3A29CC4C" value="false"/>
 <item key="8193A6E1-ACA9-CC53-6A12-3367F4531004" value="false"/>
 </engineerTo>
 <pk>true</pk>

@@ -2,9 +2,7 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
 import { Component, OnInit } from '@angular/core';
 import { RecruitsService } from '../recruits.service';
 import { Recruit } from 'src/app/shared/model/recruit.model';
-import { MatDialog } from '@angular/material/dialog';
-import { InterviewInvitePromptComponent } from '../interview-invite-prompt/interview-invite-prompt.component';
-import { TrainingInvitePromptComponent } from '../training-invite-prompt/training-invite-prompt.component';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-recruit-management',
@@ -36,14 +34,24 @@ import { TrainingInvitePromptComponent } from '../training-invite-prompt/trainin
 })
 export class RecruitManagementComponent implements OnInit{
   recruits: Recruit[] = [];
-  private dialogRef: any;
+  recruitsBeforeSort: Recruit[] = [];
+  focused: string = '';
+  buttonState: string = 'idle';
+  resetButtonState: string = 'idle';
 
-  constructor(private recruitsService: RecruitsService,
-              private dialog: MatDialog) { }
-
+  constructor(private recruitsService: RecruitsService) { }
+           
   ngOnInit(): void {
     this.getRecruits();
   }
+
+  positionForm = new FormGroup({
+    selectedPosition: new FormControl('None', [Validators.required]),
+  });
+
+  searchForm = new FormGroup({
+    parameters: new FormControl('', [Validators.required]),
+  });
 
   getRecruits() {
     this.recruitsService.getAllRecruits().subscribe({
@@ -55,22 +63,85 @@ export class RecruitManagementComponent implements OnInit{
     });
   }
 
-  probazaformuintervju() {
-    this.dialogRef = this.dialog.open(InterviewInvitePromptComponent, {
-      data: {
-        recruitId: 0,
-        coachId: 0
-      }
-    });
+  sortRecruits(position: any) {
+    if (this.searchForm.value.parameters == '') {
+      this.recruitsService.getAllRecruits().subscribe({
+        next: (result: Recruit[] | Recruit) => {
+          if (Array.isArray(result)) {
+            this.recruitsBeforeSort = result;
+            this.recruits = [];
+            this.recruitsBeforeSort.forEach((recruit, index) => {
+              if (recruit.pozReg.toString() == position){
+                this.recruits.push(recruit);
+              }
+            });
+          }
+        }
+      });
+    } else {
+      this.recruitsService.getAllRecruitsByName(this.searchForm.value.parameters!).subscribe({
+        next: (result: Recruit[] | Recruit) => {
+          if (Array.isArray(result)){
+            this.recruitsBeforeSort = result;
+            this.recruits = [];
+            this.recruitsBeforeSort.forEach((recruit, index) => {
+              if (recruit.pozReg.toString() == position){
+                this.recruits.push(recruit);
+              }
+            });
+          }
+        }
+      });
+    }
   }
 
-  probazaformutrening() {
-    this.dialogRef = this.dialog.open(TrainingInvitePromptComponent, {
-      data: {
-        recruitId: 0,
-        coachId: 0
-      }
-    });
+  searchButtonClicked() {
+    this.buttonState = 'clicked';
+    setTimeout(() => { this.buttonState = 'idle'; }, 200);
+
+    if (this.positionForm.value.selectedPosition == 'None'){
+      this.recruitsService.getAllRecruitsByName(this.searchForm.value.parameters!).subscribe({
+        next: (result: Recruit[] | Recruit) => {
+          if (Array.isArray(result)){
+            this.recruits = [];
+            this.recruits = result;
+          }
+        }
+      });
+    } else {
+      this.recruitsService.getAllRecruitsByName(this.searchForm.value.parameters!).subscribe({
+        next: (result: Recruit[] | Recruit) => {
+          if (Array.isArray(result)){
+            this.recruitsBeforeSort = result;
+            this.recruits = [];
+            this.recruitsBeforeSort.forEach((recruit, index) => {
+              if (recruit.pozReg.toString() == this.positionForm.value.selectedPosition){
+                this.recruits.push(recruit);
+              }
+            });
+          }
+        }
+      });
+    }
+  }
+
+  resetButtonClicked() {
+    this.resetButtonState = 'clicked';
+    setTimeout(() => { this.resetButtonState = 'idle'; }, 200);
+
+    this.searchForm.get('parameters')?.setValue('');
+    this.positionForm.get('selectedPosition')?.setValue('None');
+    this.getRecruits();
+  }
+
+  onPositionChange(event: any) {
+    if (this.positionForm.value.selectedPosition == 'None' && this.searchForm.value.parameters == ''){
+      this.getRecruits();
+    } else if (this.positionForm.value.selectedPosition == 'None' && this.searchForm.value.parameters != '') {
+      this.searchButtonClicked();
+    } else {
+      this.sortRecruits(this.positionForm.value.selectedPosition);
+    }
   }
 
   handleDialogClosed(result: any) {

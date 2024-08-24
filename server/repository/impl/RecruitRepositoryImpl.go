@@ -112,6 +112,46 @@ func (repo *recruitRepository) RemoveFromWishlist(recruit *model.Recruit, teamId
 	return nil
 }
 
+func (repo *recruitRepository) GetAllByName(name string) ([]model.Recruit, error) {
+	rows, err := repo.db.Query(`SELECT DISTINCT K.ID, K.IME, K.PREZIME, K.EMAIL, K.DATRODJ, K.LOZINKA, K.ULOGA,
+									R.KONTELEFON, R.VISREG, R.TEZREG, R.POZREG, R.PROSRANKREG, R.PROSOCREG, R.IDDRAFT
+									FROM KORISNIK K
+									JOIN REGRUT R ON K.ID = R.ID
+									WHERE UPPER(K.IME) LIKE UPPER(:1)
+									   OR UPPER(K.PREZIME) LIKE UPPER(:2)
+									   OR UPPER(K.IME) LIKE UPPER('%' || :3 || '%')
+									   OR UPPER(K.PREZIME) LIKE UPPER('%' || :4 || '%')
+									   OR UPPER(K.IME || ' ' || K.PREZIME) LIKE UPPER(:5)
+								       OR UPPER(K.IME || ' ' || K.PREZIME) LIKE UPPER('%' || :6 || '%')`, name, name, name, name, name, name)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query all recruits: %v", err)
+	}
+	defer rows.Close()
+
+	var recruits []model.Recruit
+	for rows.Next() {
+		var recruitDAO model.RecruitDAO
+		var role, position string
+		if err := rows.Scan(&recruitDAO.ID, &recruitDAO.FirstName, &recruitDAO.LastName, &recruitDAO.Email, &recruitDAO.DateOfBirth,
+			&recruitDAO.Password, &role, &recruitDAO.KonTelefonReg, &recruitDAO.VisReg, &recruitDAO.TezReg, &position,
+			&recruitDAO.ProsRankReg, &recruitDAO.ProsOcReg, &recruitDAO.IdDraft); err != nil {
+			return nil, fmt.Errorf("failed to scan row: %v", err)
+		}
+
+		fromRecruitPositionAndRoleString(position, role, &recruitDAO)
+		recruit := &model.Recruit{}
+		recruit.FromDAO(&recruitDAO)
+
+		recruits = append(recruits, *recruit)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("row iteration error: %v", err)
+	}
+
+	return recruits, nil
+}
+
 func fromRecruitPositionAndRoleString(position string, role string, recruitDAO *model.RecruitDAO) {
 	switch position {
 	case "PG":

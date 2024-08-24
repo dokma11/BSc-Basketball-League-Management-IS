@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="B4FDC366-2793-CB4C-6D62-065548C8CF08" containerWithKeyObject="EC666479-9D67-C299-2962-9258F4B96BE3" localFKIndex="FC91AD01-5C8B-180F-3822-1E7DAAB231FA" name="PozivNaIntervju_Regrut_FK">
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="B4FDC366-2793-CB4C-6D62-065548C8CF08" containerWithKeyObject="EC666479-9D67-C299-2962-9258F4B96BE3" localFKIndex="FC91AD01-5C8B-180F-3822-1E7DAAB231FA" name="PozNaInt_Regrut_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>A1C2A846-8FBE-707D-27D6-87AF300D78EB</generatorID>

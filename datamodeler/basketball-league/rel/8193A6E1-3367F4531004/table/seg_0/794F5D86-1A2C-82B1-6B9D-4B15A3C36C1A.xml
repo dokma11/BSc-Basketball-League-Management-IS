@@ -20,7 +20,7 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="8F419F64-53E9-5173-F8E4-AE64BB5B070F" referredColumn="6FC2BD51-8BFE-58E3-DA8C-88563FFA88FD"/>
+<colAssociation fkAssociation="950E2669-F3E3-C23B-D7BB-522E2EEB5DE0" referredColumn="6FC2BD51-8BFE-58E3-DA8C-88563FFA88FD"/>
 </associations>
 </Column>
 <Column name="IdTrng" id="ABD63C45-5F58-504D-0C2D-0D6CE1A8F361">
@@ -64,9 +64,9 @@
 <colUsage columnID="ABD63C45-5F58-504D-0C2D-0D6CE1A8F361"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="7B54D344-2B57-A221-3370-1CEC208B7E76" name="Ucestvuje_Regrut_FK">
+<ind_PK_UK id="9F8991CE-BEDE-C15D-E25C-BD8ED3B02C6B" name="Ucestvuje_Regrut_FK">
 <createdBy>HP Pavilion</createdBy>
-<createdTime>2024-08-18 09:33:38 UTC</createdTime>
+<createdTime>2024-08-23 10:23:28 UTC</createdTime>
 <generatorID>ADEDBDFE-BC98-7D11-5636-B6ED512439A4</generatorID>
 <ownerDesignName>basketball-league</ownerDesignName>
 <indexState>Foreign Key</indexState>

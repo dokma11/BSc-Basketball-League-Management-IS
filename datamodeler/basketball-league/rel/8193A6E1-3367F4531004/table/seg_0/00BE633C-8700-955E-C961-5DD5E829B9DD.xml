@@ -61,11 +61,11 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>64 CHAR</dataTypeSize>
-<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>128 CHAR</dataTypeSize>
+<ownDataTypeParameters>128 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="IdMenadzerPos" id="708D54CA-55BF-9C48-E017-145E8B44E2F7">
+<Column name="IdMenadzerPrim" id="708D54CA-55BF-9C48-E017-145E8B44E2F7">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>DF4B0EBA-FCE3-6BFF-7B23-B3374F2D4EAE</generatorID>
@@ -80,7 +80,7 @@
 <colAssociation fkAssociation="E6BCAF25-9B2B-5CE1-297A-8A9961A24521" referredColumn="125F0D0E-65A3-9F89-F8BA-EA6A5BE7B7E6"/>
 </associations>
 </Column>
-<Column name="IdMenadzerPrim" id="9BF6DF89-84AB-D0EA-908F-5249E3B284B1">
+<Column name="IdMenadzerPos" id="9BF6DF89-84AB-D0EA-908F-5249E3B284B1">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>A36DD367-7756-D094-E526-A754A672108D</generatorID>
@@ -109,7 +109,7 @@
 <colUsage columnID="19CC2D3F-B44C-0848-F2B1-549E9564BEBE"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="815AD4DE-093D-0F8F-653A-F4B17EFF1690" name="ZahtevZaTrgovinu_Menadzer_FK">
+<ind_PK_UK id="815AD4DE-093D-0F8F-653A-F4B17EFF1690" name="ZahZaTrg_Menadzer_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>52A86A58-531F-1BCC-A91D-A56D858039F5</generatorID>
@@ -120,7 +120,7 @@
 <colUsage columnID="708D54CA-55BF-9C48-E017-145E8B44E2F7"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="F9AE6A0D-CD92-4EC7-1BBD-196D92B3DBFA" name="ZahtevZaTrgovinu_Menadzer_FKv2">
+<ind_PK_UK id="F9AE6A0D-CD92-4EC7-1BBD-196D92B3DBFA" name="ZahZaTrg_Menadzer_FKv1">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>56CE446E-088E-1F6E-47E2-FAAAA54E7539</generatorID>

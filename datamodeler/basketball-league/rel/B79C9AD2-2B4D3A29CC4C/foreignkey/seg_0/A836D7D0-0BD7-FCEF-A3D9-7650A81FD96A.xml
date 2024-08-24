@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="A836D7D0-0BD7-FCEF-A3D9-7650A81FD96A" containerWithKeyObject="9E80D193-338A-B63E-C958-3BC8D8180532" localFKIndex="F0BC52AA-B2DC-11DB-9B78-C75B818B4C57" name="PredmetTrgovine_PravaNaIgraca_FKv2">
+<createdBy>HP Pavilion</createdBy>
+<createdTime>2024-08-23 10:23:18 UTC</createdTime>
+<generatorID>B0B80F6A-3F22-1B1A-4411-A8FE78D17A27</generatorID>
+<ownerDesignName>basketball-league</ownerDesignName>
+<referredTableLongName>PravaNaIgraca</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>680DC799-D7EA-22FB-B0F9-3D327B749EBB</referredTableID>
+<keyObject>6AA4AD57-D397-BE03-0FFF-94EF8F596123</keyObject>
+<referredKeyID>6AA4AD57-D397-BE03-0FFF-94EF8F596123</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>IdPrava</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

@@ -27,8 +27,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>24 CHAR</dataTypeSize>
-<ownDataTypeParameters>24 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>128 CHAR</dataTypeSize>
+<ownDataTypeParameters>128 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="DatVrePozInt" id="62FCC9FA-ECD3-9362-5528-CDF83C2B909D">
@@ -62,8 +62,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>64 CHAR</dataTypeSize>
-<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>128 CHAR</dataTypeSize>
+<ownDataTypeParameters>128 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="IdRegrut" id="FCEBD0A2-4495-5761-E86B-05C0CA85D534">
@@ -111,7 +111,7 @@
 <colUsage columnID="FA2734FB-3244-B020-E6AA-3F2924D8E42E"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="30144803-1401-6AC9-D20B-91547D7CF5B5" name="PozivNaIntervju_Trener_FK">
+<ind_PK_UK id="30144803-1401-6AC9-D20B-91547D7CF5B5" name="PozNaInt_Trener_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>0A27C2A0-2790-2484-9332-42C1A9FB87D3</generatorID>
@@ -122,7 +122,7 @@
 <colUsage columnID="FF85F7E2-1145-E713-B1B9-77DDC315D0EB"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="FC91AD01-5C8B-180F-3822-1E7DAAB231FA" name="PozivNaIntervju_Regrut_FK">
+<ind_PK_UK id="FC91AD01-5C8B-180F-3822-1E7DAAB231FA" name="PozNaInt_Regrut_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>A1C2A846-8FBE-707D-27D6-87AF300D78EB</generatorID>

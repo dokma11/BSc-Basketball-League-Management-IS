@@ -27,8 +27,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>32 CHAR</dataTypeSize>
-<ownDataTypeParameters>32 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>128 CHAR</dataTypeSize>
+<ownDataTypeParameters>128 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="DatVreInt" id="465B5C8E-6991-CE48-DD5C-BE88E13B63A1">
@@ -51,8 +51,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>64 CHAR</dataTypeSize>
-<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>256 CHAR</dataTypeSize>
+<ownDataTypeParameters>256 CHAR,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="IdPozInt" id="76FBEB57-2AB8-C6DC-C68A-2606B9035756">
@@ -122,7 +122,7 @@
 <colUsage columnID="415505D4-148E-E0B1-D66E-C71D04591A5F"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="94E4C3E2-9D12-E1AF-8D4F-E6D67BC319ED" name="Intervju_PozivNaIntervju_FK">
+<ind_PK_UK id="94E4C3E2-9D12-E1AF-8D4F-E6D67BC319ED" name="Intervju_PozNaInt_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>E586FBF8-F038-5FC1-CA07-B11B8FE4C72A</generatorID>

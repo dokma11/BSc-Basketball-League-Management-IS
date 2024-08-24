@@ -68,6 +68,7 @@ func startServer(teamHandler *handler.TeamHandler, pickHandler *handler.PickHand
 	router.HandleFunc("/recruit", recruitHandler.Update).Methods("PUT")
 	router.HandleFunc("/recruit-wishlist/{teamId}", recruitHandler.AddToWishlist).Methods("POST")
 	router.HandleFunc("/recruit-wishlist-remove/{teamId}", recruitHandler.RemoveFromWishlist).Methods("POST")
+	router.HandleFunc("/recruit-name/{name}", recruitHandler.GetAllByName).Methods("GET")
 
 	router.HandleFunc("/player", playerHandler.GetAll).Methods("GET")
 	router.HandleFunc("/player/{id}", playerHandler.GetByID).Methods("GET")

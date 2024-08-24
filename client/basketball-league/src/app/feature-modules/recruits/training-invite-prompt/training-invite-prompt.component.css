@@ -1,6 +1,6 @@
 .dialogue {
   width: 35rem;
-  height: 43rem;
+  height: 44rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,13 +82,12 @@
 .input-box input:focus + label,
 .input-box label.active {
   top: -13px;
-  left: 10px;
-  font-size: 13px;
+  left: 5px;
+  font-size: 16px;
   color: #fff;
 }
 
 .wrapper .btn {
-  margin-top: 6%;
   width: 50%;
   height: 45px;
   background: #fff;
@@ -170,21 +169,32 @@
 #hotel_map_dialogue {
   width: 31.45rem;
   height: 19rem;
-  margin-bottom: 0.5rem;
   margin-top: 0.5rem;
+  margin-bottom: -0.5rem;
 }
 
 .training-type {
   display: flex;
   color: #fff;
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 2rem;
   margin-bottom: 1rem;
+  align-items: flex;
+  flex-direction: column;
 }
 
 #training-select {
   border-radius: 40px;
   display: flex;
-  height: 100%;
-  margin-left: 11rem;
+  height: 2.5rem;
+  width: 100%;
+  padding-left: 0.8rem;
+}
+
+#type-label {
+  position: absolute;
+  top: 255px;
+  left: 49px;
+  font-size: 16px;
+  color: #fff;
 }

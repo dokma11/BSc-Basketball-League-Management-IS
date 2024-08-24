@@ -11,7 +11,51 @@
     </p>
   </div>
 
-  <!-- OVDE MOZDA BUDEM MORAO DA DODAM PRETRAGE I SL TAKO DA CU OSTAVITI MESTA -->
+  <div class="filters">
+    <form [formGroup]="positionForm">
+      <div class="trade-type">
+        <h3>Filter by position:</h3>
+        <div>
+          <select id="trade-type-select"
+                  formControlName="selectedPosition" 
+                  (change)="onPositionChange($event)"
+                  required>
+            <option value="None">None</option>
+            <option value="0">Point Guard (PG)</option>
+            <option value="1">Shooting Guard (SG)</option>
+            <option value="2">Small Forward (SF)</option>
+            <option value="3">Power Forward (PF)</option>
+            <option value="4">Center (C)</option>
+          </select>  
+        </div>
+      </div>
+    </form>
+    
+    <div class="search">
+      <form [formGroup]="searchForm" class="search-form">
+        <div class="input-box">
+          <input 
+                  type="text" 
+                  formControlName="parameters" 
+                  required
+          />
+          <label [class.active]="searchForm.get('parameters')?.value || focused === 'parameters'">Player name or surname</label>
+        </div>
+        <button type="submit" 
+                class="submit-btn" 
+                [@buttonState]="buttonState" 
+                (click)="searchButtonClicked()">
+                Search
+        </button>
+        <button type="submit" 
+                class="submit-btn" 
+                [@buttonState]="resetButtonState" 
+                (click)="resetButtonClicked()">
+                Reset filters
+        </button>
+      </form>
+    </div>
+  </div>
 
   <div class="roster">
     <div class="roster-header">
@@ -40,9 +84,5 @@
             (dialogRefClosed)="handleDialogClosed($event)"
         ></app-recruit-card>
     </div>
-
-    <button (click)="probazaformuintervju()"> NESTO</button>
-
-    <button (click)="probazaformutrening()"> NESTOTRENING</button>
   </div>
 </div>
