@@ -1,5 +1,5 @@
 import { trigger, transition, style, animate, state } from '@angular/animations';
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -33,7 +33,7 @@ import { Router } from '@angular/router';
 export class HomeComponent {
   rosterButtonState: string = 'idle'; 
   tradesButtonState: string = 'idle'; 
-  newsButtonState: string = 'idle'; 
+  recruitsButtonState: string = 'idle'; 
 
   constructor(private router: Router) {
   }
@@ -54,25 +54,9 @@ export class HomeComponent {
     this.router.navigate(['/trade-management']); 
   }
 
-  newsButtonClicked(){
-    this.newsButtonState = 'clicked'; 
-    setTimeout(() => { this.newsButtonState = 'idle'; }, 200);
-    this.router.navigate(['/league-news']); 
+  recruitsButtonClicked(){
+    this.recruitsButtonState = 'clicked'; 
+    setTimeout(() => { this.recruitsButtonState = 'idle'; }, 200);
+    this.router.navigate(['/recruit-management']); 
   }
-
-  backgroundSize: string = '100% 100%';
-
-  // Ovo mozda izbaciti i promeniti pozadinu
-  // @HostListener('window:scroll', ['$event'])
-  // onScroll() {
-  //   const scrollPosition = window.pageYOffset;
-  //   const windowHeight = window.innerHeight;
-  //   const docHeight = document.documentElement.scrollHeight;
-
-  //   const scrollPercent = (scrollPosition / (docHeight - windowHeight)) * 100;
-
-  //   const zoom = 100 + scrollPercent * 0.3; 
-
-  //   this.backgroundSize = `${zoom}% ${zoom}%`;
-  // }
 }

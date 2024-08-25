@@ -134,7 +134,7 @@ h2 {
   margin-left: 22rem;
 }
 
-.news-cards {
+.recruits-cards {
   margin-left: 23rem;
 }
 
@@ -185,8 +185,8 @@ h2 {
   transform: translateX(-10%) rotate(-1deg);
 } 
 
-.news-cards .big-card:nth-child(2) {
-  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgetwallpapers.com%2Fwallpaper%2Ffull%2Fa%2F8%2Fe%2F906006-lebron-james-miami-heat-wallpaper-2018-2180x1584-for-ios.jpg&f=1&nofb=1&ipt=5e7c03e8f0e8139beff639abc351f0ce2f609c2b909c3db523b510eccc834bb4&ipo=images') no-repeat;
+.recruits-cards .big-card:nth-child(2) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fres.cloudinary.com%2Fybmedia%2Fimage%2Fupload%2Fc_crop%2Ch_1125%2Cw_2000%2Cx_0%2Cy_69%2Fc_fill%2Cf_auto%2Ch_900%2Cq_auto%2Cw_1600%2Fv1%2Fm%2Fb%2F4%2Fb4d8ea21065197a6fd92931a0d4cedf567ec074e%2Fnew-york-citys-time-greatest-high-school.jpg&f=1&nofb=1&ipt=d52f9307cea05d8de434a2936aede96aca86cf08946dd4dd33f8e86052b330e8&ipo=images') no-repeat;
   background-size: cover;
   background-position: center;
   transform: translateX(-10%) rotate(-1deg);
@@ -206,8 +206,8 @@ h2 {
   transform: rotate(2deg);
 }
 
-.news-cards .big-card:nth-child(4) {
-  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.eurosport.com%2F2022%2F09%2F19%2F3456486-70514888-2560-1440.jpg&f=1&nofb=1&ipt=cdc0f65c769a8099c0b49220f92bc26e36271b8b229eb38af868173eb64e16a1&ipo=images') no-repeat;
+.recruits-cards .big-card:nth-child(4) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.wallpapersafari.com%2F35%2F39%2FigTxQM.jpg&f=1&nofb=1&ipt=5e0c8479952e9bac160b1daa7a09a04ea87f9bc2ea9522084ae838f6a9499a9a&ipo=images') no-repeat;
   background-size: cover;
   background-position: center;
   transform: rotate(2deg);
@@ -227,8 +227,8 @@ h2 {
   transform: translateX(-6%) rotate(-3deg);
 }
 
-.news-cards .big-card:nth-child(6) {
-  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwordpress.wbur.org%2Fwp-content%2Fuploads%2F2024%2F06%2FAP24170127100616-1000x667.jpg&f=1&nofb=1&ipt=f90b5f0a1b0202c031e2e7ae53fdf930f5d65f30670aed092cc1164361596be3&ipo=images') no-repeat;
+.recruits-cards .big-card:nth-child(6) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F41%2F5e%2F17%2F415e1734025667898f668465316698c8.jpg&f=1&nofb=1&ipt=b3cb8b61acbe01a3eada4ee2b97d02f423fe698a9551229907e77d4c21ab3663&ipo=images') no-repeat;
   background-size: cover;
   background-position: center;
   transform: translateX(-6%) rotate(-3deg);
@@ -248,8 +248,8 @@ h2 {
   transform: translateX(10%, 3%) rotate(5deg);
 }
 
-.news-cards .big-card:nth-child(8) {
-  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fnypost.com%2Fwp-content%2Fuploads%2Fsites%2F2%2F2023%2F06%2F1258645110-1.jpg&f=1&nofb=1&ipt=a7a63d962758494517f5034c8b0e35ff98a5d701f59a7f8d910290a2bc735bed&ipo=images') no-repeat;
+.recruits-cards .big-card:nth-child(8) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.gannett-cdn.com%2Fpresto%2F2020%2F01%2F31%2FUSAT%2F764e1dfc-be8d-4c48-8f8e-885da34833dc-Kobe_Bryant_Lower_Merion_High_School_001.JPG&f=1&nofb=1&ipt=a1e5b28e519a1e450dcf078cffbc86b7cbc77b20431f39684fca74620457fac3&ipo=images') no-repeat;
   background-size: cover;
   background-position: center;
   transform: translateX(10%, 3%) rotate(5deg);
@@ -267,8 +267,8 @@ h2 {
   background-position: center;
 }
 
-.news-cards .little-card:nth-child(1) {
-  background: url('https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fimg.wennermedia.com%2Fsocial%2Frs-magic-johnson-2b566445-2dec-4dc5-8baa-e73f53a0f4e0.jpg&f=1&nofb=1&ipt=dcd9649d9f09ac9d5dfc8310ac7ece2b36ed0c38f52019d4a178af4a3d185e1d&ipo=images') no-repeat;
+.recruits-cards .little-card:nth-child(1) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.sportscasting.com%2Fwp-content%2Fuploads%2F2023%2F03%2Fclark-iowa-new.jpg%3Fw%3D1024%26h%3D835&f=1&nofb=1&ipt=03205c9f8d9bfaa3594f475fbc5fe869410ac46b8fbd2260cc2834841066e6c8&ipo=images') no-repeat;
   background-size: cover;
   background-position: center;
 }
@@ -285,8 +285,8 @@ h2 {
   background-position: center;
 }
 
-.news-cards .little-card:nth-child(3) {
-  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic01.nyt.com%2Fimages%2F2023%2F06%2F22%2Fmultimedia%2F22nba-draft-top-kplt%2F22nba-draft-top-kplt-superJumbo.jpg%3Fquality%3D75%26auto%3Dwebp&f=1&nofb=1&ipt=34c44aff0fae02cb33f5be047923d4db274d50e19862974f8f16fd13e8345b61&ipo=images') no-repeat;
+.recruits-cards .little-card:nth-child(3) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.mediareferee.com%2Fwp-content%2Fuploads%2Fvictor-wembanyama-iso.jpg&f=1&nofb=1&ipt=042aeb583ecf04572d223dc0985e0ceaf973bfff42cbe64b9eece1cc1aad2b67&ipo=images') no-repeat;
   background-size: cover;
   background-position: center;
 }
@@ -303,7 +303,7 @@ h2 {
   background-position: center;
 }
 
-.news-cards .little-card:nth-child(5) {
+.recruits-cards .little-card:nth-child(5) {
   background: url('https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn.chatsports.com%2Fthumbnails%2F1294-23720-original.jpeg&f=1&nofb=1&ipt=217b62995b4cb4a4e4e91482306d90f6cf42f4e7c9549904352e30f4acf8e518&ipo=images');
   background-size: cover;
   background-position: center;
@@ -321,8 +321,8 @@ h2 {
   background-position: center;
 }
 
-.news-cards .little-card:nth-child(7) {
-  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.ubs9S2V3rtnFyLH92cY51wAAAA%26pid%3DApi&f=1&ipt=d4d297f837cdf0d79467fc07873c8a608b31e39eac3ec6397012a7157dd617dc&ipo=images');
+.recruits-cards .little-card:nth-child(7) {
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.krbMtXUyNuC8WwuJsBqs3AHaFD%26pid%3DApi&f=1&ipt=79b0f949f9f31bf8ca5d9a7efa1a41d9ed0a038a810164ca37d499dee26b8694&ipo=images');
   background-size: cover;
   background-position: center;
 }
