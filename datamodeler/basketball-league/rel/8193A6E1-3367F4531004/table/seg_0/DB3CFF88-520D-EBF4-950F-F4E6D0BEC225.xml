@@ -45,9 +45,6 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="1AD91DDA-490E-CE9A-E828-02FF2A35FCA5" referredColumn="3E16CAE2-E51C-FAA8-C98C-75C48D2A94D3"/>
-</associations>
 </Column>
 <Column name="IdPik" id="AB6F4177-96F4-633C-9611-75BE7AFA259A">
 <createdBy>HP Pavilion</createdBy>
@@ -60,9 +57,6 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="1AD91DDA-490E-CE9A-E828-02FF2A35FCA5" referredColumn="C30926F3-A24A-7F21-5864-95E2257C0346"/>
-</associations>
 </Column>
 <Column name="NedodListPrava" id="EFC766D6-CBC5-0A81-1B37-9B178AA74E92">
 <createdBy>HP Pavilion</createdBy>
@@ -123,18 +117,6 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="9D1DCD29-46C3-F16D-0693-BD6D640EB3CA"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="BD4713D3-30E3-6A19-E0AE-35F25F052C92" name="PravaNaIgraca_Bira_FK">
-<createdBy>HP Pavilion</createdBy>
-<createdTime>2024-08-04 20:41:55 UTC</createdTime>
-<generatorID>BED6C7F0-D0D0-9DCB-0C7E-1D992E9CFDBE</generatorID>
-<ownerDesignName>basketball-league</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="3195B463-4E02-B7A5-5095-71ED5C3A7D29"/>
-<colUsage columnID="AB6F4177-96F4-633C-9611-75BE7AFA259A"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
