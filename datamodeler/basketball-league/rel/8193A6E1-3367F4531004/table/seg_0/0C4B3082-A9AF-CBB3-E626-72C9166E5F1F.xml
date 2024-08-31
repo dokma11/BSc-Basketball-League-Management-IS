@@ -41,7 +41,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="ZahtevZaTrgovinu_IdZahTrg" id="C65F33A7-22BA-BC8B-9E95-2C70753974CC">
+<Column name="IdZahTrg" id="C65F33A7-22BA-BC8B-9E95-2C70753974CC">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-04 20:41:55 UTC</createdTime>
 <generatorID>3F747E7B-75D3-AF22-7097-F5944E6E6C8D</generatorID>

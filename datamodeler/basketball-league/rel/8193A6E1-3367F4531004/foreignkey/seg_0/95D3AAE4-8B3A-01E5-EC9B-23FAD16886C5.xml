@@ -1,15 +1,15 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="CE9B5085-CFFF-923F-A2F8-B026ECF93B30" containerWithKeyObject="1324C306-E9FB-E184-95FE-1FEE5073EA92" localFKIndex="116A39DC-1A41-68EE-DD5D-B5F8A8D1ECDD" name="Bira_Regrut_FK">
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="95D3AAE4-8B3A-01E5-EC9B-23FAD16886C5" containerWithKeyObject="BAA8844E-8033-255C-5E40-D8173228B12C" localFKIndex="C1B33493-842D-8AFB-EBDE-3C8D4ABCF90B" name="ZeljaTima_Regrut_FK">
 <createdBy>HP Pavilion</createdBy>
-<createdTime>2024-08-04 20:41:55 UTC</createdTime>
-<generatorID>3ABF7FCA-1CFF-57C4-6551-4C30E59678C8</generatorID>
+<createdTime>2024-08-27 10:14:45 UTC</createdTime>
+<generatorID>2E34654E-B700-D378-653C-9EBBD70A7EF1</generatorID>
 <ownerDesignName>basketball-league</ownerDesignName>
 <referredTableLongName>Regrut</referredTableLongName>
 <deleteRule>NO ACTION</deleteRule>
 <referredTableID>54DB9AAC-F836-6F30-6E76-FE5B5F38657E</referredTableID>
 <keyObject>320CF8DD-D508-61EE-0BDC-A20157419B39</keyObject>
 <referredKeyID>320CF8DD-D508-61EE-0BDC-A20157419B39</referredKeyID>
-<mandatory>true</mandatory>
+<mandatory>false</mandatory>
 <refColNames>Id</refColNames>
 <transferable>true</transferable>
 <rely>false</rely>

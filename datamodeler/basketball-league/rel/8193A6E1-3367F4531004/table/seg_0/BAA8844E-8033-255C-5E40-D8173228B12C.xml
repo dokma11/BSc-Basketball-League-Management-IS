@@ -118,7 +118,7 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="5B0D1CF5-8DC5-4041-80B1-DA1F62F9E8AA" referredColumn="6FC2BD51-8BFE-58E3-DA8C-88563FFA88FD"/>
+<colAssociation fkAssociation="95D3AAE4-8B3A-01E5-EC9B-23FAD16886C5" referredColumn="6FC2BD51-8BFE-58E3-DA8C-88563FFA88FD"/>
 </associations>
 </Column>
 <Column name="IdPrava" id="0279354C-A60E-74FA-E8C9-4AB252F36066">
@@ -195,7 +195,7 @@
 <colUsage columnID="617E1057-CB11-BD18-BC6C-B8E2D74F1EAC"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="D1C18551-D1A6-BF66-1379-938274BDB900" name="ZeljaTima_PravNaIgr_FK">
+<ind_PK_UK id="D1C18551-D1A6-BF66-1379-938274BDB900" name="ZeljaTima_PravaNaIgraca_FK">
 <createdBy>HP Pavilion</createdBy>
 <createdTime>2024-08-23 10:23:28 UTC</createdTime>
 <generatorID>E8B49ADB-6785-D4C1-4C04-83F981D624EB</generatorID>
@@ -206,9 +206,9 @@
 <colUsage columnID="0279354C-A60E-74FA-E8C9-4AB252F36066"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="5E981D98-3E84-205C-050B-BAC74F370A35" name="ZeljaTima_Regrut_FK">
+<ind_PK_UK id="C1B33493-842D-8AFB-EBDE-3C8D4ABCF90B" name="ZeljaTima_Regrut_FK">
 <createdBy>HP Pavilion</createdBy>
-<createdTime>2024-08-23 10:23:28 UTC</createdTime>
+<createdTime>2024-08-27 10:14:45 UTC</createdTime>
 <generatorID>2E34654E-B700-D378-653C-9EBBD70A7EF1</generatorID>
 <ownerDesignName>basketball-league</ownerDesignName>
 <indexState>Foreign Key</indexState>

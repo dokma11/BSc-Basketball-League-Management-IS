@@ -1,4 +1,4 @@
-<div class="banner" [ngStyle]="{'background-size': backgroundSize}">
+<div class="banner">
   <div class="overlay">
       <h1>Basketball league</h1>
       <p>
@@ -13,7 +13,7 @@
         <h2>Trade management</h2>
     </div>
     <div class="wrapper">
-        <h2>League news</h2>
+        <h2>Recruit management</h2>
     </div>
   </div>
   <div class="card-container">
@@ -51,7 +51,7 @@
         
         <div class="big-card card"></div>  
     </div>
-    <div class="card-group news-cards" data-index="2" (click)="newsButtonClicked()" [@fadeInOut]> 
+    <div class="card-group recruits-cards" data-index="2" (click)="recruitsButtonClicked()" [@fadeInOut]> 
         <div class="little-card card"></div>
         
         <div class="big-card card"></div>
@@ -80,9 +80,9 @@
           Navigate through the trade process seamlessly and make strategic decisions to enhance your team’s performance.</p>
     </div>
     <div class="wrapper">
-        <p>Visit the League News page, your ultimate destination for the latest updates, stories, and insights about our team. 
-          Stay informed and engaged with everything happening on and off the field with our comprehensive coverage. 
-          Don't miss any new trades that occurred! 
+        <p>Explore the Recruit Management page, your central hub for managing and monitoring all recruit activities. 
+          This page enables team scouts, coaches and managers to evaluate, shortlist, and invite recruits for interviews and training sessions effortlessly. 
+          Streamline your recruitment process and make informed decisions to build a stronger, more competitive team for the future.</p>
     </div>
   </div>
   <div class="card-buttons">
@@ -103,9 +103,9 @@
     <button 
             type="submit" 
             class="btn" 
-            (click)="newsButtonClicked()"
-            [@buttonState]="newsButtonState"
-            >Visit the League News page
+            (click)="recruitsButtonClicked()"
+            [@buttonState]="recruitsButtonState"
+            >Visit the Recruit Management page
     </button>
   </div>
 </div>
