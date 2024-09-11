@@ -35,7 +35,9 @@ provided in the `DB_Triggers_Sequences_Indexes.sql` file.
 
 - Insert script: All the insert queries are provided in the `DB_Data_Insert_Script.sql` file.
 
-- TODO: Add the thesis
+- Thesis: Provided in the `FTN_BSc_DokmanovicVukasin_Rad_Final.pdf` and `FTN_BSc_DokmanovicVukasin_Rad_Final.docx` files.
+
+- Presentation: Presentation used in the thesis defense is provided in the `FTN_BSc_DokmanovicVukasin.pptx` file.
 
 ## Technologies:
 - Oracle: Relational database system used for data storage and retrieval.
